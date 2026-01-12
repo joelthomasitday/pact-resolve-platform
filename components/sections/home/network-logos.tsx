@@ -1,12 +1,5 @@
 "use client";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-
 const networks = [
   "GAADR",
   "MCI",
@@ -23,41 +16,67 @@ export function NetworkLogos() {
           PACT Network
         </h3>
         
-        <Carousel
-          opts={{
-            align: "center",
-            loop: true,
-          }}
-          plugins={[
-            Autoplay({
-              delay: 2000,
-            }),
-          ]}
-          className="w-full"
-        >
-          <CarouselContent className="-ml-8 md:-ml-12 lg:-ml-24">
+        <div className="relative w-full overflow-hidden">
+          <div className="flex animate-marquee">
+            {/* First set of items */}
             {networks.map((name, i) => (
-              <CarouselItem key={i} className="pl-8 md:pl-12 lg:pl-24 basis-1/2 md:basis-1/3 lg:basis-1/4">
+              <div 
+                key={`set1-${i}`} 
+                className="shrink-0 px-8 md:px-12 lg:px-16"
+              >
                 <div className="flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity duration-500 h-24">
                   <span className="text-2xl md:text-3xl font-light tracking-tighter whitespace-nowrap">
                     {name}
                   </span>
                 </div>
-              </CarouselItem>
+              </div>
             ))}
-            {/* Duplicate for infinite feel if loop isn't enough */}
+            
+            {/* Duplicate set for seamless loop */}
             {networks.map((name, i) => (
-              <CarouselItem key={`dup-${i}`} className="pl-8 md:pl-12 lg:pl-24 basis-1/2 md:basis-1/3 lg:basis-1/4">
+              <div 
+                key={`set2-${i}`} 
+                className="shrink-0 px-8 md:px-12 lg:px-16"
+              >
                 <div className="flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity duration-500 h-24">
                   <span className="text-2xl md:text-3xl font-light tracking-tighter whitespace-nowrap">
                     {name}
                   </span>
                 </div>
-              </CarouselItem>
+              </div>
             ))}
-          </CarouselContent>
-        </Carousel>
+            
+            {/* Third set for extra smoothness */}
+            {networks.map((name, i) => (
+              <div 
+                key={`set3-${i}`} 
+                className="shrink-0 px-8 md:px-12 lg:px-16"
+              >
+                <div className="flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity duration-500 h-24">
+                  <span className="text-2xl md:text-3xl font-light tracking-tighter whitespace-nowrap">
+                    {name}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+      
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-33.333%);
+          }
+        }
+        
+        .animate-marquee {
+          animation: marquee 20s linear infinite;
+        }
+      `}</style>
     </section>
   );
 }
