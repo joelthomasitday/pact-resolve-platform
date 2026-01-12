@@ -15,46 +15,46 @@ import Image from "next/image";
 
 const newsItems = [
   {
+    type: "Podcast",
+    title: "Mediation in India | Attorney General R. Venkataramani, with Jonathan Rodrigues & Soni Singh",
+    date: "Aug 24, 2025",
+    image: "/news/mission-mediation-podcast.png",
+    link: "https://www.youtube.com/watch?v=eJZeUtoIBpQ"
+  },
+  {
     type: "Article",
-    title: "The Future of Online Mediation in Post-Pandemic Era",
-    date: "Dec 12, 2025",
+    title: "What is Our Purpose as Mediators? by Jonathan Rodrigues",
+    date: "Apr 12, 2021",
     image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&q=80",
-    link: "/news/future-online-mediation"
-  },
-  {
-    type: "Event",
-    title: "PACT Annual Conclave 2026: Resolving Global Conflicts",
-    date: "Jan 20, 2026",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80",
-    link: "/events/annual-conclave-2026"
-  },
-  {
-    type: "Press Release",
-    title: "PACT Partners with International Arbitration Center",
-    date: "Nov 28, 2025",
-    image: "https://images.unsplash.com/photo-1590247813693-5541d1c609fd?auto=format&fit=crop&q=80",
-    link: "/news/partnership-iac"
+    link: "https://imimediation.org/2021/04/12/what-is-our-purpose-as-mediators/"
   },
   {
     type: "Podcast",
-    title: "Episode 42: Cultural Sensitivity in Mediation",
-    date: "Dec 05, 2025",
-    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&q=80",
-    link: "/podcast/episode-42"
+    title: "Did your lawyer mention multi-door dispute resolution system? | Jonathan Rodrigues | TEDxPanaji",
+    date: "Dec 10, 2025",
+    image: "/news/tedx-panaji.png",
+    link: "https://www.youtube.com/watch?v=Cuc1OLtxb3E"
   },
   {
     type: "Blog",
-    title: "5 Tips for Effective Negotiation in Workplace Disputes",
-    date: "Nov 15, 2025",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80",
-    link: "/blog/negotiation-tips"
+    title: "Commercial Mediation – How Do You Bill?",
+    date: "Dec 16, 2024",
+    image: "/news/commercial-mediation-billing.jpg",
+    link: "https://www.barandbench.com/columns/commercial-mediation-how-do-you-bill"
   },
   {
     type: "Article",
-    title: "Understanding the PACT Mediation Pledge",
-    date: "Oct 22, 2025",
-    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80",
-    link: "/news/pact-pledge"
+    title: "State-Sponsored Mediation Around the World: Does It Support the Parties' Interests?",
+    date: "Jan 2024",
+    image: "/news/state-sponsored-mediation.png",
+    link: "https://nysba.org/new-york-dispute-resolution-lawyer-vol-17-no-1/"
+  },
+  {
+    type: "Book",
+    title: "Mediation Simplified – An Interactive Workbook by Nisshant Laroia & Jonathan Rodrigues",
+    date: "2024",
+    image: "/news/mediation-simplified-book.jpg",
+    link: "https://www.amazon.in/Mediation-Simplified-Interactive-Workbook-Nisshant/dp/9395764325"
   }
 ];
 
@@ -65,15 +65,12 @@ export function NewsSection() {
         <div className="flex items-baseline justify-between mb-12 border-b border-black/5 pb-8">
           <div>
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-black">
-              PACT News – Get With It
+              PACT NEWS – GET WITH IT
             </h2>
             <p className="mt-4 text-black/60 font-mono text-sm uppercase tracking-widest">
-              Articles • Events • Press Releases • Podcasts • Blogs
+              Focussed Articles • Events • Press Releases • Podcasts • Blogs
             </p>
           </div>
-          <Link href="/news" className="hidden md:flex items-center gap-2 group text-sm font-medium">
-            View All News <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
         </div>
 
         <Carousel
@@ -86,7 +83,7 @@ export function NewsSection() {
           <CarouselContent className="-ml-4">
             {newsItems.map((item, index) => (
               <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                <Link href={item.link} className="group">
+                <a href={item.link} target="_blank" rel="noopener noreferrer" className="group">
                   <div className="flex flex-col h-full bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1">
                     <div className="relative aspect-[16/10] overflow-hidden">
                       <Image
@@ -111,7 +108,7 @@ export function NewsSection() {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </a>
               </CarouselItem>
             ))}
           </CarouselContent>
