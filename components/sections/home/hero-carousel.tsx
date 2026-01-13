@@ -136,7 +136,7 @@ export function HeroCarousel() {
                 <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-transparent to-transparent z-10" />
               </div>
 
-              <div className="relative z-20 flex flex-col justify-center lg:grid lg:grid-cols-[3fr_2fr] h-full w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-28 md:pb-32 lg:items-start lg:pt-16 lg:pb-0 gap-8">
+              <div className="relative z-20 flex flex-col justify-start pt-8 md:pt-20 lg:pt-0 lg:justify-center lg:grid lg:grid-cols-[3fr_2fr] h-full w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-32 md:pb-32 lg:pb-0 gap-8">
                 
                 {/* Left Content Block */}
                 <div className="space-y-6 lg:space-y-8 lg:pr-6">
@@ -151,7 +151,7 @@ export function HeroCarousel() {
                           transition={{ duration: 1.2, ease: luxuryEasing }}
                           className="space-y-4 lg:space-y-6"
                         >
-                          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white uppercase leading-[1.05]">
+                          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white uppercase leading-[1.1]">
                             {slide.title.split(' ').map((word, i) => (
                               <span key={i} className="block">
                                 {word}

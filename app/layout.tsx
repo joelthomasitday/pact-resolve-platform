@@ -9,13 +9,17 @@ import "./globals.css"
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
+  export const metadata: Metadata = {
   title: "PACT | Professional Mediation Platform for Dispute Resolution",
   description:
     "PACT is a neutral, professional mediation platform helping individuals, businesses, and institutions resolve conflicts faster, fairly, and confidentially. 2500+ cases resolved with 98% success rate.",
   keywords:
     "mediation, dispute resolution, conflict resolution, business mediation, family mediation, workplace mediation",
   generator: "v0.app",
+  icons: {
+    icon: "/images/pact-logo.png",
+    apple: "/images/pact-logo.png",
+  },
   openGraph: {
     title: "PACT | Professional Mediation Platform",
     description: "Resolve disputes confidently and preserve relationships with PACT mediation services.",

@@ -45,10 +45,9 @@ export function Navbar() {
     <>
       <nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 flex items-center bg-navy-950 transition-opacity duration-500 border-b border-white/10",
+          "fixed top-0 left-0 right-0 z-50 flex items-center bg-navy-950 transition-opacity duration-500 border-b border-white/10 min-h-[72px] md:min-h-[80px] lg:min-h-[88px] py-3 md:py-0",
           isLoaded ? "opacity-100" : "opacity-0"
         )}
-        style={{ height: "var(--nav-height, 72px)" }}
         role="navigation"
         aria-label="Main navigation"
       >
@@ -126,7 +125,8 @@ export function Navbar() {
       </nav>
 
       {/* Spacing for fixed navbar */}
-      <div className="h-[56px] md:h-[72px]" />
+      {/* Spacing for fixed navbar - dynamic to match mobile/desktop heights */}
+      <div className="h-[80px] md:h-[80px] lg:h-[88px] bg-navy-950" />
 
       {/* Mobile Menu: Slide-in panel from right */}
       <div 
