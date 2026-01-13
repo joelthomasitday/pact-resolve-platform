@@ -70,24 +70,24 @@ export function Navbar() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-sans text-xl font-black tracking-tighter text-white leading-none">
+              <span className="font-sans text-base md:text-lg lg:text-xl font-black tracking-tighter text-white leading-none">
                 PACT
               </span>
-              <span className="text-[9px] font-medium text-white/80 uppercase tracking-wide leading-tight block max-w-[200px] md:max-w-none">
+              <span className="text-[7px] md:text-[8px] lg:text-[9px] font-medium text-white/80 uppercase tracking-tighter md:tracking-tight lg:tracking-normal leading-[1.1] block max-w-[100px] md:max-w-[130px] lg:max-w-[160px] xl:max-w-none">
                 The peacekeeping and conflict resolution team
               </span>
             </div>
           </Link>
 
           {/* Menu: Right aligned text links per design or center */}
-          <div className="hidden h-full items-center gap-8 md:flex ml-auto mr-12">
+          <div className="hidden h-full items-center gap-4 lg:gap-6 xl:gap-8 md:flex ml-auto mr-4 lg:mr-8 xl:mr-12">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => handleNavClick(item.href)}
                 className={cn(
-                  "relative flex h-full items-center font-sans text-[13px] font-bold uppercase tracking-widest transition-colors",
+                  "relative flex h-full items-center font-sans text-[12px] lg:text-[13px] font-bold uppercase tracking-normal lg:tracking-wider xl:tracking-widest transition-colors",
                   pathname === item.href 
                     ? "text-gold-500" 
                     : "text-white/70 hover:text-white"

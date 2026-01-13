@@ -15,7 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
   {
-    title: "PACT Mediation",
+    title: ["PACT", "Mediation"],
     description: "A trendsetter in Mediation Process Design, PACT relies on bespoke case management, quality mediators and best practices for client satisfaction",
     buttonLabel: "Mediation Page",
     link: "/mediation",
@@ -24,7 +24,7 @@ const slides = [
     image: "/hero/hero_mediation.png",
   },
   {
-    title: "PACT Academy",
+    title: ["PACT", "Academy"],
     description: "A pioneer in Mediation Advocacy Training, PACT is upskilling lawyers and training professionals who have a significant seat at the mediation table",
     buttonLabel: "Academy Page",
     link: "/academy",
@@ -33,7 +33,7 @@ const slides = [
     image: "/hero/hero_academy.png",
   },
   {
-    title: "Mission Mediation",
+    title: ["Mission", "Mediation"],
     description: "Through podcasts, panels and the annual conclave, PACT is developing a market and generating case studies and educational content",
     buttonLabel: "Podcast Page",
     link: "/podcast",
@@ -42,7 +42,7 @@ const slides = [
     image: "/hero/hero_mission.png",
   },
   {
-    title: "Mediation Champions League",
+    title: ["Mediation Champions", "League"],
     description: "Formerly known as Mediation Championship India, this event convenes a stellar group of next-gen professionals and current experts",
     buttonLabel: "Competition Page",
     link: "/competition",
@@ -51,8 +51,8 @@ const slides = [
     image: "/hero/hero_league.png",
   },
   {
-    title: "PACT Mediation Pledge",
-    description: "The Pledge encourages early, confidential and constructive resolution, signalling your commitment to relationship-preservation and ease-of-doing business",
+    title: ["PACT Mediation", "Pledge"],
+    description: "The Pledge promotes early, constructive resolution, signalling your commitment to relationship-preservation and business ease.",
     buttonLabel: "PACT Pledge and Clauses",
     link: "/pledge",
     rightSlogan: "COMMIT TO EXCELLENCE",
@@ -127,7 +127,7 @@ export function HeroCarousel() {
               <div className="absolute inset-0 z-0">
                 <Image
                   src={slide.image}
-                  alt={slide.title}
+                  alt={slide.title.join(' ')}
                   fill
                   className="object-cover object-right lg:object-center opacity-60"
                   priority={index === 0}
@@ -136,10 +136,10 @@ export function HeroCarousel() {
                 <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-transparent to-transparent z-10" />
               </div>
 
-              <div className="relative z-20 flex flex-col justify-start pt-8 md:pt-20 lg:pt-0 lg:justify-center lg:grid lg:grid-cols-[3fr_2fr] h-full w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-32 md:pb-32 lg:pb-0 gap-8">
+              <div className="relative z-20 flex flex-col justify-start pt-8 md:pt-20 lg:pt-16 lg:grid lg:grid-cols-[3fr_2fr] lg:items-start h-full w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-32 md:pb-32 lg:pb-0 gap-8">
                 
                 {/* Left Content Block */}
-                <div className="space-y-6 lg:space-y-8 lg:pr-6">
+                <div className="space-y-4 lg:space-y-6 lg:pr-6">
                   <div className="space-y-4 lg:space-y-6">
                     <AnimatePresence mode="wait">
                       {current === index && (
@@ -151,10 +151,10 @@ export function HeroCarousel() {
                           transition={{ duration: 1.2, ease: luxuryEasing }}
                           className="space-y-4 lg:space-y-6"
                         >
-                          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white uppercase leading-[1.1]">
-                            {slide.title.split(' ').map((word, i) => (
-                              <span key={i} className="block">
-                                {word}
+                          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-white uppercase leading-[1.2]">
+                            {slide.title.map((line, i) => (
+                              <span key={i} className="block whitespace-nowrap">
+                                {line}
                               </span>
                             ))}
                           </h1>
@@ -162,9 +162,9 @@ export function HeroCarousel() {
                             initial={{ width: 0 }}
                             animate={{ width: 80 }}
                             transition={{ duration: 0.8, delay: 0.5, ease: luxuryEasing }}
-                            className="h-1 bg-gold-500 mb-6" 
+                            className="h-1 bg-gold-500 mb-4" 
                           />
-                          <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-full lg:max-w-[85%] font-light">
+                          <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-full lg:max-w-[90%] font-light">
                             {slide.description}
                           </p>
                           
@@ -182,7 +182,7 @@ export function HeroCarousel() {
                 </div>
 
                 {/* Right Visual Emphasis (Slogan) */}
-                <div className="hidden lg:flex items-center justify-end lg:pl-8">
+                <div className="hidden lg:flex items-start justify-end lg:pl-8">
                   <AnimatePresence mode="wait">
                     {current === index && (
                       <motion.div
@@ -209,9 +209,9 @@ export function HeroCarousel() {
         </CarouselContent>
 
         {/* Custom Progress Navigation */}
-        <div className="absolute bottom-8 left-0 right-0 z-30">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8">
+        <div className="absolute bottom-6 md:bottom-8 left-0 right-0 z-30">
+          <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 xl:px-24">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 lg:gap-6 xl:gap-8">
               {slides.map((slide, index) => (
                 <button
                   key={index}
@@ -220,7 +220,7 @@ export function HeroCarousel() {
                   aria-label={`Go to slide ${index + 1}`}
                 >
                   {/* Progress Line */}
-                  <div className="relative h-[2px] w-full bg-white/20 overflow-hidden mb-3 md:mb-4">
+                  <div className="relative h-[2px] w-full bg-white/20 overflow-hidden mb-2 md:mb-4">
                     {current === index && (
                       <motion.div 
                         className="absolute inset-0 bg-gold-500 origin-left"
@@ -234,10 +234,10 @@ export function HeroCarousel() {
                   
                   {/* Label */}
                   <span className={cn(
-                    "text-[10px] md:text-xs font-medium tracking-widest uppercase transition-colors duration-500",
+                    "text-[9px] md:text-[10px] lg:text-[11px] xl:text-xs font-medium tracking-normal lg:tracking-wider xl:tracking-widest uppercase transition-all duration-500 leading-tight",
                     current === index ? "text-white opacity-100" : "text-white opacity-30 group-hover:opacity-60"
                   )}>
-                    {slide.title}
+                    {slide.title.join(' ')}
                   </span>
                 </button>
               ))}
