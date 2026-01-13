@@ -36,7 +36,7 @@ const slides = [
     buttonLabel: "Podcast Page",
     link: "/podcast",
     rightSlogan: "LEADING THE DIALOGUE",
-    image: "/hero/hero_mission.png",
+    image: "/hero/hero_mission_podcast.jpg",
   },
   {
     title: ["Mediation Champions", "League"],
