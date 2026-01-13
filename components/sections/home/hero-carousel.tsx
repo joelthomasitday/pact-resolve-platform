@@ -108,7 +108,7 @@ export function HeroCarousel() {
   }, [api, autoplayDelay]);
 
   return (
-    <section className="relative h-[75vh] min-h-[380px] md:h-[calc(100vh-80px)] lg:h-[calc(100vh-88px)] w-full overflow-hidden bg-navy-950">
+    <section className="relative h-[75vh] min-h-[500px] md:h-[calc(100vh-80px)] lg:h-[calc(100vh-88px)] w-full overflow-hidden bg-navy-950">
       <Carousel
         setApi={setApi}
         plugins={[autoplay]}
@@ -132,7 +132,7 @@ export function HeroCarousel() {
               </div>
 
               {/* Main content container - vertically centered with balanced padding */}
-              <div className="relative z-20 flex flex-col justify-center lg:grid lg:grid-cols-[3fr_2fr] lg:items-center h-full w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pt-6 sm:pt-8 md:pt-12 lg:pt-16 pb-20 sm:pb-24 md:pb-28 lg:pb-32 gap-6 md:gap-8">
+              <div className="relative z-20 flex flex-col justify-center lg:grid lg:grid-cols-[3fr_2fr] lg:items-center h-full w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pt-6 sm:pt-8 md:pt-12 lg:pt-16 pb-28 sm:pb-32 md:pb-36 lg:pb-40 gap-6 md:gap-8">
 
                 {/* Left Content Block */}
                 <div className="space-y-4 lg:space-y-6 lg:pr-6">
