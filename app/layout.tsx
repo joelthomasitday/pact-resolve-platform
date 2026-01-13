@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Navbar } from "@/components/navbar"
+import { WhatsAppButton } from "@/components/whatsapp-button"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body className={`font-sans antialiased text-foreground bg-background`}>
         <Navbar />
         {children}
+        <WhatsAppButton floating />
         <Analytics />
       </body>
     </html>

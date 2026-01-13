@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Facebook, Linkedin, Instagram, Youtube, Send } from "lucide-react";
 import { MagneticButton } from "@/components/magnetic-button";
+import { WhatsAppButton } from "./whatsapp-button";
 
 export function Footer() {
   return (
@@ -34,6 +35,9 @@ export function Footer() {
                   <Link href="#" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
                     <Youtube className="h-4 w-4" /> YouTube
                   </Link>
+                  <div className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group cursor-pointer">
+                    <WhatsAppButton />
+                  </div>
                 </div>
               </div>
               
