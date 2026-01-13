@@ -17,7 +17,7 @@ const testimonials = [
 
 export function Supporters() {
   return (
-    <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white overflow-hidden">
+    <section className="pt-8 md:pt-12 pb-16 md:pb-24 px-6 md:px-12 lg:px-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 md:mb-20">
           <h2 className="text-4xl md:text-7xl font-light tracking-tight text-black mb-6 leading-tight">
@@ -28,7 +28,7 @@ export function Supporters() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {testimonials.map((t, i) => (
             <div key={i} className="relative p-10 rounded-4xl bg-slate-50 border border-slate-100 group hover:bg-navy-900 hover:text-white transition-all duration-500">
               <Quote className="absolute top-8 right-8 h-8 w-8 text-black/5 group-hover:text-white/10 transition-colors" />
@@ -41,13 +41,6 @@ export function Supporters() {
               </div>
             </div>
           ))}
-          
-          {/* Placeholders for 2 more testimonials */}
-           {[1, 2].map((_, i) => (
-            <div key={`ph-${i}`} className="flex flex-col items-center justify-center p-10 rounded-4xl border border-dashed border-black/10 text-black/20 min-h-[300px]">
-               <span className="text-sm">More testimonials coming soon</span>
-            </div>
-           ))}
         </div>
       </div>
     </section>

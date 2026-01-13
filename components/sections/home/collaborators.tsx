@@ -16,7 +16,7 @@ const partners = [
 
 export function Collaborators() {
   return (
-    <section className="py-12 md:py-20 bg-white relative overflow-hidden">
+    <section className="pt-12 md:pt-20 pb-4 md:pb-6 bg-white relative overflow-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:40px_40px]" />
       
