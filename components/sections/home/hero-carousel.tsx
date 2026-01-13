@@ -189,7 +189,7 @@ export function HeroCarousel() {
                       >
                         <h2 className="text-4xl lg:text-5xl xl:text-7xl font-black leading-none text-right">
                           {slide.rightSlogan.split(' ').map((word, i) => (
-                            <div key={i} className={i === 1 ? "text-amber-400" : "text-white"}>
+                            <div key={i} className={i === 1 ? "text-gold-500" : "text-white"}>
                               {word}
                             </div>
                           ))}

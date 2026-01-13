@@ -56,7 +56,7 @@ export function PageHero({ title, subtitle, description, children }: PageHeroPro
         <Shader className="h-full w-full">
           <Swirl
             colorA="#1e3a5f"
-            colorB="#d4a574"
+            colorB="#bf9a66"
             speed={0.8}
             detail={0.8}
             blend={50}
@@ -68,8 +68,8 @@ export function PageHero({ title, subtitle, description, children }: PageHeroPro
             baseColor="#1e3a5f"
             upColor="#1e3a5f"
             downColor="#e8e8e8"
-            leftColor="#d4a574"
-            rightColor="#d4a574"
+            leftColor="#bf9a66"
+            rightColor="#bf9a66"
             intensity={0.9}
             radius={1.8}
             momentum={25}
