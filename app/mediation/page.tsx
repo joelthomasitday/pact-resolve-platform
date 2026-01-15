@@ -1,43 +1,882 @@
 "use client";
 
-import { PageHero } from "@/components/page-hero";
-import { WorkSection } from "@/components/sections/work-section";
-import { ServicesSection } from "@/components/sections/services-section";
-import { ContactSection } from "@/components/sections/contact-section";
-import { MagneticButton } from "@/components/magnetic-button";
-import { MousePointer2 } from "lucide-react";
+import React, { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  CheckCircle2, 
+  ArrowRight, 
+  Download, 
+  Users, 
+  FileText, 
+  ShieldCheck, 
+  Clock, 
+  MessageSquare,
+  Scale,
+  Briefcase,
+  Home,
+  Building2,
+  Lock,
+  ChevronRight,
+  Plus,
+  ArrowUpRight,
+  Globe,
+  Handshake,
+  Timer,
+  Sparkles,
+  Calendar
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { FadeIn, FadeInUp } from "@/components/motion-wrapper";
+import { GrainOverlay } from "@/components/grain-overlay";
+import { Footer } from "@/components/footer";
+
+// --- Components ---
+
+const SectionHeader = ({ subtitle, title, description, light = false }: { subtitle: string, title: string, description?: string, light?: boolean }) => (
+  <FadeInUp className="mb-10 md:mb-16">
+    <div className="inline-flex items-center gap-4 mb-4 opacity-70">
+      <span className={cn("text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase", light ? "text-white" : "text-navy-950")}>{subtitle}</span>
+      <div className={cn("h-px w-8 bg-gold-500/50", light ? "bg-gold-500" : "bg-gold-500")} />
+    </div>
+    <h2 className={cn("text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-6 leading-[1.1]", light ? "text-white" : "text-navy-950")}>
+      {title}
+    </h2>
+    {description && (
+      <p className={cn("max-w-2xl text-lg md:text-xl font-light leading-relaxed", light ? "text-white/60" : "text-navy-950/60")}>
+        {description}
+      </p>
+    )}
+  </FadeInUp>
+);
+
+const MediationHero = () => (
+  <section className="relative min-h-[70vh] flex items-center pt-24 md:pt-32 pb-16 md:pb-20 bg-navy-950 overflow-hidden">
+    <div className="absolute inset-0 z-0">
+      <Image
+        src="/hero/hero_mediation.png" // Reusing homepage mediation image
+        alt="Mediation"
+        fill
+        className="object-cover opacity-30 scale-105"
+        priority
+      />
+      <div className="absolute inset-0 bg-linear-to-b from-navy-950/40 via-navy-950/90 to-navy-950" />
+      <div className="absolute inset-0 bg-linear-to-r from-navy-950 via-transparent to-transparent opacity-80" />
+    </div>
+    
+    <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full">
+      <FadeInUp>
+        <div className="flex items-center gap-3 mb-6 md:mb-8">
+          <div className="h-px w-8 md:w-12 bg-gold-500" />
+          <span className="text-gold-500 font-mono text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
+            Conflict Resolution Redefined
+          </span>
+        </div>
+        <h1 className="text-5xl sm:text-7xl md:text-[8rem] font-bold text-white tracking-tighter leading-[0.9] md:leading-[0.8] mb-8 md:mb-12 select-none italic">
+          MEDIATION
+        </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <div className="space-y-6 md:space-y-8">
+            <p className="text-xl sm:text-2xl md:text-3xl text-white/90 font-light leading-tight tracking-tight">
+              A trendsetter in Mediation Process Design, PACT relies on bespoke case management, quality mediators and best practices for client satisfaction.
+            </p>
+            <div className="h-px w-full bg-white/10" />
+            <p className="text-base md:text-lg text-white/50 font-light max-w-xl leading-relaxed">
+              Mediation is an effective conflict resolution mechanism that prioritises efficiency, autonomy and confidentiality. It reduces procedural delays and facilitates consensus-driven outcomes.
+            </p>
+          </div>
+          <div className="relative group hidden lg:block">
+            <div className="absolute -inset-4 bg-white/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            <div className="relative p-10 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-sm">
+              <p className="text-xl text-white/70 font-light italic leading-relaxed">
+                "With the support of an impartial mediator, parties can explore practical solutions, protect ongoing relationships, and achieve outcomes that work for everyone involved."
+              </p>
+              <div className="mt-8 flex items-center gap-4">
+                <div className="h-10 w-10 rounded-full bg-gold-500/20 flex items-center justify-center">
+                  <Globe className="w-5 h-5 text-gold-500" />
+                </div>
+                <span className="text-xs font-mono text-white/40 uppercase tracking-widest">Global Standards of Practice</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </FadeInUp>
+    </div>
+  </section>
+);
+
+const PuzzlePieces = () => {
+  const points = [
+    { 
+      title: "Engage Your Own Neutral Mediator", 
+      desc: "Curate and appoint qualified professionals who embody absolute neutrality.", 
+      icon: Users 
+    },
+    { 
+      title: "Participate Freely and Voluntarily", 
+      desc: "Retain complete autonomy with a process driven by sincere engagement.", 
+      icon: Handshake 
+    },
+    { 
+      title: "Keep Conversations Confidential", 
+      desc: "A secure environment protected under strict institutional and legal safeguards.", 
+      icon: Lock 
+    },
+    { 
+      title: "Choose Your Own Private Venue", 
+      desc: "Select a location that suits your needs, from our chambers to your preferred site.", 
+      icon: Home 
+    },
+    { 
+      title: "Select Your Mode of Communication", 
+      desc: "Adapt the dialogue process to fit the unique communication styles of all parties.", 
+      icon: MessageSquare 
+    },
+    { 
+      title: "Decide on a Convenient Time & Date", 
+      desc: "Coordinate sessions around your timeline to ensure focused and productive progress.", 
+      icon: Calendar 
+    },
+    { 
+      title: "Design Your Own Comfortable Process", 
+      desc: "Experience a bespoke resolution framework tailored to your specific case dynamics.", 
+      icon: Sparkles 
+    },
+    { 
+      title: "Fix Your Own Timelines and Deadlines", 
+      desc: "Stay in control of the clock with schedules that respect your commercial urgencies.", 
+      icon: Timer 
+    },
+    { 
+      title: "Create Your Own Legal Solutions", 
+      desc: "Maintain sovereignty over the outcome by crafting your own binding agreements.", 
+      icon: Scale 
+    },
+    { 
+      title: "Confirm An Affordable Fee Structure", 
+      desc: "Benefit from complete financial clarity with a transparent, pre-defined fee model.", 
+      icon: FileText 
+    }
+  ];
+
+  return (
+    <section className="py-24 md:py-40 bg-white relative overflow-hidden">
+      {/* Dynamic Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-gold-500/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-navy-950/3 blur-[100px] rounded-full" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+        <div className="text-center mb-20 md:mb-32">
+          <FadeInUp>
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 mb-8">
+              <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
+              <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">The PACT Advantage</span>
+            </div>
+            <h2 className="text-5xl md:text-[5.5rem] font-extralight tracking-tight text-navy-950 mb-8 leading-[0.95]">
+              Why Mediate at <br />
+              <span className="italic font-medium text-gold-500">PACT</span>
+            </h2>
+            <div className="h-px w-24 bg-gold-500/30 mx-auto mb-8" />
+            <p className="text-xl md:text-2xl text-navy-950/40 font-light max-w-3xl mx-auto leading-relaxed tracking-tight">
+              Merging institutional rigour with party-centric flexibility. 
+              We provide the framework; you retain the control.
+            </p>
+          </FadeInUp>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          {points.map((point, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -8 }}
+              viewport={{ once: true }}
+              transition={{ delay: (i % 3) * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="group"
+            >
+              <div className="relative h-full px-8 py-10 md:py-12 rounded-5xl bg-navy-50/20 border border-navy-100/30 hover:bg-white hover:border-gold-500/20 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col items-center text-center">
+                
+                {/* Number Background Detail */}
+                <div className="absolute -bottom-6 -right-4 text-[8rem] font-bold text-navy-950/1.5 group-hover:text-gold-500/4 transition-all duration-1000 italic select-none pointer-events-none">
+                  {i + 1 < 10 ? `0${i + 1}` : i + 1}
+                </div>
+
+                <div className="relative mb-6">
+                  <div className="w-16 h-16 rounded-3xl bg-white text-navy-950 flex items-center justify-center group-hover:bg-gold-500 group-hover:text-white transition-all duration-500 group-hover:rotate-12 shadow-md border border-navy-100/50">
+                    <point.icon className="w-8 h-8" />
+                  </div>
+                  {/* Floating detail */}
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-gold-500 scale-0 group-hover:scale-100 transition-transform duration-500 border-[3px] border-white shadow-sm" />
+                </div>
+                
+                <div className="grow space-y-4 relative z-10 w-full">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-gold-500/60 font-bold">Foundation {i + 1}</span>
+                    <h3 className="text-2xl md:text-3xl font-light text-navy-950 tracking-tighter leading-tight italic group-hover:text-gold-500 transition-colors duration-500 uppercase">
+                      {point.title}
+                    </h3>
+                  </div>
+                  <div className="h-px w-10 bg-navy-100 group-hover:w-16 bg-gold-500/30 group-hover:bg-gold-500 transition-all duration-700 mx-auto" />
+                  <p className="text-navy-950/40 text-base md:text-lg font-light leading-relaxed group-hover:text-navy-950/60 transition-colors duration-500">
+                    {point.desc}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+
+          {/* New Brand Statement to fill empty grid space */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 1 }}
+            className="lg:col-span-2 flex flex-col justify-center px-8 py-10 md:py-12 relative overflow-hidden group"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gold-500/5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 group-hover:bg-gold-500/10 transition-colors duration-1000" />
+            
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-4 mb-4">
+                <div className="h-px w-8 bg-gold-500" />
+                <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-gold-500 font-bold">The PACT Promise</span>
+              </div>
+              
+              <p className="text-3xl md:text-5xl font-extralight text-navy-950 tracking-tighter leading-tight mb-8 italic">
+                Conflict is inevitable, but <span className="text-gold-500 font-medium">resolution</span> is a choice. We provide the framework for that choice.
+              </p>
+
+              <a 
+                href="mailto:mediation@thepact.in" 
+                className="inline-flex items-center gap-6 group/link"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-navy-950/30 group-hover/link:text-gold-500 transition-colors">Direct Inquiry</span>
+                  <span className="text-xl font-light text-navy-950 group-hover/link:text-gold-500 transition-colors">Connect with a Convenor</span>
+                </div>
+                <div className="w-10 h-10 rounded-full border border-navy-100 flex items-center justify-center group-hover/link:bg-gold-500 group-hover/link:border-gold-500 transition-all duration-500">
+                  <ArrowUpRight className="w-5 h-5 text-navy-950 group-hover/link:text-white transition-colors" />
+                </div>
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const PactProvides = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  
+  const steps = [
+    {
+      title: "CONVENING",
+      label: "Rebuilding Relationships",
+      icon: Users,
+      description: "PACT accelerates structured and confidential meetings, preserving privacy and confidentiality from the get-go. Clear procedural guidelines are established at the outset. The Mediation Convenor works with both sides to build trust with the process, the neutrals and the institution."
+    },
+    {
+      title: "COACHING",
+      label: "Collaborative Standards",
+      icon: MessageSquare,
+      description: "The Mediation Convenor assists parties and counsel in developing a collaborative approach in their communications, especially through the signing of the Mediation Agreement and drafting of the Mediation Brief / Strategy. Measures are employed to maintain fair and safe participation."
+    },
+    {
+      title: "FACILITATING",
+      label: "Identifying Interests",
+      icon: Scale,
+      description: "The Mediator facilitates discussions to identify underlying interests of the parties. Legal, commercial and relational concerns are explored. Each party is offered a chance to be heard. Key issues are clarified and organised. Respectful expression of emotions is encouraged, and hostile language is reframed."
+    },
+    {
+      title: "EVALUATING",
+      label: "Options and Alternatives",
+      icon: Briefcase,
+      description: "The mediator supports parties in evaluating options against objective standards and practical alternatives. Legal frameworks, risks, and implications are considered. The mediator does not impose outcomes. Parties are assisted in making informed choices. Decision-making is voluntary and reasoned."
+    },
+    {
+      title: "CONSTRUCTING",
+      label: "Commitment-Based Solutions",
+      icon: Building2,
+      description: "The mediator assists parties in developing clear and workable solutions. Agreements are based on voluntary and informed commitments. Outcomes are structured for clarity and implementation. Party autonomy is preserved. This strengthens compliance and durability."
+    },
+    {
+      title: "CLOSING",
+      label: "Securing the Process",
+      icon: Lock,
+      description: "The mediation concludes with a structured review of outcomes. Agreements are confirmed for shared understanding. Future engagement is addressed where appropriate. The process closes with clarity and neutrality. Institutional confidence in mediation is upheld."
+    }
+  ];
+
+  return (
+    <section className="py-20 md:py-32 bg-navy-950 text-white relative overflow-hidden">
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gold-500/5 blur-[150px] rounded-full translate-x-[-20%] translate-y-[20%]" />
+      
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
+        <SectionHeader 
+          subtitle="PACT Provides" 
+          title="The Resolution Roadmap"
+          description="Total Commitment to Efficient Resolution. A structured, six-phase approach to navigate complex disputes with precision."
+          light
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 md:gap-12 lg:gap-24 items-start md:items-center">
+          <div className="space-y-3">
+            {steps.map((step, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveStep(i)}
+                className={cn(
+                  "w-full text-left p-4 md:p-6 lg:p-8 rounded-[1.5rem] md:rounded-[2rem] transition-all duration-500 group flex items-center justify-between border-2",
+                  activeStep === i 
+                    ? "bg-white/5 border-gold-500 text-gold-500" 
+                    : "border-transparent text-white/40 hover:text-white/70 hover:bg-white/5"
+                )}
+              >
+                <div className="flex items-center gap-4 md:gap-8">
+                  <span className={cn("text-xs font-mono transition-opacity shrink-0", activeStep === i ? "opacity-100" : "opacity-30")}>0{i + 1}</span>
+                  <div>
+                    <h3 className="text-[10px] font-mono uppercase tracking-[0.3em] mb-1">{step.title}</h3>
+                    <p className="text-lg md:text-xl lg:text-2xl font-light">{step.label}</p>
+                  </div>
+                </div>
+                <ArrowRight className={cn("w-5 h-5 md:w-6 md:h-6 transition-all duration-500 shrink-0", activeStep === i ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4")} />
+              </button>
+            ))}
+          </div>
+
+          <div className="relative h-full flex flex-col justify-center min-h-[400px] md:min-h-[500px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, x: 40, scale: 0.95 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -40, scale: 1.05 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="bg-white/[0.03] backdrop-blur-xl rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 lg:p-20 border border-white/10 shadow-2xl relative overflow-hidden group"
+              >
+                <div className="absolute -top-24 -right-24 w-64 h-64 bg-gold-500/10 blur-[80px] rounded-full group-hover:bg-gold-500/20 transition-colors duration-1000" />
+                
+                <div className="relative z-10">
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-gold-500 text-navy-950 flex items-center justify-center mb-8 md:mb-12 shadow-2xl">
+                    {React.createElement(steps[activeStep].icon, { className: "w-8 h-8 md:w-10 md:h-10" })}
+                  </div>
+                  <div className="inline-flex items-center gap-4 mb-4 md:mb-6">
+                    <span className="text-gold-500 font-mono text-xs tracking-widest">PHASE 0{activeStep + 1}</span>
+                    <div className="h-px w-10 bg-white/20" />
+                  </div>
+                  <h3 className="text-3xl md:text-5xl lg:text-6xl font-light mb-6 md:mb-8 tracking-tighter leading-none">
+                    {steps[activeStep].title}
+                  </h3>
+                  <p className="text-lg md:text-xl lg:text-2xl text-white/50 leading-relaxed font-light">
+                    {steps[activeStep].description}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Checklist = () => (
+  <section className="py-20 md:py-32 bg-gold-500 relative overflow-hidden">
+    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2" />
+    
+    <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div>
+          <span className="text-navy-950/60 font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] mb-4 md:mb-6 block">Ready to resolve?</span>
+          <h2 className="text-4xl md:text-7xl font-light text-navy-950 tracking-tighter leading-[1.1] md:leading-none mb-10 md:mb-12">
+            Assess Your <br className="hidden md:block" /><span className="italic font-medium underline decoration-navy-950/10 underline-offset-8">Mediation</span> Fitness
+          </h2>
+          <div className="space-y-6 md:space-y-10">
+            {[
+              "Check if your case is Legally Fit for Mediation?",
+              "Assess if your case makes business sense?",
+              "Invite the other side to a Mediation orientation with PACT?"
+            ].map((text, i) => (
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-start gap-4 md:gap-6 group"
+              >
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-navy-950/10 flex items-center justify-center group-hover:bg-navy-950 group-hover:border-navy-950 transition-all duration-300 shrink-0 mt-1">
+                  <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-navy-950 group-hover:text-gold-500 transition-colors" />
+                </div>
+                <p className="text-lg md:text-2xl text-navy-950 font-light leading-snug">{text}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+        
+        <motion.div 
+          whileHover={{ scale: 1.02 }}
+          className="bg-navy-950 p-8 md:p-14 lg:p-20 rounded-[2.5rem] md:rounded-[3rem] text-white shadow-3xl relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/10 blur-3xl rounded-full" />
+          <h3 className="text-2xl md:text-3xl font-light mb-6 md:mb-8 tracking-tight">Speak with our <br /><span className="text-gold-500 italic">Mediation Convenor</span></h3>
+          <p className="text-white/40 mb-8 md:mb-12 text-base md:text-lg font-light leading-relaxed">
+            Get expert guidance on process design, legal fitness, and mediator selection for your unique case.
+          </p>
+          <a 
+            href="mailto:mediation@thepact.in" 
+            className="group flex items-center justify-between p-6 md:p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-gold-500 hover:border-gold-500 hover:text-navy-950 transition-all duration-500 shadow-xl"
+          >
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-widest opacity-50 block mb-1">Primary Email</span>
+              <span className="text-lg md:text-2xl font-medium tracking-tight">mediation@thepact.in</span>
+            </div>
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-navy-950 group-hover:border-navy-950 transition-all shrink-0">
+              <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </div>
+          </a>
+        </motion.div>
+      </div>
+    </div>
+  </section>
+);
+
+const RulesAndFees = () => {
+  const rules = [
+    "Appointment and Replacement of Mediators",
+    "Pre-Mediation Process Design",
+    "Confidentiality & Privacy",
+    "Role and Responsibilities of Lawyers or Experts",
+    "Drafting of Mediation Settlement Agreement",
+    "Timelines and Termination"
+  ];
+  
+  const fees = [
+    "When do Convening Phase Fees kick-in?",
+    "What can you expect for Pre-Mediation Fees?",
+    "Who pays the Fees?",
+    "Why follow Transparent Fee Structure?",
+    "How does Fees Refund Work?",
+    "Why the Pre-Paid Fee Model?"
+  ];
+
+  return (
+    <section className="py-20 md:py-32 bg-white border-b border-navy-50">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+        <SectionHeader 
+          subtitle="Governance" 
+          title="Rules & Transparency"
+          description="Institutional services governed by clear, transparent procedures designed to ensure fairness, neutrality, and global efficiency."
+        />
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 items-start">
+          <div>
+            <p className="text-navy-950/60 max-w-4xl font-light leading-relaxed mb-8 md:mb-12 text-xl md:text-2xl italic tracking-tight">
+              "The process is conducted in accordance with established mediation principles, as prescribed by The Mediation Act, 2023 and The International Mediation Institute (IMI)."
+            </p>
+            <div className="h-px w-20 bg-gold-500 mb-8 md:mb-12" />
+            <p className="text-base md:text-lg text-navy-950/40 font-light leading-relaxed">
+              Our rules ensure and protect the core tenets of mediation: confidentiality, voluntary participation, and impartial facilitation. We provide a neutral sanctuary for difficult conversations.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:gap-8">
+            {/* Rules Card */}
+            <div className="bg-navy-50 p-8 md:p-10 lg:p-14 rounded-[2rem] md:rounded-[2.5rem] border border-navy-100 flex flex-col group hover:shadow-2xl transition-all duration-500">
+              <div className="flex items-center justify-between mb-8 md:mb-12">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-navy-950 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform shrink-0">
+                  <ShieldCheck className="w-6 h-6 md:w-7 md:h-7 text-gold-500" />
+                </div>
+                <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-navy-950/40 hover:text-navy-950 transition-colors">
+                  Mediation Rules 2024 <FileText className="w-4 h-4" />
+                </button>
+              </div>
+              
+              <ul className="space-y-4 md:space-y-5 mb-8 md:mb-12 flex-grow">
+                {rules.map((item, i) => (
+                  <li key={i} className="flex items-start gap-4 text-navy-950/70 font-light text-base md:text-lg">
+                    <div className="w-1.5 h-1.5 rounded-full bg-gold-500 mt-2.5 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <button className="w-full py-4 md:py-5 bg-navy-950 text-white rounded-full flex items-center justify-center gap-3 hover:bg-gold-500 hover:text-navy-950 transition-all font-bold uppercase tracking-widest text-[10px] md:text-xs shadow-xl">
+                Download PACT Rules <Download className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Fees Card */}
+            <div className="bg-navy-50 p-8 md:p-10 lg:p-14 rounded-[2rem] md:rounded-[2.5rem] border border-navy-100 flex flex-col group hover:shadow-2xl transition-all duration-500">
+              <div className="flex items-center justify-between mb-8 md:mb-12">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-navy-950 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform shrink-0">
+                  <Scale className="w-6 h-6 md:w-7 md:h-7 text-gold-500" />
+                </div>
+                <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-navy-950/40 hover:text-navy-950 transition-colors">
+                  Fee Schedule <FileText className="w-4 h-4" />
+                </button>
+              </div>
+              
+              <p className="text-navy-950/60 font-light mb-8 md:mb-10 text-lg md:text-xl italic tracking-tight leading-relaxed">
+                Fees are structured to reflect nature and complexity, ensuring complete transparency.
+              </p>
+
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-5 mb-10 md:mb-14 flex-grow">
+                {fees.map((item, i) => (
+                  <li key={i} className="flex items-start gap-4 text-navy-950/70 font-light text-sm md:text-base">
+                    <div className="w-1.5 h-1.5 rounded-full bg-navy-200 mt-2 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <button className="w-full py-4 md:py-5 border-2 border-navy-950/10 text-navy-950 rounded-full flex items-center justify-center gap-3 hover:bg-navy-950 hover:text-white transition-all font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                View Fee Details <Download className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const MediatorPanel = () => {
+  const members = [
+    {
+      name: "Jonathan Rodrigues",
+      expertise: "Commercial & Civil Mediation",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
+    },
+    {
+      name: "Kurian Joseph",
+      expertise: "Retd. Judge, Supreme Court of India",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80",
+    },
+    {
+      name: "Gita Mittal",
+      expertise: "Retd. Judge, Chief Justice (JKHC)",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80",
+    },
+    {
+      name: "Ekta Bahl",
+      expertise: "Corporate & Commercial Law",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80",
+    }
+  ];
+
+  return (
+    <section className="py-20 md:py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+        <SectionHeader 
+          subtitle="Expertise" 
+          title="Mediator Panel"
+        />
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 mb-16 md:mb-24">
+          <p className="text-xl md:text-2xl font-light text-navy-950/70 leading-relaxed tracking-tight">
+            Our Mediator Panel comprises experienced and accredited professionals with diverse expertise across commercial, corporate, civil, and institutional disputes.
+          </p>
+          <div className="space-y-6 md:space-y-8">
+            <p className="text-base md:text-lg font-light text-navy-950/40 italic leading-relaxed border-l-4 border-gold-500/50 pl-6 md:pl-10">
+              Each mediator adheres to the highest standards of ethics, confidentiality, and procedural fairness. If parties prefer to meet the mediators before finalising their choice, this option is available in the Pre-Mediation Phase.
+            </p>
+            <div className="flex flex-wrap gap-3 md:gap-4">
+              <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-[10px] font-mono text-navy-950/40 uppercase tracking-widest">Acredited Neutrals</div>
+              <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-[10px] font-mono text-navy-950/40 uppercase tracking-widest">Global Expertise</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          {members.map((member, i) => (
+            <motion.div 
+              key={i} 
+              whileHover={{ y: -10 }}
+              className="group flex flex-col overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-navy-50/50 border border-navy-100/50"
+            >
+              <div className="relative h-[350px] md:h-[450px] w-full overflow-hidden">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover transition-all duration-1000 group-hover:scale-110 filter md:grayscale group-hover:grayscale-0"
+                />
+                <div className="absolute inset-0 bg-navy-950/10 group-hover:bg-transparent transition-colors duration-700" />
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 bg-linear-to-t from-navy-950 via-navy-950/20 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-700">
+                  <button className="w-full py-4 bg-white text-navy-950 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full flex items-center justify-center gap-2 hover:bg-gold-500 transition-colors shadow-2xl">
+                    View Profile <ArrowUpRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <div className="p-6 md:p-8 text-center bg-white">
+                <h3 className="text-xl md:text-2xl font-light text-navy-950 mb-1">{member.name}</h3>
+                <p className="text-[10px] md:text-xs text-navy-950/40 font-mono tracking-widest uppercase">{member.expertise}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const CaseStudies = () => {
+  const [selectedCase, setSelectedCase] = useState<number | null>(null);
+
+  const cases = [
+    {
+      title: "Contractual Dispute",
+      summary: "A commercial dispute – valued at INR 85Cr – arose between a supplier and a distributor concerning delayed payments and differing interpretations of exclusivity provisions.",
+      challenge: [
+        "Delayed payments strained cash flow and created pressure.",
+        "Disagreement over the scope and meaning of exclusivity provisions.",
+        "Tension and mistrust putting long-standing relationship at risk.",
+        "Risk of escalation into litigation with high reputational costs."
+      ],
+      solution: "The parties entered confidential mediation to address financial constraints and operational realities. Through guided negotiation, they agreed on a structured payment plan and targeted amendments to clarify exclusivity terms.",
+      costs: { hours: 35, weeks: 11, fees: "7 Lakh" },
+      icon: Briefcase
+    },
+    {
+      title: "Workplace Dispute",
+      summary: "A mid-sized organisation faced internal disruption after a senior manager raised concerns about performance evaluations, followed by harassment claims.",
+      challenge: [
+        "Senior manager dissatisfied with performance vs junior employee attitude.",
+        "Tension affecting team dynamics and productivity.",
+        "Risk of formal grievances leading to bad press and investor concern."
+      ],
+      solution: "Mediation provided a safe forum to express concerns and expectations. The process identified communication gaps, leading to revised reporting structures and clear performance criteria.",
+      costs: { hours: 12, weeks: 2, fees: "3 Lakh" },
+      icon: MessageSquare
+    },
+    {
+      title: "Construction Dispute",
+      summary: "A major construction project encountered significant delays and cost overruns, leading to a dispute between developer and contractor over design responsibility.",
+      challenge: [
+        "Conflicting views on responsibility for design changes and site conditions.",
+        "Deadlock increasing financial exposure and jeopardising completion targets.",
+        "Likely escalation to formal proceedings causing further delay."
+      ],
+      solution: "Mediation examined project documents and site constraints. Parties clarified misunderstandings, aligned contractual interpretations, and agreed on a revised schedule and cost framework.",
+      costs: { hours: 45, weeks: 15, fees: "12 Lakh (Claims value: 400 Cr)" },
+      icon: Building2
+    },
+    {
+      title: "Intellectual Property Dispute",
+      summary: "Two tech companies disputed ownership and usage rights of software components developed during a limited collaboration. Both sought to avoid injunctive proceedings.",
+      challenge: [
+        "Conflicting positions on ownership and post-collaboration use.",
+        "Need to protect proprietary technology while avoiding disruption.",
+        "Uncertainty around product development and licensing plans."
+      ],
+      solution: "Parties shifted from legal ownership arguments to commercial objectives. They explored practical options for market participation, resulting in a negotiated licensing arrangement.",
+      costs: { hours: 26, weeks: 4, fees: "4.5 Lakh" },
+      icon: ShieldCheck
+    },
+    {
+      title: "Insolvency Dispute",
+      summary: "During insolvency, disagreements arose between applicant and stakeholders regarding payment timelines and claim treatment, threatening plan approval.",
+      challenge: [
+        "Differing expectations on payment timelines and claim treatment.",
+        "Friction risking delay in plan approval and asset value erosion.",
+        "High likelihood of objections and prolonged litigation."
+      ],
+      solution: "Focused dialogue alongside statutory processes resolved issues through modifies and clarifications to the resolution plan, ensuring IBC compliance.",
+      costs: { hours: 35, weeks: 18, fees: "9 Lakh" },
+      icon: Scale
+    },
+    {
+      title: "Family Dispute",
+      summary: "Five siblings disputed separation arrangements, financial responsibilities, and future care planning involving asset division and ongoing support.",
+      challenge: [
+        "Complex, emotionally charged issues around asset division and care.",
+        "Strained communication and differing expectations between siblings.",
+        "Risk of entrenched positions damaging long-term family stability."
+      ],
+      solution: "Virtual mediation (Zoom) allowed sibling group from diverse locations to focus on practical arrangements and financial clarity, prioritising family wellbeing over blame.",
+      costs: { hours: 40, weeks: 13, fees: "5 Lakh" },
+      icon: Home
+    }
+  ];
+
+  return (
+    <section className="py-20 md:py-32 bg-navy-950 text-white overflow-hidden relative">
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(191,154,102,0.08),transparent_60%)] pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+        <SectionHeader 
+          subtitle="Success Stories" 
+          title="Case Studies"
+          description="Confidential summaries of resolved disputes, demonstrating outcomes, strategies, and best practices."
+          light
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {cases.map((cs, i) => (
+            <motion.div
+              key={i}
+              layoutId={`case-${i}`}
+              onClick={() => setSelectedCase(i)}
+              className="group cursor-pointer bg-white/5 border border-white/10 p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] hover:bg-white/10 transition-all duration-500 overflow-hidden relative"
+            >
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-gold-500/5 blur-3xl rounded-full group-hover:bg-gold-500/10 transition-colors" />
+              
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gold-500/10 flex items-center justify-center mb-6 md:mb-8 group-hover:bg-gold-500 group-hover:text-navy-950 transition-all duration-500 shadow-xl">
+                <cs.icon className="w-6 h-6 md:w-7 md:h-7 text-gold-500 group-hover:text-inherit" />
+              </div>
+              <h3 className="text-xl md:text-2xl font-light mb-4 md:mb-6 group-hover:text-gold-500 transition-colors tracking-tight">{cs.title}</h3>
+              <p className="text-white/40 text-base md:text-lg leading-relaxed line-clamp-3 font-light mb-8 md:mb-10 group-hover:text-white/60 transition-colors">
+                {cs.summary}
+              </p>
+              <div className="flex items-center gap-3 text-[10px] font-mono text-gold-500 uppercase tracking-[.3em] pt-6 md:pt-8 border-t border-white/10">
+                View Case Analytics <Plus className="w-4 h-4 transition-transform group-hover:rotate-90" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {selectedCase !== null && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 lg:p-12 xl:p-24 overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedCase(null)}
+              className="absolute inset-0 bg-navy-950/95 backdrop-blur-2xl"
+            />
+            
+            <motion.div
+              layoutId={`case-${selectedCase}`}
+              className="relative w-full max-w-6xl bg-navy-900 border border-white/10 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] max-h-[90vh] flex flex-col"
+            >
+              <button 
+                onClick={() => setSelectedCase(null)}
+                className="absolute top-6 right-6 md:top-10 md:right-10 w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gold-500 hover:text-navy-950 transition-all duration-500 z-20 group"
+              >
+                <Plus className="w-6 h-6 md:w-8 md:h-8 rotate-45 group-hover:rotate-135 transition-transform duration-500" />
+              </button>
+
+              <div className="p-8 md:p-12 lg:p-20 overflow-y-auto">
+                <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10 mb-10 md:mb-16">
+                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-3xl bg-gold-500 text-navy-950 flex items-center justify-center shadow-2xl shrink-0">
+                    {React.createElement(cases[selectedCase].icon, { className: "w-8 h-8 md:w-12 md:h-12" })}
+                  </div>
+                  <div>
+                    <div className="inline-flex items-center gap-4 mb-3 md:mb-4">
+                      <span className="text-gold-500 font-mono text-[10px] md:text-xs tracking-[0.4em] uppercase">Private Case Profile</span>
+                      <div className="h-px w-8 bg-white/20" />
+                    </div>
+                    <h3 className="text-3xl md:text-5xl lg:text-7xl font-light text-white tracking-tighter leading-tight md:leading-none">{cases[selectedCase].title}</h3>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 md:gap-16 lg:gap-24">
+                  <div className="space-y-12 md:space-y-16">
+                    <section>
+                      <div className="flex items-center gap-4 mb-6 md:mb-8">
+                        <div className="h-px w-8 bg-gold-500" />
+                        <h4 className="text-[10px] font-mono text-white/40 uppercase tracking-[0.4em]">The Challenge</h4>
+                      </div>
+                      <ul className="space-y-4 md:space-y-6">
+                        {cases[selectedCase].challenge.map((text, i) => (
+                          <li key={i} className="flex gap-4 md:gap-6 text-white/60 font-light text-lg md:text-xl leading-relaxed">
+                            <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-gold-500 shrink-0 mt-1.5 opacity-50" />
+                            {text}
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                    
+                    <section className="bg-white/5 p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/5 group">
+                      <h4 className="text-[10px] font-mono text-gold-500 uppercase tracking-[0.4em] mb-8 md:mb-10">Outcome Analysis</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
+                        <div className="p-5 md:p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+                          <p className="text-[10px] text-white/20 font-mono uppercase mb-3 md:mb-4">Duration</p>
+                          <p className="text-2xl md:text-3xl font-light text-white leading-none tracking-tighter">{cases[selectedCase].costs.weeks} <span className="text-[10px] md:text-sm font-mono text-white/40 uppercase">Weeks</span></p>
+                        </div>
+                        <div className="p-5 md:p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+                          <p className="text-[10px] text-white/20 font-mono uppercase mb-3 md:mb-4">Contact Hours</p>
+                          <p className="text-2xl md:text-3xl font-light text-white leading-none tracking-tighter">{cases[selectedCase].costs.hours} <span className="text-[10px] md:text-sm font-mono text-white/40 uppercase">Hrs</span></p>
+                        </div>
+                        <div className="p-5 md:p-6 rounded-2xl bg-navy-950 border border-gold-500/20 group-hover:border-gold-500 transition-colors">
+                          <p className="text-[10px] text-gold-500/50 font-mono uppercase mb-3 md:mb-4">Total Fee</p>
+                          <p className="text-2xl md:text-3xl font-light text-gold-500 leading-none tracking-tighter">₹{cases[selectedCase].costs.fees}</p>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+
+                  <div className="space-y-8 md:space-y-12">
+                    <section className="bg-white/[0.03] p-8 md:p-10 lg:p-14 rounded-[2rem] md:rounded-[3rem] border border-white/10 h-full flex flex-col">
+                      <h4 className="text-[10px] font-mono text-white/40 uppercase tracking-[0.4em] mb-8 md:mb-10">Resolution Strategy</h4>
+                      <div className="relative">
+                        <span className="text-4xl md:text-6xl text-gold-500/20 font-serif absolute -top-6 md:-top-10 -left-6">“</span>
+                        <p className="text-xl md:text-2xl lg:text-3xl text-white/80 font-light leading-snug tracking-tight relative z-10 italic">
+                          {cases[selectedCase].solution}
+                        </p>
+                      </div>
+                      
+                      <div className="mt-auto pt-10 md:pt-16">
+                        <div className="h-px w-full bg-white/10 mb-6 md:mb-8" />
+                        <p className="text-xs md:text-sm text-white/30 font-light leading-relaxed italic">
+                          Anonymized summary for confidentiality compliance. Actual outcomes may vary based on party autonomy and case specifics.
+                        </p>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+};
+
+// --- Main Page ---
 
 export default function MediationPage() {
   return (
-    <main className="relative min-h-screen w-full bg-background">
-      <PageHero 
-        subtitle="Core Services"
-        title="Mediation"
-        description="Structured, confidential, and internationally recognized conflict resolution services for global institutions and enterprises."
-      >
-        <MagneticButton
-          size="lg"
-          variant="primary"
-          className="flex items-center gap-2"
-          onClick={() => {
-            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-        >
-          Book a Session
-          <MousePointer2 className="h-5 w-5" />
-        </MagneticButton>
-      </PageHero>
+    <main className="relative min-h-screen w-full bg-background overflow-x-hidden">
+      <GrainOverlay />
       
-      <div className="space-y-24 py-24">
-        <WorkSection />
-        <div className="bg-slate-50/50">
-          <ServicesSection />
+      <FadeIn className="relative z-10 w-full">
+        <div id="hero">
+          <MediationHero />
         </div>
-      </div>
-      
-      <div id="contact">
-        <ContactSection />
-      </div>
+        
+        <div id="puzzle">
+          <PuzzlePieces />
+        </div>
+        
+        <div id="provides">
+          <PactProvides />
+        </div>
+
+        <div id="checklist">
+          <Checklist />
+        </div>
+
+        <div id="rules">
+          <RulesAndFees />
+        </div>
+
+        <div id="panel">
+          <MediatorPanel />
+        </div>
+
+        <div id="case-studies">
+          <CaseStudies />
+        </div>
+        
+        <Footer />
+      </FadeIn>
     </main>
   );
 }
