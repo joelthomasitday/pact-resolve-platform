@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -33,8 +34,8 @@ import { Footer } from "@/components/footer";
 
 // --- Components ---
 
-const SectionHeader = ({ subtitle, title, description, light = false }: { subtitle: string, title: string, description?: string, light?: boolean }) => (
-  <FadeInUp className="mb-10 md:mb-16">
+const SectionHeader = ({ subtitle, title, description, light = false, center = false }: { subtitle: string, title: string, description?: string, light?: boolean, center?: boolean }) => (
+  <FadeInUp className={cn("mb-10 md:mb-16", center ? "flex flex-col items-center text-center" : "")}>
     <div className="inline-flex items-center gap-4 mb-4 opacity-70">
       <span className={cn("text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase", light ? "text-white" : "text-navy-950")}>{subtitle}</span>
       <div className={cn("h-px w-8 bg-gold-500/50", light ? "bg-gold-500" : "bg-gold-500")} />
@@ -415,61 +416,91 @@ const PactProvides = () => {
 };
 
 const Checklist = () => (
-  <section className="py-20 md:py-32 bg-gold-500 relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2" />
-    
+  <section className="py-24 md:py-32 bg-white relative overflow-hidden">
     <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        <div>
-          <span className="text-navy-950/60 font-mono text-[10px] md:text-xs uppercase tracking-[0.4em] mb-4 md:mb-6 block">Ready to resolve?</span>
-          <h2 className="text-4xl md:text-7xl font-light text-navy-950 tracking-tighter leading-[1.1] md:leading-none mb-10 md:mb-12">
-            Assess Your <br className="hidden md:block" /><span className="italic font-medium underline decoration-navy-950/10 underline-offset-8">Mediation</span> Fitness
-          </h2>
-          <div className="space-y-6 md:space-y-10">
-            {[
-              "Check if your case is Legally Fit for Mediation?",
-              "Assess if your case makes business sense?",
-              "Invite the other side to a Mediation orientation with PACT?"
-            ].map((text, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="flex items-start gap-4 md:gap-6 group"
-              >
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-navy-950/10 flex items-center justify-center group-hover:bg-navy-950 group-hover:border-navy-950 transition-all duration-300 shrink-0 mt-1">
-                  <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-navy-950 group-hover:text-gold-500 transition-colors" />
-                </div>
-                <p className="text-lg md:text-2xl text-navy-950 font-light leading-snug">{text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-        
-        <motion.div 
-          whileHover={{ scale: 1.02 }}
-          className="bg-navy-950 p-8 md:p-14 lg:p-20 rounded-[2.5rem] md:rounded-[3rem] text-white shadow-3xl relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/10 blur-3xl rounded-full" />
-          <h3 className="text-2xl md:text-3xl font-light mb-6 md:mb-8 tracking-tight">Speak with our <br /><span className="text-gold-500 italic">Mediation Convenor</span></h3>
-          <p className="text-white/40 mb-8 md:mb-12 text-base md:text-lg font-light leading-relaxed">
-            Get expert guidance on process design, legal fitness, and mediator selection for your unique case.
-          </p>
-          <a 
-            href="mailto:mediation@thepact.in" 
-            className="group flex items-center justify-between p-6 md:p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-gold-500 hover:border-gold-500 hover:text-navy-950 transition-all duration-500 shadow-xl"
-          >
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest opacity-50 block mb-1">Primary Email</span>
-              <span className="text-lg md:text-2xl font-medium tracking-tight">mediation@thepact.in</span>
-            </div>
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-navy-950 group-hover:border-navy-950 transition-all shrink-0">
-              <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </div>
-          </a>
-        </motion.div>
+      {/* Header */}
+      <div className="max-w-3xl mx-auto text-center mb-16 md:mb-20">
+        <span className="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] font-bold mb-4 block">
+          Pre-Mediation Assessment
+        </span>
+        <h2 className="text-4xl md:text-5xl lg:text-7xl font-light text-navy-950 tracking-tight leading-none mb-6">
+          Is Your Case <span className="italic font-medium text-gold-500 underline decoration-gold-500/30 underline-offset-8">Fit</span> for <br className="hidden md:block"/> Mediation?
+        </h2>
+        <p className="text-xl text-navy-950/40 font-light max-w-2xl mx-auto leading-relaxed">
+          Before proceeding, evaluate these three critical dimensions to determine if formal mediation is the right strategic move for your dispute.
+        </p>
       </div>
+
+      {/* 3 Steps List */}
+      <div className="max-w-5xl mx-auto mb-20 md:mb-28">
+        {[
+          {
+            title: "Legal Suitability",
+            question: "Is the dispute civil or commercial in nature and legally capable of settlement?",
+            icon: Scale
+          },
+          {
+            title: "Commercial Viability",
+            question: "Does a negotiated settlement offer better business value than prolonged litigation?",
+            icon: Briefcase
+          },
+          {
+            title: "Party Willingness",
+            question: "Are you prepared to invite the counter-party to a neutral orientation session?",
+            icon: Users
+          }
+        ].map((item, i) => (
+          <motion.div 
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1 }}
+            className="group py-10 md:py-12 border-b border-navy-100 flex flex-col md:flex-row gap-8 md:items-start"
+          >
+             <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-navy-50 text-navy-950 flex items-center justify-center shrink-0 group-hover:bg-gold-500 group-hover:text-white transition-all duration-500">
+               <span className="font-mono text-lg md:text-xl font-medium">0{i+1}</span>
+             </div>
+             
+             <div className="grow grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-6 md:gap-12 items-baseline">
+                <h3 className="text-3xl md:text-4xl font-light text-navy-950 tracking-tight leading-tight group-hover:text-gold-500 transition-colors duration-300">
+                  {item.title}
+                </h3>
+                <p className="text-lg md:text-xl text-navy-950/50 font-light leading-relaxed">
+                  {item.question}
+                </p>
+             </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* CTA Banner */}
+      <div className="relative rounded-[2.5rem] bg-navy-950 p-8 md:p-12 lg:p-16 overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 shadow-2xl">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+        
+        <div className="relative z-10 max-w-2xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gold-500 text-[10px] font-mono tracking-widest uppercase mb-6 mx-auto md:mx-0">
+             <span className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse"/>
+             Expert Review
+          </div>
+          <h3 className="text-3xl md:text-4xl font-light text-white mb-6">
+            Unsure about your case?
+          </h3>
+          <p className="text-white/50 text-lg font-light leading-relaxed">
+            Our Mediation Convenor can help you assess these criteria and design a process strategy tailored to your specific dispute.
+          </p>
+        </div>
+
+        <div className="relative z-10 shrink-0">
+           <a 
+             href="mailto:mediation@thepact.in"
+             className="inline-flex items-center gap-4 bg-gold-500 text-navy-950 px-8 py-5 rounded-xl font-medium hover:bg-white transition-all duration-300 shadow-[0_0_30px_-5px_rgba(191,154,102,0.3)] hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.3)] group"
+           >
+             <span>Speak to Convenor</span>
+             <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+           </a>
+        </div>
+      </div>
+
     </div>
   </section>
 );
@@ -499,75 +530,82 @@ const RulesAndFees = () => {
         <SectionHeader 
           subtitle="Governance" 
           title="Rules & Transparency"
-          description="Institutional services governed by clear, transparent procedures designed to ensure fairness, neutrality, and global efficiency."
         />
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 items-start">
-          <div>
-            <p className="text-navy-950/60 max-w-4xl font-light leading-relaxed mb-8 md:mb-12 text-xl md:text-2xl italic tracking-tight">
-              "The process is conducted in accordance with established mediation principles, as prescribed by The Mediation Act, 2023 and The International Mediation Institute (IMI)."
-            </p>
-            <div className="h-px w-20 bg-gold-500 mb-8 md:mb-12" />
-            <p className="text-base md:text-lg text-navy-950/40 font-light leading-relaxed">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 mb-16 md:mb-24">
+          <p className="text-xl md:text-2xl font-light text-navy-950/70 leading-relaxed tracking-tight">
+            The process is conducted in accordance with established mediation principles, as prescribed by The Mediation Act, 2023 and The International Mediation Institute (IMI).
+          </p>
+          <div className="space-y-6 md:space-y-8">
+            <p className="text-base md:text-lg font-light text-navy-950/40 italic leading-relaxed border-l-4 border-gold-500/50 pl-6 md:pl-10">
               Our rules ensure and protect the core tenets of mediation: confidentiality, voluntary participation, and impartial facilitation. We provide a neutral sanctuary for difficult conversations.
             </p>
+            <div className="flex flex-wrap gap-3 md:gap-4">
+               <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-[10px] font-mono text-navy-950/40 uppercase tracking-widest">Judicial Standards</div>
+               <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-[10px] font-mono text-navy-950/40 uppercase tracking-widest">Global Best Practices</div>
+            </div>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 gap-6 md:gap-8">
+        {/* Cards Grid - Side by Side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
             {/* Rules Card */}
-            <div className="bg-navy-50 p-8 md:p-10 lg:p-14 rounded-[2rem] md:rounded-[2.5rem] border border-navy-100 flex flex-col group hover:shadow-2xl transition-all duration-500">
+            <div className="bg-navy-50 p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-navy-100 flex flex-col group hover:shadow-2xl transition-all duration-500 hover:bg-white hover:border-gold-500/20">
               <div className="flex items-center justify-between mb-8 md:mb-12">
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-navy-950 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform shrink-0">
-                  <ShieldCheck className="w-6 h-6 md:w-7 md:h-7 text-gold-500" />
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-navy-950 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform shrink-0">
+                  <ShieldCheck className="w-7 h-7 md:w-8 md:h-8 text-gold-500" />
                 </div>
-                <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-navy-950/40 hover:text-navy-950 transition-colors">
-                  Mediation Rules 2024 <FileText className="w-4 h-4" />
-                </button>
+                <div className="px-4 py-2 rounded-full bg-white border border-navy-50 text-[10px] font-bold uppercase tracking-[0.2em] text-navy-950/60">
+                  Judicial Standard
+                </div>
               </div>
               
-              <ul className="space-y-4 md:space-y-5 mb-8 md:mb-12 flex-grow">
+              <h3 className="text-3xl font-light text-navy-950 mb-8">Procedural Rules</h3>
+              
+              <ul className="space-y-4 md:space-y-6 mb-10 md:mb-14 flex-grow">
                 {rules.map((item, i) => (
                   <li key={i} className="flex items-start gap-4 text-navy-950/70 font-light text-base md:text-lg">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold-500 mt-2.5 shrink-0" />
-                    <span>{item}</span>
+                    <span className="leading-snug">{item}</span>
                   </li>
                 ))}
               </ul>
               
-              <button className="w-full py-4 md:py-5 bg-navy-950 text-white rounded-full flex items-center justify-center gap-3 hover:bg-gold-500 hover:text-navy-950 transition-all font-bold uppercase tracking-widest text-[10px] md:text-xs shadow-xl">
+              <button className="w-full py-5 bg-navy-950 text-white rounded-full flex items-center justify-center gap-3 hover:bg-gold-500 hover:text-navy-950 transition-all font-bold uppercase tracking-widest text-[10px] md:text-xs shadow-xl group-hover:shadow-2xl">
                 Download PACT Rules <Download className="w-4 h-4" />
               </button>
             </div>
 
             {/* Fees Card */}
-            <div className="bg-navy-50 p-8 md:p-10 lg:p-14 rounded-[2rem] md:rounded-[2.5rem] border border-navy-100 flex flex-col group hover:shadow-2xl transition-all duration-500">
+            <div className="bg-navy-50 p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-navy-100 flex flex-col group hover:shadow-2xl transition-all duration-500 hover:bg-white hover:border-gold-500/20">
               <div className="flex items-center justify-between mb-8 md:mb-12">
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-navy-950 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform shrink-0">
-                  <Scale className="w-6 h-6 md:w-7 md:h-7 text-gold-500" />
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-navy-950 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform shrink-0">
+                  <Scale className="w-7 h-7 md:w-8 md:h-8 text-gold-500" />
                 </div>
-                <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-navy-950/40 hover:text-navy-950 transition-colors">
-                  Fee Schedule <FileText className="w-4 h-4" />
-                </button>
+                <div className="px-4 py-2 rounded-full bg-white border border-navy-50 text-[10px] font-bold uppercase tracking-[0.2em] text-navy-950/60">
+                  Transparent Model
+                </div>
               </div>
               
+              <h3 className="text-3xl font-light text-navy-950 mb-8">Fee Structure</h3>
+
               <p className="text-navy-950/60 font-light mb-8 md:mb-10 text-lg md:text-xl italic tracking-tight leading-relaxed">
                 Fees are structured to reflect nature and complexity, ensuring complete transparency.
               </p>
 
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-5 mb-10 md:mb-14 flex-grow">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 md:gap-y-6 mb-10 md:mb-14 flex-grow">
                 {fees.map((item, i) => (
-                  <li key={i} className="flex items-start gap-4 text-navy-950/70 font-light text-sm md:text-base">
-                    <div className="w-1.5 h-1.5 rounded-full bg-navy-200 mt-2 shrink-0" />
-                    <span>{item}</span>
+                  <li key={i} className="flex items-start gap-3 text-navy-950/70 font-light text-sm md:text-base">
+                    <div className="w-1.5 h-1.5 rounded-full bg-navy-300 mt-2 shrink-0 group-hover:bg-gold-500 transition-colors" />
+                    <span className="leading-snug">{item}</span>
                   </li>
                 ))}
               </ul>
               
-              <button className="w-full py-4 md:py-5 border-2 border-navy-950/10 text-navy-950 rounded-full flex items-center justify-center gap-3 hover:bg-navy-950 hover:text-white transition-all font-bold uppercase tracking-widest text-[10px] md:text-xs">
+              <button className="w-full py-5 border-2 border-navy-950/10 text-navy-950 rounded-full flex items-center justify-center gap-3 hover:bg-navy-950 hover:text-white transition-all font-bold uppercase tracking-widest text-[10px] md:text-xs">
                 View Fee Details <Download className="w-4 h-4" />
               </button>
             </div>
-          </div>
         </div>
       </div>
     </section>
@@ -654,84 +692,85 @@ const MediatorPanel = () => {
   );
 };
 
-const CaseStudies = () => {
-  const [selectedCase, setSelectedCase] = useState<number | null>(null);
+const CASES_DATA = [
+  {
+    title: "Contractual Dispute",
+    summary: "A commercial dispute – valued at INR 85Cr – arose between a supplier and a distributor concerning delayed payments and differing interpretations of exclusivity provisions.",
+    challenge: [
+      "Delayed payments strained cash flow and created pressure.",
+      "Disagreement over the scope and meaning of exclusivity provisions.",
+      "Tension and mistrust putting long-standing relationship at risk.",
+      "Risk of escalation into litigation with high reputational costs."
+    ],
+    solution: "The parties entered confidential mediation to address financial constraints and operational realities. Through guided negotiation, they agreed on a structured payment plan and targeted amendments to clarify exclusivity terms.",
+    costs: { hours: 35, weeks: 11, fees: "7 Lakh" },
+    icon: Briefcase
+  },
+  {
+    title: "Workplace Dispute",
+    summary: "A mid-sized organisation faced internal disruption after a senior manager raised concerns about performance evaluations, followed by harassment claims.",
+    challenge: [
+      "Senior manager dissatisfied with performance vs junior employee attitude.",
+      "Tension affecting team dynamics and productivity.",
+      "Risk of formal grievances leading to bad press and investor concern."
+    ],
+    solution: "Mediation provided a safe forum to express concerns and expectations. The process identified communication gaps, leading to revised reporting structures and clear performance criteria.",
+    costs: { hours: 12, weeks: 2, fees: "3 Lakh" },
+    icon: MessageSquare
+  },
+  {
+    title: "Construction Dispute",
+    summary: "A major construction project encountered significant delays and cost overruns, leading to a dispute between developer and contractor over design responsibility.",
+    challenge: [
+      "Conflicting views on responsibility for design changes and site conditions.",
+      "Deadlock increasing financial exposure and jeopardising completion targets.",
+      "Likely escalation to formal proceedings causing further delay."
+    ],
+    solution: "Mediation examined project documents and site constraints. Parties clarified misunderstandings, aligned contractual interpretations, and agreed on a revised schedule and cost framework.",
+    costs: { hours: 45, weeks: 15, fees: "12 Lakh (Claims value: 400 Cr)" },
+    icon: Building2
+  },
+  {
+    title: "Intellectual Property Dispute",
+    summary: "Two tech companies disputed ownership and usage rights of software components developed during a limited collaboration. Both sought to avoid injunctive proceedings.",
+    challenge: [
+      "Conflicting positions on ownership and post-collaboration use.",
+      "Need to protect proprietary technology while avoiding disruption.",
+      "Uncertainty around product development and licensing plans."
+    ],
+    solution: "Parties shifted from legal ownership arguments to commercial objectives. They explored practical options for market participation, resulting in a negotiated licensing arrangement.",
+    costs: { hours: 26, weeks: 4, fees: "4.5 Lakh" },
+    icon: ShieldCheck
+  },
+  {
+    title: "Insolvency Dispute",
+    summary: "During insolvency, disagreements arose between applicant and stakeholders regarding payment timelines and claim treatment, threatening plan approval.",
+    challenge: [
+      "Differing expectations on payment timelines and claim treatment.",
+      "Friction risking delay in plan approval and asset value erosion.",
+      "High likelihood of objections and prolonged litigation."
+    ],
+    solution: "Focused dialogue alongside statutory processes resolved issues through modifies and clarifications to the resolution plan, ensuring IBC compliance.",
+    costs: { hours: 35, weeks: 18, fees: "9 Lakh" },
+    icon: Scale
+  },
+  {
+    title: "Family Dispute",
+    summary: "Five siblings disputed separation arrangements, financial responsibilities, and future care planning involving asset division and ongoing support.",
+    challenge: [
+      "Complex, emotionally charged issues around asset division and care.",
+      "Strained communication and differing expectations between siblings.",
+      "Risk of entrenched positions damaging long-term family stability."
+    ],
+    solution: "Virtual mediation (Zoom) allowed sibling group from diverse locations to focus on practical arrangements and financial clarity, prioritising family wellbeing over blame.",
+    costs: { hours: 40, weeks: 13, fees: "5 Lakh" },
+    icon: Home
+  }
+];
 
-  const cases = [
-    {
-      title: "Contractual Dispute",
-      summary: "A commercial dispute – valued at INR 85Cr – arose between a supplier and a distributor concerning delayed payments and differing interpretations of exclusivity provisions.",
-      challenge: [
-        "Delayed payments strained cash flow and created pressure.",
-        "Disagreement over the scope and meaning of exclusivity provisions.",
-        "Tension and mistrust putting long-standing relationship at risk.",
-        "Risk of escalation into litigation with high reputational costs."
-      ],
-      solution: "The parties entered confidential mediation to address financial constraints and operational realities. Through guided negotiation, they agreed on a structured payment plan and targeted amendments to clarify exclusivity terms.",
-      costs: { hours: 35, weeks: 11, fees: "7 Lakh" },
-      icon: Briefcase
-    },
-    {
-      title: "Workplace Dispute",
-      summary: "A mid-sized organisation faced internal disruption after a senior manager raised concerns about performance evaluations, followed by harassment claims.",
-      challenge: [
-        "Senior manager dissatisfied with performance vs junior employee attitude.",
-        "Tension affecting team dynamics and productivity.",
-        "Risk of formal grievances leading to bad press and investor concern."
-      ],
-      solution: "Mediation provided a safe forum to express concerns and expectations. The process identified communication gaps, leading to revised reporting structures and clear performance criteria.",
-      costs: { hours: 12, weeks: 2, fees: "3 Lakh" },
-      icon: MessageSquare
-    },
-    {
-      title: "Construction Dispute",
-      summary: "A major construction project encountered significant delays and cost overruns, leading to a dispute between developer and contractor over design responsibility.",
-      challenge: [
-        "Conflicting views on responsibility for design changes and site conditions.",
-        "Deadlock increasing financial exposure and jeopardising completion targets.",
-        "Likely escalation to formal proceedings causing further delay."
-      ],
-      solution: "Mediation examined project documents and site constraints. Parties clarified misunderstandings, aligned contractual interpretations, and agreed on a revised schedule and cost framework.",
-      costs: { hours: 45, weeks: 15, fees: "12 Lakh (Claims value: 400 Cr)" },
-      icon: Building2
-    },
-    {
-      title: "Intellectual Property Dispute",
-      summary: "Two tech companies disputed ownership and usage rights of software components developed during a limited collaboration. Both sought to avoid injunctive proceedings.",
-      challenge: [
-        "Conflicting positions on ownership and post-collaboration use.",
-        "Need to protect proprietary technology while avoiding disruption.",
-        "Uncertainty around product development and licensing plans."
-      ],
-      solution: "Parties shifted from legal ownership arguments to commercial objectives. They explored practical options for market participation, resulting in a negotiated licensing arrangement.",
-      costs: { hours: 26, weeks: 4, fees: "4.5 Lakh" },
-      icon: ShieldCheck
-    },
-    {
-      title: "Insolvency Dispute",
-      summary: "During insolvency, disagreements arose between applicant and stakeholders regarding payment timelines and claim treatment, threatening plan approval.",
-      challenge: [
-        "Differing expectations on payment timelines and claim treatment.",
-        "Friction risking delay in plan approval and asset value erosion.",
-        "High likelihood of objections and prolonged litigation."
-      ],
-      solution: "Focused dialogue alongside statutory processes resolved issues through modifies and clarifications to the resolution plan, ensuring IBC compliance.",
-      costs: { hours: 35, weeks: 18, fees: "9 Lakh" },
-      icon: Scale
-    },
-    {
-      title: "Family Dispute",
-      summary: "Five siblings disputed separation arrangements, financial responsibilities, and future care planning involving asset division and ongoing support.",
-      challenge: [
-        "Complex, emotionally charged issues around asset division and care.",
-        "Strained communication and differing expectations between siblings.",
-        "Risk of entrenched positions damaging long-term family stability."
-      ],
-      solution: "Virtual mediation (Zoom) allowed sibling group from diverse locations to focus on practical arrangements and financial clarity, prioritising family wellbeing over blame.",
-      costs: { hours: 40, weeks: 13, fees: "5 Lakh" },
-      icon: Home
-    }
-  ];
+const CaseStudies = ({ onSelectCase }: { onSelectCase: (index: number) => void }) => {
+
+
 
   return (
     <section className="py-20 md:py-32 bg-navy-950 text-white overflow-hidden relative">
@@ -746,11 +785,11 @@ const CaseStudies = () => {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {cases.map((cs, i) => (
+          {CASES_DATA.map((cs, i) => (
             <motion.div
               key={i}
               layoutId={`case-${i}`}
-              onClick={() => setSelectedCase(i)}
+              onClick={() => onSelectCase(i)}
               className="group cursor-pointer bg-white/5 border border-white/10 p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] hover:bg-white/10 transition-all duration-500 overflow-hidden relative"
             >
               <div className="absolute -top-12 -right-12 w-32 h-32 bg-gold-500/5 blur-3xl rounded-full group-hover:bg-gold-500/10 transition-colors" />
@@ -770,102 +809,7 @@ const CaseStudies = () => {
         </div>
       </div>
 
-      <AnimatePresence>
-        {selectedCase !== null && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 lg:p-12 xl:p-24 overflow-hidden">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedCase(null)}
-              className="absolute inset-0 bg-navy-950/95 backdrop-blur-2xl"
-            />
-            
-            <motion.div
-              layoutId={`case-${selectedCase}`}
-              className="relative w-full max-w-6xl bg-navy-900 border border-white/10 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] max-h-[90vh] flex flex-col"
-            >
-              <button 
-                onClick={() => setSelectedCase(null)}
-                className="absolute top-6 right-6 md:top-10 md:right-10 w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gold-500 hover:text-navy-950 transition-all duration-500 z-20 group"
-              >
-                <Plus className="w-6 h-6 md:w-8 md:h-8 rotate-45 group-hover:rotate-135 transition-transform duration-500" />
-              </button>
 
-              <div className="p-8 md:p-12 lg:p-20 overflow-y-auto">
-                <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10 mb-10 md:mb-16">
-                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-3xl bg-gold-500 text-navy-950 flex items-center justify-center shadow-2xl shrink-0">
-                    {React.createElement(cases[selectedCase].icon, { className: "w-8 h-8 md:w-12 md:h-12" })}
-                  </div>
-                  <div>
-                    <div className="inline-flex items-center gap-4 mb-3 md:mb-4">
-                      <span className="text-gold-500 font-mono text-[10px] md:text-xs tracking-[0.4em] uppercase">Private Case Profile</span>
-                      <div className="h-px w-8 bg-white/20" />
-                    </div>
-                    <h3 className="text-3xl md:text-5xl lg:text-7xl font-light text-white tracking-tighter leading-tight md:leading-none">{cases[selectedCase].title}</h3>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 md:gap-16 lg:gap-24">
-                  <div className="space-y-12 md:space-y-16">
-                    <section>
-                      <div className="flex items-center gap-4 mb-6 md:mb-8">
-                        <div className="h-px w-8 bg-gold-500" />
-                        <h4 className="text-[10px] font-mono text-white/40 uppercase tracking-[0.4em]">The Challenge</h4>
-                      </div>
-                      <ul className="space-y-4 md:space-y-6">
-                        {cases[selectedCase].challenge.map((text, i) => (
-                          <li key={i} className="flex gap-4 md:gap-6 text-white/60 font-light text-lg md:text-xl leading-relaxed">
-                            <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-gold-500 shrink-0 mt-1.5 opacity-50" />
-                            {text}
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                    
-                    <section className="bg-white/5 p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/5 group">
-                      <h4 className="text-[10px] font-mono text-gold-500 uppercase tracking-[0.4em] mb-8 md:mb-10">Outcome Analysis</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
-                        <div className="p-5 md:p-6 rounded-2xl bg-white/[0.02] border border-white/5">
-                          <p className="text-[10px] text-white/20 font-mono uppercase mb-3 md:mb-4">Duration</p>
-                          <p className="text-2xl md:text-3xl font-light text-white leading-none tracking-tighter">{cases[selectedCase].costs.weeks} <span className="text-[10px] md:text-sm font-mono text-white/40 uppercase">Weeks</span></p>
-                        </div>
-                        <div className="p-5 md:p-6 rounded-2xl bg-white/[0.02] border border-white/5">
-                          <p className="text-[10px] text-white/20 font-mono uppercase mb-3 md:mb-4">Contact Hours</p>
-                          <p className="text-2xl md:text-3xl font-light text-white leading-none tracking-tighter">{cases[selectedCase].costs.hours} <span className="text-[10px] md:text-sm font-mono text-white/40 uppercase">Hrs</span></p>
-                        </div>
-                        <div className="p-5 md:p-6 rounded-2xl bg-navy-950 border border-gold-500/20 group-hover:border-gold-500 transition-colors">
-                          <p className="text-[10px] text-gold-500/50 font-mono uppercase mb-3 md:mb-4">Total Fee</p>
-                          <p className="text-2xl md:text-3xl font-light text-gold-500 leading-none tracking-tighter">₹{cases[selectedCase].costs.fees}</p>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-
-                  <div className="space-y-8 md:space-y-12">
-                    <section className="bg-white/[0.03] p-8 md:p-10 lg:p-14 rounded-[2rem] md:rounded-[3rem] border border-white/10 h-full flex flex-col">
-                      <h4 className="text-[10px] font-mono text-white/40 uppercase tracking-[0.4em] mb-8 md:mb-10">Resolution Strategy</h4>
-                      <div className="relative">
-                        <span className="text-4xl md:text-6xl text-gold-500/20 font-serif absolute -top-6 md:-top-10 -left-6">“</span>
-                        <p className="text-xl md:text-2xl lg:text-3xl text-white/80 font-light leading-snug tracking-tight relative z-10 italic">
-                          {cases[selectedCase].solution}
-                        </p>
-                      </div>
-                      
-                      <div className="mt-auto pt-10 md:pt-16">
-                        <div className="h-px w-full bg-white/10 mb-6 md:mb-8" />
-                        <p className="text-xs md:text-sm text-white/30 font-light leading-relaxed italic">
-                          Anonymized summary for confidentiality compliance. Actual outcomes may vary based on party autonomy and case specifics.
-                        </p>
-                      </div>
-                    </section>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
@@ -873,6 +817,8 @@ const CaseStudies = () => {
 // --- Main Page ---
 
 export default function MediationPage() {
+  const [selectedCase, setSelectedCase] = useState<number | null>(null);
+
   return (
     <main className="relative min-h-screen w-full bg-background overflow-x-hidden">
       <GrainOverlay />
@@ -903,11 +849,110 @@ export default function MediationPage() {
         </div>
 
         <div id="case-studies">
-          <CaseStudies />
+          <CaseStudies onSelectCase={setSelectedCase} />
         </div>
         
         <Footer />
       </FadeIn>
+
+      <AnimatePresence>
+        {selectedCase !== null && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-8">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedCase(null)}
+              className="absolute inset-0 bg-navy-950/80 backdrop-blur-sm"
+            />
+            
+            <motion.div
+              layoutId={`case-${selectedCase}`}
+              className="relative w-full max-w-6xl bg-white text-navy-950 border border-navy-100 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl flex flex-col max-h-[85vh] md:max-h-[90vh] overflow-hidden"
+            >
+              <button 
+                onClick={() => setSelectedCase(null)}
+                className="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full bg-navy-50 flex items-center justify-center hover:bg-navy-950 hover:text-white transition-all duration-300 z-50 shadow-md"
+              >
+                <Plus className="w-4 h-4 md:w-5 md:h-5 rotate-45" />
+              </button>
+
+              <div className="flex-1 overflow-y-auto p-5 md:p-12 custom-scrollbar">
+                {/* Header */}
+                <div className="flex flex-col gap-4 md:gap-6 mb-8 md:mb-10 border-b border-navy-50 pb-6 md:pb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-navy-50 text-navy-950 flex items-center justify-center shrink-0">
+                      {React.createElement(CASES_DATA[selectedCase].icon, { className: "w-5 h-5 md:w-6 md:h-6" })}
+                    </div>
+                    <div className="pr-8"> {/* Padding right to avoid overlap with close button on mobile */}
+                      <span className="text-gold-600 font-mono text-[9px] md:text-[10px] tracking-widest uppercase block mb-1 font-bold">Confidential Case Profile</span>
+                      <h3 className="text-xl md:text-3xl font-light text-navy-950 leading-tight">{CASES_DATA[selectedCase].title}</h3>
+                    </div>
+                  </div>
+                  <p className="text-base md:text-lg text-navy-950/80 font-light leading-relaxed">
+                     {CASES_DATA[selectedCase].summary}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+                  <div className="space-y-6 md:space-y-8">
+                    {/* Challenge */}
+                    <section>
+                      <h4 className="text-[10px] font-bold text-navy-950/50 uppercase tracking-widest mb-4">The Challenge</h4>
+                      <ul className="space-y-3">
+                        {CASES_DATA[selectedCase].challenge.map((text, i) => (
+                          <li key={i} className="flex gap-3 text-navy-950/80 font-light text-sm md:text-base leading-relaxed">
+                            <span className="w-1.5 h-1.5 rounded-full bg-gold-500 shrink-0 mt-2" />
+                            {text}
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                    
+                    {/* Stats */}
+                    <section className="bg-white border border-navy-100 rounded-2xl p-5 md:p-6 shadow-sm">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div>
+                          <p className="text-[10px] text-navy-950/50 font-bold uppercase mb-1">Time</p>
+                          <p className="text-xl font-medium text-navy-950">{CASES_DATA[selectedCase].costs.weeks} <span className="text-[10px] font-normal text-navy-950/50">Wks</span></p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] text-navy-950/50 font-bold uppercase mb-1">Hours</p>
+                          <p className="text-xl font-medium text-navy-950">{CASES_DATA[selectedCase].costs.hours} <span className="text-[10px] font-normal text-navy-950/50">Hrs</span></p>
+                        </div>
+                        <div className="sm:col-span-2 lg:col-span-1">
+                          <p className="text-[10px] text-navy-950/50 font-bold uppercase mb-1">Fee</p>
+                          <p className="text-xl font-medium text-gold-600 break-words leading-tight">₹{CASES_DATA[selectedCase].costs.fees}</p>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+
+                  <div className="space-y-8">
+                    {/* Solution */}
+                    <section className="bg-navy-950 rounded-2xl p-6 md:p-8 relative overflow-hidden text-white h-full flex flex-col justify-between">
+                       <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                       
+                       <div className="relative z-10">
+                         <h4 className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-6">Resolution Strategy</h4>
+                         <p className="text-base md:text-lg font-light text-white/90 leading-relaxed italic">
+                           "{CASES_DATA[selectedCase].solution}"
+                         </p>
+                       </div>
+                       
+                       <div className="relative z-10 mt-8 pt-6 border-t border-white/10">
+                         <p className="text-[10px] text-white/40 leading-relaxed">
+                           *Anonymized summary for confidentiality.
+                         </p>
+                       </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
