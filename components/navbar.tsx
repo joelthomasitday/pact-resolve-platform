@@ -60,7 +60,7 @@ export function Navbar() {
             className="flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
             aria-label="PACT Home"
           >
-            <div className="relative h-12 md:h-14 lg:h-16 w-auto transition-transform duration-300">
+            <div className="relative h-10 md:h-12 lg:h-14 w-auto transition-transform duration-300">
               <Image
                 src="/images/pact-logo.png"
                 alt="PACT"
@@ -70,18 +70,19 @@ export function Navbar() {
                 priority
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-sans text-xl md:text-2xl lg:text-3xl font-black tracking-tighter text-white leading-none">
+            <div className="flex flex-col justify-center">
+              <span className="font-sans text-lg md:text-xl lg:text-2xl font-black tracking-tighter text-white leading-none">
                 PACT
               </span>
-              <span className="text-[8px] md:text-[9px] lg:text-[10px] font-medium text-white/80 uppercase tracking-tighter md:tracking-tight lg:tracking-normal leading-[1.2] block max-w-[140px] md:max-w-[160px] lg:max-w-[180px]">
+              <span className="text-[7px] md:text-[8px] lg:text-[9px] font-medium text-white/70 uppercase tracking-wide leading-tight block mt-0.5">
                 The peacekeeping and<br />conflict resolution team
               </span>
             </div>
           </Link>
 
           {/* Menu: Original Layout position + New Fonts/Animations */}
-          <div className="hidden h-full items-center gap-8 xl:gap-12 md:flex ml-auto mr-4 lg:mr-8 xl:mr-12">
+          {/* Menu: Evenly spaced alignment (removed ml-auto) */}
+          <div className="hidden h-full items-center gap-6 lg:gap-8 xl:gap-10 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -153,7 +154,7 @@ export function Navbar() {
             >
               <div className="flex items-center justify-between p-6 border-b border-white/10 h-[64px]">
                 <div className="flex items-center gap-3 max-w-[85%]">
-                  <div className="relative h-12 w-auto shrink-0 transition-transform duration-300">
+                  <div className="relative h-10 w-auto shrink-0 transition-transform duration-300">
                     <Image
                       src="/images/pact-logo.png"
                       alt="PACT"
@@ -163,11 +164,11 @@ export function Navbar() {
                       priority
                     />
                   </div>
-                  <div className="flex flex-col">
-                    <span className="font-sans text-2xl font-black tracking-widest text-white uppercase leading-none">
+                  <div className="flex flex-col justify-center">
+                    <span className="font-sans text-xl font-black tracking-tighter text-white uppercase leading-none">
                       PACT
                     </span>
-                    <span className="text-[9px] font-medium text-white/70 uppercase tracking-wide leading-tight mt-1 block max-w-[140px]">
+                    <span className="text-[8px] font-medium text-white/70 uppercase tracking-wide leading-tight mt-0.5 block">
                       The peacekeeping and<br />conflict resolution team
                     </span>
                   </div>

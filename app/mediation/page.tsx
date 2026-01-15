@@ -416,7 +416,7 @@ const PactProvides = () => {
 };
 
 const Checklist = () => (
-  <section className="py-16 sm:py-24 md:py-32 bg-white relative overflow-hidden">
+  <section className="pt-16 pb-8 sm:pt-24 sm:pb-12 md:pt-32 md:pb-20 bg-white relative overflow-hidden">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-24">
       {/* Header */}
       <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-16 md:mb-20">
@@ -525,7 +525,7 @@ const RulesAndFees = () => {
   ];
 
   return (
-    <section className="pt-12 pb-16 sm:pt-16 sm:pb-32 bg-white border-b border-navy-50">
+    <section className="pt-8 pb-16 sm:pt-12 sm:pb-32 bg-white border-b border-navy-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-24">
         <SectionHeader 
           subtitle="Governance" 
