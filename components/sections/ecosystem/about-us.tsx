@@ -64,57 +64,104 @@ export function AboutUs() {
   return (
     <div className="bg-white">
       {/* Who We Are */}
-      <section className="py-24 md:py-32 overflow-hidden">
+      <section className="pt-24 pb-0 md:pt-32 md:pb-0 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 items-center">
-            <FadeInUp>
-              <div className="inline-flex items-center gap-3 mb-6">
-                <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">Who We Are</span>
-              </div>
-              <h2 className="text-4xl md:text-6xl font-light text-navy-950 tracking-tight leading-tight mb-8">
-                Transforming the <br />
-                <span className="text-gold-500 italic font-medium">culture of dialogue</span>
-              </h2>
-            </FadeInUp>
-            
-            <FadeInUp delay={0.2} className="space-y-6">
-              <p className="text-xl md:text-2xl text-navy-950 font-light leading-relaxed">
+          <FadeInUp className="mb-12 md:mb-16">
+            <div className="inline-flex items-center gap-4 mb-4 opacity-70">
+              <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950">Who We Are</span>
+              <div className="h-px w-8 bg-gold-500" />
+            </div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tighter leading-[1.1] text-navy-950 mb-8">
+              Transforming the <br />
+              <span className="text-gold-500 italic font-medium">culture of dialogue</span>
+            </h2>
+          </FadeInUp>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
+            <FadeInUp delay={0.2}>
+              <p className="text-xl md:text-2xl font-light text-navy-950/70 leading-relaxed tracking-tight">
                 The PACT is a leading mediation institute and service provider committed to transforming how conflicts are addressed in India and beyond. We work with law firms, corporates, institutions, and professionals to promote mediation as a practical, ethical and effective pathway to resolution.
               </p>
-              <div className="h-px w-24 bg-gold-500/30" />
-              <p className="text-lg text-navy-950/60 font-light leading-relaxed">
-                Through mediation services, advocacy training, consulting and capacity-building initiatives, The PACT advances a culture of dialogue, confidentiality, and collaboration—helping individuals and organisations resolve disputes efficiently while preserving relationships and reputations. 
-                <br /><br />
-                Headquartered in New Delhi, with members operational in various parts of India, we have worked with 17,000+ mediation users since the summer of 2015.
+            </FadeInUp>
+            
+            <FadeInUp delay={0.3} className="space-y-6 md:space-y-8">
+              <p className="text-base md:text-lg font-light text-navy-950/40 italic leading-relaxed border-l-4 border-gold-500/50 pl-6 md:pl-10">
+                Through mediation services, advocacy training, consulting and capacity-building initiatives, The PACT advances a culture of dialogue, confidentiality, and collaboration—helping individuals and organisations resolve disputes efficiently while preserving relationships and reputations.
               </p>
+              <div className="flex flex-wrap gap-3 md:gap-4">
+                <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-[10px] font-mono text-navy-950/40 uppercase tracking-widest">Est. 2015</div>
+                <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-[10px] font-mono text-navy-950/40 uppercase tracking-widest">17,000+ Users</div>
+                <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-[10px] font-mono text-navy-950/40 uppercase tracking-widest">Global Standards</div>
+              </div>
             </FadeInUp>
           </div>
         </div>
       </section>
 
       {/* What We Do */}
-      <section className="py-24 md:py-32 bg-navy-50/50">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <FadeInUp className="text-center mb-16 md:mb-24">
-            <h3 className="text-3xl md:text-5xl font-light text-navy-950 tracking-tight mb-4">What We Do</h3>
-            <div className="h-1 w-12 bg-gold-500 mx-auto rounded-full" />
-          </FadeInUp>
+      <section className="pt-16 pb-16 sm:pb-24 md:pb-32 bg-white relative overflow-hidden">
+        {/* Dynamic Background Elements */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+          <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-gold-500/5 blur-[120px] rounded-full" />
+          <div className="absolute bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-navy-950/3 blur-[100px] rounded-full" />
+        </div>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+          <div className="text-center mb-12 sm:mb-16 md:mb-20">
+            <FadeInUp>
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 mb-8">
+                <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
+                <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">Our Reach</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl md:text-[5.5rem] font-extralight tracking-tight text-navy-950 mb-8 leading-[0.95]">
+                What We <span className="italic font-medium text-gold-500">Do</span>
+              </h2>
+              <div className="h-px w-24 bg-gold-500/30 mx-auto mb-8" />
+              <p className="text-lg sm:text-xl md:text-2xl text-navy-950/40 font-light max-w-3xl mx-auto leading-relaxed tracking-tight">
+                Empowering the legal and corporate landscape through specialized mediation initiatives and capacity-building frameworks.
+              </p>
+            </FadeInUp>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {whatWeDoItems.map((item, i) => (
-              <StaggerItem key={i}>
-                <div className="group bg-white p-8 rounded-[2rem] border border-navy-100 hover:border-gold-500/20 transition-all duration-500 hover:shadow-xl flex items-center gap-6">
-                  <div className="w-12 h-12 rounded-xl bg-navy-50 flex items-center justify-center group-hover:bg-gold-500 transition-colors duration-500 shadow-sm shrink-0">
-                    <item.icon className="w-6 h-6 text-navy-950 group-hover:text-white transition-colors duration-500" />
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -8 }}
+                viewport={{ once: true }}
+                transition={{ delay: (i % 3) * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="group"
+              >
+                <div className="relative h-full px-6 py-8 sm:px-8 sm:py-10 md:py-12 rounded-5xl bg-navy-50/20 border border-navy-100/30 hover:bg-white hover:border-gold-500/20 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col items-center text-center">
+                  
+                  {/* Number Background Detail */}
+                  <div className="absolute -bottom-6 -right-4 text-[8rem] font-bold text-navy-950/1.5 group-hover:text-gold-500/4 transition-all duration-1000 italic select-none pointer-events-none">
+                    {i + 1 < 10 ? `0${i + 1}` : i + 1}
                   </div>
-                  <span className="text-lg font-light text-navy-950 tracking-tight group-hover:text-gold-500 transition-colors">
-                    {item.title}
-                  </span>
+
+                  <div className="relative mb-6">
+                    <div className="w-16 h-16 rounded-3xl bg-white text-navy-950 flex items-center justify-center group-hover:bg-gold-500 group-hover:text-white transition-all duration-500 group-hover:rotate-12 shadow-md border border-navy-100/50">
+                      <item.icon className="w-8 h-8" />
+                    </div>
+                    {/* Floating detail */}
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-gold-500 scale-0 group-hover:scale-100 transition-transform duration-500 border-[3px] border-white shadow-sm" />
+                  </div>
+                  
+                  <div className="grow space-y-4 relative z-10 w-full">
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-gold-500/60 font-bold">Module {i + 1}</span>
+                      <h3 className="text-xl md:text-2xl font-light text-navy-950 tracking-tighter leading-tight italic group-hover:text-gold-500 transition-colors duration-500 uppercase">
+                        {item.title}
+                      </h3>
+                    </div>
+                    <div className="h-px w-10 bg-navy-100 group-hover:w-16 bg-gold-500/30 group-hover:bg-gold-500 transition-all duration-700 mx-auto" />
+                  </div>
                 </div>
-              </StaggerItem>
+              </motion.div>
             ))}
-          </StaggerContainer>
+          </div>
         </div>
       </section>
 

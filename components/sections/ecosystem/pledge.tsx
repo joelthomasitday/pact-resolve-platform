@@ -1,19 +1,56 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, ShieldCheck, Handshake, Landmark, Users, ArrowRight, Download, Send, Info, FileText } from "lucide-react";
+import { 
+  CheckCircle2, ShieldCheck, Handshake, Landmark, Users, 
+  ArrowRight, Download, Send, Info, FileText,
+  Clock, BarChart3, Globe, Heart, Award, Activity, Zap
+} from "lucide-react";
+import Image from "next/image";
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/motion-wrapper";
 import { cn } from "@/lib/utils";
 
 const benefits = [
-  "Encourages early dispute resolution, preventing unnecessary escalation",
-  "Reduces time, cost, and business disruption associated with litigation",
-  "Preserves commercial and professional relationships through dialogue",
-  "Promotes confidentiality and reputational protection",
-  "Supports responsible governance and ESG-aligned practices",
-  "Embeds a culture of problem-solving over adversarial conflict",
-  "Enhances brand trust with emphasis on dialogue, fairness and accountability",
-  "Signals maturity in risk and conflict management to investors and partners"
+  {
+    title: "Early Resolution",
+    desc: "Encourages early dispute resolution, preventing unnecessary escalation.",
+    icon: Clock
+  },
+  {
+    title: "Cost Efficiency",
+    desc: "Reduces time, cost, and business disruption associated with litigation.",
+    icon: BarChart3
+  },
+  {
+    title: "Preserve Ties",
+    desc: "Preserves commercial and professional relationships through dialogue.",
+    icon: Users
+  },
+  {
+    title: "Privacy First",
+    desc: "Promotes confidentiality and absolute reputational protection.",
+    icon: ShieldCheck
+  },
+  {
+    title: "ESG Standards",
+    desc: "Supports responsible governance and ESG-aligned corporate practices.",
+    icon: Globe
+  },
+  {
+    title: "Creative Culture",
+    desc: "Embeds a culture of problem-solving over adversarial conflict.",
+    icon: Heart
+  },
+  {
+    title: "Brand Trust",
+    desc: "Enhances brand trust with emphasis on fairness and accountability.",
+    icon: Award
+  },
+  {
+    title: "Risk Control",
+    desc: "Signals maturity in risk and conflict management to global partners.",
+    icon: Activity
+  }
 ];
 
 const objectives = [
@@ -57,31 +94,77 @@ export function PledgeSection() {
             </FadeInUp>
             
             <FadeInUp delay={0.2} className="relative hidden lg:block">
-               <div className="aspect-square rounded-[3rem] bg-linear-to-br from-gold-500/20 to-transparent border border-white/10 flex items-center justify-center">
-                  <ShieldCheck className="w-32 h-32 text-gold-500/20" />
+               <div className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group">
+                  <Image 
+                    src="/images/pledge-hero.jpg" 
+                    alt="Commit to Resolution" 
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-br from-gold-500/10 to-transparent pointer-events-none" />
                </div>
             </FadeInUp>
           </div>
         </div>
       </div>
 
-      {/* Why the Pledge */}
-      <div className="py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-           <div className="mb-16">
-             <h3 className="text-3xl md:text-5xl font-light text-navy-950 tracking-tight mb-4 uppercase">Why The Pledge</h3>
-             <div className="h-1 w-12 bg-gold-500 rounded-full" />
+      {/* Why the Pledge - Puzzle Pieces Theme */}
+      <div className="py-24 md:py-32 bg-white relative overflow-hidden">
+        {/* Dynamic Background Elements */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+          <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-gold-500/5 blur-[120px] rounded-full" />
+          <div className="absolute bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-navy-950/3 blur-[100px] rounded-full" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
+           <div className="text-center mb-16 md:mb-24">
+             <FadeInUp>
+               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 mb-8">
+                 <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
+                 <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">The Strategic Edge</span>
+               </div>
+               <h3 className="text-4xl sm:text-5xl md:text-7xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-none">
+                 Why The <br />
+                 <span className="italic font-medium text-gold-500 lowercase">Pledge</span>
+               </h3>
+               <div className="h-px w-24 bg-gold-500/30 mx-auto mb-8" />
+               <p className="max-w-2xl mx-auto text-navy-950/40 text-lg md:text-xl font-light leading-relaxed">
+                 A forward-thinking commitment to resolution that transforms conflict into commercial opportunity.
+               </p>
+             </FadeInUp>
            </div>
 
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {benefits.map((benefit, i) => (
-                <FadeInUp key={i} delay={i * 0.05}>
-                   <div className="h-full p-8 rounded-[2rem] bg-navy-50/50 border border-navy-100/50 hover:bg-white hover:border-gold-500/20 hover:shadow-xl transition-all duration-500 group">
-                      <div className="w-8 h-8 rounded-full bg-gold-500/10 flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-500">
-                        <CheckCircle2 className="w-4 h-4 text-gold-500 group-hover:text-white transition-colors duration-500" />
+                <FadeInUp key={i} delay={i * 0.1}>
+                  <div className="group relative h-full px-6 py-10 rounded-5xl bg-navy-50/20 border border-navy-100/30 hover:bg-white hover:border-gold-500/20 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col items-center text-center">
+                    
+                    {/* Number Background Detail */}
+                    <div className="absolute -bottom-6 -right-4 text-[8rem] font-bold text-navy-950/1.5 group-hover:text-gold-500/4 transition-all duration-1000 italic select-none pointer-events-none font-mono">
+                      {i + 1 < 10 ? `0${i + 1}` : i + 1}
+                    </div>
+
+                    <div className="relative mb-8">
+                      <div className="w-16 h-16 rounded-3xl bg-white text-navy-950 flex items-center justify-center group-hover:bg-gold-500 group-hover:text-white transition-all duration-500 group-hover:rotate-12 shadow-md border border-navy-100/50">
+                        <benefit.icon className="w-8 h-8" />
                       </div>
-                      <p className="text-base text-navy-950/60 font-light leading-relaxed">{benefit}</p>
-                   </div>
+                      {/* Floating detail */}
+                      <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-gold-500 scale-0 group-hover:scale-100 transition-transform duration-500 border-[3px] border-white shadow-sm" />
+                    </div>
+                    
+                    <div className="grow space-y-4 relative z-10 w-full">
+                      <div className="space-y-1">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-gold-500/60 font-bold">Edge {i + 1}</span>
+                        <h4 className="text-xl md:text-2xl font-light text-navy-950 tracking-tighter leading-tight italic group-hover:text-gold-500 transition-colors duration-500 uppercase">
+                          {benefit.title}
+                        </h4>
+                      </div>
+                      <div className="h-px w-10 bg-navy-100 group-hover:w-16 bg-gold-500/30 group-hover:bg-gold-500 transition-all duration-700 mx-auto" />
+                      <p className="text-navy-950/50 text-sm md:text-base font-light leading-relaxed group-hover:text-navy-950/70 transition-colors duration-500">
+                        {benefit.desc}
+                      </p>
+                    </div>
+                  </div>
                 </FadeInUp>
               ))}
            </div>
@@ -102,33 +185,79 @@ export function PledgeSection() {
       </div>
 
       {/* Objectives / Note */}
-      <div className="py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+      <div className="py-24 md:py-32 relative overflow-hidden">
+        {/* Subtle background detail */}
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-navy-50/50 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
               <FadeInUp>
-                 <h3 className="text-3xl font-light text-navy-950 mb-10 uppercase tracking-tight">Primary Objectives</h3>
-                 <p className="text-navy-950/60 font-light mb-10 text-lg">Signing the PACT Mediation Pledge shows willingness to consider mediation in appropriate disputes. Your action achieves two primary objectives:</p>
+                 <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 mb-8">
+                   <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
+                   <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">The Core Mission</span>
+                 </div>
+                 <h3 className="text-4xl md:text-6xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-none">
+                   Primary <br />
+                   <span className="italic font-medium text-gold-500 lowercase">Objectives</span>
+                 </h3>
+                 <div className="h-px w-24 bg-gold-500/30 mb-8" />
+                 <p className="text-navy-950/40 text-lg md:text-xl font-light leading-relaxed mb-12">
+                   Signing the PACT Mediation Pledge shows willingness to consider mediation in appropriate disputes. Your action achieves two primary objectives:
+                 </p>
+                 
                  <div className="space-y-6">
                     {objectives.map((obj, i) => (
-                      <div key={i} className="flex gap-6 p-6 rounded-3xl bg-navy-50 border border-navy-100 shadow-sm">
-                         <div className="w-12 h-12 rounded-full bg-gold-500 flex items-center justify-center shrink-0 text-white font-bold">
+                      <div key={i} className="group flex gap-6 p-8 rounded-[2.5rem] bg-navy-50/50 border border-navy-100/50 hover:bg-white hover:border-gold-500/20 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)]">
+                         <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shrink-0 text-navy-950 text-2xl font-bold border border-navy-100 group-hover:bg-gold-500 group-hover:text-white transition-all duration-500 shadow-sm rotate-3 group-hover:rotate-0">
                             0{i+1}
                          </div>
-                         <p className="text-lg text-navy-950 font-light leading-relaxed">{obj.desc}</p>
+                         <div className="space-y-2 pt-1">
+                           <span className="text-gold-500 font-mono text-[10px] uppercase tracking-[0.3em] font-bold">Goal {i+1}</span>
+                           <p className="text-xl text-navy-950 font-light leading-relaxed tracking-tight group-hover:text-navy-950 transition-colors duration-500">
+                             {obj.desc}
+                           </p>
+                         </div>
                       </div>
                     ))}
                  </div>
               </FadeInUp>
               
-              <FadeInUp delay={0.2} className="relative lg:mt-24">
-                 <div className="p-10 rounded-[2.5rem] bg-navy-950 text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-8">
-                       <Info className="w-12 h-12 text-white/5" />
+              <FadeInUp delay={0.2} className="relative lg:mt-48">
+                 <div className="relative p-10 md:p-14 rounded-[4rem] bg-navy-950 text-white overflow-hidden group shadow-2xl">
+                    {/* Decorative Elements */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 blur-2xl rounded-full -translate-x-1/2 translate-y-1/2" />
+                    
+                    <div className="absolute top-14 right-14">
+                       <Info className="w-14 h-14 text-gold-500/20 group-hover:text-gold-500/40 transition-all duration-700" />
                     </div>
-                    <h4 className="text-sm font-mono uppercase tracking-[0.3em] text-gold-500 mb-8 font-bold">Please note</h4>
-                    <div className="space-y-6 text-white/60 font-light text-base leading-relaxed">
-                       <p className="flex gap-4"><span className="text-gold-500 shrink-0">•</span> The Pledge is not a binding commitment and does not create legally enforceable rights or obligations.</p>
-                       <p className="flex gap-4"><span className="text-gold-500 shrink-0">•</span> Mediation may not be eligible to every dispute (even if not restricted by Section 6 of The Mediation Act, 2023) and in any event does not limit a party’s other dispute resolution options, including court litigation.</p>
+
+                    <div className="relative z-10">
+                      <div className="inline-flex items-center gap-3 mb-12">
+                        <div className="w-10 h-px bg-gold-500" />
+                        <h4 className="text-[10px] md:text-xs font-mono uppercase tracking-[0.4em] text-gold-500 font-bold">Legal Disclaimer</h4>
+                      </div>
+                      
+                      <div className="space-y-10">
+                         <div className="group/item flex gap-6">
+                            <div className="w-1.5 h-1.5 rounded-full bg-gold-500 mt-3 shrink-0 group-hover/item:scale-150 transition-transform duration-500" />
+                            <p className="text-lg md:text-xl text-white/60 font-light leading-relaxed group-hover/item:text-white transition-colors duration-500">
+                              The Pledge is <span className="text-gold-500 font-medium italic">not a binding commitment</span> and does not create legally enforceable rights or obligations.
+                            </p>
+                         </div>
+                         <div className="group/item flex gap-6">
+                            <div className="w-1.5 h-1.5 rounded-full bg-gold-500 mt-3 shrink-0 group-hover/item:scale-150 transition-transform duration-500" />
+                            <p className="text-lg md:text-xl text-white/60 font-light leading-relaxed group-hover/item:text-white transition-colors duration-500">
+                              Mediation may not be eligible to <span className="text-gold-500 font-medium italic">every dispute</span> and does not limit a party's other dispute resolution options.
+                            </p>
+                         </div>
+                      </div>
+
+                      <div className="mt-16 pt-12 border-t border-white/10">
+                         <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30 leading-relaxed max-w-xs">
+                           Refer to Section 6 of The Mediation Act, 2023 for statutory guidelines and non-eligible disputes.
+                         </p>
+                      </div>
                     </div>
                  </div>
               </FadeInUp>
@@ -137,7 +266,7 @@ export function PledgeSection() {
       </div>
 
       {/* THE PLEDGE FORM - Document Style */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+      <div className="max-w-[1550px] mx-auto px-6 md:px-12">
         <FadeInUp>
           <div className="relative bg-white rounded-[3rem] border border-navy-100 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] overflow-hidden">
              {/* Header */}
@@ -147,92 +276,106 @@ export function PledgeSection() {
                 <h3 className="text-3xl md:text-5xl font-light tracking-tight relative z-10 uppercase">The PACT Mediation <br /><span className="text-gold-500 italic font-medium lowercase">Pledge</span></h3>
              </div>
 
-             <div className="p-8 md:p-16 lg:p-20 space-y-12">
-                <div className="max-w-3xl mx-auto space-y-8 text-center md:text-left">
-                  <p className="text-lg text-navy-950/60 font-light leading-relaxed">
-                    The PACT through its diverse verticals contributes to awareness and advocacy of Mediation among the various stakeholders of the private, public and social sectors.
-                  </p>
-                  <p className="text-lg text-navy-950 font-normal leading-relaxed italic border-l-4 border-gold-500 pl-6 bg-navy-50/50 py-4">
-                    Without binding signatories to mediate by obligation, the PACT Mediation Pledge serves as a steady reminder to consider mediation as a go-to process to resolve disputes via innovation and interest-based interactions.
-                  </p>
+              <div className="px-6 md:px-10 lg:px-12 pb-20 space-y-20">
+                <div className="max-w-4xl mx-auto space-y-10 text-center">
+                  <div className="space-y-4 pt-12">
+                    <p className="text-lg text-navy-950/60 font-light leading-relaxed">
+                      The PACT through its diverse verticals contributes to awareness and advocacy of Mediation among the various stakeholders of the private, public and social sectors.
+                    </p>
+                    <div className="relative py-8 px-10 rounded-4xl bg-navy-50/50 border-l-4 border-gold-500 overflow-hidden text-left">
+                      <div className="absolute top-0 right-0 p-4 opacity-5">
+                        <ShieldCheck className="w-24 h-24" />
+                      </div>
+                      <p className="text-xl text-navy-950 font-normal leading-relaxed italic relative z-10">
+                        "Without binding signatories to mediate by obligation, the PACT Mediation Pledge serves as a steady reminder to consider mediation as a go-to process to resolve disputes via innovation and interest-based interactions."
+                      </p>
+                    </div>
+                  </div>
+                  
                   <p className="text-lg text-navy-950/60 font-light leading-relaxed">
                     By voluntarily signing this pledge with the PACT, we recognise that mediation offers an efficient and creative form of conflict resolution, by preserving confidentiality, managing risk, and protecting business interests. Additionally, we express our commitment to consider early engagement with mediation as and when deemed appropriate.
                   </p>
-                  <div className="text-xl font-bold uppercase tracking-widest text-navy-950 pt-4">Accordingly, we affirm that:</div>
+                  
+                  <div className="pt-6 text-center">
+                    <div className="inline-flex flex-col items-center gap-4">
+                      <div className="text-[10px] font-mono uppercase tracking-[0.4em] text-gold-500 font-bold">The Commitment</div>
+                      <h4 className="text-2xl md:text-3xl font-light uppercase tracking-tight text-navy-950 italic">Accordingly, we <span className="text-gold-500 font-medium lowercase">affirm</span> that:</h4>
+                      <div className="h-px w-24 bg-gold-500/30" />
+                    </div>
+                  </div>
                 </div>
 
-                {/* Categories */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-16">
                    {/* Corporates */}
-                   <div className="p-10 rounded-[2.5rem] bg-navy-50 border border-navy-100 space-y-8">
-                     <div className="space-y-2">
-                        <Users className="w-8 h-8 text-gold-500" />
-                        <h4 className="text-xl font-bold text-navy-950">Corporates & <br />Entrepreneurs</h4>
+                   <div className="p-8 md:p-12 rounded-[3.5rem] bg-navy-50 border border-navy-100 space-y-12">
+                     <div className="space-y-3">
+                        <Users className="w-10 h-10 text-gold-500" />
+                        <h4 className="text-2xl font-bold text-navy-950">Corporates & <br />Entrepreneurs</h4>
                      </div>
-                     <div className="space-y-6">
-                        <div className="space-y-2">
+                     <div className="space-y-8">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Contractual Integration</p>
-                          <p className="text-sm text-navy-950/70 font-light leading-relaxed">We are prepared to explore the inclusion of mediation clauses in contracts and agreements that concern us or we are a party to.</p>
+                          <p className="text-base text-navy-950/70 font-light leading-relaxed">We are prepared to explore the inclusion of mediation clauses in contracts and agreements that concern us or we are a party to.</p>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Non-contractual Preference</p>
-                          <p className="text-sm text-navy-950/70 font-light leading-relaxed">In the absence of such mediation clauses, we are prepared to actively consider mediation as an early and effective means of resolving disputes.</p>
+                          <p className="text-base text-navy-950/70 font-light leading-relaxed">In the absence of such mediation clauses, we are prepared to actively consider mediation as an early and effective means of resolving disputes.</p>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Good-Faith Engagement</p>
-                          <p className="text-sm text-navy-950/70 font-light leading-relaxed">In matters referred to mediation, we commit to participating in good faith, with appropriate decision-making authority, and with a genuine intention to explore acceptable solutions.</p>
+                          <p className="text-base text-navy-950/70 font-light leading-relaxed">In matters referred to mediation, we commit to participating in good faith, with appropriate decision-making authority, and with a genuine intention to explore acceptable solutions.</p>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Preservation of Rights</p>
-                          <p className="text-sm text-navy-950/70 font-light leading-relaxed text-xs italic">This pledge does not create binding legal obligations or restrict access to other resolution mechanisms.</p>
+                          <p className="text-sm text-navy-950/70 font-light leading-relaxed italic opacity-60">This pledge does not create binding legal obligations or restrict access to other resolution mechanisms.</p>
                         </div>
                      </div>
                    </div>
 
                    {/* Lawyers */}
-                   <div className="p-10 rounded-[2.5rem] bg-navy-950 text-white space-y-8">
-                     <div className="space-y-2">
-                        <Handshake className="w-8 h-8 text-gold-500" />
-                        <h4 className="text-xl font-bold">Lawyers & <br />Law Firms</h4>
+                   <div className="p-8 md:p-12 rounded-[3.5rem] bg-navy-950 text-white space-y-12">
+                     <div className="space-y-3">
+                        <Handshake className="w-10 h-10 text-gold-500" />
+                        <h4 className="text-2xl font-bold">Lawyers & <br />Law Firms</h4>
                      </div>
-                     <div className="space-y-6">
-                        <div className="space-y-2">
+                     <div className="space-y-8">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Contractual Integration</p>
-                          <p className="text-sm text-white/60 font-light leading-relaxed">We are prepared to explore the inclusion of mediation clauses in contracts and agreements that concern our clients.</p>
+                          <p className="text-base text-white/60 font-light leading-relaxed">We are prepared to explore the inclusion of mediation clauses in contracts and agreements that concern our clients.</p>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Non-contractual Preference</p>
-                          <p className="text-sm text-white/60 font-light leading-relaxed">We commit to proactively counselling the client to consider mediation as an early and effective means of resolving disputes.</p>
+                          <p className="text-base text-white/60 font-light leading-relaxed">We commit to proactively counselling the client to consider mediation as an early and effective means of resolving disputes.</p>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Good-Faith Engagement</p>
-                          <p className="text-sm text-white/60 font-light leading-relaxed">We commit to counselling our client in good faith, engaging in appropriate skills with intention to explore solutions.</p>
+                          <p className="text-base text-white/60 font-light leading-relaxed">We commit to counselling our client in good faith, engaging in appropriate skills with intention to explore solutions.</p>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Preservation of Rights</p>
-                          <p className="text-sm text-white/40 font-light leading-relaxed text-xs italic">This pledge reflects an intention to promote mediation and does not create binding legal obligations.</p>
+                          <p className="text-sm text-white/40 font-light leading-relaxed italic">This pledge reflects an intention to promote mediation and does not create binding legal obligations.</p>
                         </div>
                      </div>
                    </div>
 
                    {/* Educational */}
-                   <div className="p-10 rounded-[2.5rem] bg-navy-50 border border-navy-100 space-y-8">
-                     <div className="space-y-2">
-                        <Landmark className="w-8 h-8 text-gold-500" />
-                        <h4 className="text-xl font-bold text-navy-950">Institutes & <br />Universities</h4>
+                   <div className="p-8 md:p-12 rounded-[3.5rem] bg-navy-50 border border-navy-100 space-y-12">
+                     <div className="space-y-3">
+                        <Landmark className="w-10 h-10 text-gold-500" />
+                        <h4 className="text-2xl font-bold text-navy-950">Institutes & <br />Universities</h4>
                      </div>
                      <div className="space-y-8">
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Education Commitment</p>
-                          <p className="text-sm text-navy-950/70 font-light leading-relaxed">Integrating mediation theory, practice, and ethics into curriculum to develop mediation-skilled professionals.</p>
+                          <p className="text-base text-navy-950/70 font-light leading-relaxed">Integrating mediation theory, practice, and ethics into curriculum to develop mediation-skilled professionals.</p>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Experiential Learning</p>
-                          <p className="text-sm text-navy-950/70 font-light leading-relaxed">Promoting hands-on training, simulations, and clinical programmes that build practical competencies.</p>
+                          <p className="text-base text-navy-950/70 font-light leading-relaxed">Promoting hands-on training, simulations, and clinical programmes that build practical competencies.</p>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <p className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">Culture Advancement</p>
-                          <p className="text-sm text-navy-950/70 font-light leading-relaxed">Support research, awareness, and collaboration to strengthen the culture of consensual dispute resolution.</p>
+                          <p className="text-base text-navy-950/70 font-light leading-relaxed">Support research, awareness, and collaboration to strengthen the culture of consensual dispute resolution.</p>
                         </div>
                      </div>
                    </div>
@@ -258,28 +401,60 @@ export function PledgeSection() {
                       ))}
                    </div>
                    
-                   <div className="mt-16 space-y-8 p-8 md:p-12 rounded-[2rem] bg-navy-50/50 border border-navy-100/50">
-                      <div className="flex gap-4">
-                         <div className="w-5 h-5 rounded-sm border border-gold-500 mt-1 shrink-0 bg-white" />
-                         <p className="text-sm text-navy-950/60 font-light leading-relaxed">
-                            We understand that this Pledge creates no legal rights or obligations and does not limit the use of any other dispute resolution options deemed appropriate, including court litigation.
-                         </p>
-                      </div>
-                      <div className="flex gap-4">
-                         <div className="w-5 h-5 rounded-sm border border-gold-500 mt-1 shrink-0 bg-white" />
-                         <p className="text-sm text-navy-950/60 font-light leading-relaxed">
-                            We agree to be listed as a signatory on PACT’s website.
-                         </p>
+                   <div className="mt-20 space-y-12 block">
+                      <div className="space-y-6">
+                        <div className="group flex items-start gap-5 p-8 rounded-[2.5rem] bg-navy-50/50 border border-navy-100 hover:border-gold-500/30 transition-all duration-500">
+                           <div className="mt-1">
+                              <label className="relative flex items-center cursor-pointer">
+                                <input type="checkbox" className="sr-only peer" />
+                                <div className="w-6 h-6 border-2 border-navy-200 rounded-lg group-hover:border-gold-500/50 peer-checked:bg-gold-500 peer-checked:border-gold-500 transition-all flex items-center justify-center">
+                                  <CheckCircle2 className="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity" />
+                                </div>
+                              </label>
+                           </div>
+                           <p className="text-lg text-navy-950/70 font-light leading-relaxed">
+                              We understand that this Pledge <span className="text-navy-950 font-normal underline decoration-gold-500/30 underline-offset-8">creates no legal rights or obligations</span> and does not limit the use of any other dispute resolution options deemed appropriate, including court litigation.
+                           </p>
+                        </div>
+
+                        <div className="group flex items-start gap-5 p-8 rounded-[2.5rem] bg-navy-50/50 border border-navy-100 hover:border-gold-500/30 transition-all duration-500">
+                           <div className="mt-1">
+                              <label className="relative flex items-center cursor-pointer">
+                                <input type="checkbox" className="sr-only peer" />
+                                <div className="w-6 h-6 border-2 border-navy-200 rounded-lg group-hover:border-gold-500/50 peer-checked:bg-gold-500 peer-checked:border-gold-500 transition-all flex items-center justify-center">
+                                  <CheckCircle2 className="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity" />
+                                </div>
+                              </label>
+                           </div>
+                           <p className="text-lg text-navy-950/70 font-light leading-relaxed">
+                              We agree to be listed as a signatory on PACT’s <span className="text-navy-950 font-normal">Official Digital Registry</span>.
+                           </p>
+                        </div>
                       </div>
 
-                      <div className="pt-8 text-center md:text-left">
-                        <button className="inline-flex items-center gap-6 bg-navy-950 text-white px-12 py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:bg-gold-500 transition-all hover:scale-105 active:scale-95 shadow-xl">
-                          Sign the Pledge <Send className="w-4 h-4" />
-                        </button>
-                        <p className="text-[10px] font-mono text-navy-950/40 uppercase tracking-widest mt-8">
-                          Please return form along with the logo of the organisation to <br />
-                          <span className="text-navy-950 font-bold">official@thepact.in</span>
-                        </p>
+                      <div className="flex flex-col md:flex-row items-center justify-between gap-12 py-12 border-t border-navy-100/50">
+                        <div className="space-y-2 text-center md:text-left">
+                          <p className="text-[10px] font-mono text-navy-950/40 uppercase tracking-[0.4em] font-bold">Ready to lead?</p>
+                          <h5 className="text-2xl font-light text-navy-950 uppercase tracking-tight italic">Formalise your <span className="text-gold-500 font-medium">commitment</span></h5>
+                        </div>
+
+                        <div className="flex flex-col items-center md:items-end gap-6 w-full md:w-auto">
+                          <button className="group relative overflow-hidden bg-navy-950 text-white pl-10 pr-6 py-5 rounded-full font-bold uppercase tracking-[0.2em] text-[10px] hover:bg-gold-500 transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_30px_60px_-15px_rgba(10,15,30,0.3)] w-full md:w-auto">
+                            <span className="relative z-10 flex items-center gap-8">
+                              Submit Digital Pledge 
+                              <span className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-navy-950 transition-colors">
+                                <ArrowRight className="w-5 h-5" />
+                              </span>
+                            </span>
+                          </button>
+                          
+                          <div className="flex items-center gap-4 px-6 py-3 rounded-2xl bg-navy-50/80 border border-navy-100/50 backdrop-blur-sm">
+                            <div className="w-2 h-2 rounded-full bg-gold-500 animate-pulse" />
+                            <p className="text-[10px] font-mono text-navy-950/60 uppercase tracking-widest leading-none">
+                              Email logo to: <span className="text-navy-950 font-bold ml-1">official@thepact.in</span>
+                            </p>
+                          </div>
+                        </div>
                       </div>
                    </div>
                 </div>

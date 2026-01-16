@@ -99,24 +99,52 @@ export function Collaborations() {
   return (
     <section id="collaborations" className="bg-white">
       {/* Intro */}
-      <div className="py-24 md:py-32">
+      <div className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-            <FadeInUp>
-              <div className="inline-flex items-center gap-3 mb-6">
-                <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">Collaborations</span>
-              </div>
-              <h2 className="text-4xl md:text-6xl font-light text-navy-950 tracking-tight leading-tight">
-                Principled <br />
-                <span className="text-gold-500 italic font-medium">Partnerships</span>
-              </h2>
-            </FadeInUp>
-            <FadeInUp delay={0.2}>
-              <p className="text-lg md:text-xl text-navy-950/60 font-light leading-relaxed">
-                From day one, every initiative at The PACT has grown out of a principled negotiation and a shared commitment to collaboration. Our alliances reflect years of open-minded conversations, intense brainstorming, and carefully chosen partnerships with people and institutions who believe as we do that mediation deserves a central place in how India resolves conflict.
-              </p>
-            </FadeInUp>
+          <div className="relative p-8 md:p-16 lg:p-20 rounded-[3rem] md:rounded-[4rem] border border-navy-100/50 overflow-hidden bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.03)] group">
+            {/* Decorative Corner Accents */}
+            <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-gold-500/20 rounded-tl-[3rem] md:rounded-tl-[4rem] pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-gold-500/20 rounded-br-[3rem] md:rounded-br-[4rem] pointer-events-none" />
+            
+            {/* Background Glow */}
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-gold-500/5 blur-[100px] rounded-full group-hover:bg-gold-500/10 transition-colors duration-1000" />
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-navy-950/2 blur-[100px] rounded-full" />
+
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+              <FadeInUp>
+                <div className="inline-flex items-center gap-3 mb-6">
+                  <div className="h-px w-8 bg-gold-500" />
+                  <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">Collaborations</span>
+                </div>
+                <h2 className="text-4xl sm:text-5xl md:text-7xl font-extralight text-navy-950 tracking-tighter leading-[1.1] mb-2 uppercase">
+                  Principled
+                </h2>
+                <h2 className="text-4xl sm:text-5xl md:text-7xl font-light text-gold-500 italic tracking-tighter leading-none mb-12">
+                  Partnerships
+                </h2>
+
+                <div className="flex flex-wrap gap-3">
+                  {[
+                    "Global Alliances",
+                    "Institutional Support",
+                    "Practice Networks",
+                    "Academic Tie-ups"
+                  ].map((tag, i) => (
+                    <div key={i} className="px-4 py-2 rounded-full bg-navy-50 border border-navy-100/50 text-[10px] font-mono font-bold uppercase tracking-widest text-navy-950/40">
+                      {tag}
+                    </div>
+                  ))}
+                </div>
+              </FadeInUp>
+              <FadeInUp delay={0.2} className="flex flex-col justify-center">
+                <p className="text-lg md:text-xl text-navy-950/60 font-light leading-relaxed border-l-2 border-navy-50 md:pl-10 relative">
+                  <span className="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-gold-500/30" />
+                  From day one, every initiative at The PACT has grown out of a principled negotiation and a shared commitment to collaboration. 
+                  <br /><br />
+                  Our alliances reflect years of open-minded conversations, intense brainstorming, and carefully chosen partnerships with people and institutions who believe that mediation deserves a central place in how India resolves conflict.
+                </p>
+              </FadeInUp>
+            </div>
           </div>
         </div>
       </div>
@@ -129,17 +157,17 @@ export function Collaborations() {
             <div className="h-1 w-12 bg-gold-500 rounded-full" />
           </FadeInUp>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             { strategicPartners.map((partner, i) => (
               <FadeInUp key={i} delay={i * 0.1}>
-                <div className="group h-full bg-white p-8 md:p-10 rounded-[2.5rem] border border-navy-100 hover:border-gold-500/20 transition-all duration-500 hover:shadow-2xl flex flex-col">
-                  <div className="h-16 w-full relative mb-10 md:grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div className="group h-full bg-white p-6 md:p-8 rounded-[2rem] border border-navy-100 hover:border-gold-500/20 transition-all duration-500 hover:shadow-2xl flex flex-col">
+                  <div className="h-12 w-full relative mb-8 md:grayscale group-hover:grayscale-0 transition-all duration-500">
                      <Image src={partner.logo} alt={partner.name} fill className="object-contain object-left" />
                   </div>
                   <div className="space-y-4 flex-grow">
                     <span className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">{partner.region}</span>
-                    <h4 className="text-2xl font-light text-navy-950 leading-tight group-hover:text-gold-500 transition-colors uppercase tracking-tight">{partner.name}</h4>
-                    <p className="text-base text-navy-950/60 font-light leading-relaxed">{partner.description}</p>
+                    <h4 className="text-xl font-light text-navy-950 leading-tight group-hover:text-gold-500 transition-colors uppercase tracking-tight">{partner.name}</h4>
+                    <p className="text-sm text-navy-950/60 font-light leading-relaxed">{partner.description}</p>
                   </div>
                 </div>
               </FadeInUp>
@@ -258,56 +286,88 @@ export function Collaborations() {
       </div>
 
       {/* Mission Mediation Alliances */}
-      <div className="py-24 md:py-32">
+      <div className="py-24 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="text-center mb-16">
-            <h3 className="text-2xl font-light text-navy-950 mb-4 uppercase tracking-tight">Mission Mediation Alliances</h3>
-            <p className="max-w-3xl mx-auto text-navy-950/60 text-lg font-light leading-relaxed mb-12">
-              We are privileged to collaborate with some of India’s leading law firms, whose support has helped us design and deliver real-world, practice-oriented mediation experiences for students and professionals alike. These firms contribute as mentors, assessors, speakers and trainers across our initiatives.
-            </p>
-            
-            <div className="relative w-full border-y border-navy-50 bg-navy-50/20 py-12 px-12">
-               <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-12">
-                 {mentoringPartners.map((partner, i) => (
-                   <div key={i} className="h-12 w-40 relative group grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-                     <Image 
-                       src={partner.logo} 
-                       alt={partner.name} 
-                       fill 
-                       className="object-contain" 
-                     />
-                     <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-[10px] font-mono uppercase tracking-widest text-navy-950 font-bold">
-                       {partner.name}
-                     </div>
-                   </div>
-                 ))}
-               </div>
-            </div>
+          <div className="text-center mb-16 md:mb-24">
+            <FadeInUp>
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 mb-8">
+                <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
+                <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">Legal Alliances</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-tight">
+                Mission Mediation <br />
+                <span className="italic font-medium text-gold-500">Alliances</span>
+              </h2>
+              <div className="h-px w-24 bg-gold-500/30 mx-auto mb-8" />
+              <p className="max-w-3xl mx-auto text-navy-950/40 text-lg md:text-xl font-light leading-relaxed">
+                We are privileged to collaborate with India’s leading law firms, whose support has helped us design and deliver real-world, practice-oriented mediation experiences for students and professionals alike.
+              </p>
+            </FadeInUp>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+            {mentoringPartners.map((partner, i) => (
+              <FadeInUp key={i} delay={i * 0.05}>
+                <div className="group relative aspect-[3/1.5] bg-white border border-navy-100/50 rounded-2xl flex items-center justify-center p-6 hover:border-gold-500/30 hover:shadow-xl transition-all duration-500">
+                  <div className="relative w-full h-full md:grayscale md:opacity-30 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                    <Image 
+                      src={partner.logo} 
+                      alt={partner.name} 
+                      fill 
+                      className="object-contain" 
+                    />
+                  </div>
+                  {/* Tooltip on hover */}
+                  <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20">
+                    <div className="bg-navy-950 text-white text-[9px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded whitespace-nowrap shadow-xl">
+                      {partner.name}
+                    </div>
+                  </div>
+                </div>
+              </FadeInUp>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Supporting Organisations */}
-      <div className="py-24 border-t border-navy-100 bg-navy-50/30">
+      <div className="py-24 md:py-32 bg-navy-50/30 border-t border-navy-100/50">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="flex flex-col items-center text-center">
-            <h3 className="text-2xl font-light text-navy-950 mb-12 uppercase tracking-tight">Supporting Organisations</h3>
-            <p className="max-w-2xl text-navy-950/50 text-base font-light mb-12 italic leading-relaxed">
-              Our work is also strengthened by alliances with specialised mediation and ADR institutions in India and abroad, who share their expertise, platforms, and networks to deepen the impact of #MissionMediation.
-            </p>
-            <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-12">
-              {supporters.map((s, i) => (
-                s.logo ? (
-                  <div key={i} className="h-16 w-40 relative px-4 md:grayscale md:opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-                    <Image src={s.logo} alt={s.name} fill className="object-contain" />
+          <div className="flex flex-col items-center text-center mb-16 md:mb-24">
+            <FadeInUp>
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white border border-navy-100 mb-8">
+                <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
+                <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">Network Support</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-tight">
+                Supporting <br />
+                <span className="italic font-medium text-gold-500">Organisations</span>
+              </h2>
+              <div className="h-px w-24 bg-gold-500/30 mx-auto mb-8" />
+              <p className="max-w-2xl text-navy-950/50 text-lg md:text-xl font-light italic leading-relaxed">
+                Our work is strengthened by alliances with specialised mediation and ADR institutions in India and abroad, who share their expertise, platforms, and networks to deepen the impact of #MissionMediation.
+              </p>
+            </FadeInUp>
+          </div>
+
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+            {supporters.map((s, i) => (
+              <FadeInUp key={i} delay={i * 0.05}>
+                {s.logo ? (
+                  <div className="group relative w-32 h-16 md:w-48 md:h-24 bg-white/50 backdrop-blur-sm border border-white rounded-2xl flex items-center justify-center p-4 hover:border-gold-500/30 hover:shadow-xl transition-all duration-500 hover:bg-white">
+                    <div className="relative w-full h-full md:grayscale md:opacity-30 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                      <Image src={s.logo} alt={s.name} fill className="object-contain" />
+                    </div>
                   </div>
                 ) : (
-                  <span key={i} className="text-sm md:text-base font-mono uppercase tracking-widest text-navy-950/30 hover:text-gold-500 transition-colors duration-300">
-                    {s.name}
-                  </span>
-                )
-              ))}
-            </div>
+                  <div className="px-6 py-4 rounded-xl border border-navy-100/30 bg-white/30 hover:bg-white hover:border-gold-500/20 hover:shadow-lg transition-all duration-500 group">
+                    <span className="text-xs md:text-sm font-mono uppercase tracking-[0.2em] text-navy-950/30 group-hover:text-gold-500 font-bold transition-colors">
+                      {s.name}
+                    </span>
+                  </div>
+                )}
+              </FadeInUp>
+            ))}
           </div>
         </div>
       </div>
