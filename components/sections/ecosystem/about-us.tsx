@@ -99,11 +99,11 @@ export function AboutUs() {
       </section>
 
       {/* What We Do */}
-      <section className="pt-16 pb-16 sm:pb-24 md:pb-32 bg-white relative overflow-hidden">
+      <section className="pt-8 pb-16 sm:pb-24 md:pb-32 bg-white relative overflow-hidden">
         {/* Dynamic Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-          <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-gold-500/5 blur-[120px] rounded-full" />
-          <div className="absolute bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-navy-950/3 blur-[100px] rounded-full" />
+          <div className="hidden md:block absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-gold-500/5 blur-[120px] rounded-full" />
+          <div className="hidden md:block absolute bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-navy-950/3 blur-[100px] rounded-full" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
@@ -167,8 +167,8 @@ export function AboutUs() {
 
       {/* Our Values - NICER */}
       <section className="py-24 md:py-32 bg-navy-950 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gold-500/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2" />
+        <div className="hidden md:block absolute top-0 right-0 w-[800px] h-[800px] bg-gold-500/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
+        <div className="hidden md:block absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2" />
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
           <FadeInUp className="mb-20 md:mb-32">

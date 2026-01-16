@@ -108,6 +108,8 @@ export function PledgeSection() {
                       alt="Commit to Resolution" 
                       fill
                       className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      priority
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-navy-950/90 via-navy-950/20 to-transparent opacity-80" />
                     
@@ -127,9 +129,10 @@ export function PledgeSection() {
       {/* Why the Pledge - Puzzle Pieces Theme */}
       <div className="py-24 md:py-32 bg-white relative overflow-hidden">
         {/* Dynamic Background Elements */}
+        {/* Dynamic Background Elements - Optimized for mobile */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-          <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-gold-500/5 blur-[120px] rounded-full" />
-          <div className="absolute bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-navy-950/3 blur-[100px] rounded-full" />
+          <div className="hidden md:block absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-gold-500/5 blur-[120px] rounded-full" />
+          <div className="hidden md:block absolute bottom-[-5%] left-[-5%] w-[30%] h-[30%] bg-navy-950/3 blur-[100px] rounded-full" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
@@ -203,7 +206,8 @@ export function PledgeSection() {
       {/* Objectives / Note */}
       <div className="py-24 md:py-32 relative overflow-hidden">
         {/* Subtle background detail */}
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-navy-50/50 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        {/* Subtle background detail - Optimized for mobile */}
+        <div className="hidden md:block absolute top-1/2 left-0 w-[500px] h-[500px] bg-navy-50/50 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
@@ -241,10 +245,10 @@ export function PledgeSection() {
               <FadeInUp delay={0.2} className="relative lg:mt-48">
                  <div className="relative p-10 md:p-14 rounded-[4rem] bg-navy-950 text-white overflow-hidden group shadow-2xl">
                     {/* Decorative Elements */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 blur-3xl md:blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2" />
                     <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 blur-2xl rounded-full -translate-x-1/2 translate-y-1/2" />
                     
-                    <div className="absolute top-14 right-14">
+                    <div className="hidden md:block absolute top-14 right-14">
                        <Info className="w-14 h-14 text-gold-500/20 group-hover:text-gold-500/40 transition-all duration-700" />
                     </div>
 
@@ -298,7 +302,7 @@ export function PledgeSection() {
                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,#bf9a66,transparent_70%)]" />
                  
                  {/* Decorative background pulse */}
-                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-gold-500/5 rounded-full blur-[80px] group-hover:bg-gold-500/10 transition-colors duration-700" />
+                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-gold-500/5 rounded-full blur-3xl md:blur-[80px] group-hover:bg-gold-500/10 transition-colors duration-700" />
 
                  <div className="relative z-10 max-w-3xl mx-auto space-y-10">
                     <div className="w-24 h-24 mx-auto bg-navy-50 rounded-3xl flex items-center justify-center border border-navy-100 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-lg">

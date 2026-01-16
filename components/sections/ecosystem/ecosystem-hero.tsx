@@ -22,8 +22,8 @@ export function EcosystemHero() {
         <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-transparent to-transparent z-10" />
         
         {/* Ambient Glows for depth */}
-        <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-gold-500/5 blur-[120px] rounded-full z-0" />
-        <div className="absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-navy-900/20 blur-[100px] rounded-full z-0" />
+        <div className="hidden md:block absolute top-1/4 -right-20 w-[600px] h-[600px] bg-gold-500/5 blur-[120px] rounded-full z-0" />
+        <div className="hidden md:block absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-navy-900/20 blur-[100px] rounded-full z-0" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full">

@@ -11,7 +11,7 @@ const strategicPartners = [
     name: "IMI – International Mediation Institute",
     region: "Europe / International",
     description: "PACT is recognised for its Quality Assessment Programme (QAP) for Mediation Advocacy Accreditation by the IMI. By partnering with IMI, PACT is committed to capacity-building and upskilling of mediation lawyers in India.",
-    logo: "/partners/imi.jpg"
+    logo: "/partners/imi.jpg" // Ensure these images are optimized
   },
   {
     name: "Mediate.com",
@@ -99,16 +99,16 @@ export function Collaborations() {
   return (
     <section id="collaborations" className="bg-white">
       {/* Intro */}
-      <div className="py-16 md:py-24">
+      <div className="pt-8 pb-16 md:py-24">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <div className="relative p-8 md:p-16 lg:p-20 rounded-[3rem] md:rounded-[4rem] border border-navy-100/50 overflow-hidden bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.03)] group">
             {/* Decorative Corner Accents */}
             <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-gold-500/20 rounded-tl-[3rem] md:rounded-tl-[4rem] pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-gold-500/20 rounded-br-[3rem] md:rounded-br-[4rem] pointer-events-none" />
             
-            {/* Background Glow */}
-            <div className="absolute -top-24 -right-24 w-96 h-96 bg-gold-500/5 blur-[100px] rounded-full group-hover:bg-gold-500/10 transition-colors duration-1000" />
-            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-navy-950/2 blur-[100px] rounded-full" />
+            {/* Background Glow - Optimized for mobile */}
+            <div className="hidden md:block absolute -top-24 -right-24 w-96 h-96 bg-gold-500/5 blur-[100px] rounded-full group-hover:bg-gold-500/10 transition-colors duration-1000" />
+            <div className="hidden md:block absolute -bottom-24 -left-24 w-96 h-96 bg-navy-950/2 blur-[100px] rounded-full" />
 
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
               <FadeInUp>
@@ -150,7 +150,7 @@ export function Collaborations() {
       </div>
 
       {/* Strategic Partners */}
-      <div className="py-24 bg-navy-50/50 relative overflow-hidden">
+      <div className="pt-8 pb-24 md:py-24 bg-navy-50/50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <FadeInUp className="mb-16">
             <h3 className="text-3xl md:text-5xl font-light text-navy-950 tracking-tight mb-4">Strategic Partnerships</h3>
@@ -162,7 +162,13 @@ export function Collaborations() {
               <FadeInUp key={i} delay={i * 0.1}>
                 <div className="group h-full bg-white p-6 md:p-8 rounded-[2rem] border border-navy-100 hover:border-gold-500/20 transition-all duration-500 hover:shadow-2xl flex flex-col">
                   <div className="h-12 w-full relative mb-8 md:grayscale group-hover:grayscale-0 transition-all duration-500">
-                     <Image src={partner.logo} alt={partner.name} fill className="object-contain object-left" />
+                     <Image 
+                       src={partner.logo} 
+                       alt={partner.name} 
+                       fill 
+                       className="object-contain object-left"
+                       sizes="(max-width: 768px) 50vw, 25vw"
+                     />
                   </div>
                   <div className="space-y-4 flex-grow">
                     <span className="text-[10px] font-mono text-gold-500 uppercase tracking-widest font-bold">{partner.region}</span>
@@ -178,7 +184,7 @@ export function Collaborations() {
 
       {/* Why Alliances Matter */}
       <div className="py-24 md:py-32 bg-navy-950 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 blur-[100px] rounded-full" />
+        <div className="hidden md:block absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 blur-[100px] rounded-full" />
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-16 lg:gap-32 items-center">
              <FadeInUp>
@@ -222,7 +228,7 @@ export function Collaborations() {
         </div>
       </div>
 
-      <div className="py-24 md:py-32 overflow-hidden">
+      <div className="pt-24 pb-8 md:pt-32 md:pb-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <FadeInUp className="mb-16">
             <h3 className="text-3xl md:text-5xl font-light text-navy-950 tracking-tight mb-4">Collaborators-in-Practice</h3>
@@ -233,7 +239,13 @@ export function Collaborations() {
             { practiceCollaborators.map((pc, i) => (
               <FadeInUp key={i} delay={i * 0.1} className="flex flex-col items-center text-center group">
                 <div className="w-24 h-24 relative mb-6 md:grayscale group-hover:grayscale-0 transition-all duration-500 flex items-center justify-center">
-                   <Image src={pc.logo} alt={pc.name} fill className="object-contain" />
+                   <Image 
+                     src={pc.logo} 
+                     alt={pc.name} 
+                     fill 
+                     className="object-contain" 
+                     sizes="(max-width: 768px) 33vw, 15vw"
+                   />
                 </div>
                 <h4 className="text-xl font-bold text-navy-950 mb-3 uppercase tracking-tight">{pc.name}</h4>
                 <p className="text-base text-navy-950/40 font-light leading-relaxed px-4">{pc.description}</p>
@@ -244,7 +256,7 @@ export function Collaborations() {
       </div>
 
       {/* Academic Associations */}
-      <div className="py-24 bg-navy-50/50 overflow-hidden">
+      <div className="pt-8 pb-24 md:pt-20 md:pb-32 bg-navy-50/50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
            <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16 lg:gap-32 items-center">
              <FadeInUp>
@@ -285,7 +297,7 @@ export function Collaborations() {
       </div>
 
       {/* Mission Mediation Alliances */}
-      <div className="py-24 md:py-32 bg-white overflow-hidden">
+      <div className="pt-8 pb-24 md:pt-20 md:pb-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <div className="text-center mb-16 md:mb-24">
             <FadeInUp>
@@ -314,6 +326,7 @@ export function Collaborations() {
                       alt={partner.name} 
                       fill 
                       className="object-contain" 
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                     />
                   </div>
                   {/* Tooltip on hover */}
@@ -355,7 +368,13 @@ export function Collaborations() {
                 {s.logo ? (
                   <div className="group relative w-32 h-16 md:w-48 md:h-24 bg-white/50 backdrop-blur-sm border border-white rounded-2xl flex items-center justify-center p-4 hover:border-gold-500/30 hover:shadow-xl transition-all duration-500 hover:bg-white">
                     <div className="relative w-full h-full md:grayscale md:opacity-30 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
-                      <Image src={s.logo} alt={s.name} fill className="object-contain" />
+                      <Image 
+                        src={s.logo} 
+                        alt={s.name} 
+                        fill 
+                        className="object-contain" 
+                        sizes="(max-width: 768px) 33vw, 16vw"
+                      />
                     </div>
                   </div>
                 ) : (
