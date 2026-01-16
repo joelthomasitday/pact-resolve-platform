@@ -10,14 +10,20 @@ export function EcosystemHero() {
     <section className="relative min-h-[70vh] flex items-center pt-24 pb-16 md:pt-32 md:pb-20 bg-navy-950 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/Web Pic 5.png" // Using the timeline image as a subtle background element
+          src="/images/ecosystem-bg.png"
           alt="Ecosystem background"
           fill
-          className="object-cover opacity-20 scale-110 blur-sm"
+          className="object-cover opacity-30 scale-105"
           priority
         />
-        <div className="absolute inset-0 bg-linear-to-b from-navy-950/60 via-navy-950/90 to-navy-950" />
-        <div className="absolute inset-0 bg-linear-to-r from-navy-950 via-transparent to-transparent opacity-80" />
+        {/* Advanced Gradient Overlays */}
+        <div className="absolute inset-0 bg-navy-950/60 z-10" />
+        <div className="absolute inset-0 bg-linear-to-r from-navy-950 via-navy-950/40 to-transparent z-10" />
+        <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-transparent to-transparent z-10" />
+        
+        {/* Ambient Glows for depth */}
+        <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-gold-500/5 blur-[120px] rounded-full z-0" />
+        <div className="absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-navy-900/20 blur-[100px] rounded-full z-0" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full">
