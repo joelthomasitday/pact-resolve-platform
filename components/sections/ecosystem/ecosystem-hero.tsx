@@ -45,17 +45,17 @@ export function EcosystemHero() {
                 A collaborative environment connecting ADR professionals, institutions, and enterprises across the globe.
               </p>
               <div className="h-px w-full bg-white/10" />
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <a 
                   href="#pledge"
-                  className="rounded-full bg-gold-500 px-8 py-4 font-sans text-sm font-semibold tracking-wide text-navy-950 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:brightness-110 active:scale-95 flex items-center gap-2"
+                  className="w-full sm:w-auto justify-center rounded-full bg-gold-500 px-8 py-4 font-sans text-sm font-semibold tracking-wide text-navy-950 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:brightness-110 active:scale-95 flex items-center gap-2"
                 >
                   The PACT Pledge
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <a 
                   href="#collaborations"
-                  className="rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-8 py-4 font-sans text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:bg-white/10 flex items-center gap-2"
+                  className="w-full sm:w-auto justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-8 py-4 font-sans text-sm font-semibold tracking-wide text-white transition-all duration-300 hover:bg-white/10 flex items-center gap-2"
                 >
                   Join the Network
                   <Network className="w-4 h-4" />
