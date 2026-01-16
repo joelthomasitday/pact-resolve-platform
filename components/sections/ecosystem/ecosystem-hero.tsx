@@ -35,7 +35,7 @@ export function EcosystemHero() {
             </span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl lg:text-[8rem] font-bold text-white tracking-tighter leading-[0.9] mb-8 md:mb-12 italic uppercase">
+          <h1 className="text-[14vw] sm:text-7xl lg:text-[8rem] font-bold text-white tracking-tighter leading-[0.9] mb-8 md:mb-12 italic uppercase">
             ECOSYSTEM
           </h1>
 

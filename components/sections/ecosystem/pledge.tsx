@@ -68,7 +68,7 @@ export function PledgeSection() {
   return (
     <section id="pledge" className="bg-white overflow-hidden pb-32">
       {/* Hero / Intro */}
-      <div className="py-24 md:py-32 bg-navy-950 text-white relative">
+      <div className="py-24 md:py-32 bg-navy-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(191,154,102,0.1),transparent_60%)]" />
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-16 items-center">
@@ -77,7 +77,7 @@ export function PledgeSection() {
                 <div className="h-px w-8 bg-gold-500" />
                 <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">The PACT Pledge</span>
               </div>
-              <h2 className="text-4xl md:text-7xl font-light tracking-tight mb-8">Commit to <br /><span className="text-gold-500 italic font-medium">Resolution</span></h2>
+              <h2 className="text-[12vw] md:text-7xl font-light tracking-tight mb-8">Commit to <br /><span className="text-gold-500 italic font-medium">Resolution</span></h2>
               <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed mb-10">
                 By voluntarily undertaking this pledge, organisations publicly affirm their commitment to fostering a culture of early, good-faith dispute resolution and responsible conflict management. Without binding signatories to mediate by obligation, the PACT Mediation Pledge serves as a steady reminder to consider mediation as a go-to process to resolve disputes via innovation and interest-based interactions.
               </p>
@@ -123,7 +123,7 @@ export function PledgeSection() {
                  <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
                  <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">The Strategic Edge</span>
                </div>
-               <h3 className="text-4xl sm:text-5xl md:text-7xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-none">
+               <h3 className="text-[12vw] sm:text-5xl md:text-7xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-none">
                  Why The <br />
                  <span className="italic font-medium text-gold-500 lowercase">Pledge</span>
                </h3>
@@ -196,7 +196,7 @@ export function PledgeSection() {
                    <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
                    <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">The Core Mission</span>
                  </div>
-                 <h3 className="text-4xl md:text-6xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-none">
+                 <h3 className="text-[12vw] md:text-6xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-none">
                    Primary <br />
                    <span className="italic font-medium text-gold-500 lowercase">Objectives</span>
                  </h3>
@@ -273,7 +273,7 @@ export function PledgeSection() {
              <div className="bg-navy-950 py-12 px-8 md:px-16 text-center text-white relative">
                 <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,#bf9a66,transparent_70%)]" />
                 <FileText className="w-12 h-12 text-gold-500 mx-auto mb-6 relative z-10" />
-                <h3 className="text-3xl md:text-5xl font-light tracking-tight relative z-10 uppercase">The PACT Mediation <br /><span className="text-gold-500 italic font-medium lowercase">Pledge</span></h3>
+                <h3 className="text-[8vw] md:text-5xl font-light tracking-tight relative z-10 uppercase">The PACT Mediation <br /><span className="text-gold-500 italic font-medium lowercase">Pledge</span></h3>
              </div>
 
               <div className="px-6 md:px-10 lg:px-12 pb-20 space-y-20">
@@ -299,7 +299,7 @@ export function PledgeSection() {
                   <div className="pt-6 text-center">
                     <div className="inline-flex flex-col items-center gap-4">
                       <div className="text-[10px] font-mono uppercase tracking-[0.4em] text-gold-500 font-bold">The Commitment</div>
-                      <h4 className="text-2xl md:text-3xl font-light uppercase tracking-tight text-navy-950 italic">Accordingly, we <span className="text-gold-500 font-medium lowercase">affirm</span> that:</h4>
+                      <h4 className="text-xl md:text-3xl font-light uppercase tracking-tight text-navy-950 italic">Accordingly, we <span className="text-gold-500 font-medium lowercase">affirm</span> that:</h4>
                       <div className="h-px w-24 bg-gold-500/30" />
                     </div>
                   </div>

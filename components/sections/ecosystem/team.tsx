@@ -47,14 +47,14 @@ const teamData = {
 
 export function TeamSection() {
   return (
-    <section id="team" className="py-24 md:py-32 bg-white">
+    <section id="team" className="py-24 md:py-32 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
         <FadeInUp className="text-center mb-20 md:mb-32">
           <div className="inline-flex items-center gap-3 mb-4">
              <div className="h-px w-8 bg-gold-500" />
              <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">The Team</span>
           </div>
-          <h2 className="text-4xl md:text-7xl font-light text-navy-950 tracking-tight mb-8">Nurturing <span className="text-gold-500 italic font-medium">Innovation</span></h2>
+          <h2 className="text-[12vw] md:text-7xl font-light text-navy-950 tracking-tight mb-8">Nurturing <span className="text-gold-500 italic font-medium">Innovation</span></h2>
           <p className="max-w-2xl mx-auto text-lg text-navy-950/60 font-light">
             PACT prides itself on nurturing a cohesive, fearless and innovative working atmosphere that allows a dedicated cohort of individuals to learn, grow and serve the profession of Mediation.
           </p>
@@ -94,7 +94,7 @@ export function TeamSection() {
                         <span className="text-gold-500 font-mono text-[10px] uppercase tracking-[0.3em] font-bold">{partner.role}</span>
                         <div className="h-px w-8 bg-gold-500/20" />
                       </div>
-                      <h4 className="text-4xl md:text-6xl font-light text-navy-950 tracking-tighter leading-none uppercase">
+                      <h4 className="text-[10vw] md:text-6xl font-light text-navy-950 tracking-tighter leading-none uppercase">
                         {partner.name.split(' ')[0]} <br className="hidden md:block" />
                         <span className="text-gold-500 italic font-medium">{partner.name.split(' ').slice(1).join(' ')}</span>
                       </h4>

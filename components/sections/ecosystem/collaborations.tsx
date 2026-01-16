@@ -116,10 +116,10 @@ export function Collaborations() {
                   <div className="h-px w-8 bg-gold-500" />
                   <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">Collaborations</span>
                 </div>
-                <h2 className="text-4xl sm:text-5xl md:text-7xl font-extralight text-navy-950 tracking-tighter leading-[1.1] mb-2 uppercase">
+                <h2 className="text-[12vw] sm:text-5xl md:text-7xl font-extralight text-navy-950 tracking-tighter leading-[1.1] mb-2 uppercase">
                   Principled
                 </h2>
-                <h2 className="text-4xl sm:text-5xl md:text-7xl font-light text-gold-500 italic tracking-tighter leading-none mb-12">
+                <h2 className="text-[12vw] sm:text-5xl md:text-7xl font-light text-gold-500 italic tracking-tighter leading-none mb-12">
                   Partnerships
                 </h2>
 
@@ -222,8 +222,7 @@ export function Collaborations() {
         </div>
       </div>
 
-      {/* Collaborators-in-Practice */}
-      <div className="py-24 md:py-32">
+      <div className="py-24 md:py-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <FadeInUp className="mb-16">
             <h3 className="text-3xl md:text-5xl font-light text-navy-950 tracking-tight mb-4">Collaborators-in-Practice</h3>
@@ -245,7 +244,7 @@ export function Collaborations() {
       </div>
 
       {/* Academic Associations */}
-      <div className="py-24 bg-navy-50/50">
+      <div className="py-24 bg-navy-50/50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
            <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16 lg:gap-32 items-center">
              <FadeInUp>
@@ -286,7 +285,7 @@ export function Collaborations() {
       </div>
 
       {/* Mission Mediation Alliances */}
-      <div className="py-24 md:py-32 bg-white">
+      <div className="py-24 md:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <div className="text-center mb-16 md:mb-24">
             <FadeInUp>
@@ -308,7 +307,7 @@ export function Collaborations() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
             {mentoringPartners.map((partner, i) => (
               <FadeInUp key={i} delay={i * 0.05}>
-                <div className="group relative aspect-[3/1.5] bg-white border border-navy-100/50 rounded-2xl flex items-center justify-center p-6 hover:border-gold-500/30 hover:shadow-xl transition-all duration-500">
+                <div className="group relative aspect-[3/1.5] bg-white border border-navy-100/50 rounded-2xl flex items-center justify-center p-4 md:p-6 hover:border-gold-500/30 hover:shadow-xl transition-all duration-500">
                   <div className="relative w-full h-full md:grayscale md:opacity-30 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
                     <Image 
                       src={partner.logo} 
@@ -331,7 +330,7 @@ export function Collaborations() {
       </div>
 
       {/* Supporting Organisations */}
-      <div className="py-24 md:py-32 bg-navy-50/30 border-t border-navy-100/50">
+      <div className="py-24 md:py-32 bg-navy-50/30 border-t border-navy-100/50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <div className="flex flex-col items-center text-center mb-16 md:mb-24">
             <FadeInUp>

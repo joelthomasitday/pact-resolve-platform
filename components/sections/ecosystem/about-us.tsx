@@ -64,14 +64,14 @@ export function AboutUs() {
   return (
     <div className="bg-white">
       {/* Who We Are */}
-      <section className="pt-24 pb-0 md:pt-32 md:pb-0 bg-white overflow-hidden">
+      <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <FadeInUp className="mb-12 md:mb-16">
             <div className="inline-flex items-center gap-4 mb-4 opacity-70">
               <span className="text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950">Who We Are</span>
               <div className="h-px w-8 bg-gold-500" />
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tighter leading-[1.1] text-navy-950 mb-8">
+            <h2 className="text-[10vw] sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tighter leading-[1.1] text-navy-950 mb-8">
               Transforming the <br />
               <span className="text-gold-500 italic font-medium">culture of dialogue</span>
             </h2>
@@ -166,7 +166,7 @@ export function AboutUs() {
       </section>
 
       {/* Our Values - NICER */}
-      <section className="py-24 md:py-40 bg-navy-950 relative overflow-hidden">
+      <section className="py-24 md:py-32 bg-navy-950 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gold-500/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2" />
 
@@ -174,7 +174,7 @@ export function AboutUs() {
           <FadeInUp className="mb-20 md:mb-32">
             <div className="flex flex-col items-center text-center">
               <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase mb-4 block">Our Values</span>
-              <h2 className="text-5xl md:text-8xl font-light text-white tracking-tighter mb-8 leading-none italic uppercase">
+              <h2 className="text-[12vw] md:text-8xl font-light text-white tracking-tighter mb-8 leading-none italic uppercase">
                 Just Be <span className="font-bold text-gold-500">NICER!</span>
               </h2>
               <p className="max-w-2xl text-white/50 text-lg md:text-xl font-light">
@@ -213,8 +213,8 @@ export function AboutUs() {
         </div>
       </section>
 
-      {/* Accolades and Awards */}
-      <section className="py-24 md:py-32">
+       {/* Accolades and Awards */}
+      <section className="py-24 md:py-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <FadeInUp className="text-center mb-16">
             <div className="inline-flex items-center gap-3 mb-4">
