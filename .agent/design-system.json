@@ -1,0 +1,515 @@
+{
+  "designSystem": {
+    "name": "PACT Mediation Design System",
+    "version": "1.0.0",
+    "description": "A premium, corporate-legal design system for professional mediation platforms. Features elegant typography, restrained color palettes, and sophisticated UI patterns."
+  },
+
+  "colors": {
+    "brand": {
+      "primary": {
+        "navy-950": "#0a192f",
+        "navy-900": "#1e3a5f",
+        "navy-50": "oklch(0.95 0 0)",
+        "description": "Deep navy blue - represents trust, stability, and professionalism"
+      },
+      "accent": {
+        "gold-500": "#bf9a66",
+        "description": "Warm gold - represents premium quality, success, and distinction"
+      }
+    },
+    "semantic": {
+      "background": {
+        "light": "oklch(0.98 0 0)",
+        "dark": "oklch(0.15 0 0)",
+        "card": "oklch(0.95 0 0)"
+      },
+      "foreground": {
+        "default": "oklch(0.15 0 0)",
+        "muted": "oklch(0.4 0 0)",
+        "inverse": "oklch(0.98 0 0)"
+      },
+      "border": {
+        "default": "oklch(0.9 0 0)",
+        "subtle": "rgba(255,255,255,0.1)",
+        "input": "oklch(0.92 0 0)"
+      },
+      "destructive": "oklch(0.577 0.245 27.325)"
+    },
+    "chart": {
+      "chart-1": "oklch(0.24 0.09 255)",
+      "chart-2": "#bf9a66",
+      "chart-3": "oklch(0.6 0.15 280)",
+      "chart-4": "oklch(0.7 0.2 30)",
+      "chart-5": "oklch(0.55 0.18 200)"
+    },
+    "opacity": {
+      "text-secondary": "0.7",
+      "text-tertiary": "0.5",
+      "text-muted": "0.4",
+      "bg-overlay": "0.6",
+      "bg-subtle": "0.05",
+      "border-default": "0.1",
+      "border-hover": "0.2"
+    }
+  },
+
+  "typography": {
+    "fonts": {
+      "sans": "'Geist', 'Geist Fallback', system-ui, sans-serif",
+      "mono": "'Geist Mono', 'Geist Mono Fallback', monospace"
+    },
+    "scale": {
+      "hero": {
+        "desktop": "8rem",
+        "tablet": "7rem",
+        "mobile": "4rem",
+        "lineHeight": "0.8-0.9",
+        "fontWeight": "700-800",
+        "letterSpacing": "tight/tighter",
+        "textTransform": "uppercase (optional)"
+      },
+      "h1": {
+        "desktop": "7xl-8xl (5rem-6rem)",
+        "tablet": "5xl-6xl",
+        "mobile": "3xl-4xl",
+        "fontWeight": "300-400 (light)",
+        "lineHeight": "1.1",
+        "letterSpacing": "tight"
+      },
+      "h2": {
+        "desktop": "5xl-7xl (3rem-4.5rem)",
+        "tablet": "4xl-5xl",
+        "mobile": "3xl",
+        "fontWeight": "300 (light/extralight)",
+        "lineHeight": "0.95-1.1",
+        "letterSpacing": "tight/tighter"
+      },
+      "h3": {
+        "desktop": "2xl-3xl (1.5rem-1.875rem)",
+        "tablet": "xl-2xl",
+        "mobile": "xl",
+        "fontWeight": "300-400",
+        "lineHeight": "1.2",
+        "letterSpacing": "tight"
+      },
+      "body-large": {
+        "size": "xl-2xl (1.125rem-1.5rem)",
+        "fontWeight": "300",
+        "lineHeight": "relaxed (1.625)",
+        "color": "foreground/60-70"
+      },
+      "body": {
+        "size": "base-lg (1rem-1.125rem)",
+        "fontWeight": "300-400",
+        "lineHeight": "relaxed (1.625)"
+      },
+      "caption": {
+        "size": "xs-sm (0.75rem-0.875rem)",
+        "fontWeight": "500-700",
+        "letterSpacing": "0.2em-0.4em",
+        "textTransform": "uppercase",
+        "fontFamily": "mono"
+      },
+      "label": {
+        "size": "10px-12px",
+        "fontWeight": "700 (bold)",
+        "letterSpacing": "0.3em-0.5em",
+        "textTransform": "uppercase",
+        "fontFamily": "mono"
+      }
+    },
+    "patterns": {
+      "section-subtitle": {
+        "element": "span",
+        "classes": "text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase text-foreground/40",
+        "usage": "Above section titles, paired with divider line"
+      },
+      "section-title": {
+        "element": "h2",
+        "classes": "text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-tight leading-[1.1]",
+        "usage": "Main section headings"
+      },
+      "accent-text": {
+        "classes": "italic font-medium text-gold-500",
+        "usage": "Emphasizing key words in headings"
+      },
+      "quote-style": {
+        "classes": "italic font-light border-l-4 border-gold-500/50 pl-6 md:pl-10",
+        "usage": "Blockquotes and testimonials"
+      }
+    }
+  },
+
+  "spacing": {
+    "base": "0.25rem (4px)",
+    "scale": {
+      "0": "0",
+      "1": "0.25rem",
+      "2": "0.5rem",
+      "3": "0.75rem",
+      "4": "1rem",
+      "5": "1.25rem",
+      "6": "1.5rem",
+      "8": "2rem",
+      "10": "2.5rem",
+      "12": "3rem",
+      "16": "4rem",
+      "20": "5rem",
+      "24": "6rem",
+      "32": "8rem"
+    },
+    "sections": {
+      "vertical-compact": "py-16 md:py-24",
+      "vertical-default": "py-16 sm:py-20 md:py-32",
+      "vertical-large": "py-20 md:py-32 lg:py-40",
+      "horizontal-container": "px-4 sm:px-6 md:px-12 lg:px-24"
+    },
+    "components": {
+      "card-padding": "p-6 sm:p-8 md:p-12",
+      "button-padding": "px-6 py-2.5 (default) | px-8 py-3.5 (lg) | px-10 py-4 (xl)",
+      "gap-default": "gap-4 md:gap-6",
+      "gap-large": "gap-8 md:gap-12",
+      "margin-section-title": "mb-8 md:mb-16"
+    }
+  },
+
+  "layout": {
+    "containers": {
+      "max-width": "max-w-7xl (80rem/1280px)",
+      "centered": "mx-auto",
+      "full-bleed": "w-full",
+      "content-width": "max-w-5xl mx-auto",
+      "narrow": "max-w-3xl mx-auto",
+      "extra-narrow": "max-w-2xl mx-auto"
+    },
+    "grids": {
+      "2-col": "grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12",
+      "3-col": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8",
+      "4-col": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8",
+      "asymmetric": "grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-20",
+      "content-sidebar": "grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-16"
+    },
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px"
+    },
+    "navbar": {
+      "height-mobile": "72px",
+      "height-tablet": "80px",
+      "height-desktop": "88px",
+      "position": "fixed top-0 left-0 right-0 z-50"
+    }
+  },
+
+  "components": {
+    "buttons": {
+      "primary": {
+        "classes": "rounded-full bg-gold-500 px-8 py-3.5 font-sans text-sm font-medium tracking-wide text-navy-950 shadow-lg transition-all duration-400 hover:scale-[1.02] hover:brightness-110 active:scale-95",
+        "description": "Primary CTA button with gold background"
+      },
+      "secondary": {
+        "classes": "rounded-full border-2 border-navy-950/10 text-navy-950 px-8 py-4 font-bold uppercase tracking-widest text-xs hover:bg-navy-950 hover:text-white transition-all",
+        "description": "Outlined button for secondary actions"
+      },
+      "dark": {
+        "classes": "rounded-full bg-navy-950 text-white px-8 py-5 font-bold uppercase tracking-widest text-xs shadow-xl hover:bg-gold-500 hover:text-navy-950 transition-all",
+        "description": "Dark button for light sections"
+      },
+      "ghost": {
+        "classes": "bg-transparent text-foreground hover:bg-foreground/5 backdrop-blur-sm rounded-full px-6 py-2.5",
+        "description": "Minimal button without background"
+      },
+      "icon": {
+        "classes": "w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center transition-all",
+        "description": "Circular icon button"
+      },
+      "sizes": {
+        "sm": "h-8 px-3 text-xs",
+        "default": "h-9 px-4 py-2 text-sm",
+        "lg": "h-10 px-6",
+        "xl": "px-10 py-4 text-base"
+      }
+    },
+    "cards": {
+      "default": {
+        "classes": "bg-card text-card-foreground rounded-xl border py-6 shadow-sm",
+        "padding": "px-6"
+      },
+      "feature": {
+        "classes": "bg-navy-50/20 border border-navy-100/30 hover:bg-white hover:border-gold-500/20 rounded-[2rem] md:rounded-[2.5rem] p-6 sm:p-8 md:p-12 transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)]",
+        "description": "Large feature cards with hover effects"
+      },
+      "dark": {
+        "classes": "bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 hover:bg-white/10 transition-all",
+        "description": "Cards for dark backgrounds"
+      },
+      "profile": {
+        "classes": "rounded-[2rem] md:rounded-[2.5rem] bg-navy-50/50 border border-navy-100/50 overflow-hidden",
+        "description": "Person/profile cards with image"
+      }
+    },
+    "badges": {
+      "default": {
+        "classes": "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 text-[10px] font-mono tracking-[0.4em] uppercase",
+        "description": "Section indicator badges"
+      },
+      "dark": {
+        "classes": "px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gold-500 text-[10px] font-mono tracking-widest uppercase",
+        "description": "Badges for dark backgrounds"
+      },
+      "pill": {
+        "classes": "px-4 md:px-6 py-2 rounded-full bg-navy-50 text-[10px] font-mono text-navy-950/40 uppercase tracking-widest",
+        "description": "Simple pill tags"
+      }
+    },
+    "dividers": {
+      "horizontal": "h-px w-full bg-border",
+      "accent": "h-px w-24 bg-gold-500/30",
+      "expanding": "h-px w-10 bg-navy-100 group-hover:w-16 group-hover:bg-gold-500 transition-all duration-700",
+      "vertical": "w-px h-full bg-border"
+    },
+    "inputs": {
+      "default": "bg-white/5 border border-white/20 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-gold-500 transition-colors",
+      "newsletter": "grow bg-white/5 border border-white/20 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-gold-500"
+    },
+    "modals": {
+      "overlay": "fixed inset-0 z-50 bg-black/80 backdrop-blur-sm",
+      "container": "fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6",
+      "content": "bg-white rounded-[2rem] md:rounded-[2.5rem] max-w-4xl w-full max-h-[85vh] overflow-y-auto"
+    }
+  },
+
+  "effects": {
+    "shadows": {
+      "sm": "shadow-sm",
+      "default": "shadow-md",
+      "lg": "shadow-lg",
+      "xl": "shadow-xl",
+      "2xl": "shadow-2xl",
+      "card-hover": "shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)]",
+      "glow-gold": "shadow-[0_0_30px_-5px_rgba(191,154,102,0.3)]",
+      "glow-white": "shadow-[0_0_40px_-5px_rgba(255,255,255,0.3)]"
+    },
+    "blur": {
+      "sm": "blur-sm",
+      "md": "blur",
+      "lg": "blur-lg",
+      "xl": "blur-xl",
+      "background": "blur-[100px]",
+      "background-lg": "blur-[120px]",
+      "backdrop": "backdrop-blur-sm",
+      "backdrop-md": "backdrop-blur-md",
+      "backdrop-xl": "backdrop-blur-xl"
+    },
+    "gradients": {
+      "navy-to-transparent": "bg-linear-to-r from-navy-950 via-navy-950/80 to-transparent",
+      "bottom-fade": "bg-linear-to-t from-navy-950 via-transparent to-transparent",
+      "top-fade": "bg-linear-to-b from-background to-transparent",
+      "radial-glow": "bg-[radial-gradient(circle_at_30%_50%,rgba(191,154,102,0.08),transparent_60%)]"
+    },
+    "decorative": {
+      "glow-orb": "absolute w-[500px] h-[500px] bg-gold-500/5 blur-[120px] rounded-full pointer-events-none",
+      "grain-overlay": "opacity-[0.03] pointer-events-none mix-blend-overlay",
+      "border-glow": "absolute -inset-1 bg-linear-to-r from-gold-500/20 via-blue-500/20 to-gold-500/20 rounded-3xl blur opacity-20"
+    }
+  },
+
+  "animations": {
+    "transitions": {
+      "fast": "transition-all duration-200",
+      "default": "transition-all duration-300",
+      "medium": "transition-all duration-500",
+      "slow": "transition-all duration-700",
+      "luxury": "transition-all duration-1000"
+    },
+    "easing": {
+      "default": "ease-out",
+      "luxury": "[0.22, 1, 0.36, 1]",
+      "spring": "cubic-bezier(0.22,1,0.36,1)"
+    },
+    "hover": {
+      "lift": "hover:y-[-8px]",
+      "scale-subtle": "hover:scale-[1.02]",
+      "scale": "hover:scale-105",
+      "scale-down": "active:scale-95",
+      "brightness": "hover:brightness-110",
+      "rotate": "group-hover:rotate-12"
+    },
+    "keyframes": {
+      "mouse-scroll": "translateY(0) → translateY(12px), opacity 1 → 0",
+      "float": "translateY(0) → translateY(-12px) → translateY(0)",
+      "pulse": "built-in tailwind animate-pulse"
+    },
+    "framer-patterns": {
+      "fade-in-up": {
+        "initial": "{ opacity: 0, y: 30 }",
+        "animate": "{ opacity: 1, y: 0 }",
+        "transition": "{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }"
+      },
+      "stagger-children": {
+        "staggerChildren": "0.1",
+        "delayChildren": "0.2"
+      },
+      "slide-in": {
+        "initial": "{ x: '100%' }",
+        "animate": "{ x: 0 }",
+        "exit": "{ x: '100%' }",
+        "transition": "{ type: 'spring', damping: 30, stiffness: 300 }"
+      }
+    }
+  },
+
+  "radius": {
+    "sm": "calc(0.75rem - 4px)",
+    "md": "calc(0.75rem - 2px)",
+    "lg": "0.75rem",
+    "xl": "calc(0.75rem + 4px)",
+    "2xl": "1rem",
+    "3xl": "1.5rem",
+    "full": "9999px",
+    "card-sm": "rounded-xl",
+    "card-md": "rounded-2xl",
+    "card-lg": "rounded-[2rem]",
+    "card-xl": "rounded-[2.5rem]",
+    "card-2xl": "rounded-[3rem]",
+    "button": "rounded-full",
+    "icon": "rounded-2xl"
+  },
+
+  "patterns": {
+    "section-header": {
+      "structure": "subtitle-divider + title + optional-description",
+      "subtitle": {
+        "layout": "inline-flex items-center gap-4 opacity-40/70",
+        "elements": [
+          "span.font-mono.text-[10px].tracking-[0.4em].uppercase",
+          "div.h-px.w-8.bg-gold-500"
+        ]
+      },
+      "title": "h2.text-3xl.sm:text-4xl.md:text-6xl.lg:text-7xl.font-light.tracking-tight.leading-[1.1]",
+      "description": "p.max-w-2xl.text-lg.md:text-xl.font-light.leading-relaxed.text-foreground/60"
+    },
+    "hero": {
+      "layout": "relative min-h-[70vh-80vh] flex items-center overflow-hidden",
+      "background": [
+        "background image with object-cover opacity-30-60",
+        "gradient overlay from-navy-950 via-transparent to-transparent",
+        "optional grain overlay"
+      ],
+      "content": {
+        "badge": "inline-flex with gold divider + mono text",
+        "title": "text-4xl to 8xl font-bold uppercase tracking-tight italic",
+        "description": "text-lg to 2xl font-light text-white/90 leading-relaxed"
+      }
+    },
+    "feature-grid": {
+      "layout": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10",
+      "card-structure": [
+        "icon container with number background",
+        "title with accent transition",
+        "expanding divider",
+        "description text"
+      ],
+      "hover": "y-8 lift, bg change, shadow increase, icon rotate"
+    },
+    "accordion-list": {
+      "layout": "space-y-3",
+      "item": "rounded-3xl border with expand/collapse animation",
+      "header": "flex justify-between with number + title + icon",
+      "content": "AnimatePresence with height auto animation"
+    },
+    "profile-grid": {
+      "layout": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6",
+      "card": [
+        "image container with grayscale → color on hover",
+        "overlay CTA on hover with slide-up",
+        "info section with name + title"
+      ]
+    },
+    "stats-row": {
+      "layout": "grid grid-cols-2 md:grid-cols-4 gap-8 border-b",
+      "item": "text-center with large number + small label",
+      "hover": "number color change to gold"
+    },
+    "cta-banner": {
+      "layout": "rounded-[2rem] bg-navy-950 p-8-16 flex items-center justify-between gap-16",
+      "decorative": "glow orb in corner",
+      "content": "badge + title + description",
+      "action": "primary button with shadow glow"
+    }
+  },
+
+  "navigation": {
+    "desktop": {
+      "layout": "flex items-center justify-between max-w-7xl mx-auto px-6",
+      "links": {
+        "style": "font-mono text-xs font-medium tracking-[0.2em] uppercase",
+        "active": "text-gold-500",
+        "hover": "text-white with underline scale animation"
+      },
+      "dropdown": {
+        "trigger": "gap-1 with ChevronDown rotation on hover",
+        "menu": "absolute bg-[#0b101b]/95 backdrop-blur-xl border border-white/10 rounded-lg p-2",
+        "item": "px-4 py-3 text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-white/5"
+      }
+    },
+    "mobile": {
+      "trigger": "hamburger icon",
+      "panel": "fixed slide-in from right w-[300px] h-full bg-navy-950",
+      "links": "py-4 font-sans text-sm font-bold uppercase tracking-widest border-b",
+      "active": "text-gold-500 border-l-2 border-gold-500 pl-4"
+    }
+  },
+
+  "footer": {
+    "layout": "bg-navy-900 text-white pt-16-24 pb-12 px-6-24",
+    "grid": "grid grid-cols-1 lg:grid-cols-2 gap-12-20",
+    "sections": {
+      "branding": "logo + tagline",
+      "links": "grid grid-cols-2 gap-8-16",
+      "newsletter": "bg-white/5 p-6-8 rounded-3xl border border-white/10",
+      "contact": "grid grid-cols-1 md:grid-cols-2 gap-8"
+    },
+    "bottom": "pt-8 border-t border-white/10 flex justify-between text-xs font-mono text-white/30"
+  },
+
+  "icons": {
+    "library": "lucide-react",
+    "sizing": {
+      "sm": "w-4 h-4",
+      "default": "w-5 h-5",
+      "md": "w-6 h-6",
+      "lg": "w-7 h-7 md:w-8 h-8",
+      "xl": "w-8 h-8"
+    },
+    "containers": {
+      "small": "w-10 h-10 rounded-full",
+      "medium": "w-12 h-12 md:w-14 h-14 rounded-2xl",
+      "large": "w-14 h-14 md:w-16 h-16 rounded-2xl"
+    }
+  },
+
+  "accessibility": {
+    "focus": "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+    "reduced-motion": "@media (prefers-reduced-motion: reduce) { animation-duration: 0.01ms !important; }",
+    "aria": {
+      "navigation": "role='navigation' aria-label='Main navigation'",
+      "buttons": "aria-label for icon-only buttons"
+    }
+  },
+
+  "meta": {
+    "themeColor": "#1e3a5f",
+    "fonts": {
+      "google": ["Geist", "Geist Mono"]
+    },
+    "framework": "Next.js 16",
+    "uiLibrary": "shadcn/ui (new-york style)",
+    "cssFramework": "Tailwind CSS 4.x",
+    "animations": "Framer Motion"
+  }
+}

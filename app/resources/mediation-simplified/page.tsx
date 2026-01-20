@@ -54,27 +54,70 @@ export default function MediationSimplifiedPage() {
       <GrainOverlay />
       
       <FadeIn className="relative z-10 w-full">
-        <ResourceSubPageHero
-          tag="Resources"
-          title={<><span className="text-gold-500">Mediation</span> Simplified</>}
-          description="India's first interactive workbook on Negotiation and Mediation. A practical, relatable guide for students, teachers, lawyers, mediators and anyone who wants to understand conflict better."
-        >
-          <Link
-            href="https://www.amazon.in/Mediation-Simplified-Interactive-Rodrigues-OakBridge-ebook/dp/B0C61L5KK5"
-            target="_blank"
-            className="inline-flex items-center gap-3 bg-gold-500 text-navy-950 px-8 py-4 rounded-full font-medium hover:bg-white transition-all duration-300 shadow-lg group"
-          >
-            <ShoppingCart className="w-5 h-5" />
-            Order A Copy
-          </Link>
-          <button
-            onClick={() => window.location.href = "mailto:official@thepact.in?subject=Book Donation"}
-            className="inline-flex items-center gap-3 bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full font-medium hover:bg-white/20 transition-all duration-300 group"
-          >
-            <Heart className="w-5 h-5" />
-            Make a Donation
-          </button>
-        </ResourceSubPageHero>
+      <section className="relative w-full h-[90vh] flex items-end overflow-hidden bg-navy-950">
+        {/* Background Layer */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/assets/img/mediation-simplified-hero.png"
+            alt="Mediation Simplified - Interactive Workbook"
+            fill
+            className="object-cover object-center opacity-60 transition-transform duration-[10s] hover:scale-105"
+            priority
+          />
+          
+          {/* Typographic Accent */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
+            <span className="text-[25vw] font-black tracking-tighter text-white uppercase">SIMPLIFIED</span>
+          </div>
+
+          {/* Gradients */}
+          <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-navy-950/40 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-b from-navy-950/60 to-transparent" />
+        </div>
+
+        {/* Content Area */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-24 lg:pb-32">
+          <FadeInUp>
+            <div className="max-w-4xl">
+              <div className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 backdrop-blur-md mb-8">
+                <span className="text-gold-500 font-mono text-[10px] tracking-[0.4em] uppercase font-bold">
+                  Now Available
+                </span>
+              </div>
+              
+              <h1 className="sr-only">Mediation Simplified: An Interactive Workbook</h1>
+              <p className="text-3xl md:text-5xl lg:text-6xl text-white font-light tracking-tight leading-[1.1] mb-12 drop-shadow-2xl">
+                India's first <span className="text-gold-500 italic font-medium">interactive</span> workbook on Negotiation and Mediation.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-6">
+                <Link
+                  href="https://www.amazon.in/Mediation-Simplified-Interactive-Rodrigues-OakBridge-ebook/dp/B0C61L5KK5"
+                  target="_blank"
+                  className="group relative flex items-center gap-4 bg-gold-500 text-navy-950 px-10 py-5 rounded-full font-bold transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(191,154,102,0.4)]"
+                >
+                  <ShoppingCart className="w-6 h-6 transition-transform duration-500 group-hover:scale-110" />
+                  <span className="text-lg">Order A Copy</span>
+                </Link>
+                
+                <button
+                  onClick={() => window.location.href = "mailto:official@thepact.in?subject=Book Donation"}
+                  className="group flex items-center gap-4 bg-white/10 text-white border border-white/10 backdrop-blur-md px-10 py-5 rounded-full font-medium transition-all duration-300 hover:bg-white/20 hover:-translate-y-2"
+                >
+                  <Heart className="w-6 h-6 text-gold-500 transition-colors group-hover:text-gold-400 group-hover:scale-110" />
+                  <span className="text-lg">Make a Donation</span>
+                </button>
+              </div>
+            </div>
+          </FadeInUp>
+        </div>
+
+        {/* Decorative Element */}
+        <div className="absolute bottom-10 left-10 hidden xl:flex items-center gap-4">
+          <div className="w-12 h-px bg-white/20" />
+          <span className="text-white/20 font-mono text-[9px] tracking-widest uppercase">The PACT Resources</span>
+        </div>
+      </section>
 
         {/* India's Only Workbook Section */}
         <section className="py-20 md:py-32 bg-white">
@@ -186,7 +229,10 @@ export default function MediationSimplifiedPage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05 }}
                   whileHover={{ y: -4 }}
-                  className="group p-6 md:p-8 rounded-2xl bg-navy-50 border border-navy-100 hover:bg-white hover:border-gold-500/30 hover:shadow-xl transition-all duration-500"
+                  className={cn(
+                    "group p-6 md:p-8 rounded-2xl bg-navy-50 border border-navy-100 hover:bg-white hover:border-gold-500/30 hover:shadow-xl transition-all duration-500",
+                    i === chapters.length - 1 && "md:max-lg:col-span-2 lg:col-start-2"
+                  )}
                 >
                   <div className="flex items-start gap-4">
                     <span className="font-mono text-3xl text-gold-500/30 font-bold group-hover:text-gold-500 transition-colors">
@@ -199,6 +245,7 @@ export default function MediationSimplifiedPage() {
                 </motion.div>
               ))}
             </div>
+
           </div>
         </section>
 
