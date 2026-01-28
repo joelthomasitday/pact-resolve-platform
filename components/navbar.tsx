@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export function Navbar() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [expandedItem, setExpandedItem] = useState<number | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -235,86 +236,114 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 z-[70] h-full w-[300px] bg-navy-950 border-l border-white/10 shadow-2xl lg:hidden flex flex-col"
+              className="fixed top-0 right-0 z-[70] h-full w-[310px] bg-navy-950 border-l border-white/10 shadow-2xl lg:hidden flex flex-col"
             >
-              <div className="flex items-center justify-between p-6 border-b border-white/10 h-[64px]">
-                <div className="flex items-center gap-3 max-w-[85%]">
-                  <div className="relative h-10 w-auto shrink-0 transition-transform duration-300">
+              <div className="flex items-center justify-between p-6 h-[72px] border-b border-white/5">
+                <div className="flex items-center gap-3">
+                  <div className="relative h-8 w-auto shrink-0">
                     <Image
                       src="/images/pact-logo.png"
                       alt="PACT"
-                      width={140}
-                      height={50}
+                      width={100}
+                      height={40}
                       className="h-full w-auto object-contain"
                       priority
                     />
                   </div>
-                  <div className="flex flex-col justify-center">
-                    <span className="font-sans text-xl font-black tracking-tighter text-white uppercase leading-none">
-                      PACT
-                    </span>
-                    <span className="text-[8px] font-medium text-white/70 uppercase tracking-wide leading-tight mt-0.5 block">
-                      The peacekeeping and<br />conflict resolution team
-                    </span>
-                  </div>
+                  <span className="font-sans text-xl font-black tracking-tighter text-white uppercase leading-none">
+                    PACT
+                  </span>
                 </div>
                 <button 
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-white hover:text-gold-500 transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:text-gold-500 transition-colors"
                 >
-                  <X className="h-6 w-6" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
               
-              <div className="flex-1 overflow-y-auto py-8 px-6 space-y-1">
-                {navItems.map((item, i) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={() => handleNavClick(item.href)}
-                      className={cn(
-                        "flex items-center justify-between py-4 font-sans text-sm font-bold uppercase tracking-widest border-b border-white/5 transition-all duration-300",
-                        pathname === item.href || (item.subItems && pathname.startsWith(item.href))
-                          ? "text-gold-500 border-l-2 border-gold-500 pl-4" 
-                          : "text-white/70 hover:text-white hover:pl-4 hover:border-l-2 hover:border-white/20"
-                      )}
-                    >
-                      {item.label}
-                      {item.subItems && <ChevronDown className="w-4 h-4 ml-2 opacity-50" />}
-                    </Link>
-                    
-                    {/* Mobile Submenu */}
-                    {item.subItems && (
-                      <div className="bg-black/20">
-                        {item.subItems.map((sub) => (
+              <div className="flex-1 overflow-y-auto pt-6 px-4 pb-20 custom-scrollbar">
+                <div className="flex flex-col gap-2">
+                  {navItems.map((item, i) => {
+                    const isExpanded = expandedItem === i;
+                    const isActive = pathname === item.href || (item.subItems && pathname.startsWith(item.href));
+
+                    return (
+                      <div key={item.href} className="flex flex-col">
+                        <div className="flex items-center justify-between">
                           <Link
-                            key={sub.href}
-                            href={sub.href}
-                            onClick={() => handleNavClick(sub.href)}
+                            href={item.href}
+                            onClick={() => handleNavClick(item.href)}
                             className={cn(
-                              "block py-3 pl-8 pr-4 font-sans text-xs font-medium uppercase tracking-widest border-b border-white/5 transition-colors",
-                              pathname === sub.href
-                                ? "text-gold-500 bg-white/5"
-                                : "text-white/50 hover:text-white hover:bg-white/5"
+                              "flex-1 py-4 px-4 font-sans text-[13px] font-bold uppercase tracking-[0.2em] rounded-xl transition-all duration-300",
+                              isActive
+                                ? "text-gold-500 bg-gold-500/5" 
+                                : "text-white/70 hover:text-white"
                             )}
                           >
-                            {sub.label}
+                            {item.label}
                           </Link>
-                        ))}
+                          {item.subItems && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setExpandedItem(isExpanded ? null : i);
+                              }}
+                              className={cn(
+                                "w-12 h-12 flex items-center justify-center text-white/30 transition-transform duration-300",
+                                isExpanded && "rotate-180 text-gold-500"
+                              )}
+                            >
+                              <ChevronDown className="w-5 h-5" />
+                            </button>
+                          )}
+                        </div>
+                        
+                        {/* Mobile Submenu with Animation */}
+                        {item.subItems && (
+                          <AnimatePresence>
+                            {isExpanded && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="overflow-hidden"
+                              >
+                                <div className="flex flex-col gap-1 ml-4 mt-1 pb-4 border-l border-white/10">
+                                  {item.subItems.map((sub) => (
+                                    <Link
+                                      key={sub.href}
+                                      href={sub.href}
+                                      onClick={() => handleNavClick(sub.href)}
+                                      className={cn(
+                                        "relative py-3 pl-8 pr-4 font-sans text-[13px] font-medium transition-colors",
+                                        pathname === sub.href
+                                          ? "text-gold-500"
+                                          : "text-white/40 hover:text-white"
+                                      )}
+                                    >
+                                      <div className={cn(
+                                        "absolute left-4 top-1/2 -translate-y-1/2 w-1 h-1 rounded-full transition-colors",
+                                        pathname === sub.href ? "bg-gold-500" : "bg-white/10"
+                                      )} />
+                                      {sub.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        )}
                       </div>
-                    )}
-                  </motion.div>
-                ))}
+                    );
+                  })}
+                </div>
 
-                <div className="mt-8 pt-8 border-t border-white/5">
+                <div className="mt-8 pt-6 border-t border-white/5 px-2">
                   <Link href="/#contact" onClick={() => setMobileMenuOpen(false)}>
                     <button
-                      className="w-full rounded-full bg-gold-500 py-4 font-sans text-sm font-medium tracking-wide text-navy-950 shadow-sm transition-all duration-200 ease-in-out hover:brightness-110 active:scale-95"
+                      className="w-full rounded-2xl bg-gold-500 py-4 font-sans text-sm font-bold tracking-widest text-navy-950 shadow-xl shadow-gold-500/10 transition-all duration-200 hover:brightness-110 active:scale-95 uppercase"
                     >
                       Try Mediation Now
                     </button>
