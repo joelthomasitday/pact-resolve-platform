@@ -27,8 +27,16 @@ export function Navbar() {
   }, [mobileMenuOpen]);
 
   const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Mediation", href: "/mediation" },
+    { 
+      label: "Mediation", 
+      href: "/mediation",
+      subItems: [
+        { label: "Why Mediate", href: "/mediation/why-mediate" },
+        { label: "Rules & Fee", href: "/mediation/rules-fees" },
+        { label: "Mediator Panel", href: "/mediation/mediator-panel" },
+        { label: "Case Studies", href: "/mediation/case-studies" },
+      ]
+    },
     { 
       label: "Academy", 
       href: "/academy",
