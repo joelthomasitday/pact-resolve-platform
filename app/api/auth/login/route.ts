@@ -22,10 +22,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { email, password } = validation.data;
+    const { email: rawEmail, password } = validation.data;
+    const email = rawEmail.toLowerCase();
 
     // Find user
     const user = await UserRepository.findByEmail(email);
+    
     if (!user || !user.password) {
       return NextResponse.json(
         { error: "Invalid email or password" },

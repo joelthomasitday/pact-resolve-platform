@@ -22,24 +22,54 @@ export async function middleware(request: NextRequest) {
   }
 
   // 2. Identify protected routes
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isLoginPage = pathname === "/admin/login";
   const isContentRoute = pathname.startsWith("/api/content");
   const isUploadRoute = pathname.startsWith("/api/upload");
-  const isProtected = isContentRoute || isUploadRoute;
+  const isApiProtected = isContentRoute || isUploadRoute;
 
-  if (!isProtected) {
+  // Handle Admin UI routes
+  if (isAdminRoute && !isLoginPage) {
+    const token = request.cookies.get("admin_token")?.value;
+    
+    if (!token) {
+      return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
+
+    try {
+      await jwtVerify(token, secret);
+      return NextResponse.next();
+    } catch (error) {
+      console.error("Admin Auth Error:", error);
+      const response = NextResponse.redirect(new URL("/admin/login", request.url));
+      response.cookies.delete("admin_token");
+      return response;
+    }
+  }
+
+  if (!isApiProtected) {
     return NextResponse.next();
   }
 
-  // 3. Authentication check
+  // 3. Authentication check for API
+  let token = "";
   const authHeader = request.headers.get("authorization");
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    token = authHeader.split(" ")[1];
+  } else {
+    // Also check cookie for API calls from the same domain
+    const cookieToken = request.cookies.get("admin_token")?.value;
+    if (cookieToken) {
+      token = cookieToken;
+    }
+  }
+
+  if (!token) {
     return NextResponse.json(
       { error: "Authentication required" },
       { status: 401 }
     );
   }
-
-  const token = authHeader.split(" ")[1];
   
   try {
     const { payload } = await jwtVerify(token, secret);
@@ -92,6 +122,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/admin/:path*",
     "/api/content/:path*",
     "/api/upload/:path*",
   ],
