@@ -54,13 +54,14 @@ import { MagneticButton } from "@/components/magnetic-button";
 import { Collaborators } from "@/components/sections/home/collaborators";
 import { cn } from "@/lib/utils";
 
+// --- Reusable Section Header ---
 const SectionHeader = ({ subtitle, title, description, light = false, center = false }: { subtitle: string, title: string, description?: string, light?: boolean, center?: boolean }) => (
-  <FadeInUp className={cn("mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
-    <div className="inline-flex items-center gap-4 mb-6 opacity-80">
-      <div className={cn("h-px w-12 bg-gold-500", light ? "bg-gold-500" : "bg-gold-500/50")} />
-      <span className={cn("text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
+  <FadeInUp className={cn("mb-8 sm:mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
+    <div className="inline-flex items-center gap-2 sm:gap-4 mb-3 sm:mb-6 opacity-80">
+      <div className={cn("h-px w-8 sm:w-12 bg-gold-500", light ? "bg-gold-500" : "bg-gold-500/50")} />
+      <span className={cn("text-[10px] sm:text-[11px] md:text-xs font-mono tracking-[0.2em] sm:tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
     </div>
-    <h2 className={cn("text-4xl sm:text-5xl md:text-7xl lg:text-[5rem] font-light tracking-tight mb-8 leading-[0.95]", light ? "text-white" : "text-navy-950")}>
+    <h2 className={cn("text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[5rem] font-light tracking-tight mb-4 sm:mb-6 md:mb-8 leading-[1.1] sm:leading-[0.95]", light ? "text-white" : "text-navy-950")}>
       {title.split(' ').map((word, i) => (
         <span key={i} className={cn(
           word.toLowerCase() === 'mediation' || 
@@ -74,7 +75,7 @@ const SectionHeader = ({ subtitle, title, description, light = false, center = f
       ))}
     </h2>
     {description && (
-      <p className={cn("max-w-4xl text-lg sm:text-xl md:text-2xl font-light leading-relaxed", light ? "text-white/70" : "text-navy-950/50")}>
+      <p className={cn("max-w-4xl text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light leading-relaxed px-2 sm:px-0", light ? "text-white/70" : "text-navy-950/50")}>
         {description}
       </p>
     )}
@@ -124,32 +125,32 @@ export default function MMCPage() {
                   The second edition of this unique gathering of mediation stakeholders will once again feature real case studies, practical insights and evidence-driven conversations on mediation as a practice and profession in India.
                 </p>
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-12 border-t border-white/10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 pt-8 sm:pt-12 border-t border-white/10">
                    {[
                      { label: "2026 Dates", icon: Calendar, value: "More Details Soon", color: "text-gold-500" },
                      { label: "2026 Venue", icon: MapPin, value: "More Details Soon", color: "text-gold-500" },
                      { label: "2026 Hosts", icon: Users, value: "More Details Soon", color: "text-white/40" },
                      { label: "2026 Sponsors", icon: MoreHorizontal, value: "More Details Soon", color: "text-white/40" }
                    ].map((item, i) => (
-                     <div key={i} className="flex flex-col gap-3 group/item">
-                        <span className="text-[10px] font-mono text-white/50 uppercase tracking-[0.2em] font-bold">{item.label}</span>
+                     <div key={i} className="flex flex-col gap-2 sm:gap-3 group/item">
+                        <span className="text-[9px] sm:text-[10px] font-mono text-white/50 uppercase tracking-[0.15em] sm:tracking-[0.2em] font-bold">{item.label}</span>
                         <div className={cn("flex items-center gap-3 transition-colors", item.color)}>
-                          <item.icon className="w-5 h-5" />
-                          <span className="text-base sm:text-lg font-medium tracking-tight whitespace-nowrap">{item.value}</span>
+                          <item.icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                          <span className="text-sm sm:text-base md:text-lg font-medium tracking-tight">{item.value}</span>
                         </div>
                      </div>
                    ))}
                 </div>
 
-                <div className="flex flex-wrap gap-6 pt-12">
-                  <MagneticButton variant="primary" size="lg" className="group px-10 py-5">
-                    <a href="mailto:official@thepact.in" className="flex items-center gap-3 text-lg">
-                       Sign Up as a Speaker for MCI 2026 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-12">
+                  <MagneticButton variant="primary" size="lg" className="group w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5">
+                    <a href="mailto:official@thepact.in" className="flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base md:text-lg">
+                       Sign Up as a Speaker for MCI 2026 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </MagneticButton>
-                  <MagneticButton variant="secondary" size="lg" className="group px-10 py-5">
-                    <a href="mailto:official@thepact.in" className="flex items-center gap-3 text-lg">
-                       Sign Up as a Sponsor for MCI 2026 <Mail className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <MagneticButton variant="secondary" size="lg" className="group w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5">
+                    <a href="mailto:official@thepact.in" className="flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base md:text-lg">
+                       Sign Up as a Sponsor for MCI 2026 <Mail className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </MagneticButton>
                 </div>
@@ -175,53 +176,77 @@ export default function MMCPage() {
             />
           </div>
 
-          <div className="flex flex-col gap-12 md:gap-16">
+         <div className="flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-16">
+            {/* Cinematic Feature Image */}
             <FadeInUp className="relative group">
-              <div className="absolute -inset-10 bg-gold-500/5 blur-3xl rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-              <div className="relative aspect-video md:aspect-21/9 rounded-[3rem] md:rounded-[4rem] overflow-hidden bg-navy-50 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] ring-1 ring-navy-950/5">
+              <div className="absolute -inset-6 sm:-inset-10 bg-gold-500/5 blur-3xl rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+              <div className="relative aspect-video md:aspect-21/9 rounded-2xl sm:rounded-3xl md:rounded-[3rem] lg:rounded-[4rem] overflow-hidden bg-navy-50 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] sm:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] ring-1 ring-navy-950/5">
                 <Image 
                   src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80"
                   alt="Conversations at MMC"
                   fill
                   className="object-cover transition-transform duration-2000 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-navy-950/60 via-navy-950/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-navy-950/10 to-transparent" />
                 
-                <div className="absolute top-8 right-8 w-24 h-24 rounded-full bg-navy-950 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-gold-500/30">
-                   <span className="text-gold-500 font-bold text-xl leading-none">MMC</span>
-                   <span className="text-[7px] text-white/40 uppercase tracking-[0.4em] font-bold mt-1">Conclave</span>
+                {/* MMC Badge - Top Right */}
+                <div className="absolute top-3 right-3 sm:top-6 sm:right-6 md:top-8 md:right-8 w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full bg-navy-950 flex flex-col items-center justify-center text-center shadow-xl sm:shadow-2xl border-2 sm:border-3 md:border-4 border-gold-500/30">
+                   <span className="text-gold-500 font-bold text-xs sm:text-sm md:text-xl leading-none">MMC</span>
+                   <span className="text-[4.5px] sm:text-[5px] md:text-[7px] text-white/40 uppercase tracking-[0.25em] sm:tracking-[0.4em] font-bold mt-0.5 sm:mt-1">Conclave</span>
                 </div>
               </div>
             </FadeInUp>
 
+            {/* Floating Feature Card - OUTSIDE image on mobile, overlapping on desktop */}
+            <FadeInUp className="-mt-12 sm:-mt-16 md:-mt-20 px-4 sm:px-6 md:px-0">
+              <motion.div 
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="relative md:ml-12 lg:ml-16 p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-2xl md:rounded-3xl bg-white backdrop-blur-xl border border-navy-950/10 shadow-2xl max-w-full sm:max-w-[320px] md:max-w-[360px]"
+              >
+                <div className="flex items-center gap-3 sm:gap-4 text-left">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 shadow-lg shrink-0">
+                    <MessageSquare className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+                  </div>
+                  <div>
+                    <p className="text-[8px] sm:text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.3em] text-navy-950/40 font-bold mb-1">Format</p>
+                    <p className="text-base sm:text-lg md:text-xl font-bold text-navy-950 tracking-tight leading-tight">Uniquely Immersive</p>
+                  </div>
+                </div>
+              </motion.div>
+            </FadeInUp>
+
+            {/* Description Text Layout */}
             <FadeInUp>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-                <div className="space-y-6">
-                  <p className="text-2xl md:text-3xl text-navy-950 font-light leading-snug tracking-tight">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-20 items-start">
+                <div className="space-y-4 sm:space-y-6">
+                  <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-navy-950 font-light leading-snug tracking-tight">
                     The Mission Mediation Conclave is a gathering that is open to every stakeholder involved in the practice and profession of Mediation.
                   </p>
-                  <div className="h-px w-20 bg-gold-500" />
+                  <div className="h-px w-16 sm:w-20 bg-gold-500" />
                 </div>
                 
-                <div className="space-y-8">
-                  <p className="text-lg md:text-xl text-navy-950/60 font-light leading-relaxed">
+                <div className="space-y-4 sm:space-y-6 md:space-y-8">
+                  <p className="text-base sm:text-lg md:text-xl text-navy-950/60 font-light leading-relaxed">
                     The uniquely immersive format allows everyone in the audience to join those on the dais and contribute to the discussions.
                   </p>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 pt-4 border-t border-navy-100/50">
+                  {/* Features Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-x-8 gap-y-3 sm:gap-y-4 pt-4 sm:pt-6 border-t border-navy-100/50">
                     {[
                       { icon: Presentation, text: "Relevant Case Studies" },
                       { icon: Lightbulb, text: "Practice Techniques" },
-                      { icon: BarChart3, text: "Date-driven Insights" },
+                      { icon: BarChart3, text: "Data-driven Insights" },
                       { icon: MessageSquare, text: "Interactive Talks" },
                       { icon: Users, text: "Immersive Workshopping" },
                       { icon: Globe, text: "Live Polls & Reports" }
                     ].map((feature, i) => (
-                      <div key={i} className="flex items-center gap-3 group">
-                        <div className="w-8 h-8 rounded-lg bg-navy-50 flex items-center justify-center text-navy-950 group-hover:bg-gold-500 transition-colors">
-                          <feature.icon className="w-4 h-4" />
+                      <div key={i} className="flex items-center gap-2.5 sm:gap-3 group">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-50 flex items-center justify-center text-navy-950 group-hover:bg-gold-500 transition-colors shrink-0">
+                          <feature.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         </div>
-                        <span className="text-sm font-light text-navy-950/70 group-hover:text-navy-950 transition-colors">{feature.text}</span>
+                        <span className="text-xs sm:text-sm font-light text-navy-950/70 group-hover:text-navy-950 transition-colors">{feature.text}</span>
                       </div>
                     ))}
                   </div>
@@ -229,6 +254,9 @@ export default function MMCPage() {
               </div>
             </FadeInUp>
           </div>
+
+
+
         </div>
       </section>
 

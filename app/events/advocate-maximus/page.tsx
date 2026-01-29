@@ -47,13 +47,14 @@ import { MagneticButton } from "@/components/magnetic-button";
 import { Collaborators } from "@/components/sections/home/collaborators";
 import { cn } from "@/lib/utils";
 
+// --- Reusable Section Header ---
 const SectionHeader = ({ subtitle, title, description, light = false, center = false }: { subtitle: string, title: string, description?: string, light?: boolean, center?: boolean }) => (
-  <FadeInUp className={cn("mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
-    <div className="inline-flex items-center gap-4 mb-6 opacity-80">
-      <div className={cn("h-px w-12 bg-gold-500", light ? "bg-gold-500" : "bg-gold-500/50")} />
-      <span className={cn("text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
+  <FadeInUp className={cn("mb-8 sm:mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
+    <div className="inline-flex items-center gap-2 sm:gap-4 mb-3 sm:mb-6 opacity-80">
+      <div className={cn("h-px w-8 sm:w-12 bg-gold-500", light ? "bg-gold-500" : "bg-gold-500/50")} />
+      <span className={cn("text-[10px] sm:text-[11px] md:text-xs font-mono tracking-[0.2em] sm:tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
     </div>
-    <h2 className={cn("text-4xl sm:text-5xl md:text-7xl lg:text-[5rem] font-light tracking-tight mb-8 leading-[0.95]", light ? "text-white" : "text-navy-950")}>
+    <h2 className={cn("text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[5rem] font-light tracking-tight mb-4 sm:mb-6 md:mb-8 leading-[1.1] sm:leading-[0.95]", light ? "text-white" : "text-navy-950")}>
       {title.split(' ').map((word, i) => (
         <span key={i} className={cn(
           word.toLowerCase() === 'maximus' || 
@@ -66,7 +67,7 @@ const SectionHeader = ({ subtitle, title, description, light = false, center = f
       ))}
     </h2>
     {description && (
-      <p className={cn("max-w-4xl text-lg sm:text-xl md:text-2xl font-light leading-relaxed", light ? "text-white/70" : "text-navy-950/50")}>
+      <p className={cn("max-w-4xl text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light leading-relaxed px-2 sm:px-0", light ? "text-white/70" : "text-navy-950/50")}>
         {description}
       </p>
     )}
@@ -79,7 +80,7 @@ export default function AdvocateMaximusPage() {
       <GrainOverlay />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-32 pb-20 md:pt-40 md:pb-32 bg-navy-950 overflow-hidden dark">
+      <section className="relative min-h-[90vh] flex items-center pt-24 pb-12 sm:pt-32 sm:pb-20 md:pt-40 md:pb-32 bg-navy-950 overflow-hidden dark">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80"
@@ -109,31 +110,55 @@ export default function AdvocateMaximusPage() {
               <span className="text-gold-500">MAXIMUS</span> 
             </h1>
             
-            <div className="max-w-5xl space-y-12">
-              <div className="space-y-8">
-                <p className="text-2xl sm:text-3xl md:text-5xl text-white/95 font-light leading-[1.1] tracking-tight">
-                  India's first Arb-Med competition, <br className="hidden md:block" /> redefining advocacy for the modern dispute era.
+            <div className="max-w-5xl space-y-8 sm:space-y-12">
+              <div className="space-y-6 sm:space-y-10">
+                <p className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-white/95 font-light leading-[1.05] tracking-tight max-w-4xl">
+                  India's first Arb-Med competition, <br className="hidden lg:block" /> 
+                  <span className="text-white/40 italic">redefining advocacy</span> for the modern dispute era.
                 </p>
-                <div className="flex flex-wrap gap-6 pt-8">
-                  <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono tracking-widest text-gold-500 uppercase font-bold">
-                    <Zap className="w-4 h-4" />
-                    Pioneering Formats
-                  </div>
-                  <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono tracking-widest text-gold-500 uppercase font-bold">
-                    <Globe className="w-4 h-4" />
-                    Global Standards
+                
+                {/* Redesigned Glass Badges */}
+                <div className="flex flex-wrap gap-3 sm:gap-4 pt-4">
+                  {[
+                    { icon: Zap, label: "Pioneering Formats", color: "from-gold-400 to-gold-600" },
+                    { icon: Globe, label: "Global Standards", color: "from-white/10 to-white/5" }
+                  ].map((badge, idx) => (
+                    <motion.div 
+                      key={idx}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className="flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-2xl relative overflow-hidden group"
+                    >
+                      <div className={cn("absolute inset-0 bg-linear-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500", badge.color)} />
+                      <badge.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold-500" />
+                      <span className="text-[9px] sm:text-[11px] font-mono tracking-[0.2em] text-white/70 group-hover:text-white transition-colors uppercase font-bold">
+                        {badge.label}
+                      </span>
+                    </motion.div>
+                  ))}
+                  
+                  <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-gold-500/10 border border-gold-500/20">
+                    <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
+                    <span className="text-[10px] font-mono tracking-widest text-gold-500 uppercase font-bold">
+                      Open for Participation
+                    </span>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-6 pt-12">
-                  <MagneticButton variant="primary" size="lg" className="group px-10 py-5">
-                    <a href="#about" className="flex items-center gap-3 text-lg">
-                       Learn More <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                {/* CTAs */}
+                <div className="flex flex-col sm:flex-row items-center gap-6 pt-6 sm:pt-10">
+                  <MagneticButton variant="primary" size="lg" className="group w-full sm:w-auto px-10 py-5 sm:py-6">
+                    <a href="#about" className="flex items-center justify-center gap-3 text-lg font-medium">
+                       Explore the Elite <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </MagneticButton>
-                  <MagneticButton variant="secondary" size="lg" className="group px-10 py-5">
-                    <a href="https://superlawyer.in/advocate-maximus-sign-up-for-the-global-arb-med-competition/" target="_blank" className="flex items-center gap-3 text-lg">
-                       Partnership <ArrowUpRight className="w-5 h-5" />
+                  
+                  <MagneticButton variant="secondary" size="lg" className="group w-full sm:w-auto px-10 py-5 sm:py-6 border border-white/20">
+                    <a 
+                      href="https://superlawyer.in/advocate-maximus-sign-up-for-the-global-arb-med-competition/" 
+                      target="_blank" 
+                      className="flex items-center justify-center gap-3 text-lg font-medium"
+                    >
+                       Partnership Inquiry <ArrowUpRight className="w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </MagneticButton>
                 </div>
@@ -144,58 +169,76 @@ export default function AdvocateMaximusPage() {
       </section>
 
       {/* Legacy and Origin Section */}
-      <section id="about" className="py-16 md:py-24 bg-white relative overflow-hidden">
+      <section id="about" className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full pointer-events-none text-navy-950/5">
            <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-gold-500/5 blur-[120px] rounded-full opacity-50" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
-          <div className="flex flex-col gap-12 md:gap-20">
+       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
+          <div className="flex flex-col gap-8 sm:gap-12 md:gap-16 lg:gap-20">
             {/* Cinematic Imagery */}
             <FadeInUp className="relative group w-full">
-              <div className="relative aspect-video md:aspect-21/9 rounded-[3rem] md:rounded-[5rem] overflow-hidden bg-navy-50 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] ring-1 ring-navy-950/5 transition-transform duration-700 group-hover:scale-[1.01]">
+              <div className="absolute -inset-6 sm:-inset-10 bg-gold-500/5 blur-3xl rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+              <div className="relative aspect-video md:aspect-21/9 rounded-2xl sm:rounded-3xl md:rounded-[3rem] lg:rounded-[5rem] overflow-hidden bg-navy-50 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] sm:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] ring-1 ring-navy-950/5">
                 <Image 
                   src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80"
                   alt="Advocate Maximus Legacy"
                   fill
                   className="object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-navy-950/60 via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent opacity-80" />
                 
-                <div className="absolute bottom-10 left-10 md:bottom-20 md:left-20">
-                  <div className="flex flex-col gap-2">
-                     <span className="text-[10px] md:text-xs font-mono uppercase tracking-[0.4em] text-gold-500 font-bold">The Archive</span>
-                     <h3 className="text-3xl md:text-6xl font-black text-white italic tracking-tighter uppercase">Established 2017</h3>
+                {/* Bottom Left Text */}
+                <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 md:bottom-10 md:left-10 lg:bottom-20 lg:left-20">
+                  <div className="flex flex-col gap-1 sm:gap-1.5 md:gap-2">
+                     <span className="text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs font-mono uppercase tracking-[0.3em] sm:tracking-[0.4em] text-gold-500 font-bold">The Archive</span>
+                     <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-black text-white italic tracking-tighter uppercase leading-none">Established 2017</h3>
                   </div>
                 </div>
 
-                {/* Floating Badge */}
+                {/* Arb-Med Badge - Top Right, smaller on mobile */}
                 <motion.div 
                    initial={{ y: 20, opacity: 0 }}
                    whileInView={{ y: 0, opacity: 1 }}
-                   transition={{ delay: 0.8 }}
-                   className="absolute top-10 right-10 md:top-20 md:right-20 p-6 md:p-10 rounded-full bg-white shadow-2xl border border-navy-100 flex flex-col items-center justify-center text-center w-32 h-32 md:w-48 md:h-48"
+                   transition={{ delay: 0.5 }}
+                   className="absolute top-3 right-3 sm:top-6 sm:right-6 md:top-10 md:right-10 lg:top-20 lg:right-20 p-3 sm:p-4 md:p-6 lg:p-10 rounded-full bg-white shadow-xl sm:shadow-2xl border border-navy-100 flex flex-col items-center justify-center text-center w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-48 lg:h-48"
                 >
-                  <div className="w-10 h-10 md:w-16 md:h-16 rounded-xl bg-gold-500 flex items-center justify-center text-navy-950 mb-2 md:mb-3 shadow-lg">
-                    <Target className="w-6 h-6 md:w-10 md:h-10" />
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-10 md:h-10 lg:w-16 lg:h-16 rounded-lg sm:rounded-xl bg-gold-500 flex items-center justify-center text-navy-950 mb-1 sm:mb-1.5 md:mb-2 lg:mb-3 shadow-lg">
+                    <Target className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6 lg:w-10 lg:h-10" />
                   </div>
-                  <span className="text-xl md:text-3xl font-black text-navy-950 tracking-tighter italic whitespace-nowrap">Arb-Med</span>
-                  <span className="text-[7px] md:text-[9px] font-mono uppercase tracking-[0.3em] text-gold-500 font-bold mt-1">India's First</span>
+                  <span className="text-xs sm:text-sm md:text-xl lg:text-3xl font-black text-navy-950 tracking-tighter italic whitespace-nowrap leading-none">Arb-Med</span>
+                  <span className="text-[5px] sm:text-[6px] md:text-[7px] lg:text-[9px] font-mono uppercase tracking-[0.25em] sm:tracking-[0.3em] text-gold-500 font-bold mt-0.5 sm:mt-1">India's First</span>
                 </motion.div>
               </div>
             </FadeInUp>
 
             {/* Vision Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 items-start">
-              <div className="lg:sticky lg:top-32">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-24 items-start">
+              <div className="lg:sticky lg:top-32 space-y-12">
                 <SectionHeader 
                   subtitle="The Legacy" 
                   title="Globally Renowned, Locally Rooted" 
                 />
+                
+                {/* Decorative Pill Section to fill space */}
+                <FadeInUp delay={0.2} className="hidden lg:block">
+                  <div className="grid grid-cols-2 gap-4 max-w-sm">
+                    {[
+                      { label: "Founded In", value: "2017", icon: Calendar },
+                      { label: "Venue", value: "New Delhi", icon: MapPin },
+                    ].map((item, i) => (
+                      <div key={i} className="p-6 rounded-3xl bg-navy-50 border border-navy-100/50 group hover:bg-white hover:shadow-xl transition-all duration-500">
+                        <item.icon className="w-5 h-5 text-gold-500 mb-3 group-hover:scale-110 transition-transform" />
+                        <p className="text-[10px] font-mono uppercase tracking-widest text-navy-950/40 mb-1">{item.label}</p>
+                        <p className="text-xl font-bold text-navy-950 tracking-tight">{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </FadeInUp>
               </div>
 
-              <div className="space-y-12 pt-4 md:pt-0">
-                <div className="space-y-8 text-xl md:text-2xl font-light text-navy-500 leading-relaxed">
+              <div className="space-y-8 sm:space-y-10 md:space-y-12 pt-2 sm:pt-4 lg:pt-0">
+                <div className="space-y-6 sm:space-y-7 md:space-y-8 text-base sm:text-lg md:text-xl lg:text-2xl font-light text-navy-500 leading-relaxed">
                   <p>
                     Advocate Maximus was born out of a vision to bridge the gap between academic learning and professional practice in the field of <span className="text-navy-950 font-medium">International Commercial Arbitration and Mediation.</span>
                   </p>
@@ -204,22 +247,29 @@ export default function AdvocateMaximusPage() {
                   </p>
                 </div>
                 
-                <div className="pt-4">
-                  <a href="https://superlawyer.in/advocate-maximus-sign-up-for-the-global-arb-med-competition/" target="_blank" className="group inline-flex items-center gap-6 text-gold-600 hover:text-navy-950 transition-all font-bold uppercase tracking-[0.3em] text-sm md:text-base">
-                    Read the Original Announcement 
-                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gold-50 group-hover:bg-navy-950 group-hover:text-white flex items-center justify-center transition-all shadow-lg">
-                      <ExternalLink className="w-5 h-5 md:w-7 h-7" />
-                    </div>
+                <div className="pt-6 sm:pt-8">
+                  <a 
+                    href="https://superlawyer.in/advocate-maximus-sign-up-for-the-global-arb-med-competition/" 
+                    target="_blank" 
+                    className="group flex items-center gap-4 sm:gap-5"
+                  >
+                    <div className="h-0.5 w-12 sm:w-16 bg-gold-500 group-hover:w-20 sm:group-hover:w-24 transition-all duration-300" />
+                    <span className="text-xs sm:text-sm font-mono uppercase tracking-[0.2em] text-navy-800 group-hover:text-navy-950 font-extrabold transition-colors">
+                      Read Announcement
+                    </span>
+                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 text-gold-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
                   </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        
       </section>
 
       {/* Our Footprint Section */}
-      <section className="py-24 md:py-40 bg-navy-50 relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-40 bg-navy-50 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gold-500/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
           <SectionHeader 
@@ -251,19 +301,19 @@ export default function AdvocateMaximusPage() {
               }
             ].map((stat, i) => (
               <FadeInUp key={i} delay={i * 0.1}>
-                <div className="group relative p-12 rounded-[3.5rem] bg-white border border-navy-100 shadow-sm hover:shadow-2xl hover:border-gold-500/20 transition-all duration-700">
-                  <div className="w-16 h-16 rounded-2xl bg-navy-50 flex items-center justify-center text-gold-500 mb-8 group-hover:scale-110 group-hover:rotate-6 transition-transform">
-                    <stat.icon className="w-8 h-8" />
+                <div className="group relative p-8 sm:p-12 rounded-3xl sm:rounded-[3.5rem] bg-white border border-navy-100 shadow-sm hover:shadow-2xl hover:border-gold-500/20 transition-all duration-700">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-navy-50 flex items-center justify-center text-gold-500 mb-6 sm:mb-8 group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                    <stat.icon className="w-6 h-6 sm:w-8 sm:h-8" />
                   </div>
-                  <div className="mb-4">
-                    <span className="text-6xl md:text-7xl font-black italic text-navy-950 tracking-tighter block group-hover:text-gold-500 transition-colors">
+                  <div className="mb-3 sm:mb-4">
+                    <span className="text-5xl sm:text-6xl md:text-7xl font-black italic text-navy-950 tracking-tighter block group-hover:text-gold-500 transition-colors">
                       {stat.value}
                     </span>
-                    <span className="text-xs font-mono uppercase tracking-[0.4em] text-gold-500 font-bold">
+                    <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.3em] sm:tracking-[0.4em] text-gold-500 font-bold">
                       {stat.label}
                     </span>
                   </div>
-                  <p className="text-navy-950/40 font-light leading-relaxed mt-6">
+                  <p className="text-sm sm:text-base text-navy-950/40 font-light leading-relaxed mt-4 sm:mt-6">
                     {stat.desc}
                   </p>
                 </div>
@@ -274,7 +324,7 @@ export default function AdvocateMaximusPage() {
       </section>
 
       {/* Unique Pillars Section */}
-      <section className="py-16 md:py-24 bg-navy-50 relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-24 bg-navy-50 relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-5 pointer-events-none">
            <Image src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80" fill alt="Texture" className="object-cover" />
         </div>
@@ -300,14 +350,14 @@ export default function AdvocateMaximusPage() {
                 }
               ].map((item, i) => (
                 <StaggerItem key={i}>
-                  <div className="group relative h-full p-10 rounded-[3rem] bg-white border border-transparent shadow-sm hover:border-gold-500/30 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)] transition-all duration-700 flex flex-col items-start overflow-hidden">
-                    <div className="w-16 h-16 rounded-2xl bg-navy-50 flex items-center justify-center text-gold-500 mb-8 group-hover:bg-navy-950 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                      <item.icon className="w-8 h-8" />
+                  <div className="group relative h-full p-8 sm:p-10 rounded-3xl sm:rounded-[3rem] bg-white border border-transparent shadow-sm hover:border-gold-500/30 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)] transition-all duration-700 flex flex-col items-start overflow-hidden">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-navy-50 flex items-center justify-center text-gold-500 mb-6 sm:mb-8 group-hover:bg-navy-950 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                      <item.icon className="w-6 h-6 sm:w-8 sm:h-8" />
                     </div>
-                    <h3 className="text-2xl font-bold text-navy-950 group-hover:text-gold-500 transition-colors mb-4 uppercase italic tracking-tight leading-tight">{item.title}</h3>
-                    <p className="text-navy-500 font-light leading-relaxed mb-auto group-hover:text-navy-950/70 transition-colors">{item.desc}</p>
+                    <h3 className="text-xl sm:text-2xl font-bold text-navy-950 group-hover:text-gold-500 transition-colors mb-4 uppercase italic tracking-tight leading-tight">{item.title}</h3>
+                    <p className="text-sm sm:text-base text-navy-500 font-light leading-relaxed mb-auto group-hover:text-navy-950/70 transition-colors">{item.desc}</p>
                     
-                    <div className="mt-10 h-1 w-12 bg-navy-100 group-hover:w-full group-hover:bg-gold-500/30 transition-all duration-700 rounded-full" />
+                    <div className="mt-6 sm:mt-10 h-1 w-12 bg-navy-100 group-hover:w-full group-hover:bg-gold-500/30 transition-all duration-700 rounded-full" />
                   </div>
                 </StaggerItem>
               ))}
@@ -316,7 +366,7 @@ export default function AdvocateMaximusPage() {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-24 md:py-40 bg-navy-950 text-white overflow-hidden relative dark">
+      <section className="py-16 sm:py-24 md:py-40 bg-navy-950 text-white overflow-hidden relative dark">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(191,154,102,0.1),transparent_60%)] pointer-events-none" />
         
         <div className="max-w-5xl mx-auto px-6 relative z-10">
@@ -330,14 +380,14 @@ export default function AdvocateMaximusPage() {
               />
               
               <div className="flex flex-col items-center gap-20 md:gap-32 pt-12">
-                 <div className="flex flex-wrap justify-center gap-8">
-                    <MagneticButton variant="primary" size="lg" className="px-12 py-5 shadow-2xl shadow-gold-500/20">
-                      <a href="mailto:info@thepact.in" className="flex items-center gap-3 text-lg">
+                 <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 w-full sm:w-auto">
+                    <MagneticButton variant="primary" size="lg" className="w-full sm:w-auto px-6 sm:px-12 py-4 sm:py-5 shadow-2xl shadow-gold-500/20">
+                      <a href="mailto:info@thepact.in" className="flex items-center justify-center gap-3 text-base sm:text-lg">
                         Contact for Partnerships <MailIcon className="w-5 h-5" />
                       </a>
                     </MagneticButton>
-                    <MagneticButton variant="secondary" size="lg" className="px-12 py-5 border border-white/20">
-                      <a href="#" className="flex items-center gap-3 text-lg">
+                    <MagneticButton variant="secondary" size="lg" className="w-full sm:w-auto px-6 sm:px-12 py-4 sm:py-5 border border-white/20">
+                      <a href="#" className="flex items-center justify-center gap-3 text-base sm:text-lg">
                         Alumni Network <Rocket className="w-5 h-5" />
                       </a>
                     </MagneticButton>

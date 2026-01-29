@@ -46,13 +46,14 @@ import { MagneticButton } from "@/components/magnetic-button";
 import { Collaborators } from "@/components/sections/home/collaborators";
 import { cn } from "@/lib/utils";
 
+// --- Reusable Section Header ---
 const SectionHeader = ({ subtitle, title, description, light = false, center = false }: { subtitle: string, title: string, description?: string, light?: boolean, center?: boolean }) => (
-  <FadeInUp className={cn("mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
-    <div className="inline-flex items-center gap-4 mb-6 opacity-80">
-      <div className={cn("h-px w-12 bg-gold-500", light ? "bg-gold-500" : "bg-gold-500/50")} />
-      <span className={cn("text-[10px] md:text-xs font-mono tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
+  <FadeInUp className={cn("mb-8 sm:mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
+    <div className="inline-flex items-center gap-2 sm:gap-4 mb-3 sm:mb-6 opacity-80">
+      <div className={cn("h-px w-8 sm:w-12 bg-gold-500", light ? "bg-gold-500" : "bg-gold-500/50")} />
+      <span className={cn("text-[10px] sm:text-[11px] md:text-xs font-mono tracking-[0.2em] sm:tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
     </div>
-    <h2 className={cn("text-4xl sm:text-5xl md:text-7xl lg:text-[5rem] font-light tracking-tight mb-8 leading-[0.95]", light ? "text-white" : "text-navy-950")}>
+    <h2 className={cn("text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[5rem] font-light tracking-tight mb-4 sm:mb-6 md:mb-8 leading-[1.1] sm:leading-[0.95]", light ? "text-white" : "text-navy-950")}>
       {title.split(' ').map((word, i) => (
         <span key={i} className={cn(
           word.toLowerCase() === 'awards' || 
@@ -65,7 +66,7 @@ const SectionHeader = ({ subtitle, title, description, light = false, center = f
       ))}
     </h2>
     {description && (
-      <p className={cn("max-w-4xl text-lg sm:text-xl md:text-2xl font-light leading-relaxed", light ? "text-white/70" : "text-navy-950/50")}>
+      <p className={cn("max-w-4xl text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light leading-relaxed px-2 sm:px-0", light ? "text-white/70" : "text-navy-950/50")}>
         {description}
       </p>
     )}
@@ -98,7 +99,7 @@ export default function NIAAMPage() {
       <GrainOverlay />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-32 pb-20 md:pt-40 md:pb-32 bg-navy-950 overflow-hidden dark">
+      <section className="relative min-h-[90vh] flex items-center pt-24 pb-12 sm:pt-32 sm:pb-20 md:pt-40 md:pb-32 bg-navy-950 overflow-hidden dark">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80"
@@ -156,8 +157,8 @@ export default function NIAAMPage() {
         </div>
       </section>
 
-      {/* About the Award Section */}
-      <section id="about" className="py-16 md:py-24 bg-white relative overflow-hidden">
+   {/* About the Award Section */}
+      <section id="about" className="py-12 sm:py-16 md:py-24 bg-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none text-navy-950/5">
            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-gold-500/5 blur-[120px] rounded-full opacity-50" />
         </div>
@@ -170,37 +171,49 @@ export default function NIAAMPage() {
             description="The National ImPACT Awards for Advancement of Mediation in India recognizes extraordinary contributions across four core pillars of the mediation ecosystem."
           />
 
-          <div className="flex flex-col gap-12 md:gap-16">
+          <div className="flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-16">
+            {/* Cinematic Feature Image */}
             <FadeInUp className="relative group">
-              <div className="relative aspect-video md:aspect-21/9 rounded-[3rem] md:rounded-[4rem] overflow-hidden bg-navy-50 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] ring-1 ring-navy-950/5">
+              <div className="absolute -inset-6 sm:-inset-10 bg-gold-500/5 blur-3xl rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+              <div className="relative aspect-video md:aspect-21/9 rounded-2xl sm:rounded-3xl md:rounded-[3rem] lg:rounded-[4rem] overflow-hidden bg-navy-50 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] sm:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] ring-1 ring-navy-950/5">
                 <Image 
                   src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&q=80"
                   alt="Ceremony Highlights"
                   fill
                   className="object-cover transition-transform duration-2000 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-navy-950/60 via-navy-950/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-navy-950/10 to-transparent" />
                 
-                <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 p-6 rounded-3xl bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl max-w-[300px]">
-                  <div className="flex items-center gap-4 text-left">
-                    <div className="w-12 h-12 rounded-xl bg-gold-500 flex items-center justify-center text-navy-950 shadow-lg shrink-0">
-                      <Sparkles className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <p className="text-[9px] font-mono uppercase tracking-[0.3em] text-navy-950/40 font-bold mb-0.5">Benchmark</p>
-                      <p className="text-base font-bold text-navy-950 tracking-tight leading-tight">Annual Conferment</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute top-8 right-8 w-24 h-24 rounded-full bg-navy-950 flex flex-col items-center justify-center text-center shadow-2xl border-4 border-gold-500/30">
-                   <span className="text-gold-500 font-bold text-xl leading-none italic uppercase">Niaam</span>
-                   <span className="text-[7px] text-white/40 uppercase tracking-[0.4em] font-bold mt-1">Found. 2023</span>
+                {/* Niaam Badge - Top Right */}
+                <div className="absolute top-3 right-3 sm:top-6 sm:right-6 md:top-8 md:right-8 w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 rounded-full bg-navy-950 flex flex-col items-center justify-center text-center shadow-xl sm:shadow-2xl border-2 sm:border-3 md:border-4 border-gold-500/30">
+                   <span className="text-gold-500 font-bold text-[10px] sm:text-sm md:text-xl leading-none italic uppercase">Niaam</span>
+                   <span className="text-[4px] sm:text-[5px] md:text-[7px] text-white/40 uppercase tracking-[0.25em] sm:tracking-[0.4em] font-bold mt-0.5 sm:mt-1">Found. 2023</span>
                 </div>
               </div>
             </FadeInUp>
 
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Floating Benchmark Card - OUTSIDE image on mobile, overlapping on desktop */}
+            <FadeInUp className="-mt-12 sm:-mt-16 md:-mt-20 px-4 sm:px-6 md:px-0">
+              <motion.div 
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="relative md:ml-12 lg:ml-16 p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-2xl md:rounded-3xl bg-white backdrop-blur-xl border border-navy-950/10 shadow-2xl max-w-full sm:max-w-[320px] md:max-w-[360px]"
+              >
+                <div className="flex items-center gap-3 sm:gap-4 text-left">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 shadow-lg shrink-0">
+                    <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+                  </div>
+                  <div>
+                    <p className="text-[8px] sm:text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.3em] text-navy-950/40 font-bold mb-1">Benchmark</p>
+                    <p className="text-base sm:text-lg md:text-xl font-bold text-navy-950 tracking-tight leading-tight">Annual Conferment</p>
+                  </div>
+                </div>
+              </motion.div>
+            </FadeInUp>
+
+            {/* Four Pillars Grid */}
+            <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
               {[
                 { 
                   icon: Users, 
@@ -220,17 +233,17 @@ export default function NIAAMPage() {
                 { 
                   icon: Scale, 
                   title: "Practice", 
-                  desc: "Demonstrating excellence and innovation as a mediator across divers sectors." 
+                  desc: "Demonstrating excellence and innovation as a mediator across diverse sectors." 
                 }
               ].map((item, i) => (
                 <StaggerItem key={i}>
-                  <div className="group relative h-full p-8 rounded-[2.5rem] bg-navy-50/50 border border-transparent hover:border-gold-500/30 hover:bg-white hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] transition-all duration-500 overflow-hidden text-center flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 text-gold-500 border border-navy-100">
-                      <item.icon className="w-8 h-8" />
+                  <div className="group relative h-full p-6 sm:p-7 md:p-8 rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] bg-navy-50/50 border border-transparent hover:border-gold-500/30 hover:bg-white hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] transition-all duration-500 overflow-hidden text-center flex flex-col items-center">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-white flex items-center justify-center mb-4 sm:mb-5 md:mb-6 shadow-sm group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 text-gold-500 border border-navy-100">
+                      <item.icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
                     </div>
-                    <div className="space-y-4">
-                      <h4 className="text-xl font-bold text-navy-950 tracking-tight leading-none group-hover:text-gold-500 transition-colors uppercase italic">{item.title}</h4>
-                      <p className="text-sm text-navy-950/50 font-light leading-relaxed">{item.desc}</p>
+                    <div className="space-y-3 sm:space-y-4">
+                      <h4 className="text-base sm:text-lg md:text-xl font-bold text-navy-950 tracking-tight leading-none group-hover:text-gold-500 transition-colors uppercase italic">{item.title}</h4>
+                      <p className="text-xs sm:text-sm text-navy-950/50 font-light leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 </StaggerItem>
@@ -241,7 +254,7 @@ export default function NIAAMPage() {
       </section>
 
       {/* NIAAM 2026 Section */}
-      <section className="py-16 md:py-24 bg-navy-950 relative overflow-hidden dark">
+      <section className="py-12 sm:py-16 md:py-24 bg-navy-950 relative overflow-hidden dark">
         <div className="absolute inset-0 z-0 opacity-10">
           <Image 
             src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80"
@@ -251,7 +264,7 @@ export default function NIAAMPage() {
           />
         </div>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
-          <div className="max-w-4xl mx-auto rounded-[4rem] bg-white/5 backdrop-blur-xl border border-white/10 p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+          <div className="max-w-4xl mx-auto rounded-3xl sm:rounded-[4rem] bg-white/5 backdrop-blur-xl border border-white/10 p-10 sm:p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
               <div className="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 blur-3xl rounded-full" />
               <FadeInUp>
                  <SectionHeader subtitle="Upcoming Edition" title="NIAAM 2026" light center />
@@ -278,8 +291,8 @@ export default function NIAAMPage() {
       </section>
 
       {/* Hall of Honorary Recipients - Interactive Bar */}
-      <section id="awardees" className="py-24 md:py-32 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 mb-16">
+      <section id="awardees" className="py-16 sm:py-24 md:py-32 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 mb-10 sm:mb-16">
           <SectionHeader subtitle="Recognition" title="Hall of Honorary Recipients" center />
         </div>
         
@@ -288,47 +301,47 @@ export default function NIAAMPage() {
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-linear-to-l from-white to-transparent z-10 pointer-events-none" />
 
-          <div className="flex overflow-x-auto no-scrollbar pb-12 snap-x">
-             <div className="flex gap-6 px-6 md:px-24">
+          <div className="flex overflow-x-auto no-scrollbar pb-8 snap-x scroll-smooth outline-none focus:outline-none scrollbar-thin scrollbar-track-navy-50 scrollbar-thumb-gold-500/50">
+             <div className="flex gap-4 sm:gap-6 px-6 sm:px-12 md:px-24">
                 {awardees.map((awardee, i) => (
                    <FadeInUp key={i} delay={i * 0.05} className="snap-center">
-                      <div className="w-[320px] md:w-[450px] group relative p-10 rounded-[3.5rem] bg-navy-50 border border-navy-100 hover:border-gold-500/50 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 flex flex-col justify-between h-[450px] overflow-hidden">
+                      <div className="w-[260px] sm:w-[320px] md:w-[420px] group relative p-5 sm:p-8 rounded-3xl sm:rounded-[3rem] bg-navy-50 border border-navy-100 hover:border-gold-500/50 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] transition-all duration-700 flex flex-col justify-between h-[280px] sm:h-[340px] md:h-[380px] overflow-hidden">
                         {/* Background Year Accent */}
-                        <div className="absolute -top-6 -right-6 text-[10rem] font-black text-navy-950/3 group-hover:text-gold-500/5 transition-colors leading-none italic select-none">
+                        <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 text-[5rem] sm:text-[8rem] md:text-[10rem] font-black text-navy-950/3 group-hover:text-gold-500/5 transition-colors leading-none italic select-none">
                            {awardee.year}
                         </div>
 
                         <div className="relative z-10">
-                          <div className="flex items-center gap-3 mb-8">
-                            <Medal className="w-5 h-5 text-gold-500" />
-                            <span className="text-[10px] font-mono font-bold text-gold-500 tracking-[0.4em] uppercase">
-                               NIAAM Honoree
+                          <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-8">
+                            <Medal className="w-4 h-4 sm:w-5 sm:h-5 text-gold-500" />
+                            <span className="text-[8px] sm:text-[10px] font-mono font-bold text-gold-500 tracking-[0.3em] sm:tracking-[0.4em] uppercase">
+                                NIAAM Honoree
                             </span>
                           </div>
                           
-                          <h3 className="text-3xl md:text-5xl font-light text-navy-950 leading-[0.9] tracking-tighter mb-4 italic group-hover:text-gold-500 transition-colors uppercase">
+                          <h3 className="text-xl sm:text-3xl md:text-5xl font-light text-navy-950 leading-[0.9] tracking-tighter mb-4 italic group-hover:text-gold-500 transition-colors uppercase">
                              {awardee.name.split(' ').map((part, idx) => (
                                <span key={idx} className="block">{part}</span>
                              ))}
                           </h3>
                         </div>
 
-                        <div className="relative z-10 space-y-6">
-                           <div className="h-px w-12 bg-gold-500/30 group-hover:w-full transition-all duration-700" />
+                        <div className="relative z-10 space-y-4 sm:space-y-6">
+                           <div className="h-px w-10 sm:w-12 bg-gold-500/30 group-hover:w-full transition-all duration-700" />
                            <div className="flex flex-col gap-1">
-                              <span className="text-[10px] font-mono text-navy-950/30 uppercase tracking-[0.2em] font-bold">Category</span>
-                              <p className="text-lg font-light text-navy-950/60 group-hover:text-navy-950 transition-colors">{awardee.category}</p>
+                               <span className="text-[9px] sm:text-[10px] font-mono text-navy-950/30 uppercase tracking-[0.2em] font-bold">Category</span>
+                               <p className="text-sm sm:text-lg font-light text-navy-950/60 group-hover:text-navy-950 transition-colors">{awardee.category}</p>
                            </div>
                            
                            <div className="flex items-center gap-2 text-navy-950/20 group-hover:text-navy-950/40 transition-colors">
-                              <MapPin className="w-4 h-4" />
-                              <span className="text-xs font-mono uppercase tracking-[0.2em] font-bold">{awardee.city}</span>
+                              <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] font-bold">{awardee.city}</span>
                            </div>
                         </div>
                         
                         {/* Interactive Sparkle on Hover */}
-                        <div className="absolute bottom-10 right-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                           <Sparkles className="w-8 h-8 text-gold-500/20 animate-pulse" />
+                        <div className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                           <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-gold-500/20 animate-pulse" />
                         </div>
                       </div>
                    </FadeInUp>
@@ -336,19 +349,37 @@ export default function NIAAMPage() {
              </div>
           </div>
           
-          {/* Scroll Hint */}
-          <div className="flex justify-center mt-4">
-             <div className="flex items-center gap-3 text-navy-950/20">
-                <div className="h-px w-12 bg-navy-100" />
-                <span className="text-[9px] font-mono uppercase tracking-[0.3em]">Swipe to explore history</span>
-                <div className="h-px w-12 bg-navy-100" />
+          {/* Scroll Hint & Custom Scrollbar Indicator */}
+          <div className="flex flex-col items-center gap-6 mt-4">
+             <div className="flex items-center gap-3 text-navy-950/20 group/hint">
+                <div className="h-px w-8 sm:w-12 bg-navy-100 group-hover/hint:w-16 transition-all duration-500" />
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.3em] font-bold text-navy-950/40">Swipe to explore</span>
+                  <motion.div
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                  >
+                    <ArrowRight className="w-3 h-3 text-gold-500" />
+                  </motion.div>
+                </div>
+                <div className="h-px w-8 sm:w-12 bg-navy-100 group-hover/hint:w-16 transition-all duration-500" />
+             </div>
+
+             {/* Visual Scrollbar Detail */}
+             <div className="w-32 h-1 bg-navy-100 rounded-full overflow-hidden relative">
+                <motion.div 
+                   className="absolute left-0 top-0 h-full bg-gold-500"
+                   initial={{ width: "20%" }}
+                   whileInView={{ width: "100%" }}
+                   transition={{ duration: 2, ease: "easeOut" }}
+                />
              </div>
           </div>
         </div>
       </section>
 
       {/* Ceremonial Clicks Section */}
-      <section className="pt-16 md:pt-24 pb-4 md:pb-6 bg-white border-t border-navy-100/50">
+      <section className="pt-16 md:pt-24 pb-6 sm:pb-12 md:pb-20 bg-white border-t border-navy-100/50">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 mb-16">
           <SectionHeader subtitle="Gallery" title="Ceremonial Clicks" center />
         </div>
@@ -431,17 +462,17 @@ export default function NIAAMPage() {
               ))}
             </CarouselContent>
             
-            <div className="flex items-center justify-center gap-6 mt-12 md:mt-16">
-              <CarouselPrevious className="static translate-y-0 w-16 h-16 rounded-full border-navy-100 bg-navy-50 text-navy-950 hover:bg-gold-500 hover:text-navy-950 hover:border-gold-500 transition-all shadow-2xl hover:-translate-x-1" />
-              <div className="h-px w-24 bg-navy-100" />
-              <CarouselNext className="static translate-y-0 w-16 h-16 rounded-full border-navy-100 bg-navy-50 text-navy-950 hover:bg-gold-500 hover:text-navy-950 hover:border-gold-500 transition-all shadow-2xl hover:translate-x-1" />
+            <div className="flex items-center justify-center gap-4 sm:gap-6 mt-8 sm:mt-12 md:mt-16">
+              <CarouselPrevious className="static translate-y-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full border-navy-100 bg-navy-50 text-navy-950 hover:bg-gold-500 hover:text-navy-950 hover:border-gold-500 transition-all shadow-xl hover:-translate-x-1" />
+              <div className="h-px w-12 sm:w-24 bg-navy-100" />
+              <CarouselNext className="static translate-y-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full border-navy-100 bg-navy-50 text-navy-950 hover:bg-gold-500 hover:text-navy-950 hover:border-gold-500 transition-all shadow-xl hover:translate-x-1" />
             </div>
           </Carousel>
         </div>
       </section>
 
       {/* Collaborators Section */}
-      <div className="bg-white -mt-12 md:-mt-20">
+      <div className="bg-white pb-6 sm:pb-12 md:pb-20">
         <Collaborators />
       </div>
 

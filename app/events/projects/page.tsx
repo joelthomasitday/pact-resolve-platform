@@ -163,14 +163,14 @@ export default function ProjectsPage() {
                   We seek to mainstream mediation, build professional capacity, and empower individuals with collaborative dispute resolution skills.
                 </p>
 
-                <div className="flex flex-wrap gap-6 pt-12">
-                  <MagneticButton variant="primary" size="lg" className="group px-10 py-5">
-                    <a href="mailto:official@thepact.in" className="flex items-center gap-3 text-lg">
+                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 pt-8 sm:pt-12 w-full sm:w-auto">
+                  <MagneticButton variant="primary" size="lg" className="group w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5">
+                    <a href="mailto:official@thepact.in" className="flex items-center justify-center gap-3 text-base sm:text-lg">
                        Inquire for Collaboration <Mail className="w-5 h-5" />
                     </a>
                   </MagneticButton>
-                  <MagneticButton variant="secondary" size="lg" className="group px-10 py-5">
-                    <a href="#archives" className="flex items-center gap-3 text-lg text-white">
+                  <MagneticButton variant="secondary" size="lg" className="group w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5">
+                    <a href="#archives" className="flex items-center justify-center gap-3 text-base sm:text-lg text-white">
                        View Archive <History className="w-5 h-5" />
                     </a>
                   </MagneticButton>
