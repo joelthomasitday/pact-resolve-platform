@@ -1,16 +1,26 @@
 import { MongoClient, Db } from "mongodb";
 
-// Connection URI from environment variable
-const uri = process.env.MONGODB_URI || "";
-const dbName = process.env.MONGODB_DB_NAME || "pact_mediation";
-
-if (!uri) {
-  throw new Error("Please define the MONGODB_URI environment variable");
-}
-
 // Cache the MongoDB client connection
 let cachedClient: MongoClient | null = null;
 let cachedDb: Db | null = null;
+
+/**
+ * Get the MongoDB URI - validates at runtime, not build time
+ */
+function getMongoUri(): string {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error("Please define the MONGODB_URI environment variable");
+  }
+  return uri;
+}
+
+/**
+ * Get the database name from environment or use default
+ */
+function getDbName(): string {
+  return process.env.MONGODB_DB_NAME || "pact_mediation";
+}
 
 /**
  * Connect to MongoDB and return the database instance
@@ -21,6 +31,10 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
   if (cachedClient && cachedDb) {
     return { client: cachedClient, db: cachedDb };
   }
+
+  // Get connection details at runtime
+  const uri = getMongoUri();
+  const dbName = getDbName();
 
   // Create a new MongoClient
   const client = new MongoClient(uri, {
