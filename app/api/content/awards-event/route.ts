@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
-import { COLLECTIONS, type MCIEvent } from "@/lib/db/schemas";
+import { COLLECTIONS, type NationalImpactAward } from "@/lib/db/schemas";
 import { ObjectId } from "mongodb";
 
 /**
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get("id");
     
     const db = await getDb();
-    const collection = db.collection<MCIEvent>(COLLECTIONS.NATIONAL_IMPACT_AWARDS);
+    const collection = db.collection<NationalImpactAward>(COLLECTIONS.NATIONAL_IMPACT_AWARDS);
     
     // Get specific event by ID
     if (id) {
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     const db = await getDb();
-    const collection = db.collection<MCIEvent>(COLLECTIONS.NATIONAL_IMPACT_AWARDS);
+    const collection = db.collection<NationalImpactAward>(COLLECTIONS.NATIONAL_IMPACT_AWARDS);
     
     // If this event is marked as active, deactivate others
     if (body.isActive) {
@@ -88,13 +88,13 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    const newEvent: Omit<MCIEvent, "_id"> = {
+    const newEvent: Omit<NationalImpactAward, "_id"> = {
       ...body,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
     
-    const result = await collection.insertOne(newEvent as MCIEvent);
+    const result = await collection.insertOne(newEvent as NationalImpactAward);
     
     return NextResponse.json({ 
       success: true, 
@@ -126,7 +126,7 @@ export async function PUT(request: NextRequest) {
     }
     
     const db = await getDb();
-    const collection = db.collection<MCIEvent>(COLLECTIONS.NATIONAL_IMPACT_AWARDS);
+    const collection = db.collection<NationalImpactAward>(COLLECTIONS.NATIONAL_IMPACT_AWARDS);
     
     // If this event is being marked as active, deactivate others
     if (updateData.isActive) {
@@ -183,7 +183,7 @@ export async function DELETE(request: NextRequest) {
     }
     
     const db = await getDb();
-    const collection = db.collection<MCIEvent>(COLLECTIONS.NATIONAL_IMPACT_AWARDS);
+    const collection = db.collection<NationalImpactAward>(COLLECTIONS.NATIONAL_IMPACT_AWARDS);
     
     const result = await collection.deleteOne({ _id: new ObjectId(id) });
     

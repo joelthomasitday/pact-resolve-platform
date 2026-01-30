@@ -3,312 +3,545 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, Calendar, Loader2, Edit, Trash2, Award, ArrowLeft } from "lucide-react";
+import { 
+  Plus, 
+  Loader2, 
+  Trash2, 
+  ArrowLeft, 
+  Image as ImageIcon, 
+  Save, 
+  Edit,
+  ChevronUp, 
+  ChevronDown,
+  LayoutGrid,
+  Sparkles,
+  Trophy,
+  Medal,
+  MapPin,
+  Calendar
+} from "lucide-react";
 import { toast } from "sonner";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogFooter,
+  DialogDescription 
+} from "@/components/ui/dialog";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { useAuth } from "@/lib/context/AuthContext";
-import { MCIEvent } from "@/lib/db/schemas";
+import { NationalImpactAward, AwardRecipient, ConclaveHighlight } from "@/lib/db/schemas";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AwardsManagementPage() {
   const { token } = useAuth();
-  const [data, setData] = useState<MCIEvent[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<Partial<MCIEvent> | null>(null);
+  const [eventData, setEventData] = useState<NationalImpactAward | null>(null);
+  
+  // Recipients State
+  const [recipients, setRecipients] = useState<AwardRecipient[]>([]);
+  const [isRecipientsLoading, setIsRecipientsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  
+  // Gallery State
+  const [gallery, setGallery] = useState<ConclaveHighlight[]>([]);
+  
+  // Dialog States
+  const [isRecipientDialogOpen, setIsRecipientDialogOpen] = useState(false);
+  const [editingRecipientIndex, setEditingRecipientIndex] = useState<number | null>(null);
+  const [tempRecipient, setTempRecipient] = useState<AwardRecipient>({ name: "", city: "", category: "", year: "2025" });
 
-  useEffect(() => { fetchItems(); }, []);
+  const [isGalleryDialogOpen, setIsGalleryDialogOpen] = useState(false);
+  const [editingGalleryIndex, setEditingGalleryIndex] = useState<number | null>(null);
+  const [tempGalleryItem, setTempGalleryItem] = useState<ConclaveHighlight>({ url: "", title: "", description: "" });
 
-  async function fetchItems() {
-    setIsLoading(true);
+  // Fallback data matching the public website
+  const fallbackRecipients: AwardRecipient[] = [
+    { name: "Adv. Tanu Mehta", city: "Mumbai", category: "Mediation Education", year: "2025" },
+    { name: "Justice Mohan Lal Mehta", city: "New Delhi", category: "Mediation Institution Building", year: "2025" },
+    { name: "Raj Panchmatia", city: "Mumbai", category: "Mediation Advocacy", year: "2025" },
+    { name: "Adv. Veena Ralli", city: "New Delhi", category: "Mediation Practice", year: "2025" }
+  ];
+
+  const fallbackGallery: ConclaveHighlight[] = [
+    { url: "https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?auto=format&fit=crop&q=80", title: "Ceremonial Moment 1", description: "Celebrating the advancement of mediation excellence in India." },
+    { url: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80", title: "Ceremonial Moment 2", description: "Celebrating the advancement of mediation excellence in India." }
+  ];
+
+  useEffect(() => { fetchEvent(); }, []);
+
+  async function fetchEvent() {
+    setIsRecipientsLoading(true);
     try {
-      const res = await fetch("/api/content/awards-event?all=true");
+      const res = await fetch("/api/content/awards-event?admin=true", { cache: 'no-store' });
       const result = await res.json();
-      if (result.success) {
-        const items = result.data ? (Array.isArray(result.data) ? result.data : [result.data]) : [];
-        setData(items);
+      
+      if (result.success && result.data) {
+        // In case API returns an array, pick the active one or the first one
+        const activeEvent = Array.isArray(result.data) 
+          ? (result.data.find((e: NationalImpactAward) => e.isActive) || result.data[0])
+          : (result.data._id ? result.data : null);
+        
+        if (!activeEvent) {
+          setRecipients(fallbackRecipients);
+          setGallery(fallbackGallery);
+          setEventData(null);
+          return;
+        }
+
+        setEventData(activeEvent);
+        setRecipients(activeEvent.recipients?.length > 0 ? activeEvent.recipients : fallbackRecipients);
+        setGallery(activeEvent.gallery?.length > 0 ? activeEvent.gallery : fallbackGallery);
       } else {
-        setData([]);
+        setRecipients(fallbackRecipients);
+        setGallery(fallbackGallery);
       }
-    } catch (e) { 
-      toast.error("Fetch failed"); 
-      setData([]);
+    } catch { 
+      setRecipients(fallbackRecipients);
+      setGallery(fallbackGallery);
+      toast.error("Failed to sync with database."); 
+    } finally { 
+      setIsRecipientsLoading(false); 
     }
-    finally { setIsLoading(false); }
   }
 
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSave = async (data?: { newRecipients?: AwardRecipient[], newGallery?: ConclaveHighlight[] }) => {
+    setIsSaving(true);
     try {
+      const isNew = !eventData?._id;
+      const method = isNew ? "POST" : "PUT";
+      
+      const recipientsToSave = data?.newRecipients || recipients;
+      const galleryToSave = data?.newGallery || gallery;
+      
+      const payload = isNew 
+        ? { 
+            year: new Date().getFullYear(), 
+            isActive: true, 
+            recipients: recipientsToSave, 
+            gallery: galleryToSave 
+          }
+        : { 
+            ...eventData, 
+            recipients: recipientsToSave, 
+            gallery: galleryToSave 
+          };
+
       const res = await fetch("/api/content/awards-event", {
-        method: editingItem?._id ? "PUT" : "POST",
+        method,
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-        body: JSON.stringify(editingItem)
+        body: JSON.stringify(payload)
       });
+      
       const result = await res.json();
+      
       if (result.success) {
-        toast.success(editingItem?._id ? "Updated successfully" : "Created successfully");
-        setIsDialogOpen(false);
-        fetchItems();
+        toast.success("Changes saved successfully!");
+        fetchEvent();
       } else {
         toast.error(result.error || "Save failed");
       }
-    } catch (e) { toast.error("Save failed"); }
+    } catch { 
+      toast.error("Save failed"); 
+    } finally { 
+      setIsSaving(false); 
+    }
   };
 
-  const handleDelete = async (id: string) => {
-    try {
-      const res = await fetch(`/api/content/awards-event?id=${id}`, {
-        method: "DELETE",
-        headers: { "Authorization": `Bearer ${token}` }
-      });
-      const result = await res.json();
-      if (result.success) {
-        toast.success("Deleted successfully");
-        fetchItems();
-      } else {
-        toast.error(result.error || "Delete failed");
-      }
-    } catch (e) { toast.error("Delete failed"); }
+  // --- RECIPIENTS LOGIC ---
+  const addRecipientItem = () => {
+    setEditingRecipientIndex(null);
+    setTempRecipient({ name: "", city: "", category: "", year: eventData?.year.toString() || "2025" });
+    setIsRecipientDialogOpen(true);
   };
 
-  const openDialog = (item: Partial<MCIEvent> = {}) => {
-    setEditingItem({ 
-      year: new Date().getFullYear(),
-      subtitle: "",
-      title: ["National", "Impact", "Awards"],
-      isActive: true,
-      heroImage: { url: "", alt: "" },
-      visionImage: { url: "", alt: "" },
-      competitionImage: { url: "", alt: "" },
-      gallery: [],
-      ...item 
-    });
-    setIsDialogOpen(true);
+  const openRecipientEditDialog = (index: number) => {
+    setEditingRecipientIndex(index);
+    setTempRecipient({ ...recipients[index] });
+    setIsRecipientDialogOpen(true);
   };
 
+  const saveRecipient = () => {
+    const newRecipients = [...recipients];
+    if (editingRecipientIndex !== null) {
+      newRecipients[editingRecipientIndex] = { ...tempRecipient };
+    } else {
+      newRecipients.push({ ...tempRecipient });
+    }
+    setRecipients(newRecipients);
+    setIsRecipientDialogOpen(false);
+    handleSave({ newRecipients });
+  };
+
+  const removeRecipient = (index: number) => {
+    const newRecipients = recipients.filter((_, i) => i !== index);
+    setRecipients(newRecipients);
+    toast.success("Recipient removed. Saving...");
+    handleSave({ newRecipients });
+  };
+
+  const moveRecipient = (index: number, direction: 'up' | 'down') => {
+    if (direction === 'up' && index === 0) return;
+    if (direction === 'down' && index === recipients.length - 1) return;
+    
+    const newRecipients = [...recipients];
+    const newIndex = direction === 'up' ? index - 1 : index + 1;
+    [newRecipients[index], newRecipients[newIndex]] = [newRecipients[newIndex], newRecipients[index]];
+    setRecipients(newRecipients);
+    handleSave({ newRecipients });
+  };
+
+  // --- GALLERY LOGIC ---
   const addGalleryItem = () => {
-    if (!editingItem) return;
-    const currentGallery = editingItem.gallery || [];
-    setEditingItem({
-      ...editingItem,
-      gallery: [...currentGallery, { url: "", title: "", description: "", order: currentGallery.length + 1 }]
-    });
+    setEditingGalleryIndex(null);
+    setTempGalleryItem({ url: "", title: "", description: "" });
+    setIsGalleryDialogOpen(true);
+  };
+
+  const openGalleryEditDialog = (index: number) => {
+    setEditingGalleryIndex(index);
+    setTempGalleryItem({ ...gallery[index] });
+    setIsGalleryDialogOpen(true);
+  };
+
+  const saveGalleryItem = () => {
+    const newGallery = [...gallery];
+    if (editingGalleryIndex !== null) {
+      newGallery[editingGalleryIndex] = { ...tempGalleryItem };
+    } else {
+      newGallery.push({ ...tempGalleryItem });
+    }
+    setGallery(newGallery);
+    setIsGalleryDialogOpen(false);
+    handleSave({ newGallery });
   };
 
   const removeGalleryItem = (index: number) => {
-     if (!editingItem || !editingItem.gallery) return;
-     const newGallery = [...editingItem.gallery];
-     newGallery.splice(index, 1);
-     setEditingItem({ ...editingItem, gallery: newGallery });
+    const newGallery = gallery.filter((_, i) => i !== index);
+    setGallery(newGallery);
+    toast.success("Moment removed. Saving...");
+    handleSave({ newGallery });
   };
 
-  const updateGalleryItem = (index: number, field: string, value: any) => {
-    if (!editingItem || !editingItem.gallery) return;
-    const newGallery = [...editingItem.gallery];
-    newGallery[index] = { ...newGallery[index], [field]: value };
-    setEditingItem({ ...editingItem, gallery: newGallery });
-  };
+  if (isRecipientsLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <Loader2 className="w-12 h-12 animate-spin text-purple-500" />
+        <p className="text-muted-foreground animate-pulse font-medium">Loading awards data...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <Link href="/admin/events" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-2 transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-1" /> Back to All Events
-          </Link>
-          <h1 className="text-3xl font-bold flex items-center gap-3"><Award className="w-8 h-8 text-purple-500" /> National Impact Awards</h1>
-          <p className="text-muted-foreground">Manage award ceremonies, winners, and gallery.</p>
-        </div>
-        <Button onClick={() => openDialog()} className="rounded-xl px-6 bg-purple-600 hover:bg-purple-700"><Plus className="w-4 h-4 mr-2" /> Create New Awards Edition</Button>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {isLoading ? (
-          <div className="col-span-full py-20 flex justify-center"><Loader2 className="w-10 h-10 animate-spin text-purple-500" /></div>
-        ) : data.length === 0 ? (
-          <div className="col-span-full py-20 text-center bg-white dark:bg-navy-900 rounded-3xl border-2 border-dashed">
-            <Award className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-            <p className="text-muted-foreground font-medium">No awards editions found.</p>
-            <p className="text-sm text-muted-foreground mt-2">Click "Create New Awards Edition" to add your first awards ceremony.</p>
-            <Button onClick={() => openDialog()} className="mt-4 rounded-xl bg-purple-600 hover:bg-purple-700">
-              <Plus className="w-4 h-4 mr-2" /> Create First Edition
-            </Button>
+    <div className="max-w-7xl mx-auto space-y-10 pb-20">
+      {/* Premium Header Design */}
+      <div className="relative overflow-hidden rounded-4xl bg-navy-950 p-8 md:p-12 text-white shadow-2xl">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-linear-to-l from-purple-500/10 to-transparent pointer-events-none" />
+        <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none" />
+        
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="space-y-4">
+            <Link href="/admin/events" className="inline-flex items-center text-xs font-bold uppercase tracking-widest text-purple-500/80 hover:text-purple-500 transition-colors">
+              <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
+            </Link>
+            <div className="space-y-1">
+              <h1 className="text-4xl md:text-5xl font-black tracking-tighter italic flex items-center gap-4 uppercase text-white">
+                <Trophy className="w-10 h-10 text-purple-500" /> 
+                Impact Awards
+              </h1>
+              <p className="text-white/60 text-lg font-light max-w-xl">
+                Curation portal for the National ImPACT Awards. Manage honorary recipients and ceremonial moments.
+              </p>
+            </div>
           </div>
-        ) : data.map((item) => (
-          <Card key={item._id?.toString()} className="border-none shadow-md rounded-3xl overflow-hidden group hover:shadow-xl transition-all duration-300">
-            <div className="relative h-48">
-              {item.heroImage?.url ? (
-                <Image 
-                  src={item.heroImage.url} 
-                  alt={item.title.join(" ")} 
-                  fill
-                  className="object-cover" 
-                />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-purple-600 to-purple-900" />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-purple-950/90 to-transparent flex flex-col justify-end p-6">
-                 <Badge className="w-fit mb-2 bg-purple-500 text-white font-bold">{item.year}</Badge>
-                 <h2 className="text-white text-xl font-bold">{item.title.join(" ")}</h2>
-                 <p className="text-purple-100 text-xs truncate">{item.subtitle}</p>
-              </div>
-              <div className="absolute top-4 right-4 flex gap-2">
-                 {item.isActive && <Badge className="bg-emerald-500 border-none">Active</Badge>}
-                 <Button size="icon" variant="secondary" className="rounded-full w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity" onClick={() => openDialog(item)}>
-                   <Edit className="w-3 h-3" />
-                 </Button>
-                 <AlertDialog>
-                   <AlertDialogTrigger asChild>
-                     <Button size="icon" variant="destructive" className="rounded-full w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <Trash2 className="w-3 h-3" />
-                     </Button>
-                   </AlertDialogTrigger>
-                   <AlertDialogContent className="rounded-2xl">
-                     <AlertDialogHeader>
-                       <AlertDialogTitle>Delete Awards Edition</AlertDialogTitle>
-                       <AlertDialogDescription>
-                         Are you sure you want to delete "{item.title.join(" ")} {item.year}"? This action cannot be undone.
-                       </AlertDialogDescription>
-                     </AlertDialogHeader>
-                     <AlertDialogFooter>
-                       <AlertDialogCancel className="rounded-xl">Cancel</AlertDialogCancel>
-                       <AlertDialogAction className="rounded-xl bg-red-600 hover:bg-red-700" onClick={() => handleDelete(item._id!.toString())}>Delete</AlertDialogAction>
-                     </AlertDialogFooter>
-                   </AlertDialogContent>
-                 </AlertDialog>
-              </div>
-            </div>
-            <CardContent className="p-6">
-               <div className="flex justify-between items-center text-xs text-muted-foreground mb-4">
-                  <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {item.eventDetails?.dates || "No dates set"}</span>
-                  <span>{item.gallery?.length || 0} photos</span>
-               </div>
-               <Button variant="outline" className="w-full rounded-xl hover:bg-purple-500 hover:text-white transition-colors" onClick={() => openDialog(item)}>Manage Event Data</Button>
-            </CardContent>
-          </Card>
-        ))}
+          
+          <div className="flex flex-col gap-3 w-full md:w-auto">
+            <Button 
+              onClick={() => handleSave()} 
+              disabled={isSaving}
+              className="rounded-2xl px-10 h-14 bg-purple-600 hover:bg-purple-500 text-white font-bold text-lg shadow-xl shadow-purple-900/40 border-none transition-all hover:scale-105 active:scale-95"
+            >
+              {isSaving ? <Loader2 className="w-5 h-5 mr-3 animate-spin" /> : <Save className="w-5 h-5 mr-3" />}
+              Publish Updates
+            </Button>
+            <p className="text-[10px] text-center text-white/40 font-mono uppercase tracking-tighter">
+              {eventData ? `Linked to ${eventData.year} Edition` : "Draft Mode"}
+            </p>
+          </div>
+        </div>
       </div>
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl p-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] [&>button]:text-white [&>button]:top-8 [&>button]:right-8 [&>button]:opacity-100 [&>button]:hover:opacity-80">
-          <form onSubmit={handleSave}>
-            <DialogHeader className="p-8 bg-gradient-to-br from-purple-600 to-purple-900 text-white rounded-t-3xl">
-              <DialogTitle className="flex items-center gap-2">
-                <Award className="w-5 h-5" />
-                {editingItem?._id ? "Edit Awards" : "Create New Awards"} - {editingItem?.year}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="p-8 space-y-8">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label>Awards Year</Label>
-                  <Input type="number" value={editingItem?.year} onChange={e => setEditingItem({...editingItem!, year: parseInt(e.target.value)})} required className="rounded-xl h-11" />
-                </div>
-                <div className="space-y-2">
-                  <Label>Awards Theme/Subtitle</Label>
-                  <Input value={editingItem?.subtitle} onChange={e => setEditingItem({...editingItem!, subtitle: e.target.value})} placeholder="e.g., Celebrating Excellence in Mediation" className="rounded-xl h-11" />
-                </div>
+      {/* SECTION 1: HALL OF HONORARY RECIPIENTS */}
+      <div className="space-y-6">
+        <div className="flex flex-col md:flex-row gap-6 justify-between items-center bg-white border rounded-4xl p-6 shadow-sm">
+          <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3 px-4 py-2 bg-purple-500/10 rounded-2xl border border-purple-500/20">
+                  <Medal className="w-5 h-5 text-purple-600" />
+                  <span className="font-bold text-purple-900">{recipients.length} <span className="font-medium opacity-60">Honorees</span></span>
               </div>
-
-              <div className="space-y-4">
-                <h3 className="font-bold border-b pb-2">Visual Assets</h3>
-                <div className="grid grid-cols-2 gap-6">
-                  <ImageUpload label="Hero Background" value={editingItem?.heroImage?.url} onChange={url => setEditingItem({...editingItem!, heroImage: {url, alt: "Hero"}})} />
-                  <ImageUpload label="Ceremony Image" value={editingItem?.visionImage?.url} onChange={url => setEditingItem({...editingItem!, visionImage: {url, alt: "Ceremony"}})} />
-                </div>
+              <div className="flex flex-col">
+                <h3 className="text-xl font-black text-navy-950 italic uppercase leading-none">Hall of Fame</h3>
+                <p className="text-[10px] text-purple-600 font-bold uppercase tracking-widest mt-1">Recognition – Honorary Recipients</p>
               </div>
+          </div>
+          
+          <Button onClick={addRecipientItem} variant="outline" className="rounded-2xl h-12 px-6 border-2 border-dashed border-purple-500/30 text-purple-600 hover:bg-purple-500/5 hover:border-purple-500 transition-all font-bold">
+              <Plus className="w-5 h-5 mr-2" /> Add New Recipient
+          </Button>
+        </div>
 
-              <div className="space-y-4">
-                <div className="flex justify-between items-center border-b pb-2">
-                   <h3 className="font-bold">Awards Gallery</h3>
-                   <Button type="button" size="sm" variant="outline" onClick={addGalleryItem}><Plus className="w-3 h-3 mr-1" /> Add Photo</Button>
-                </div>
-                
-                <div className="space-y-4">
-                  {(editingItem?.gallery || []).map((photo, index) => (
-                    <div key={index} className="flex gap-4 p-4 bg-muted/20 rounded-xl border items-start">
-                       <div className="w-24 shrink-0">
-                         <ImageUpload 
-                            value={photo.url} 
-                            onChange={(url) => updateGalleryItem(index, "url", url)} 
-                         />
-                       </div>
-                       <div className="grow space-y-3">
-                         <div className="grid grid-cols-2 gap-3">
-                            <div className="space-y-1">
-                               <Label className="text-xs">Title</Label>
-                               <Input 
-                                  value={photo.title} 
-                                  onChange={e => updateGalleryItem(index, "title", e.target.value)} 
-                                  className="h-9 text-sm"
-                                  placeholder="Award Category"
-                               />
-                            </div>
-                             <div className="space-y-1">
-                               <Label className="text-xs">Order</Label>
-                               <Input 
-                                  type="number"
-                                  value={photo.order} 
-                                  onChange={e => updateGalleryItem(index, "order", parseInt(e.target.value))} 
-                                  className="h-9 text-sm"
-                               />
-                            </div>
-                         </div>
-                         <div className="space-y-1">
-                            <Label className="text-xs">Description</Label>
-                            <Input 
-                               value={photo.description} 
-                               onChange={e => updateGalleryItem(index, "description", e.target.value)} 
-                               className="h-9 text-sm"
-                               placeholder="Brief description..."
-                            />
-                         </div>
-                       </div>
-                       <Button type="button" size="icon" variant="ghost" className="text-red-500 hover:bg-red-50" onClick={() => removeGalleryItem(index)}>
-                          <Trash2 className="w-4 h-4" />
-                       </Button>
+        {/* Recipients Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {recipients.map((item, index) => (
+              <motion.div 
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+                key={`recipient-${index}`}
+                className="h-full"
+              >
+                <Card className="group relative h-full flex flex-col bg-white border-none shadow-sm hover:shadow-xl transition-all duration-300 rounded-3xl overflow-hidden border border-navy-50/50 p-8">
+                    {/* Background Year Accent */}
+                    <div className="absolute -top-4 -right-4 text-7xl font-black text-navy-950/[0.03] group-hover:text-purple-500/[0.05] transition-colors leading-none italic select-none">
+                       {item.year}
                     </div>
-                  ))}
-                  {(!editingItem?.gallery || editingItem.gallery.length === 0) && (
-                     <div className="text-center py-8 text-muted-foreground text-sm border-2 border-dashed rounded-xl">
-                        No photos added yet. Click "Add Photo" to start.
-                     </div>
-                  )}
-                </div>
-              </div>
 
-              <div className="flex items-center justify-between p-6 bg-muted/30 rounded-2xl">
-                <div>
-                  <p className="font-bold">Active Edition</p>
-                  <p className="text-xs text-muted-foreground">Only one awards edition can be active at a time.</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Switch 
-                    checked={editingItem?.isActive} 
-                    onCheckedChange={(checked) => setEditingItem({...editingItem!, isActive: checked})}
-                  />
-                  <Badge className={editingItem?.isActive ? "bg-emerald-500" : "bg-muted text-muted-foreground"}>
-                    {editingItem?.isActive ? "Active" : "Inactive"}
-                  </Badge>
-                </div>
+                    <div className="relative z-10 flex flex-col h-full justify-between">
+                        <div>
+                          <div className="flex items-center gap-2 mb-6">
+                            <Medal className="w-4 h-4 text-purple-600" />
+                            <span className="text-[10px] font-mono font-bold text-purple-600 tracking-[0.3em] uppercase">
+                                NIAAM Honoree
+                            </span>
+                          </div>
+                          
+                          <h3 className="text-3xl font-light text-navy-950 leading-[0.9] tracking-tighter mb-4 italic group-hover:text-purple-600 transition-colors uppercase">
+                             {item.name}
+                          </h3>
+                        </div>
+
+                        <div className="space-y-4">
+                           <div className="h-px w-12 bg-purple-500/30 group-hover:w-full transition-all duration-700" />
+                           <div className="flex flex-col gap-1">
+                               <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-[0.2em] font-bold">Category</span>
+                               <p className="text-md font-light text-navy-950/60 group-hover:text-navy-950 transition-colors">{item.category}</p>
+                           </div>
+                           
+                           <div className="flex items-center gap-2 text-navy-950/20 group-hover:text-navy-950/40 transition-colors">
+                              <MapPin className="w-3.5 h-3.5" />
+                              <span className="text-[10px] font-mono uppercase tracking-[0.2em] font-bold">{item.city}</span>
+                           </div>
+                        </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <Button 
+                        size="icon" 
+                        variant="ghost" 
+                        className="w-8 h-8 rounded-lg text-muted-foreground hover:text-navy-950 hover:bg-navy-50" 
+                        onClick={() => openRecipientEditDialog(index)}
+                      >
+                        <Edit className="w-4 h-4" />
+                      </Button>
+                      <Button 
+                        size="icon" 
+                        variant="ghost" 
+                        className="w-8 h-8 rounded-lg text-muted-foreground hover:text-red-600 hover:bg-red-50" 
+                        onClick={() => removeRecipient(index)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                      <Button 
+                        size="icon" 
+                        variant="ghost" 
+                        className="w-8 h-8 rounded-lg text-muted-foreground hover:text-navy-950 hover:bg-navy-50" 
+                        onClick={() => moveRecipient(index, 'up')} 
+                        disabled={index === 0}
+                      >
+                        <ChevronUp className="w-4 h-4" />
+                      </Button>
+                      <Button 
+                        size="icon" 
+                        variant="ghost" 
+                        className="w-8 h-8 rounded-lg text-muted-foreground hover:text-navy-950 hover:bg-navy-50" 
+                        onClick={() => moveRecipient(index, 'down')} 
+                        disabled={index === recipients.length - 1}
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </Button>
+                    </div>
+                </Card>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+          
+          {/* Add Empty State Card */}
+          <button 
+              onClick={addRecipientItem}
+              className="flex flex-col items-center justify-center bg-gray-50/50 border-2 border-dashed border-navy-100 rounded-3xl p-12 hover:bg-purple-50/50 hover:border-purple-500/30 transition-all group min-h-[300px]"
+          >
+              <div className="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Plus className="w-8 h-8 text-purple-500" />
               </div>
-            </div>
-            <DialogFooter className="p-8 border-t bg-muted/10 rounded-b-3xl">
-              <Button type="submit" className="rounded-xl h-12 px-10 font-bold text-lg shadow-xl shadow-purple-500/20 bg-purple-600 hover:bg-purple-700">
-                {editingItem?._id ? "Save Changes" : "Create Awards Edition"}
-              </Button>
-            </DialogFooter>
-          </form>
+              <h3 className="text-lg font-bold text-navy-950 mb-1">Add Honoree</h3>
+              <p className="text-xs text-muted-foreground text-center">Recognize a new contributor</p>
+          </button>
+        </div>
+      </div>
+
+      {/* SECTION 2: CEREMONIAL CLICKS (GALLERY) */}
+      <div className="space-y-6">
+        <div className="flex flex-col md:flex-row gap-6 justify-between items-center bg-white border rounded-4xl p-6 shadow-sm">
+          <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3 px-4 py-2 bg-amber-500/10 rounded-2xl border border-amber-500/20">
+                  <ImageIcon className="w-5 h-5 text-amber-600" />
+                  <span className="font-bold text-amber-900">{gallery.length} <span className="font-medium opacity-60">Photos</span></span>
+              </div>
+              <div className="flex flex-col">
+                <h3 className="text-xl font-black text-navy-950 italic uppercase leading-none">Ceremonial Clicks</h3>
+                <p className="text-[10px] text-amber-600 font-bold uppercase tracking-widest mt-1">Gallery – Moments captured</p>
+              </div>
+          </div>
+          
+          <Button onClick={addGalleryItem} variant="outline" className="rounded-2xl h-12 px-6 border-2 border-dashed border-amber-500/30 text-amber-600 hover:bg-amber-500/5 hover:border-amber-500 transition-all font-bold">
+              <Plus className="w-5 h-5 mr-2" /> Add Moment
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {gallery.map((item, index) => (
+              <motion.div layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} key={`gallery-${index}`}>
+                <Card className="group relative overflow-hidden rounded-3xl border-none shadow-sm hover:shadow-xl transition-all duration-300 aspect-video">
+                  {item.url ? (
+                    <Image src={item.url} alt={item.title || "Moment"} fill className="object-cover transition-all duration-700 group-hover:scale-105" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-navy-50 text-navy-200"><ImageIcon className="w-12 h-12" /></div>
+                  )}
+                  
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
+                  <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+                    <h4 className="text-white font-bold">{item.title}</h4>
+                    <p className="text-white/60 text-xs line-clamp-1">{item.description}</p>
+                  </div>
+
+                  <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button size="icon" variant="secondary" className="w-8 h-8 rounded-lg bg-white/90" onClick={() => openGalleryEditDialog(index)}><Edit className="w-4 h-4" /></Button>
+                    <Button size="icon" variant="destructive" className="w-8 h-8 rounded-lg" onClick={() => removeGalleryItem(index)}><Trash2 className="w-4 h-4" /></Button>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+            <button onClick={addGalleryItem} className="flex flex-col items-center justify-center bg-gray-50/50 border-2 border-dashed border-navy-100 rounded-3xl hover:bg-amber-50/50 transition-all aspect-video">
+              <Plus className="w-8 h-8 text-amber-500" />
+            </button>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* RECIPIENT DIALOG */}
+      <Dialog open={isRecipientDialogOpen} onOpenChange={setIsRecipientDialogOpen}>
+        <DialogContent className="max-w-lg p-0 overflow-hidden rounded-4xl border-none bg-white">
+          <div className="bg-purple-600 p-8 text-white">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold flex items-center gap-3 italic uppercase tracking-tighter">
+                <Medal className="w-6 h-6" />
+                {editingRecipientIndex !== null ? "Edit Honoree" : "Add New Honoree"}
+              </DialogTitle>
+              <DialogDescription className="text-purple-100">
+                Setup the profile for the NIAAM Hall of Honorary Recipients.
+              </DialogDescription>
+            </DialogHeader>
+          </div>
+          <div className="p-8 space-y-6">
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                   <Label className="text-sm font-bold text-navy-950 ml-1">Full Name</Label>
+                   <Input value={tempRecipient.name} onChange={e => setTempRecipient({...tempRecipient, name: e.target.value })} className="rounded-2xl h-12" placeholder="e.g. Adv. Tanu Mehta" />
+                </div>
+                <div className="space-y-2">
+                   <Label className="text-sm font-bold text-navy-950 ml-1">Year</Label>
+                   <Input value={tempRecipient.year} onChange={e => setTempRecipient({...tempRecipient, year: e.target.value })} className="rounded-2xl h-12" placeholder="e.g. 2025" />
+                </div>
+             </div>
+             <div className="space-y-2">
+                <Label className="text-sm font-bold text-navy-950 ml-1">Category</Label>
+                <Input value={tempRecipient.category} onChange={e => setTempRecipient({...tempRecipient, category: e.target.value })} className="rounded-2xl h-12" placeholder="e.g. Mediation Education" />
+             </div>
+             <div className="space-y-2">
+                <Label className="text-sm font-bold text-navy-950 ml-1">City / Location</Label>
+                <Input value={tempRecipient.city} onChange={e => setTempRecipient({...tempRecipient, city: e.target.value })} className="rounded-2xl h-12" placeholder="e.g. Mumbai" />
+             </div>
+          </div>
+          <DialogFooter className="p-8 bg-gray-50 border-t">
+            <Button variant="ghost" onClick={() => setIsRecipientDialogOpen(false)}>Cancel</Button>
+            <Button onClick={saveRecipient} className="bg-purple-600 hover:bg-purple-500 px-8 rounded-xl font-bold italic text-white shadow-lg">Save Honoree</Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* GALLERY DIALOG */}
+      <Dialog open={isGalleryDialogOpen} onOpenChange={setIsGalleryDialogOpen}>
+        <DialogContent className="max-w-lg p-0 overflow-hidden rounded-4xl border-none bg-white">
+          <div className="bg-amber-600 p-8 text-white">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold flex items-center gap-3 italic uppercase tracking-tighter">
+                <ImageIcon className="w-6 h-6" />
+                Ceremonial Moment
+              </DialogTitle>
+            </DialogHeader>
+          </div>
+          <div className="p-8 space-y-6">
+             <div className="space-y-4">
+                <Label className="text-sm font-bold text-navy-950 ml-1">Moment Photo</Label>
+                <ImageUpload value={tempGalleryItem.url} onChange={url => setTempGalleryItem({...tempGalleryItem, url})} />
+             </div>
+             <div className="space-y-4">
+                <div className="space-y-2">
+                   <Label className="text-sm font-bold text-navy-950 ml-1">Title</Label>
+                   <Input value={tempGalleryItem.title} onChange={e => setTempGalleryItem({...tempGalleryItem, title: e.target.value })} className="rounded-2xl h-12" />
+                </div>
+                <div className="space-y-2">
+                   <Label className="text-sm font-bold text-navy-950 ml-1">Description</Label>
+                   <Textarea value={tempGalleryItem.description} onChange={e => setTempGalleryItem({...tempGalleryItem, description: e.target.value })} className="rounded-2xl resize-none" />
+                </div>
+             </div>
+          </div>
+          <DialogFooter className="p-8 bg-gray-50 border-t">
+            <Button variant="ghost" onClick={() => setIsGalleryDialogOpen(false)}>Cancel</Button>
+            <Button onClick={saveGalleryItem} className="bg-amber-600 hover:bg-amber-500 px-8 rounded-xl font-bold italic text-white">Save Moment</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Visual Strategy Guide */}
+      <div className="bg-purple-50 rounded-4xl p-10 border border-purple-200 flex flex-col md:flex-row items-center gap-8">
+        <div className="w-20 h-20 shrink-0 bg-purple-500 rounded-3xl flex items-center justify-center shadow-2xl shadow-purple-500/30 rotate-3">
+            <Sparkles className="w-10 h-10 text-white" />
+        </div>
+        <div>
+            <h3 className="text-2xl font-black italic text-purple-900 mb-2 tracking-tight uppercase">Recognition Strategy</h3>
+            <p className="text-purple-800/80 leading-relaxed max-w-3xl font-medium">
+                The Hall of Honorary Recipients is the core of the NIAAM event. Each card is automatically styled with the year as a background element. Ensure names and categories are proofread for public display.
+            </p>
+        </div>
+        <div className="ml-auto flex items-center gap-3">
+             <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
+        </div>
+      </div>
     </div>
   );
 }

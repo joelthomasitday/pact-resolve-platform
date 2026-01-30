@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { 
   Award, 
@@ -45,6 +45,7 @@ import { Footer } from "@/components/footer";
 import { MagneticButton } from "@/components/magnetic-button";
 import { Collaborators } from "@/components/sections/home/collaborators";
 import { cn } from "@/lib/utils";
+import { AwardRecipient, NationalImpactAward } from "@/lib/db/schemas";
 
 // --- Reusable Section Header ---
 const SectionHeader = ({ subtitle, title, description, light = false, center = false }: { subtitle: string, title: string, description?: string, light?: boolean, center?: boolean }) => (
@@ -73,27 +74,53 @@ const SectionHeader = ({ subtitle, title, description, light = false, center = f
   </FadeInUp>
 );
 
-const awardees = [
-  { name: "Adv. Tanu Mehta", city: "Mumbai", category: "Mediation Education", year: "2025" },
-  { name: "Justice Mohan Lal Mehta", city: "New Delhi", category: "Mediation Institution Building", year: "2025" },
-  { name: "Raj Panchmatia", city: "Mumbai", category: "Mediation Advocacy", year: "2025" },
-  { name: "Adv. Veena Ralli", city: "New Delhi", category: "Mediation Practice", year: "2025" },
-  { name: "Adv. J P Sengh", city: "New Delhi", category: "Mediation Practice", year: "2024" },
-  { name: "Justice A K Sikri", city: "New Delhi", category: "Mediation Advocacy", year: "2024" },
-  { name: "Adv. Pusshp Gupta", city: "New Delhi", category: "Mediation Education", year: "2024" },
-  { name: "Adv. Sudhanshu Batra", city: "New Delhi", category: "Mediation Practice", year: "2024" },
-  { name: "Justice Kurian Joseph", city: "New Delhi", category: "Mediation Advocacy", year: "2024" },
-  { name: "A J Jawad", city: "Hyderabad", category: "Mediation Education", year: "2023" },
-  { name: "Justice Tejas Karia", city: "New Delhi", category: "Mediation Advocacy", year: "2023" },
-  { name: "Laila Ollapally", city: "Bengaluru", category: "Mediation Practice", year: "2023" },
-  { name: "Justice Gita Mittal", city: "New Delhi", category: "Mediation Advocacy", year: "2023" },
-  { name: "Chitra Narayan", city: "Chennai", category: "Mediation Education", year: "2023" },
-  { name: "Adv. Sadhana Ramachandran", city: "New Delhi", category: "Mediation Practice", year: "2023" },
-  { name: "Adv. Sriram Panchu", city: "Chennai", category: "Mediation Practice", year: "2023" },
-  { name: "Adv. Niranjan Bhat (Post-humously)", city: "Ahmedabad", category: "Mediation Practice", year: "2023" }
-];
-
 export default function NIAAMPage() {
+  const [eventData, setEventData] = useState<NationalImpactAward | null>(null);
+
+  useEffect(() => {
+    async function fetchEvent() {
+      try {
+        const res = await fetch("/api/content/awards-event");
+        const result = await res.json();
+        if (result.success && result.data && !Array.isArray(result.data)) {
+          setEventData(result.data);
+        }
+      } catch (e) {
+        console.error("Failed to fetch awards data", e);
+      }
+    }
+    fetchEvent();
+  }, []);
+
+  const awardees: AwardRecipient[] = eventData?.recipients?.length ? eventData.recipients : [
+    { name: "Adv. Tanu Mehta", city: "Mumbai", category: "Mediation Education", year: "2025" },
+    { name: "Justice Mohan Lal Mehta", city: "New Delhi", category: "Mediation Institution Building", year: "2025" },
+    { name: "Raj Panchmatia", city: "Mumbai", category: "Mediation Advocacy", year: "2025" },
+    { name: "Adv. Veena Ralli", city: "New Delhi", category: "Mediation Practice", year: "2025" },
+    { name: "Adv. J P Sengh", city: "New Delhi", category: "Mediation Practice", year: "2024" },
+    { name: "Justice A K Sikri", city: "New Delhi", category: "Mediation Advocacy", year: "2024" },
+    { name: "Adv. Pusshp Gupta", city: "New Delhi", category: "Mediation Education", year: "2024" },
+    { name: "Adv. Sudhanshu Batra", city: "New Delhi", category: "Mediation Practice", year: "2024" },
+    { name: "Justice Kurian Joseph", city: "New Delhi", category: "Mediation Advocacy", year: "2024" },
+    { name: "A J Jawad", city: "Hyderabad", category: "Mediation Education", year: "2023" },
+    { name: "Justice Tejas Karia", city: "New Delhi", category: "Mediation Advocacy", year: "2023" },
+    { name: "Laila Ollapally", city: "Bengaluru", category: "Mediation Practice", year: "2023" },
+    { name: "Justice Gita Mittal", city: "New Delhi", category: "Mediation Advocacy", year: "2023" },
+    { name: "Chitra Narayan", city: "Chennai", category: "Mediation Education", year: "2023" },
+    { name: "Adv. Sadhana Ramachandran", city: "New Delhi", category: "Mediation Practice", year: "2023" },
+    { name: "Adv. Sriram Panchu", city: "Chennai", category: "Mediation Practice", year: "2023" },
+    { name: "Adv. Niranjan Bhat (Post-humously)", city: "Ahmedabad", category: "Mediation Practice", year: "2023" }
+  ];
+
+  const galleryItems = eventData?.gallery?.length ? eventData.gallery : [
+    { url: "https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?auto=format&fit=crop&q=80", title: "Ceremonial Moment 1", description: "Celebrating the advancement of mediation excellence in India." },
+    { url: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80", title: "Ceremonial Moment 2", description: "Celebrating the advancement of mediation excellence in India." },
+    { url: "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?auto=format&fit=crop&q=80", title: "Ceremonial Moment 3", description: "Celebrating the advancement of mediation excellence in India." },
+    { url: "https://images.unsplash.com/photo-1475721027187-4024733923f9?auto=format&fit=crop&q=80", title: "Ceremonial Moment 4", description: "Celebrating the advancement of mediation excellence in India." },
+    { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80", title: "Ceremonial Moment 5", description: "Celebrating the advancement of mediation excellence in India." },
+    { url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80", title: "Ceremonial Moment 6", description: "Celebrating the advancement of mediation excellence in India." }
+  ];
+
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-navy-950 text-white">
       <GrainOverlay />
@@ -398,22 +425,15 @@ export default function NIAAMPage() {
             className="w-full relative group/carousel"
           >
             <CarouselContent className="-ml-4 md:ml-0">
-                {[
-                  "https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1475721027187-4024733923f9?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80"
-                ].map((url, i) => (
+                {galleryItems.map((item, i) => (
                   <CarouselItem key={i} className="pl-4 md:pl-0 basis-[90%] md:basis-[70%] lg:basis-[60%] px-2 md:px-4">
                     <Dialog>
                       <DialogTrigger asChild>
                         <button className="w-full text-left group/image relative outline-hidden cursor-pointer">
                           <div className="aspect-16/10 md:aspect-21/9 w-full relative rounded-5xl md:rounded-[4rem] overflow-hidden bg-navy-900/10 shadow-2xl group-hover/image:shadow-gold-500/20 transition-all duration-1000">
                             <Image 
-                              src={url}
-                              alt={`Ceremony Moment ${i + 1}`}
+                              src={item.url}
+                              alt={item.title || `Ceremony Moment ${i + 1}`}
                               fill
                               className="object-cover transition-transform duration-2000 group-hover/image:scale-105"
                             />
@@ -427,22 +447,22 @@ export default function NIAAMPage() {
 
                           <div className="absolute bottom-0 left-0 right-0 p-8 md:p-14 bg-linear-to-t from-navy-950/80 via-navy-950/40 to-transparent translate-y-6 group-hover/image:translate-y-0 opacity-0 group-hover/image:opacity-100 transition-all duration-700">
                             <span className="text-gold-500 font-mono text-[10px] md:text-xs tracking-[0.4em] uppercase font-bold mb-3 block">NIAAM Collection</span>
-                            <h4 className="text-2xl md:text-5xl font-bold text-white tracking-tighter leading-none mb-4 italic">Ceremonial Moment {i + 1}</h4>
-                            <p className="text-base md:text-xl text-white/70 font-light max-w-2xl line-clamp-1">Celebrating the advancement of mediation excellence in India.</p>
+                            <h4 className="text-2xl md:text-5xl font-bold text-white tracking-tighter leading-none mb-4 italic">{item.title || `Ceremonial Moment ${i + 1}`}</h4>
+                            <p className="text-base md:text-xl text-white/70 font-light max-w-2xl line-clamp-1">{item.description || "Celebrating the advancement of mediation excellence in India."}</p>
                           </div>
                         </div>
                       </button>
                     </DialogTrigger>
                     <DialogContent className="max-w-none! w-screen h-screen p-0 m-0 border-none bg-black/90 backdrop-blur-3xl shadow-none focus:outline-hidden flex items-center justify-center z-100">
-                      <DialogTitle className="sr-only">Ceremony Moment {i + 1}</DialogTitle>
+                      <DialogTitle className="sr-only">{item.title || `Ceremony Moment ${i + 1}`}</DialogTitle>
                       <div className="relative w-[96vw] h-[85vh] rounded-4xl md:rounded-[6rem] overflow-hidden bg-navy-950 shadow-[0_0_150px_rgba(0,0,0,0.6)] border border-white/10 group/modal transition-all duration-700">
                         <DialogClose className="absolute top-8 right-8 z-50 w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white hover:bg-gold-500 hover:text-navy-950 hover:scale-110 transition-all duration-500 shadow-2xl group/close">
                           <X className="w-8 h-8 group-hover/close:rotate-90 transition-transform duration-500" />
                         </DialogClose>
 
                           <Image 
-                            src={url}
-                            alt={`Ceremony Moment ${i + 1}`}
+                            src={item.url}
+                            alt={item.title || `Ceremony Moment ${i + 1}`}
                             fill
                             className="object-cover transition-transform duration-1000 group-hover:modal:scale-105"
                             quality={100}
@@ -452,7 +472,7 @@ export default function NIAAMPage() {
                            <div className="max-w-7xl mx-auto">
                             <span className="text-gold-500 font-mono text-xs md:text-sm tracking-[0.6em] uppercase font-bold mb-6 block">NIAAM Archive</span>
                             <h3 className="text-4xl md:text-[8rem] font-bold text-white tracking-tighter leading-[0.8] mb-8 italic">National ImPACT Awards</h3>
-                            <p className="text-xl md:text-3xl text-white/70 font-light leading-relaxed max-w-4xl">A look back at the moments that define the benchmark of excellence in mediation across India.</p>
+                            <p className="text-xl md:text-3xl text-white/70 font-light leading-relaxed max-w-4xl">{item.description || "A look back at the moments that define the benchmark of excellence in mediation across India."}</p>
                            </div>
                         </div>
                       </div>

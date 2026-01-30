@@ -303,6 +303,24 @@ export interface ConclaveEvent extends BaseDocument {
 }
 
 // ============================================================================
+// 9. NATIONAL IMPACT AWARDS (NIAAM)
+// ============================================================================
+
+export interface AwardRecipient {
+  name: string;
+  city: string;
+  category: string;
+  year: string;
+}
+
+export interface NationalImpactAward extends BaseDocument {
+  year: number;
+  isActive: boolean;
+  recipients: AwardRecipient[];
+  gallery: ConclaveHighlight[];
+}
+
+// ============================================================================
 // COLLECTION NAMES
 // ============================================================================
 
