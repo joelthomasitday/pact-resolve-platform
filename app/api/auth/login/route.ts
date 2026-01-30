@@ -10,8 +10,11 @@ const loginSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  let step = "parsing-body";
+  
   try {
     const body = await request.json();
+    step = "validating";
     
     // Validation
     const validation = loginSchema.safeParse(body);
@@ -24,6 +27,7 @@ export async function POST(request: NextRequest) {
 
     const { email: rawEmail, password } = validation.data;
     const email = rawEmail.toLowerCase();
+    step = "finding-user";
 
     // Find user
     const user = await UserRepository.findByEmail(email);
@@ -35,6 +39,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    step = "checking-active";
     // Verify status
     if (!user.isActive) {
       return NextResponse.json(
@@ -43,6 +48,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    step = "verifying-password";
     // Verify password
     const isPasswordMatch = await verifyPassword(password, user.password);
     if (!isPasswordMatch) {
@@ -52,6 +58,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    step = "signing-token";
     // Sign JWT
     const token = signToken({
       userId: user._id.toString(),
@@ -69,18 +76,16 @@ export async function POST(request: NextRequest) {
       }
     });
   } catch (error: any) {
-    console.error("Login error:", error);
-    
-    // Return more specific error for debugging
-    const errorMessage = error?.message || "Unknown error";
-    const isMongoError = errorMessage.includes("mongo") || errorMessage.includes("MONGODB") || errorMessage.includes("connect");
+    console.error(`Login error at step [${step}]:`, error);
     
     return NextResponse.json(
       { 
-        error: isMongoError ? "Database connection failed" : "Internal server error",
-        debug: process.env.NODE_ENV === "development" ? errorMessage : undefined
+        error: "Internal server error",
+        step: step,
+        message: error?.message || "Unknown"
       },
       { status: 500 }
     );
   }
 }
+
