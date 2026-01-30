@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { FadeInUp } from "@/components/motion-wrapper";
 import { GrainOverlay } from "@/components/grain-overlay";
 import { Footer } from "@/components/footer";
+import { PanelMember } from "@/lib/db/schemas";
 
 // --- Components ---
 
@@ -77,29 +78,22 @@ const PanelHero = () => (
 );
 
 const GallerySection = () => {
-  // Sample data - User will manage this for backend access
-  const members = [
-    {
-      name: "Jonathan Rodrigues",
-      expertise: "Commercial & Civil Mediation",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
-    },
-    {
-      name: "Kurian Joseph",
-      expertise: "Retd. Judge, Supreme Court of India",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80",
-    },
-    {
-      name: "Gita Mittal",
-      expertise: "Retd. Judge, Chief Justice (JKHC)",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80",
-    },
-    {
-      name: "Ekta Bahl",
-      expertise: "Corporate & Commercial Law",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80",
+  const [members, setMembers] = React.useState<PanelMember[]>([]);
+
+  React.useEffect(() => {
+    async function fetch() {
+      try {
+        const res = await window.fetch("/api/content/panel-members");
+        const data = await res.json();
+        if (data.success) setMembers(data.data);
+      } catch (e) {
+        console.error(e);
+      }
     }
-  ];
+    fetch();
+  }, []);
+
+  if (members.length === 0) return null;
 
   return (
     <section className="py-24 bg-white">
@@ -116,7 +110,7 @@ const GallerySection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {members.map((member, i) => (
             <motion.div 
-              key={i} 
+              key={member._id?.toString() || i} 
               whileHover={{ y: -10 }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -126,8 +120,8 @@ const GallerySection = () => {
             >
               <div className="relative h-[450px] w-full overflow-hidden">
                 <Image
-                  src={member.image}
-                  alt={member.name}
+                  src={member.image.url}
+                  alt={member.image.alt || member.name}
                   fill
                   className="object-cover transition-all duration-1000 group-hover:scale-110 filter md:grayscale group-hover:grayscale-0"
                 />
@@ -140,7 +134,7 @@ const GallerySection = () => {
               </div>
               <div className="p-8 text-center bg-white border-t border-navy-50">
                 <h3 className="text-2xl font-light text-navy-950 mb-1">{member.name}</h3>
-                <p className="text-xs text-navy-950/40 font-mono tracking-widest uppercase">{member.expertise}</p>
+                <p className="text-xs text-navy-950/40 font-mono tracking-widest uppercase">{member.role}</p>
               </div>
             </motion.div>
           ))}

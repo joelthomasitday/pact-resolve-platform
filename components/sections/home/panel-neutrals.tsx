@@ -1,32 +1,30 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Link2 } from "lucide-react";
-
-const members = [
-  {
-    name: "Jonathan Rodrigues",
-    role: "Lead Mediator & Founder",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
-  },
-  {
-    name: "Kurian Joseph",
-    role: "Retd. Judge, Supreme Court of India",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80",
-  },
-  {
-    name: "Gita Mittal",
-    role: "Retd. Judge, Chief Justice (JKHC)",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80",
-  },
-  {
-    name: "Ekta Bahl",
-    role: "Senior Mediator",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80",
-  }
-];
+import { PanelMember } from "@/lib/db/schemas";
 
 export function PanelNeutrals() {
+  const [members, setMembers] = useState<PanelMember[]>([]);
+
+  useEffect(() => {
+    async function fetchMembers() {
+      try {
+        const res = await fetch("/api/content/panel-members");
+        const data = await res.json();
+        if (data.success) {
+          setMembers(data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch panel members", error);
+      }
+    }
+    fetchMembers();
+  }, []);
+
+  if (members.length === 0) return null;
+
   return (
     <section className="py-16 md:py-24 px-6 md:px-12 lg:px-24 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -45,12 +43,12 @@ export function PanelNeutrals() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {members.map((member, i) => (
-            <div key={i} className="group flex flex-col items-center text-center">
+          {members.map((member) => (
+            <div key={member._id?.toString()} className="group flex flex-col items-center text-center">
               <div className="relative h-80 w-full rounded-2xl overflow-hidden mb-6 filter md:grayscale md:group-hover:grayscale-0 transition-all duration-500">
                 <Image
-                  src={member.image}
-                  alt={member.name}
+                  src={member.image.url}
+                  alt={member.image.alt || member.name}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -69,3 +67,4 @@ export function PanelNeutrals() {
     </section>
   );
 }
+

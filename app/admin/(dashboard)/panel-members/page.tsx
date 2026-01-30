@@ -50,6 +50,23 @@ export default function PanelMembersAdminPage() {
     } catch (e) { toast.error("Save failed"); }
   };
 
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this member?")) return;
+    try {
+      const res = await fetch(`/api/content/panel-members?id=${id}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      const result = await res.json();
+      if (result.success) {
+        toast.success("Deleted");
+        fetchItems();
+      } else {
+        toast.error(result.error || "Delete failed");
+      }
+    } catch (e) { toast.error("Delete failed"); }
+  };
+
   const openDialog = (item: Partial<PanelMember> = {}) => {
     setEditingItem({ name: "", role: "", order: data.length + 1, isActive: true, image: { url: "", alt: "" }, ...item });
     setIsDialogOpen(true);
@@ -87,7 +104,10 @@ export default function PanelMembersAdminPage() {
                   <TableCell className="text-sm">{item.role}</TableCell>
                   <TableCell>{item.isActive ? <Badge className="bg-emerald-500">Active</Badge> : <Badge variant="secondary">Hidden</Badge>}</TableCell>
                   <TableCell className="text-right">
-                    <Button variant="ghost" size="icon" onClick={() => openDialog(item)}><Edit className="w-4 h-4" /></Button>
+                    <div className="flex justify-end gap-2">
+                      <Button variant="ghost" size="icon" onClick={() => openDialog(item)}><Edit className="w-4 h-4" /></Button>
+                      <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-600 hover:bg-red-50" onClick={() => handleDelete(item._id!.toString())}><Trash2 className="w-4 h-4" /></Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -97,15 +117,15 @@ export default function PanelMembersAdminPage() {
       </Card>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-md rounded-3xl p-0 overflow-hidden">
+        <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] [&>button]:text-white [&>button]:top-6 [&>button]:right-6 [&>button]:opacity-100 [&>button]:hover:opacity-80">
           <form onSubmit={handleSave}>
             <DialogHeader className="p-6 bg-navy-950 text-white rounded-t-3xl">
               <DialogTitle>{editingItem?._id ? "Edit Member" : "Add Member"}</DialogTitle>
             </DialogHeader>
             <div className="p-6 space-y-4">
-              <div className="space-y-2"><Label>Full Name</Label><Input value={editingItem?.name} onChange={e => setEditingItem({...editingItem!, name: e.target.value})} required className="rounded-xl h-11" /></div>
-              <div className="space-y-2"><Label>Professional Role</Label><Input value={editingItem?.role} onChange={e => setEditingItem({...editingItem!, role: e.target.value})} required className="rounded-xl h-11" /></div>
-              <div className="space-y-2"><Label>Bio (Optional)</Label><Input value={editingItem?.bio} onChange={e => setEditingItem({...editingItem!, bio: e.target.value})} className="rounded-xl h-11" /></div>
+              <div className="space-y-2"><Label>Full Name</Label><Input value={editingItem?.name || ""} onChange={e => setEditingItem({...editingItem!, name: e.target.value})} required className="rounded-xl h-11" /></div>
+              <div className="space-y-2"><Label>Professional Role</Label><Input value={editingItem?.role || ""} onChange={e => setEditingItem({...editingItem!, role: e.target.value})} required className="rounded-xl h-11" /></div>
+              <div className="space-y-2"><Label>Bio (Optional)</Label><Input value={editingItem?.bio || ""} onChange={e => setEditingItem({...editingItem!, bio: e.target.value})} className="rounded-xl h-11" /></div>
               <ImageUpload label="Profile Photo" value={editingItem?.image?.url} onChange={url => setEditingItem({...editingItem!, image: {url, alt: editingItem?.name || "Member Photo"}})} />
             </div>
             <DialogFooter className="p-6 border-t bg-muted/10">
