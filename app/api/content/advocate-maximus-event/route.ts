@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
 import { COLLECTIONS, type MCIEvent } from "@/lib/db/schemas";
 import { ObjectId } from "mongodb";
+import { revalidatePath } from "next/cache";
 
 /**
  * GET /api/content/advocate-maximus-event
@@ -96,6 +97,9 @@ export async function POST(request: NextRequest) {
     
     const result = await collection.insertOne(newEvent as MCIEvent);
     
+    revalidatePath("/events/advocate-maximus");
+    revalidatePath("/admin/events/advocate-maximus");
+    
     return NextResponse.json({ 
       success: true, 
       data: { _id: result.insertedId, ...newEvent }
@@ -153,6 +157,9 @@ export async function PUT(request: NextRequest) {
       );
     }
     
+    revalidatePath("/events/advocate-maximus");
+    revalidatePath("/admin/events/advocate-maximus");
+    
     return NextResponse.json({ 
       success: true, 
       message: "Event updated successfully" 
@@ -193,6 +200,9 @@ export async function DELETE(request: NextRequest) {
         { status: 404 }
       );
     }
+    
+    revalidatePath("/events/advocate-maximus");
+    revalidatePath("/admin/events/advocate-maximus");
     
     return NextResponse.json({ 
       success: true, 

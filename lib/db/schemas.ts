@@ -260,6 +260,8 @@ export interface MCIEvent extends BaseDocument {
   mediaCoverage: MCIMediaCoverage[];
   /** Rewards and benefits */
   rewards: MCIReward[];
+  /** Strategic partners for Advocate Maximus */
+  strategicPartners?: ConclaveHighlight[];
   /** Hero background image */
   heroImage: ImageData;
   /** Vision section image */

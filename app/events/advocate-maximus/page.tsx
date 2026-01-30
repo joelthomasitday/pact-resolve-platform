@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { 
   Shield, 
@@ -45,6 +45,7 @@ import { FadeIn, FadeInUp, StaggerContainer, StaggerItem } from "@/components/mo
 import { Footer } from "@/components/footer";
 import { MagneticButton } from "@/components/magnetic-button";
 import { Collaborators } from "@/components/sections/home/collaborators";
+import { MCIEvent } from "@/lib/db/schemas";
 import { cn } from "@/lib/utils";
 
 // --- Reusable Section Header ---
@@ -75,6 +76,25 @@ const SectionHeader = ({ subtitle, title, description, light = false, center = f
 );
 
 export default function AdvocateMaximusPage() {
+  const [eventData, setEventData] = useState<MCIEvent | null>(null);
+
+  useEffect(() => {
+    async function fetchEvent() {
+      try {
+        const res = await fetch("/api/content/advocate-maximus-event");
+        const result = await res.json();
+        if (result.success && result.data && !Array.isArray(result.data)) {
+          setEventData(result.data);
+        }
+      } catch (e) {
+        console.error("Failed to fetch Advocate Maximus data", e);
+      }
+    }
+    fetchEvent();
+  }, []);
+
+  const partners = eventData?.strategicPartners || [];
+  const gallery = eventData?.gallery || [];
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-white text-navy-950">
       <GrainOverlay />
@@ -397,10 +417,95 @@ export default function AdvocateMaximusPage() {
         </div>
       </section>
 
-      {/* Collaborators Section */}
-      <div className="bg-white py-12 md:py-20">
-        <Collaborators />
-      </div>
+      {/* Strategic Partners Section */}
+      {partners.length > 0 && (
+        <section className="py-24 bg-white relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+            <SectionHeader 
+              subtitle="Strategic Partners" 
+              title="Collaborating with Excellence" 
+              center
+              description={`The ${eventData?.year || ''} edition is supported by leading global institutions and firms committed to mediation excellence.`}
+            />
+            
+            <div className="relative w-full overflow-hidden mt-12">
+              <div className="flex">
+                <motion.div
+                  initial={{ x: 0 }}
+                  animate={{ x: "-50%" }}
+                  transition={{
+                    duration: 3000, // Drastically increased to ensure a slow, premium drift
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="flex shrink-0 items-center space-x-12 md:space-x-24 px-6 md:px-12"
+                >
+                  {[...partners, ...partners].map((partner, i) => (
+                    <div 
+                      key={i} 
+                      className="relative h-16 md:h-24 w-40 md:w-56 md:grayscale hover:grayscale-0 transition-all duration-500 md:opacity-60 hover:opacity-100 hover:scale-110 flex flex-col items-center justify-center group"
+                    >
+                      <div className="relative h-16 md:h-20 w-full">
+                        <Image
+                          src={partner.url}
+                          alt={partner.title || "Partner Logo"}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      {partner.title && (
+                        <p className="mt-4 text-[9px] font-mono uppercase tracking-widest text-navy-950/40 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                          {partner.title}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Memories Section */}
+      {gallery.length > 0 && (
+        <section className="py-24 bg-navy-50 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+            <SectionHeader 
+              subtitle="The Archive" 
+              title="Event Memories" 
+              description={`Glimpses from the previous editions of Advocate Maximus.`}
+            />
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {gallery.map((item, i) => (
+                <FadeInUp key={i} delay={i * 0.1}>
+                  <div className="group relative aspect-square rounded-[2rem] overflow-hidden bg-white shadow-sm hover:shadow-2xl transition-all duration-700">
+                    <Image 
+                      src={item.url}
+                      alt={item.title || "Gallery Item"}
+                      fill
+                      className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-navy-950/80 via-navy-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                    <div className="absolute bottom-8 left-8 right-8 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                       <h4 className="text-xl font-bold text-white italic tracking-tight">{item.title}</h4>
+                       <p className="text-xs text-gold-500/80 font-mono uppercase tracking-widest mt-1">{item.description}</p>
+                    </div>
+                  </div>
+                </FadeInUp>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Generic Collaborators as fallback if no specific partners set */}
+      {partners.length === 0 && (
+        <div className="bg-white py-12 md:py-20">
+          <Collaborators />
+        </div>
+      )}
 
       <Footer />
     </main>

@@ -454,36 +454,36 @@ export default function AwardsManagementPage() {
 
       {/* RECIPIENT DIALOG */}
       <Dialog open={isRecipientDialogOpen} onOpenChange={setIsRecipientDialogOpen}>
-        <DialogContent className="max-w-lg p-0 overflow-hidden rounded-4xl border-none bg-white">
+        <DialogContent className="max-w-2xl w-[95vw] md:w-full p-0 overflow-hidden rounded-4xl border-none bg-white">
           <div className="bg-purple-600 p-8 text-white">
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold flex items-center gap-3 italic uppercase tracking-tighter">
                 <Medal className="w-6 h-6" />
                 {editingRecipientIndex !== null ? "Edit Honoree" : "Add New Honoree"}
               </DialogTitle>
-              <DialogDescription className="text-purple-100">
+              <DialogDescription className="text-purple-100 italic">
                 Setup the profile for the NIAAM Hall of Honorary Recipients.
               </DialogDescription>
             </DialogHeader>
           </div>
           <div className="p-8 space-y-6">
-             <div className="grid grid-cols-2 gap-4">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                    <Label className="text-sm font-bold text-navy-950 ml-1">Full Name</Label>
-                   <Input value={tempRecipient.name} onChange={e => setTempRecipient({...tempRecipient, name: e.target.value })} className="rounded-2xl h-12" placeholder="e.g. Adv. Tanu Mehta" />
+                   <Input value={tempRecipient.name} onChange={e => setTempRecipient({...tempRecipient, name: e.target.value })} className="rounded-2xl h-12 bg-gray-50/50 border-navy-100 focus:ring-purple-500" placeholder="e.g. Adv. Tanu Mehta" />
                 </div>
                 <div className="space-y-2">
                    <Label className="text-sm font-bold text-navy-950 ml-1">Year</Label>
-                   <Input value={tempRecipient.year} onChange={e => setTempRecipient({...tempRecipient, year: e.target.value })} className="rounded-2xl h-12" placeholder="e.g. 2025" />
+                   <Input value={tempRecipient.year} onChange={e => setTempRecipient({...tempRecipient, year: e.target.value })} className="rounded-2xl h-12 bg-gray-50/50 border-navy-100 focus:ring-purple-500" placeholder="e.g. 2025" />
                 </div>
-             </div>
-             <div className="space-y-2">
-                <Label className="text-sm font-bold text-navy-950 ml-1">Category</Label>
-                <Input value={tempRecipient.category} onChange={e => setTempRecipient({...tempRecipient, category: e.target.value })} className="rounded-2xl h-12" placeholder="e.g. Mediation Education" />
-             </div>
-             <div className="space-y-2">
-                <Label className="text-sm font-bold text-navy-950 ml-1">City / Location</Label>
-                <Input value={tempRecipient.city} onChange={e => setTempRecipient({...tempRecipient, city: e.target.value })} className="rounded-2xl h-12" placeholder="e.g. Mumbai" />
+                <div className="space-y-2">
+                   <Label className="text-sm font-bold text-navy-950 ml-1">Category</Label>
+                   <Input value={tempRecipient.category} onChange={e => setTempRecipient({...tempRecipient, category: e.target.value })} className="rounded-2xl h-12 bg-gray-50/50 border-navy-100 focus:ring-purple-500" placeholder="e.g. Mediation Education" />
+                </div>
+                <div className="space-y-2">
+                   <Label className="text-sm font-bold text-navy-950 ml-1">City / Location</Label>
+                   <Input value={tempRecipient.city} onChange={e => setTempRecipient({...tempRecipient, city: e.target.value })} className="rounded-2xl h-12 bg-gray-50/50 border-navy-100 focus:ring-purple-500" placeholder="e.g. Mumbai" />
+                </div>
              </div>
           </div>
           <DialogFooter className="p-8 bg-gray-50 border-t">
@@ -495,7 +495,7 @@ export default function AwardsManagementPage() {
 
       {/* GALLERY DIALOG */}
       <Dialog open={isGalleryDialogOpen} onOpenChange={setIsGalleryDialogOpen}>
-        <DialogContent className="max-w-lg p-0 overflow-hidden rounded-4xl border-none bg-white">
+        <DialogContent className="max-w-4xl w-[95vw] md:w-full p-0 overflow-hidden rounded-4xl border-none bg-white">
           <div className="bg-amber-600 p-8 text-white">
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold flex items-center gap-3 italic uppercase tracking-tighter">
@@ -504,19 +504,21 @@ export default function AwardsManagementPage() {
               </DialogTitle>
             </DialogHeader>
           </div>
-          <div className="p-8 space-y-6">
-             <div className="space-y-4">
-                <Label className="text-sm font-bold text-navy-950 ml-1">Moment Photo</Label>
-                <ImageUpload value={tempGalleryItem.url} onChange={url => setTempGalleryItem({...tempGalleryItem, url})} />
-             </div>
-             <div className="space-y-4">
-                <div className="space-y-2">
-                   <Label className="text-sm font-bold text-navy-950 ml-1">Title</Label>
-                   <Input value={tempGalleryItem.title} onChange={e => setTempGalleryItem({...tempGalleryItem, title: e.target.value })} className="rounded-2xl h-12" />
+          <div className="p-8">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                   <Label className="text-sm font-bold text-navy-950 ml-1 italic">Moment Photo</Label>
+                   <ImageUpload value={tempGalleryItem.url} onChange={url => setTempGalleryItem({...tempGalleryItem, url})} />
                 </div>
-                <div className="space-y-2">
-                   <Label className="text-sm font-bold text-navy-950 ml-1">Description</Label>
-                   <Textarea value={tempGalleryItem.description} onChange={e => setTempGalleryItem({...tempGalleryItem, description: e.target.value })} className="rounded-2xl resize-none" />
+                <div className="space-y-6">
+                   <div className="space-y-2">
+                      <Label className="text-sm font-bold text-navy-950 ml-1 italic">Title</Label>
+                      <Input value={tempGalleryItem.title} onChange={e => setTempGalleryItem({...tempGalleryItem, title: e.target.value })} className="rounded-2xl h-12 bg-gray-50/50 border-navy-100 focus:ring-amber-500" />
+                   </div>
+                   <div className="space-y-2">
+                      <Label className="text-sm font-bold text-navy-950 ml-1 italic">Description / Context</Label>
+                      <Textarea value={tempGalleryItem.description} onChange={e => setTempGalleryItem({...tempGalleryItem, description: e.target.value })} className="rounded-2xl min-h-[140px] resize-none bg-gray-50/50 border-navy-100 focus:ring-amber-500" />
+                   </div>
                 </div>
              </div>
           </div>

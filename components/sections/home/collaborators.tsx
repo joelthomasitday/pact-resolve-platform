@@ -53,7 +53,7 @@ export function Collaborators() {
             initial={{ x: 0 }}
             animate={{ x: "-50%" }}
             transition={{
-              duration: 50,
+              duration: 400, // Extremely slow for a premium, drifting effect
               repeat: Infinity,
               ease: "linear",
             }}

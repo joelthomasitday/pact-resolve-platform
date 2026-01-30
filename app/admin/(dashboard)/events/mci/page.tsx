@@ -445,57 +445,60 @@ export default function MCIGalleryPage() {
 
       {/* Edit Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-2xl max-h-[90vh] p-0 overflow-hidden rounded-4xl border-none shadow-2xl flex flex-col bg-white">
+        <DialogContent className="max-w-4xl w-[95vw] md:w-full p-0 overflow-hidden rounded-4xl border-none shadow-2xl flex flex-col bg-white">
           <div className="bg-navy-950 p-8 text-white shrink-0">
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold flex items-center gap-3">
                 <ImageIcon className="w-6 h-6 text-amber-500" />
                 {editingIndex !== null ? "Edit Memory" : "Add New Memory"}
               </DialogTitle>
-              <DialogDescription className="text-navy-200">
+              <DialogDescription className="text-navy-200 italic">
                 Provide details for this visual memory. Ensure high-quality imagery is used.
               </DialogDescription>
             </DialogHeader>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-8 space-y-8 scrollbar-none">
-            <div className="space-y-4">
-               <Label className="text-sm font-bold text-navy-950 ml-1">Memory Photo</Label>
-               <ImageUpload 
-                value={tempItem.url} 
-                onChange={(url) => setTempItem({ ...tempItem, url })} 
-              />
-            </div>
-
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <Label className="text-sm font-bold text-navy-950 ml-1">Title</Label>
-                <Input 
-                  value={tempItem.title} 
-                  onChange={e => setTempItem({ ...tempItem, title: e.target.value })} 
-                  className="rounded-2xl h-12 border-navy-100 focus:ring-amber-500 focus:border-amber-500 bg-gray-50/50"
-                  placeholder="e.g. Inaugural Ceremony"
+          <div className="flex-1 overflow-y-auto p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+              <div className="space-y-4">
+                 <Label className="text-sm font-bold text-navy-950 ml-1 italic">Memory Photo</Label>
+                 <ImageUpload 
+                  value={tempItem.url} 
+                  onChange={(url) => setTempItem({ ...tempItem, url })} 
                 />
+                <p className="text-[10px] text-muted-foreground italic px-1">Tip: Landscape (16:9) images work best.</p>
               </div>
-              <div className="space-y-2">
-                <Label className="text-sm font-bold text-navy-950 ml-1">Description / Context</Label>
-                <Textarea 
-                  value={tempItem.description} 
-                  onChange={e => setTempItem({ ...tempItem, description: e.target.value })} 
-                  className="rounded-2xl min-h-[140px] border-navy-100 focus:ring-amber-500 focus:border-amber-500 resize-none bg-gray-50/50 p-4"
-                  placeholder="Describe the significance of this moment..."
-                />
+
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <Label className="text-sm font-bold text-navy-950 ml-1 italic">Title</Label>
+                  <Input 
+                    value={tempItem.title} 
+                    onChange={e => setTempItem({ ...tempItem, title: e.target.value })} 
+                    className="rounded-2xl h-12 border-navy-100 focus:ring-amber-500 bg-gray-50/50"
+                    placeholder="e.g. Inaugural Ceremony"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-bold text-navy-950 ml-1 italic">Description / Context</Label>
+                  <Textarea 
+                    value={tempItem.description} 
+                    onChange={e => setTempItem({ ...tempItem, description: e.target.value })} 
+                    className="rounded-2xl min-h-[160px] border-navy-100 focus:ring-amber-500 resize-none bg-gray-50/50 p-4"
+                    placeholder="Describe the significance of this moment..."
+                  />
+                </div>
               </div>
             </div>
           </div>
 
           <DialogFooter className="p-8 bg-gray-50/80 backdrop-blur-sm border-t flex justify-end gap-3 shrink-0">
-            <Button variant="ghost" onClick={() => setIsDialogOpen(false)} className="rounded-xl h-12 px-8 font-medium hover:bg-gray-100">
+            <Button variant="ghost" onClick={() => setIsDialogOpen(false)} className="rounded-xl h-12 px-8">
               Cancel
             </Button>
             <Button 
               onClick={saveTempItem}
-              className="rounded-xl h-12 px-10 bg-navy-950 hover:bg-navy-900 text-white font-bold shadow-lg transition-all active:scale-95"
+              className="rounded-xl h-12 px-10 bg-navy-950 hover:bg-navy-900 text-white font-bold shadow-lg shadow-navy-900/20 active:scale-95 transition-all"
             >
               {editingIndex !== null ? "Save Changes" : "Add to Gallery"}
             </Button>
