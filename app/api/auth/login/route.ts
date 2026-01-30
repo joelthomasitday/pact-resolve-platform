@@ -68,10 +68,18 @@ export async function POST(request: NextRequest) {
         role: user.role,
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Login error:", error);
+    
+    // Return more specific error for debugging
+    const errorMessage = error?.message || "Unknown error";
+    const isMongoError = errorMessage.includes("mongo") || errorMessage.includes("MONGODB") || errorMessage.includes("connect");
+    
     return NextResponse.json(
-      { error: "Internal server error" },
+      { 
+        error: isMongoError ? "Database connection failed" : "Internal server error",
+        debug: process.env.NODE_ENV === "development" ? errorMessage : undefined
+      },
       { status: 500 }
     );
   }
