@@ -122,17 +122,12 @@ export function HeroCarousel() {
     };
   }, [api]);
 
+  // Progress is now handled natively by Framer Motion transitions 
+  // to avoid high-frequency React re-renders on mobile.
   React.useEffect(() => {
     if (!api) return;
-    const increment = (100 / (autoplayDelay / 60)) * 1.1;
-    const interval = setInterval(() => {
-      if (api.canScrollNext()) {
-        setProgress((prev) => Math.min(prev + increment, 100));
-      }
-    }, 60);
-
-    return () => clearInterval(interval);
-  }, [api, autoplayDelay]);
+    setProgress(0);
+  }, [api, current]);
 
   return (
     <section className="relative h-[75vh] min-h-[500px] md:h-[calc(100vh-80px)] lg:h-[calc(100vh-88px)] w-full overflow-hidden bg-navy-950">
@@ -159,10 +154,10 @@ export function HeroCarousel() {
               </div>
 
               {/* Main content container - vertically centered with room for bottom navigation */}
-              <div className="relative z-20 flex flex-col justify-center lg:grid lg:grid-cols-[3fr_2fr] lg:items-center h-full w-full max-w-8xl mx-auto px-6 md:px-12 lg:px-24 pt-12 sm:pt-16 md:pt-20 lg:pt-24 pb-32 sm:pb-36 md:pb-40 lg:pb-48 gap-6 md:gap-8">
+              <div className="relative z-20 flex flex-col justify-center lg:grid lg:grid-cols-[3fr_2fr] lg:items-center h-full w-full max-w-8xl mx-auto px-6 md:px-12 lg:px-24 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-24 sm:pb-28 md:pb-32 lg:pb-36 gap-6 md:gap-8">
 
                 {/* Left Content Block */}
-                <div className="space-y-4 lg:space-y-6 lg:pr-6 pb-20 sm:pb-0">
+                <div className="space-y-4 lg:space-y-6 lg:pr-6 pb-12 sm:pb-0">
                   <div className="space-y-4 lg:space-y-6">
                     <AnimatePresence mode="wait">
                       {current === index && (
@@ -187,7 +182,7 @@ export function HeroCarousel() {
                             transition={{ duration: 0.8, delay: 0.5, ease: luxuryEasing }}
                             className="h-1 bg-gold-500"
                           />
-                          <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-full lg:max-w-[90%] font-light line-clamp-3 h-[4.875em]">
+                          <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-full lg:max-w-[90%] font-light line-clamp-3 min-h-[3em]">
                             {slide.description}
                           </p>
 
@@ -235,36 +230,122 @@ export function HeroCarousel() {
       {/* Custom Progress Navigation - Restored to original absolute bottom position */}
       <div className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-0 right-0 z-30 pointer-events-none">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pointer-events-auto">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 lg:gap-8">
-            {slides.map((slide, index) => (
-              <button
-                key={index}
-                onClick={() => api?.scrollTo(index)}
-                className="group relative flex flex-col text-left transition-all"
-                aria-label={`Go to slide ${index + 1}`}
-              >
-                {/* Progress Line */}
-                <div className="relative h-[2px] w-full bg-white/20 overflow-hidden mb-2 md:mb-3">
-                  {current === index && (
-                    <motion.div
-                      className="absolute inset-0 bg-gold-500 origin-left"
-                      style={{ scaleX: progress / 100 }}
-                    />
-                  )}
-                  {current > index && (
-                    <div className="absolute inset-0 bg-white/40" />
-                  )}
-                </div>
+          <div className="flex flex-col gap-6 md:gap-10">
+            {/* 1. Puzzle Shapes Grid (Always visible, clean row) */}
+            <div className="grid grid-cols-5 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+              {slides.map((slide, index) => {
+                const isActive = current === index;
+                const isPast = current > index;
+                
+                return (
+                  <button
+                    key={index}
+                    onClick={() => api?.scrollTo(index)}
+                    className="group relative flex flex-col items-center transition-all"
+                    aria-label={`Go to slide ${index + 1}`}
+                  >
+                    <div className="relative h-4 w-full overflow-visible">
+                      <svg
+                        viewBox="0 0 100 16"
+                        preserveAspectRatio="none"
+                        className="w-full h-full overflow-visible"
+                      >
+                        <path
+                          d="M 0 8 H 40 C 40 8 40 14 50 14 C 60 14 60 8 60 8 H 100"
+                          stroke="white"
+                          strokeOpacity="0.1"
+                          strokeWidth="2"
+                          fill="none"
+                        />
+                        {isActive && (
+                          <motion.path
+                            key={`fill-${current}`}
+                            d="M 0 8 H 40 C 40 8 40 2 50 2 C 60 2 60 8 60 8 H 100"
+                            stroke="#bf9a66"
+                            strokeWidth="2"
+                            fill="none"
+                            strokeLinecap="round"
+                            initial={{ pathLength: 0 }}
+                            animate={{ pathLength: 1 }}
+                            transition={{ 
+                              duration: autoplayDelay / 1000, 
+                              ease: "linear" 
+                            }}
+                            className="will-change-transform"
+                          />
+                        )}
+                        {isPast && (
+                          <path
+                            d="M 0 8 H 40 C 40 8 40 2 50 2 C 60 2 60 8 60 8 H 100"
+                            stroke="#bf9a66"
+                            strokeWidth="2"
+                            fill="none"
+                            strokeLinecap="round"
+                            opacity="0.5"
+                          />
+                        )}
+                      </svg>
+                      {isActive && (
+                        <motion.div 
+                          key={`pulse-${current}`}
+                          className="absolute bg-gold-400 w-1.5 h-1.5 rounded-full shadow-[0_0_10px_#bf9a66] will-change-transform z-10"
+                          initial={{ left: "0%", translateY: "-50%" }}
+                          animate={{ left: "100%" }}
+                          transition={{ 
+                            duration: autoplayDelay / 1000, 
+                            ease: "linear" 
+                          }}
+                          style={{ 
+                            top: '50%',
+                          }}
+                        />
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
 
-                {/* Label */}
-                <span className={cn(
-                  "text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] font-semibold tracking-wider uppercase transition-all duration-500 leading-tight line-clamp-2",
-                  current === index ? "text-white opacity-100" : "text-white opacity-30 group-hover:opacity-60"
-                )}>
+            {/* 2. Desktop Labels (EXPLICITLY REMOVED FROM MOBILE VIEW) */}
+            <div className="hidden md:grid grid-cols-5 gap-6 lg:gap-8">
+              {slides.map((slide, index) => (
+                <span 
+                  key={index}
+                  className={cn(
+                    "text-[10px] lg:text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-500 line-clamp-2 leading-tight text-left",
+                    current === index ? "text-white opacity-100" : "text-white/20"
+                  )}
+                >
                   {slide.title.join(' ')}
                 </span>
-              </button>
-            ))}
+              ))}
+            </div>
+
+            {/* 3. Mobile Focal Label (DYNAMICALLY POSITIONED TO PREVENT OVERLAP) */}
+            <div className="md:hidden flex flex-col items-center pt-2">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={current}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="flex flex-col items-center gap-2"
+                >
+                  <span className="text-[10px] font-black tracking-[0.4em] uppercase text-white/40">
+                    Section {current + 1} of {slides.length}
+                  </span>
+                  
+                  <div className="flex items-center gap-4 px-4 w-screen max-w-full">
+                    <div className="h-px flex-1 bg-linear-to-r from-transparent to-gold-500/40" />
+                    <h3 className="text-white text-[11px] font-black uppercase text-center tracking-widest whitespace-normal line-clamp-2 max-w-[70%]">
+                       {slides[current].title.join(' ')}
+                    </h3>
+                    <div className="h-px flex-1 bg-linear-to-l from-transparent to-gold-500/50" />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
