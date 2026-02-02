@@ -244,7 +244,7 @@ export default function HeroSlidesAdminPage() {
         </div>
         <Button 
           onClick={openCreateDialog}
-          className="bg-primary hover:bg-primary/90 rounded-xl px-6 shadow-lg shadow-primary/20"
+          className="w-full md:w-auto bg-primary hover:bg-primary/90 rounded-xl px-6 shadow-lg shadow-primary/20"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Slide

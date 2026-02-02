@@ -175,7 +175,7 @@ export default function CaseStudiesAdminPage() {
         </div>
         <Button 
           onClick={openCreateDialog}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl px-6 shadow-lg shadow-primary/20"
+          className="w-full md:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl px-6 shadow-lg shadow-primary/20"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Case Study
@@ -274,7 +274,7 @@ export default function CaseStudiesAdminPage() {
             </DialogHeader>
 
             <div className="flex-1 overflow-y-auto p-8 space-y-8 scrollbar-thin">
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label>Title</Label>
@@ -394,7 +394,7 @@ export default function CaseStudiesAdminPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-4 gap-4 bg-muted/30 p-6 rounded-2xl border border-dashed border-muted-foreground/20">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-muted/30 p-4 md:p-6 rounded-2xl border border-dashed border-muted-foreground/20">
                 <div className="space-y-2">
                   <Label className="text-xs uppercase font-bold text-muted-foreground">Weeks</Label>
                   <Input 

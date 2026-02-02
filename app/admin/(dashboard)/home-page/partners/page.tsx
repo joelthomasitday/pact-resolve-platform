@@ -93,7 +93,7 @@ export default function PartnersAdminPage() {
           <h1 className="text-3xl font-bold flex items-center gap-3"><Handshake className="w-8 h-8 text-accent" /> Partners</h1>
           <p className="text-muted-foreground">Manage strategic partners and collaborators.</p>
         </div>
-        <Button onClick={() => openDialog()} className="rounded-xl px-6 bg-primary"><Plus className="w-4 h-4 mr-2" /> Add Partner</Button>
+        <Button onClick={() => openDialog()} className="w-full md:w-auto rounded-xl px-6 bg-primary"><Plus className="w-4 h-4 mr-2" /> Add Partner</Button>
       </div>
 
       <Card className="border-none shadow-sm rounded-3xl">

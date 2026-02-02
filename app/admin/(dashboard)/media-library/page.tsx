@@ -107,9 +107,9 @@ export default function MediaLibraryPage() {
           </h1>
           <p className="text-muted-foreground">Upload and manage your assets on Cloudinary.</p>
         </div>
-        <div className="flex gap-2">
-          <label className="cursor-pointer">
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg ring-offset-background transition-all active:scale-95">
+        <div className="flex gap-2 w-full md:w-auto">
+          <label className="cursor-pointer w-full md:w-auto">
+            <Button asChild className="w-full md:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg ring-offset-background transition-all active:scale-95">
               <span>
                 {isUploading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Upload className="w-4 h-4 mr-2" />}
                 Upload New Media

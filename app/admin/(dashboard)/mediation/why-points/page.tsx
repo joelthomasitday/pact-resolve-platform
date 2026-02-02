@@ -109,8 +109,8 @@ export default function WhyPointsAdminPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="space-y-1">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="space-y-4">
           <Link href="/admin/mediation" className="inline-flex items-center text-xs font-bold uppercase tracking-widest text-accent hover:text-accent/80 transition-colors">
             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
           </Link>
@@ -119,7 +119,7 @@ export default function WhyPointsAdminPage() {
             Why Mediate Points
           </h1>
         </div>
-        <Button onClick={openCreateDialog} className="rounded-xl"><Plus className="w-4 h-4 mr-2" /> Add Point</Button>
+        <Button onClick={openCreateDialog} className="rounded-xl px-6 w-full md:w-auto self-end md:self-auto"><Plus className="w-4 h-4 mr-2" /> Add Point</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -131,7 +131,7 @@ export default function WhyPointsAdminPage() {
           ))
         ) : items.length === 0 ? (
           <div className="col-span-full py-20 text-center bg-white rounded-3xl border-2 border-dashed border-navy-100">
-            <Sparkles className="w-12 h-12 text-navy-200 mx-auto mb-4" />
+            <SparklesIcon className="w-12 h-12 text-navy-200 mx-auto mb-4" />
             <p className="text-navy-950/40 font-medium">No points added yet. Start by adding your first advantage point.</p>
           </div>
         ) : items.map((item) => (

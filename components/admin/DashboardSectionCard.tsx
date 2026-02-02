@@ -28,8 +28,8 @@ export function DashboardSectionCard({
     <StaggerItem className="h-full">
       <SubtleHover className="h-full">
         <Link href={link} className="block h-full">
-          <Card className="border-border/40 shadow-sm bg-white/50 backdrop-blur-sm hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col group rounded-4xl overflow-hidden h-full min-h-[280px]">
-            <CardContent className="p-8 flex flex-col h-full">
+          <Card className="border-navy-950/5 shadow-sm bg-white hover:border-accent/20 hover:shadow-xl hover:shadow-accent/5 transition-all flex flex-col group rounded-3xl md:rounded-4xl overflow-hidden h-full min-h-[240px] md:min-h-[280px]">
+            <CardContent className="p-6 md:p-8 flex flex-col h-full">
               <div className="flex justify-between items-start mb-6">
                 <div className={cn("p-4 rounded-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-sm", bg)}>
                   <Icon className={cn("h-8 w-8", color)} />

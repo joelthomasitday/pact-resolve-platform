@@ -53,7 +53,7 @@ export default function HomepageDashboard() {
   ];
 
   return (
-    <div className="flex flex-col gap-10 pb-16">
+    <div className="flex flex-col gap-6 md:gap-10 pb-16">
       {/* Header Section */}
       <FadeInUp className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between px-1">
         <div className="space-y-2">
@@ -64,10 +64,10 @@ export default function HomepageDashboard() {
             </div>
             <span className="text-xs uppercase tracking-[0.2em]">Landing Page Assets</span>
           </div>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
             Homepage Management
           </h1>
-          <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
+          <p className="text-muted-foreground text-sm md:text-base max-w-2xl leading-relaxed">
             Configure the visual and content identity of your platform's main landing page.
           </p>
         </div>
@@ -89,26 +89,26 @@ export default function HomepageDashboard() {
       </StaggerContainer>
 
       {/* Bottom Footer Section */}
-      <FadeInUp delay={0.4} className="mt-6 p-10 bg-navy-950 rounded-[3rem] border border-white/5 shadow-2xl overflow-hidden relative group">
+      <FadeInUp delay={0.4} className="mt-6 p-10 bg-white rounded-[2.5rem] border border-navy-950/5 shadow-xl shadow-navy-950/5 overflow-hidden relative group">
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-3">
              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_15px_rgba(52,211,153,0.8)]" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/90">Platform Structural Support</span>
+                <div className="w-3 h-3 rounded-full bg-accent animate-pulse shadow-[0_0_15px_rgba(191,154,102,0.4)]" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-navy-950/60">Platform Structural Support</span>
              </div>
-             <h3 className="text-2xl font-bold text-white tracking-tight">Need to Update Section Layout?</h3>
-             <p className="text-white/60 text-sm max-w-xl leading-relaxed">
+             <h3 className="text-2xl font-bold text-navy-950 tracking-tight">Need to Update Section Layout?</h3>
+             <p className="text-navy-950/60 text-sm max-w-xl leading-relaxed">
                 If you need to change the technical structure of these homepage sections, please contact the development team for layout synchronization.
              </p>
           </div>
           <Link href="/admin/global-settings">
-            <Button size="lg" className="rounded-full px-8 bg-white text-navy-950 hover:bg-white/90 font-bold transition-all hover:scale-105 active:scale-95 group/btn">
+            <Button size="lg" className="rounded-full px-8 bg-navy-950 text-white hover:bg-navy-900 font-bold transition-all hover:scale-105 active:scale-95 group/btn">
               Global Settings
               <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
             </Button>
           </Link>
         </div>
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[100px] -mr-32 -mt-32 group-hover:bg-primary/20 transition-all pointer-events-none" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[100px] -mr-32 -mt-32 group-hover:bg-accent/10 transition-all pointer-events-none" />
       </FadeInUp>
     </div>
   );

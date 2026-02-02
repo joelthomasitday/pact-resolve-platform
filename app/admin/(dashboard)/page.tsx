@@ -108,7 +108,7 @@ export default function DashboardOverview() {
   return (
     <div className="flex flex-col gap-10 pb-16">
       {/* Header Section */}
-      <FadeInUp className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between px-1">
+      <FadeInUp className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between px-1">
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-primary font-bold mb-1">
             <div className="p-1.5 rounded-lg bg-primary/10">
@@ -116,22 +116,22 @@ export default function DashboardOverview() {
             </div>
             <span className="text-xs uppercase tracking-[0.2em]">Management Console</span>
           </div>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
             Overview
           </h1>
-          <p className="text-muted-foreground text-base max-w-2xl leading-relaxed">
+          <p className="text-muted-foreground text-sm md:text-base max-w-2xl leading-relaxed">
             Welcome back, <span className="text-foreground font-semibold">{user?.name || "Admin"}</span>. 
-            Here's a snapshot of your platform's current standing and recent performance.
+            Here's a snapshot of your platform's standing.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <Button variant="outline" size="lg" className="rounded-full px-6 bg-white shadow-sm border-border/60 hover:bg-muted/30 transition-all hover:scale-105 active:scale-95" asChild>
+        <div className="flex flex-wrap items-center gap-3">
+          <Button variant="outline" size="lg" className="flex-1 sm:flex-none rounded-full px-6 bg-white shadow-sm border-border/60 hover:bg-muted/30 transition-all hover:scale-105 active:scale-95" asChild>
             <Link href="/" target="_blank">
               <ExternalLink className="mr-2 h-4 w-4" />
               Public Site
             </Link>
           </Button>
-          <Button size="lg" className="rounded-full px-8 shadow-md font-bold transition-all hover:scale-105 active:scale-95 bg-navy-950 hover:bg-navy-900" asChild>
+          <Button size="lg" className="flex-1 sm:flex-none rounded-full px-8 shadow-md font-bold transition-all hover:scale-105 active:scale-95 bg-navy-950 hover:bg-navy-900" asChild>
             <Link href="/admin/home-page/news">
               <Plus className="mr-2 h-4 w-4" /> Add News
             </Link>
@@ -144,7 +144,7 @@ export default function DashboardOverview() {
         {metrics.map((metric, i) => (
           <StaggerItem key={i}>
             <SubtleHover>
-              <Card className="border-border/40 shadow-sm bg-white/50 backdrop-blur-sm hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all flex flex-col group rounded-3xl overflow-hidden min-h-[160px]">
+              <Card className="border-navy-950/5 shadow-sm bg-white hover:border-accent/20 hover:shadow-xl hover:shadow-accent/5 transition-all flex flex-col group rounded-3xl overflow-hidden min-h-[160px]">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 pt-6">
                   <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.15em]">
                     {metric.title}

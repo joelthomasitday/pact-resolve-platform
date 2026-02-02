@@ -89,7 +89,7 @@ export default function PanelMembersAdminPage() {
           <h1 className="text-3xl font-bold flex items-center gap-3"><Users className="w-8 h-8 text-accent" /> Panel Members</h1>
           <p className="text-muted-foreground">Manage lead mediators and neutral panel members.</p>
         </div>
-        <Button onClick={() => openDialog()} className="rounded-xl px-6 bg-primary"><Plus className="w-4 h-4 mr-2" /> Add Member</Button>
+        <Button onClick={() => openDialog()} className="w-full md:w-auto rounded-xl px-6 bg-primary"><Plus className="w-4 h-4 mr-2" /> Add Member</Button>
       </div>
 
       <Card className="border-none shadow-sm rounded-3xl overflow-hidden">

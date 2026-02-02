@@ -2,6 +2,7 @@
 
 import { MessageCircle, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface WhatsAppButtonProps {
@@ -15,8 +16,12 @@ export function WhatsAppButton({
   message = "Hello! I would like to know more about PACT Mediation.",
   floating = false 
 }: WhatsAppButtonProps) {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  // Hide on admin pages
+  if (pathname?.startsWith("/admin")) return null;
 
   useEffect(() => {
     if (floating) {

@@ -201,7 +201,7 @@ export default function NewsAdminPage() {
         </div>
         <Button 
           onClick={openCreateDialog}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl px-6 shadow-lg shadow-primary/20"
+          className="w-full md:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl px-6 shadow-lg shadow-primary/20"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add News Item

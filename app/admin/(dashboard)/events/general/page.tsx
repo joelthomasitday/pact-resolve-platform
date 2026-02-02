@@ -120,15 +120,15 @@ export default function GeneralEventsManagementPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <Link href="/admin/events" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-2 transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-1" /> Back to All Events
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="space-y-4">
+          <Link href="/admin/events" className="inline-flex items-center text-xs font-bold uppercase tracking-widest text-accent hover:text-accent/80 transition-colors">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
           </Link>
           <h1 className="text-3xl font-bold flex items-center gap-3"><FolderKanban className="w-8 h-8 text-rose-500" /> Events & Projects</h1>
           <p className="text-muted-foreground">Manage general events, special projects, and initiatives.</p>
         </div>
-        <Button onClick={() => openDialog()} className="rounded-xl px-6 bg-rose-600 hover:bg-rose-700"><Plus className="w-4 h-4 mr-2" /> Create New Event</Button>
+        <Button onClick={() => openDialog()} className="w-full md:w-auto rounded-xl px-6 bg-rose-600 hover:bg-rose-700"><Plus className="w-4 h-4 mr-2" /> Create New Event</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -154,9 +154,9 @@ export default function GeneralEventsManagementPage() {
                   className="object-cover" 
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-rose-600 to-rose-900" />
+                <div className="w-full h-full bg-linear-to-br from-rose-600 to-rose-900" />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-rose-950/90 to-transparent flex flex-col justify-end p-6">
+              <div className="absolute inset-0 bg-linear-to-t from-rose-950/90 to-transparent flex flex-col justify-end p-6">
                  <Badge className="w-fit mb-2 bg-rose-500 text-white font-bold">{item.year}</Badge>
                  <h2 className="text-white text-xl font-bold">{item.title.join(" ")}</h2>
                  <p className="text-rose-100 text-xs truncate">{item.subtitle}</p>
@@ -201,7 +201,7 @@ export default function GeneralEventsManagementPage() {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl p-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] [&>button]:text-white [&>button]:top-8 [&>button]:right-8 [&>button]:opacity-100 [&>button]:hover:opacity-80">
           <form onSubmit={handleSave}>
-            <DialogHeader className="p-8 bg-gradient-to-br from-rose-600 to-rose-900 text-white rounded-t-3xl">
+            <DialogHeader className="p-8 bg-linear-to-br from-rose-600 to-rose-900 text-white rounded-t-3xl">
               <DialogTitle className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5" />
                 {editingItem?._id ? "Edit Event" : "Create New Event"}

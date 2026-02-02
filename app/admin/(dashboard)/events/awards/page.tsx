@@ -268,7 +268,7 @@ export default function AwardsManagementPage() {
             <Button 
               onClick={() => handleSave()} 
               disabled={isSaving}
-              className="rounded-2xl px-10 h-14 bg-purple-600 hover:bg-purple-500 text-white font-bold text-lg shadow-xl shadow-purple-900/40 border-none transition-all hover:scale-105 active:scale-95"
+              className="w-full md:w-auto rounded-2xl px-10 h-14 bg-purple-600 hover:bg-purple-500 text-white font-bold text-lg shadow-xl shadow-purple-900/40 border-none transition-all hover:scale-105 active:scale-95"
             >
               {isSaving ? <Loader2 className="w-5 h-5 mr-3 animate-spin" /> : <Save className="w-5 h-5 mr-3" />}
               Publish Updates
