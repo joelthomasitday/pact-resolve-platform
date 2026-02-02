@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { MagneticButton } from "@/components/magnetic-button";
-import { Video, Phone, Mail, User, Clock, CheckCircle2, X, ArrowRight, MessageSquare, ShieldCheck } from "lucide-react";
-import Image from "next/image";
+import { Video, Phone, Mail, User, Clock, X, ArrowRight, MessageSquare, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Form, 
@@ -14,25 +13,10 @@ import {
   FormMessage 
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-
-const mediationSchema = z.object({
-  fullName: z.string().min(2, "Name is required"),
-  email: z.string().email("Invalid email"),
-  contact: z.string().min(10, "Valid contact number required"),
-  disputeType: z.string().min(1, "Please select a dispute type"),
-  parallelLitigation: z.string(),
-  otherSideOpen: z.string(),
-  description: z.string().max(200, "Brief description within 200 words"),
-  mode: z.string(),
-  timeline: z.string(),
-  bestTime: z.string(),
-});
 
 const trainingSchema = z.object({
   fullName: z.string().min(2, "Name is required"),
@@ -44,23 +28,7 @@ const trainingSchema = z.object({
 });
 
 export function CTASection() {
-  const [activeForm, setActiveForm] = useState<"mediation" | "training" | null>(null);
-
-  const mediationForm = useForm<z.infer<typeof mediationSchema>>({
-    resolver: zodResolver(mediationSchema),
-    defaultValues: {
-      fullName: "",
-      email: "",
-      contact: "",
-      disputeType: "",
-      parallelLitigation: "No",
-      otherSideOpen: "No",
-      description: "",
-      mode: "Online",
-      timeline: "",
-      bestTime: "",
-    }
-  });
+  const [activeForm, setActiveForm] = useState<"training" | null>(null);
 
   const trainingForm = useForm<z.infer<typeof trainingSchema>>({
     resolver: zodResolver(trainingSchema),
@@ -73,11 +41,6 @@ export function CTASection() {
       bestTime: "",
     }
   });
-
-  function onMediationSubmit(data: z.infer<typeof mediationSchema>) {
-    console.log(data);
-    setActiveForm(null);
-  }
 
   function onTrainingSubmit(data: z.infer<typeof trainingSchema>) {
     console.log(data);
@@ -136,27 +99,39 @@ export function CTASection() {
 
         {/* Support & Contact Bar - Sleek Floating Design */}
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16 md:mb-24">
-          {[
-            { time: "9am – 3pm IST", phone: "9765987280", label: "Mediation Convenor" },
-            { time: "3pm – 9pm IST", phone: "9958488857", label: "Trainings Coordinator" }
-          ].map((item, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 + idx * 0.1 }}
-              className="flex items-center gap-5 bg-white border border-navy-950/5 p-4 pr-10 rounded-2xl shadow-sm hover:shadow-md transition-shadow group w-full sm:w-auto"
-            >
-              <div className="h-12 w-12 rounded-xl bg-navy-950 flex items-center justify-center text-white shrink-0 group-hover:bg-gold-500 transition-colors">
-                <Phone className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-[10px] uppercase tracking-widest text-gold-600 font-bold mb-0.5">{item.time}</div>
-                <div className="text-lg font-semibold text-navy-950 tracking-tight">{item.phone}</div>
-              </div>
-            </motion.div>
-          ))}
+          {/* Phone Contact - Left Side */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center gap-5 bg-white border border-navy-950/5 p-4 pr-10 rounded-2xl shadow-sm hover:shadow-md transition-shadow group w-full sm:w-auto"
+          >
+            <div className="h-12 w-12 rounded-xl bg-navy-950 flex items-center justify-center text-white shrink-0 group-hover:bg-gold-500 transition-colors">
+              <Phone className="h-5 w-5" />
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-gold-600 font-bold mb-0.5">9am – 3pm IST</div>
+              <div className="text-lg font-semibold text-navy-950 tracking-tight">9765987280</div>
+            </div>
+          </motion.div>
+
+          {/* Email Contact - Right Side */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="flex items-center gap-5 bg-white border border-navy-950/5 p-4 pr-10 rounded-2xl shadow-sm hover:shadow-md transition-shadow group w-full sm:w-auto"
+          >
+            <div className="h-12 w-12 rounded-xl bg-navy-950 flex items-center justify-center text-white shrink-0 group-hover:bg-gold-500 transition-colors">
+              <Mail className="h-5 w-5" />
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-gold-600 font-bold mb-0.5">Email Us</div>
+              <div className="text-lg font-semibold text-navy-950 tracking-tight">info@pactmediators.com</div>
+            </div>
+          </motion.div>
         </div>
 
         {/* Dual Actions - Premium Cards */}
@@ -167,49 +142,41 @@ export function CTASection() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className={`group relative rounded-4xl md:rounded-[2.5rem] p-8 md:p-14 overflow-hidden border-2 transition-all duration-500 flex flex-col justify-between min-h-[400px] md:min-h-[500px] ${
-              activeForm === "mediation" 
-                ? "border-navy-950 bg-navy-950 text-white shadow-2xl scale-[1.02] z-10" 
-                : activeForm === "training"
-                  ? "hidden md:flex bg-white border-black/5"
-                  : "border-black/5 bg-white hover:border-navy-950/20 shadow-sm hover:shadow-xl hover:-translate-y-1"
-            }`}
+            className="group relative rounded-4xl md:rounded-[2.5rem] p-8 md:p-14 overflow-hidden border-2 transition-all duration-500 flex flex-col justify-between min-h-[400px] md:min-h-[500px] border-black/5 bg-white hover:border-navy-950/20 shadow-sm hover:shadow-xl hover:-translate-y-1"
           >
             <div className="relative z-10">
-              <div className={`h-14 w-14 md:h-16 md:w-16 rounded-2xl flex items-center justify-center mb-8 md:mb-10 transition-colors ${
-                activeForm === "mediation" ? "bg-gold-500 text-navy-950" : "bg-navy-950 text-white group-hover:bg-gold-500"
-              }`}>
+              <div className="h-14 w-14 md:h-16 md:w-16 rounded-2xl flex items-center justify-center mb-8 md:mb-10 transition-colors bg-navy-950 text-white group-hover:bg-gold-500">
                 <Video className="h-7 w-7 md:h-8 md:w-8" />
               </div>
-              <h3 className={`text-3xl md:text-5xl font-light mb-6 leading-[1.15] ${activeForm === "mediation" ? "text-white" : "text-navy-950"}`}>
+              <h3 className="text-3xl md:text-5xl font-light mb-6 leading-[1.15] text-navy-950">
                 Initiate a <br className="hidden md:block" /><span className="font-semibold italic">Mediation</span>
               </h3>
-              <p className={`text-base md:text-lg mb-8 max-w-sm ${activeForm === "mediation" ? "text-white/60" : "text-navy-600"}`}>
+              <p className="text-base md:text-lg mb-8 max-w-sm text-navy-600">
                 Get your queries answered on a complimentary zoom call with our team.
               </p>
             </div>
 
             <div className="relative z-10 flex flex-wrap gap-4 items-center mt-auto">
-              <MagneticButton
-                enableMotion
-                size="lg"
-                variant={activeForm === "mediation" ? "primary" : "ghost"}
-                className={`w-full sm:w-auto uppercase tracking-widest font-sans font-bold border-2 ${
-                  activeForm === "mediation" 
-                    ? "bg-white text-navy-950 border-white hover:bg-gold-500 hover:border-gold-500" 
-                    : "border-navy-950/10 hover:border-navy-950"
-                }`}
-                onClick={() => setActiveForm(activeForm === "mediation" ? null : "mediation")}
+              <a
+                href="/initiate-mediation"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
               >
-                {activeForm === "mediation" ? "Close Form" : "Select & Inquire"}
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </MagneticButton>
+                <MagneticButton
+                  enableMotion
+                  size="lg"
+                  variant="ghost"
+                  className="w-full sm:w-auto uppercase tracking-widest font-sans font-bold border-2 border-navy-950/10 hover:border-navy-950"
+                >
+                  Select & Inquire
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </MagneticButton>
+              </a>
             </div>
 
             {/* Background Decorative Element */}
-            <div className={`absolute bottom-[-10%] right-[-10%] opacity-5 rotate-12 transition-transform duration-1000 group-hover:scale-125 ${
-              activeForm === "mediation" ? "text-white" : "text-navy-950"
-            }`}>
+            <div className="absolute bottom-[-10%] right-[-10%] opacity-5 rotate-12 transition-transform duration-1000 group-hover:scale-125 text-navy-950">
               <ShieldCheck size={300} className="md:w-[400px] md:h-[400px]" />
             </div>
           </motion.div>
@@ -240,20 +207,22 @@ export function CTASection() {
             </div>
 
             <div className="relative z-10 flex flex-wrap gap-4 items-center mt-auto">
-              <MagneticButton
-                enableMotion
-                size="lg"
-                variant="primary"
-                className={`w-full sm:w-auto uppercase tracking-widest font-sans font-bold border-2 transition-all duration-500 ${
-                  activeForm === "training" 
-                    ? "bg-navy-950 text-white border-navy-950 hover:bg-gold-600 hover:border-gold-600 shadow-lg" 
-                    : "bg-gold-500 text-navy-950 border-gold-500 hover:bg-white hover:text-navy-950 hover:border-navy-950/10"
-                }`}
-                onClick={() => setActiveForm(activeForm === "training" ? null : "training")}
+              <a
+                href="/reserve-training"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
               >
-                {activeForm === "training" ? "Close Form" : "Reserve Now"}
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </MagneticButton>
+                <MagneticButton
+                  enableMotion
+                  size="lg"
+                  variant="primary"
+                  className="w-full sm:w-auto uppercase tracking-widest font-sans font-bold border-2 transition-all duration-500 bg-gold-500 text-navy-950 border-gold-500 hover:bg-white hover:text-navy-950 hover:border-navy-950/10"
+                >
+                  Reserve Now
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </MagneticButton>
+              </a>
             </div>
             
             {/* Background Decorative Element */}
@@ -277,20 +246,13 @@ export function CTASection() {
                 <div className="flex items-start justify-between mb-16 px-2">
                   <div>
                     <div className="flex items-center gap-3 mb-4">
-                      <div className={`h-1.5 w-12 rounded-full ${activeForm === "mediation" ? "bg-navy-950" : "bg-gold-500"}`} />
+                      <div className="h-1.5 w-12 rounded-full bg-gold-500" />
                       <span className="text-sm font-bold uppercase tracking-widest text-navy-600">Official Request Form</span>
                     </div>
                     <h2 className="text-4xl lg:text-5xl font-light text-navy-950 mb-3 tracking-tight">
-                      {activeForm === "mediation" ? "Initiate A Mediation" : "Reserve A Training"}
+                      Reserve A Training
                     </h2>
-                    {activeForm === "mediation" ? (
-                      <p className="text-navy-600 flex items-center gap-2 text-lg">
-                        <ShieldCheck className="h-5 w-5 text-green-500" />
-                        All data is encrypted & strictly confidential
-                      </p>
-                    ) : (
-                      <p className="text-navy-600 text-lg">Professional training solutions for the academy staff & partners</p>
-                    )}
+                    <p className="text-navy-600 text-lg">Professional training solutions for the academy staff & partners</p>
                   </div>
                   <button 
                     onClick={() => setActiveForm(null)}
@@ -300,108 +262,7 @@ export function CTASection() {
                   </button>
                 </div>
 
-                {activeForm === "mediation" ? (
-                  <Form {...mediationForm}>
-                    <form onSubmit={mediationForm.handleSubmit(onMediationSubmit)} className="space-y-12">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                        <FormField control={mediationForm.control} name="fullName" render={({ field }) => (
-                          <FormItem className="space-y-3">
-                            <FormLabel className="text-base font-semibold text-navy-900">Your Full Name</FormLabel>
-                            <FormControl><Input placeholder="John Doe" {...field} className="h-14 px-6 rounded-xl bg-transparent border-navy-950/10 focus:border-navy-950/30 focus:ring-0 transition-all text-lg" /></FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )} />
-                        <FormField control={mediationForm.control} name="email" render={({ field }) => (
-                          <FormItem className="space-y-3">
-                            <FormLabel className="text-base font-semibold text-navy-900">Work Email Address</FormLabel>
-                            <FormControl><Input placeholder="john@company.com" {...field} className="h-14 px-6 rounded-xl bg-transparent border-navy-950/10 focus:border-navy-950/30 focus:ring-0 transition-all text-lg" /></FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )} />
-                        <FormField control={mediationForm.control} name="contact" render={({ field }) => (
-                          <FormItem className="space-y-3">
-                            <FormLabel className="text-base font-semibold text-navy-900">Primary Contact Number</FormLabel>
-                            <FormControl><Input placeholder="+91 00000 00000" {...field} className="h-14 px-6 rounded-xl bg-transparent border-navy-950/10 focus:border-navy-950/30 focus:ring-0 transition-all text-lg" /></FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )} />
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-                        <FormField control={mediationForm.control} name="disputeType" render={({ field }) => (
-                          <FormItem className="space-y-3 font-medium">
-                            <FormLabel>Type of Dispute</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl><SelectTrigger className="h-14 rounded-xl bg-transparent border-navy-950/10 focus:ring-0"><SelectValue placeholder="Select type" /></SelectTrigger></FormControl>
-                              <SelectContent><SelectItem value="Commercial">Commercial</SelectItem><SelectItem value="Family">Family</SelectItem><SelectItem value="Workplace">Workplace</SelectItem><SelectItem value="Community">Community</SelectItem><SelectItem value="Other">Other</SelectItem></SelectContent>
-                            </Select>
-                          </FormItem>
-                        )} />
-                        <FormField control={mediationForm.control} name="mode" render={({ field }) => (
-                          <FormItem className="space-y-3">
-                            <FormLabel>Preferred Mode</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl><SelectTrigger className="h-14 rounded-xl bg-transparent border-navy-950/10 focus:ring-0"><SelectValue placeholder="Select mode" /></SelectTrigger></FormControl>
-                              <SelectContent><SelectItem value="Offline">Offline</SelectItem><SelectItem value="Online">Online</SelectItem><SelectItem value="Hybrid">Hybrid</SelectItem></SelectContent>
-                            </Select>
-                          </FormItem>
-                        )} />
-                        <FormField control={mediationForm.control} name="timeline" render={({ field }) => (
-                          <FormItem className="space-y-3">
-                            <FormLabel>Timeline / Deadline</FormLabel>
-                            <FormControl><Input placeholder="e.g. Next 30 days" {...field} className="h-14 px-6 rounded-xl bg-transparent border-navy-950/10" /></FormControl>
-                          </FormItem>
-                        )} />
-                        <FormField control={mediationForm.control} name="bestTime" render={({ field }) => (
-                          <FormItem className="space-y-3">
-                            <FormLabel>CallBack Preference</FormLabel>
-                            <FormControl><Input placeholder="e.g. Wed PM" {...field} className="h-14 px-6 rounded-xl bg-transparent border-navy-950/10" /></FormControl>
-                          </FormItem>
-                        )} />
-                      </div>
-
-                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-                        <div className="space-y-10 lg:col-span-1">
-                          <FormField control={mediationForm.control} name="parallelLitigation" render={({ field }) => (
-                            <FormItem className="space-y-4">
-                              <FormLabel className="text-navy-950 font-bold">Parallel Litigation Running?</FormLabel>
-                              <FormControl>
-                                <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-8">
-                                  <div className="flex items-center space-x-2"><RadioGroupItem value="Yes" className="h-5 w-5 border-navy-950" /><FormLabel className="font-normal text-lg">Yes</FormLabel></div>
-                                  <div className="flex items-center space-x-2"><RadioGroupItem value="No" className="h-5 w-5 border-navy-950" /><FormLabel className="font-normal text-lg">No</FormLabel></div>
-                                </RadioGroup>
-                              </FormControl>
-                            </FormItem>
-                          )} />
-                          <FormField control={mediationForm.control} name="otherSideOpen" render={({ field }) => (
-                            <FormItem className="space-y-4">
-                              <FormLabel className="text-navy-950 font-bold">Other side open to mediation?</FormLabel>
-                              <FormControl>
-                                <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-8">
-                                  <div className="flex items-center space-x-2"><RadioGroupItem value="Yes" className="h-5 w-5 border-navy-950" /><FormLabel className="font-normal text-lg">Yes</FormLabel></div>
-                                  <div className="flex items-center space-x-2"><RadioGroupItem value="No" className="h-5 w-5 border-navy-950" /><FormLabel className="font-normal text-lg">No</FormLabel></div>
-                                </RadioGroup>
-                              </FormControl>
-                            </FormItem>
-                          )} />
-                        </div>
-                        <FormField control={mediationForm.control} name="description" render={({ field }) => (
-                          <FormItem className="lg:col-span-2 space-y-4">
-                            <FormLabel className="text-navy-950 font-bold">Brief Description of the case (max 200 Words)</FormLabel>
-                            <FormControl><Textarea placeholder="Please summarize the core dispute..." className="min-h-[160px] rounded-2xl bg-transparent border-navy-950/10 p-8 text-lg focus:border-navy-950/30 focus:ring-0" {...field} /></FormControl>
-                          </FormItem>
-                        )} />
-                      </div>
-
-                      <div className="pt-10 flex justify-center sm:justify-end">
-                        <MagneticButton variant="primary" size="lg" className="font-bold bg-navy-950 text-white hover:bg-gold-500 shadow-2xl" type="submit">
-                          Submit Application
-                        </MagneticButton>
-                      </div>
-                    </form>
-                  </Form>
-                ) : (
-                  <Form {...trainingForm}>
+                <Form {...trainingForm}>
                     <form onSubmit={trainingForm.handleSubmit(onTrainingSubmit)} className="space-y-12">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                         <FormField control={trainingForm.control} name="fullName" render={({ field }) => (
@@ -434,7 +295,6 @@ export function CTASection() {
                       </div>
                     </form>
                   </Form>
-                )}
               </div>
             </motion.div>
           )}
