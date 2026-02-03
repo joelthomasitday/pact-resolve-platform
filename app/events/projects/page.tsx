@@ -79,42 +79,48 @@ const archives = [
     location: "Mumbai, 2025",
     description: "Exploring how mixed-mode dispute resolution is shaping cross-border business disputes and India’s evolving position in that space.",
     link: "https://www.youtube.com/watch?v=nQLB_E2Z3hg",
-    category: "Webinar"
+    category: "Webinar",
+    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80"
   },
   {
     title: "Saveetha School of Law - Three-Day Workshop on Mediation",
     location: "Chennai, 2024",
     description: "Intensive skills workshop introducing core mediation principles, empathic listening, and the IMPACT model.",
     link: "https://saveethalaw.com/news/three-day-workshop-on-mediation",
-    category: "Workshop"
+    category: "Workshop",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80"
   },
   {
     title: "SRM University Delhi-NCR (Haryana) - Mediation & Negotiation Workshop",
     location: "Sonepat, 2023",
     description: "Two-day workshop for final-year students on mediator qualities and practical negotiation strategy.",
     link: "https://srmuniversity.ac.in/event/workshop-on-mediation-and-negotiation",
-    category: "Workshop"
+    category: "Workshop",
+    image: "https://images.unsplash.com/photo-1523240693567-d7962177c250?auto=format&fit=crop&q=80"
   },
   {
     title: "Manav Rachna University – Mediation Bootcamp",
     location: "Faridabad, 2023",
     description: "A intensive Bootcamp organised by MRU’s Centre of Excellence on ADR with Jonathan Rodrigues as trainer.",
     link: "https://manavrachna.edu.in/assets/campus/mru/pdf/sol-newsletter-4.pdf",
-    category: "Bootcamp"
+    category: "Bootcamp",
+    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80"
   },
   {
     title: "LedX × The PACT – Mediation & Conflict Bootcamp",
     location: "Indore, 2022",
     description: "Indore based bootcamp teaching foundational mediation concepts and client-counselling techniques.",
     link: "https://classroom.ledx.law/bootcamp-on-mediation-client-counselling/",
-    category: "Bootcamp"
+    category: "Bootcamp",
+    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80"
   },
   {
     title: "Lawctopus × The PACT – Online ADR Bootcamp",
     location: "Online, 2020",
     description: "Online intensive training students and young professionals on negotiation strategy and mediation process.",
     link: "https://www.lawctopus.com/adrbootcamp/",
-    category: "Online Bootcamp"
+    category: "Online Bootcamp",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80"
   }
 ];
 
@@ -326,38 +332,45 @@ export default function ProjectsPage() {
           <div className="pt-24 border-t border-navy-100/50">
             <SectionHeader subtitle="Legacy" title="Archived Projects" center />
             
-            <div className="space-y-6 max-w-5xl mx-auto">
+            <div className="space-y-6 max-w-6xl mx-auto">
                 {archives.map((item, i) => (
                   <FadeInUp key={i} delay={i * 0.05}>
-                    <div className="group relative grid grid-cols-1 md:grid-cols-12 gap-6 items-center p-8 md:p-12 rounded-[2.5rem] bg-white border border-navy-100 shadow-sm hover:border-gold-500/30 hover:shadow-xl transition-all duration-700">
-                        <div className="md:col-span-1 hidden md:flex flex-col items-center">
-                          <div className="w-12 h-12 rounded-full bg-navy-50 flex items-center justify-center text-navy-950/20 group-hover:text-gold-500 transition-colors">
-                            <History className="w-5 h-5" />
-                          </div>
+                    <div className="group relative flex flex-col md:flex-row gap-8 items-center p-6 md:p-8 rounded-4xl bg-white border border-navy-100/80 shadow-xs hover:border-gold-500/30 hover:shadow-xl transition-all duration-500 overflow-hidden">
+                        {/* Compact Image */}
+                        <div className="w-full md:w-56 h-40 relative rounded-xl overflow-hidden shrink-0">
+                          <Image 
+                            src={item.image} 
+                            fill 
+                            className="object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0" 
+                            alt={item.title} 
+                          />
+                          <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-transparent transition-colors duration-700" />
                         </div>
                         
-                        <div className="md:col-span-8 space-y-4">
-                          <div className="flex flex-wrap items-center gap-3">
-                            <span className="px-3 py-1 rounded-full bg-navy-50 text-[10px] text-navy-950/40 uppercase tracking-widest font-semibold">
+                        <div className="grow space-y-4">
+                          <div className="flex flex-wrap items-center gap-4">
+                            <span className="px-3 py-1 rounded-full bg-navy-50 text-[10px] text-navy-950/40 uppercase tracking-widest font-bold">
                               {item.category}
                             </span>
                             <span className="text-[10px] text-gold-600 uppercase tracking-widest font-semibold flex items-center gap-2">
                               <MapPin className="w-3 h-3" /> {item.location}
                             </span>
                           </div>
-                          <h3 className="text-2xl md:text-3xl font-light text-navy-950 group-hover:text-gold-500 transition-colors uppercase italic tracking-tight leading-tight">
+                          
+                          <h3 className="text-xl md:text-2xl font-light text-navy-950 group-hover:text-gold-500 transition-colors uppercase italic tracking-tight leading-tight">
                             {item.title}
                           </h3>
-                          <p className="text-sm text-navy-950/50 font-light leading-relaxed max-w-2xl">
+                          
+                          <p className="text-sm text-navy-950/50 font-light leading-relaxed max-w-3xl">
                             {item.description}
                           </p>
                         </div>
 
-                        <div className="md:col-span-3 flex justify-end">
+                        <div className="shrink-0 w-full md:w-auto">
                           <a 
                             href={item.link} 
                             target="_blank" 
-                            className="group/link inline-flex items-center gap-4 px-8 py-4 rounded-full bg-navy-50 group-hover:bg-navy-950 text-navy-950 group-hover:text-white transition-all duration-500"
+                            className="group/link inline-flex items-center gap-4 px-8 py-4 rounded-full bg-navy-50 group-hover:bg-navy-950 text-navy-950 group-hover:text-white transition-all duration-500 w-full md:w-auto justify-center"
                           >
                             <span className="text-[10px] font-bold uppercase tracking-widest">View Project</span>
                             <div className="w-8 h-8 rounded-full bg-white text-navy-950 flex items-center justify-center shadow-sm group-hover/link:scale-110 group-hover/link:rotate-45 transition-all">
@@ -366,7 +379,7 @@ export default function ProjectsPage() {
                           </a>
                         </div>
 
-                        {/* Decor Line */}
+                        {/* Subtle Interaction Line */}
                         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gold-500 group-hover:h-1/2 transition-all duration-700" />
                     </div>
                   </FadeInUp>
