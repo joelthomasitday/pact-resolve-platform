@@ -18,8 +18,14 @@ export async function GET(request: NextRequest) {
     const collection = db.collection<EcosystemTeamMember>(COLLECTIONS.ECOSYSTEM_TEAM);
     
     const query: Record<string, unknown> = {};
-    // Only admins can see inactive/all items
-    if (!showAll || !isAdmin) query.isActive = true;
+    // Only admins can see inactive/all items when showAll is true
+    // For regular users or when showAll is false, only show active items
+    if (showAll && isAdmin) {
+      // Admin requesting all items - no filter
+    } else {
+      // Show only active items
+      query.isActive = true;
+    }
     if (category) query.category = category;
     
     const items = await collection.find(query).sort({ order: 1 }).toArray();

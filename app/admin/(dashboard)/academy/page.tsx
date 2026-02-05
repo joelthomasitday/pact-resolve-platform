@@ -72,8 +72,10 @@ export default function AcademyDashboard() {
       } else {
         toast.error(result.error || "Failed to seed data");
       }
-    } catch (error) {
-      toast.error("An error occurred while seeding data");
+    } catch (error: any) {
+      console.error("Academy seed error:", error);
+      const errorMessage = error?.message || "An error occurred while seeding data";
+      toast.error(errorMessage);
     } finally {
       setIsSeeding(false);
     }

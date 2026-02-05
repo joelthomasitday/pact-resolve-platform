@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 interface DashboardSectionCardProps {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: React.ComponentType<{ className?: string }> | React.ReactNode;
   link: string;
   color: string;
   bg: string;
@@ -24,6 +24,27 @@ export function DashboardSectionCard({
   color,
   bg
 }: DashboardSectionCardProps) {
+  // Render icon properly - handle both component references and React elements
+  const renderIcon = () => {
+    // If it's already a valid React element, return it as-is
+    if (React.isValidElement(icon)) {
+      return icon;
+    }
+    // If it's a component (function), render it with proper props
+    // This handles Lucide icons which are React components
+    if (typeof icon === 'function') {
+      const IconComponent = icon as React.ComponentType<{ className?: string }>;
+      return <IconComponent className={cn("w-6 h-6", color)} />;
+    }
+    // Fallback: try to render as component if it has a render method or is an object
+    if (icon && typeof icon === 'object' && 'render' in icon) {
+      const IconComponent = icon as any;
+      return <IconComponent className={cn("w-6 h-6", color)} />;
+    }
+    // Last resort: return as-is (might be null, undefined, or already rendered)
+    return icon || null;
+  };
+
   return (
     <StaggerItem className="h-full">
       <SubtleHover className="h-full">
@@ -32,7 +53,7 @@ export function DashboardSectionCard({
             <CardContent className="p-6 md:p-8 flex flex-col h-full">
               <div className="flex justify-between items-start mb-6">
                 <div className={cn("p-4 rounded-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-sm", bg)}>
-                  {icon}
+                  {renderIcon()}
                 </div>
                 <div className="p-2 rounded-full bg-muted/30 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
                   <ArrowRight className="w-5 h-5 text-primary" />

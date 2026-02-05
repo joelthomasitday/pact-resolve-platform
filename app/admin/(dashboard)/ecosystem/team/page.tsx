@@ -69,18 +69,34 @@ export default function EcosystemTeamAdminPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  useEffect(() => { fetchItems(); }, []);
+  useEffect(() => { fetchItems(); }, [token]);
 
   async function fetchItems() {
     setIsLoading(true);
     try {
-      const response = await fetch("/api/content/ecosystem/team?all=true");
-      if (!response.ok) throw new Error("Failed to fetch");
+      const headers: HeadersInit = {
+        "Content-Type": "application/json",
+      };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+      
+      const response = await fetch("/api/content/ecosystem/team?all=true", {
+        headers,
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to fetch");
+      }
       const result = await response.json();
-      if (result.success) setItems(result.data || []);
-    } catch (error) { 
-      console.error(error);
-      toast.error("Failed to fetch team members"); 
+      if (result.success) {
+        setItems(result.data || []);
+      } else {
+        throw new Error(result.error || "Failed to fetch team members");
+      }
+    } catch (error: any) { 
+      console.error("Error fetching team members:", error);
+      toast.error(error.message || "Failed to fetch team members"); 
     }
     finally { setIsLoading(false); }
   }
