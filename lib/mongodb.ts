@@ -100,6 +100,12 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
   } catch (error: any) {
     console.error("[MongoDB] FULL ERROR OBJECT:", JSON.stringify(error, Object.getOwnPropertyNames(error)));
     
+    // Diagnostic logging for production debugging
+    console.error("[MongoDB] DIAGNOSTIC INFO:");
+    console.error(` - NODE_ENV: ${process.env.NODE_ENV}`);
+    console.error(` - MONGODB_DB_NAME Env Var: ${process.env.MONGODB_DB_NAME || "(Not Set)"}`);
+    console.error(` - URI Prefix: ${uri.substring(0, 15)}...`);
+    
     if (error.message?.includes('alert number 80') || error.code === 'ERR_SSL_TLSV1_ALERT_INTERNAL_ERROR' || error.message?.includes('timeout')) {
       console.error("\n[HELP] DATABASE ACCESS BLOCKED:");
       console.error(" - Reason:", error.message?.includes('timeout') ? "Connection Timeout" : "Access Denied");
