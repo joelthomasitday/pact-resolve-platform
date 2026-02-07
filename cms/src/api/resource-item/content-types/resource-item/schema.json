@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "resource_items",
+  "info": {
+    "singularName": "resource-item",
+    "pluralName": "resource-items",
+    "displayName": "Resource Item",
+    "description": "Educational resources, publications, and tools"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "blog",
+        "publication",
+        "video",
+        "book",
+        "news",
+        "podcast",
+        "journal",
+        "toolkit",
+        "simplified"
+      ],
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "url": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "publication": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

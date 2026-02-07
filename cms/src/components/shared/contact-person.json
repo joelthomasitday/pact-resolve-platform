@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_contact_people",
+  "info": {
+    "displayName": "Contact Person",
+    "icon": "user"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "role": {
+      "type": "string"
+    }
+  }
+}

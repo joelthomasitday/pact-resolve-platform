@@ -20,7 +20,6 @@ import {
 import { cn } from "@/lib/utils";
 import { FadeIn, FadeInUp, StaggerContainer, StaggerItem } from "@/components/motion-wrapper";
 import { GrainOverlay } from "@/components/grain-overlay";
-import { Footer } from "@/components/footer";
 import { MagneticButton } from "@/components/magnetic-button";
 import { Collaborators } from "@/components/sections/home/collaborators";
 
@@ -693,8 +692,6 @@ export default function MediationPage() {
           </div>
         </section>
       )}
-
-      <Footer />
     </main>
   );
 }

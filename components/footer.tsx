@@ -5,7 +5,12 @@ import { Facebook, Linkedin, Instagram, Youtube, Send } from "lucide-react";
 import { MagneticButton } from "@/components/magnetic-button";
 import { WhatsAppButton } from "./whatsapp-button";
 
-export function Footer() {
+interface FooterProps {
+  globalSettings?: any;
+}
+
+export function Footer({ globalSettings }: FooterProps) {
+
   return (
     <footer className="bg-navy-900 text-white pt-16 md:pt-24 pb-12 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
@@ -13,7 +18,7 @@ export function Footer() {
           {/* Left Column: Branding and Links */}
           <div className="space-y-10 md:space-y-12 text-center lg:text-left flex flex-col items-center lg:items-start">
             <div>
-              <h2 className="text-3xl md:text-4xl font-light tracking-tighter mb-4">PACT</h2>
+              <h2 className="text-3xl md:text-4xl font-light tracking-tighter mb-4">{globalSettings?.companyName || "PACT"}</h2>
               <p className="text-white/60 max-w-sm text-xs md:text-sm leading-relaxed">
                 Professional Mediation Platform for International Dispute Resolution and Strategic Excellence.
               </p>
@@ -36,7 +41,7 @@ export function Footer() {
                     <Youtube className="h-4 w-4" /> YouTube
                   </Link>
                   <div className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group cursor-pointer">
-                    <WhatsAppButton />
+                    <WhatsAppButton phoneNumber={globalSettings?.whatsapp} />
                   </div>
                 </div>
               </div>
@@ -73,17 +78,26 @@ export function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
                 <h4 className="text-xs font-mono uppercase tracking-widest text-white/40">Email</h4>
-                <a href="mailto:official@thepact.in" className="text-sm hover:text-gold-500 transition-colors block">official@thepact.in</a>
+                <a href={`mailto:${globalSettings?.email || "official@thepact.in"}`} className="text-sm hover:text-gold-500 transition-colors block">{globalSettings?.email || "official@thepact.in"}</a>
               </div>
               <div className="space-y-2">
-                <h4 className="text-xs font-mono uppercase tracking-widest text-white/40">Phone</h4>
-                <p className="text-sm text-white/70">Nisshant: +91 91234 56789</p>
-                <p className="text-sm text-white/70">Jonathan: +91 98765 43210</p>
+                <h4 className="text-xs font-mono uppercase tracking-widest text-white/40">Phone / WhatsApp</h4>
+                {globalSettings?.contactPersons && globalSettings.contactPersons.length > 0 ? (
+                  globalSettings.contactPersons.map((person: any, idx: number) => (
+                    <p key={idx} className="text-sm text-white/70">
+                      {person.name}: {person.phone}
+                    </p>
+                  ))
+                ) : (
+                  <>
+                    <p className="text-sm text-white/70">WhatsApp: {globalSettings?.whatsapp || "+91 97659 87280"}</p>
+                  </>
+                )}
               </div>
               <div className="md:col-span-2 space-y-2">
                 <h4 className="text-xs font-mono uppercase tracking-widest text-white/40">Address</h4>
                 <p className="text-sm text-white/70 leading-relaxed max-w-xs">
-                  Postal Address: PACT International Headquarters, ADR Tower, New Delhi, India.
+                  {globalSettings?.address || "Postal Address: PACT International Headquarters, ADR Tower, New Delhi, India."}
                 </p>
               </div>
             </div>
@@ -91,7 +105,7 @@ export function Footer() {
         </div>
         
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-white/30">
-          <p>© 2026 PACT. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} {globalSettings?.companyName || "PACT"}. All Rights Reserved.</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>

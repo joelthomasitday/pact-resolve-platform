@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_case_study_costs",
+  "info": {
+    "displayName": "Case Study Costs",
+    "icon": "priceTag"
+  },
+  "options": {},
+  "attributes": {
+    "hours": {
+      "type": "integer"
+    },
+    "weeks": {
+      "type": "integer"
+    },
+    "fees": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  }
+}

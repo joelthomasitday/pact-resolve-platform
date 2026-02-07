@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mediation_case_studies",
+  "info": {
+    "singularName": "mediation-case-study",
+    "pluralName": "mediation-case-studies",
+    "displayName": "Mediation Case Study"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "summary": {
+      "type": "text",
+      "required": true
+    },
+    "challenge": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.text-item"
+    },
+    "solution": {
+      "type": "text",
+      "required": true
+    },
+    "costs": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.case-study-costs"
+    },
+    "iconName": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

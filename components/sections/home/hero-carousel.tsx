@@ -14,6 +14,8 @@ import Autoplay from "embla-carousel-autoplay";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { HeroSlide } from "@/lib/db/schemas";
+import { getStrapiMedia } from "@/lib/strapi";
+
 
 const fallbackSlides = [
   {
@@ -82,18 +84,42 @@ export function HeroCarousel() {
   React.useEffect(() => {
     async function fetchHeroSlides() {
       try {
-        const response = await fetch("/api/content/hero-slides");
+        // Use Strapi-compatible array notation for populate to avoid ValidationErrors
+        const query = new URLSearchParams({
+          'populate[0]': 'image',
+          'populate[1]': 'titleLines',
+          'sort': 'order:asc',
+          'filters[isActive][$eq]': 'true'
+        }).toString();
+
+        const response = await fetch(`/api/strapi/hero-slides?${query}`);
+        
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+        }
+
         const result = await response.json();
-        if (result.success && result.data && result.data.length > 0) {
-          // Normalize titles if they come as strings
-          const normalized = result.data.map((slide: any) => ({
-            ...slide,
-            title: Array.isArray(slide.title) ? slide.title : [slide.title]
-          }));
+        
+        if (result && result.data && result.data.length > 0) {
+          const normalized = result.data.map((item: any) => {
+            const attrs = item.attributes || item; // Handle both v4 and v5
+            return {
+              title: attrs.titleLines?.map((t: any) => t.text) || ["PACT", "Mediation"],
+              description: attrs.description,
+              buttonLabel: attrs.buttonLabel,
+              link: attrs.link,
+              rightSlogan: attrs.rightSlogan || "",
+              image: { 
+                url: getStrapiMedia(attrs.image?.data?.attributes?.url || attrs.image?.url) || "/hero/hero_mediation.png", 
+                alt: attrs.image?.data?.attributes?.alternativeText || attrs.image?.alternativeText || attrs.titleLines?.[0]?.text
+              },
+            };
+          });
           setSlides(normalized);
         }
       } catch (error) {
-        console.error("Failed to fetch hero slides:", error);
+        console.error("Failed to fetch hero slides from Strapi:", error);
       } finally {
         setIsLoading(false);
       }

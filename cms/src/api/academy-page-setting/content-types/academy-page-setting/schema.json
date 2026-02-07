@@ -1,0 +1,53 @@
+{
+  "kind": "singleType",
+  "collectionName": "academy_page_settings",
+  "info": {
+    "singularName": "academy-page-setting",
+    "pluralName": "academy-page-settings",
+    "displayName": "Academy Page Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "program": {
+      "type": "enumeration",
+      "enum": ["mediation", "arbitration", "negotiation"],
+      "required": true
+    },
+    "heroTitle": {
+      "type": "string",
+      "required": true
+    },
+    "heroSubtitle": {
+      "type": "string"
+    },
+    "heroDescription": {
+      "type": "text"
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "contactEmail": {
+      "type": "email"
+    },
+    "trainingTitle": {
+      "type": "string"
+    },
+    "trainingDescription": {
+      "type": "text"
+    },
+    "trainingImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "trainingFeatures": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.text-item"
+    }
+  }
+}

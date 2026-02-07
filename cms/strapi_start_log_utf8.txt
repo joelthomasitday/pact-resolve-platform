@@ -1,0 +1,30 @@
+﻿
+> cms@0.1.0 develop
+> strapi develop
+
+node.exe : - Cleaning dist 
+dir D:/works/IT/mediation/cms
+/dist
+At 
+C:\nvm4w\nodejs\npm.ps1:29 
+char:3
++   & $NODE_EXE $NPM_CLI_JS 
+$args
++   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (- Clean  
+  ing dist...iation/cms/di   
+ st:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+Γ£ö Cleaning dist dir (64ms)
+- Loading Strapi
+[ERROR]  There seems to be 
+an unexpected error, try 
+again with --debug for more 
+information 
+
+ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉΓöé                                                                              ΓöéΓöé   Error: Error on attribute sessions in model                                ΓöéΓöé   featured-content(shared.featured-content): Metadata for                    ΓöéΓöé   "api::session.session" not found                                           ΓöéΓöé   at Metadata.loadModels (D:\works\IT\mediation\cms\node_modules\@strapi\d   ΓöéΓöé   atabase\dist\metadata\metadata.js:65:31)                                   ΓöéΓöé   at Database.init (D:\works\IT\mediation\cms\node_modules\@strapi\databas   ΓöéΓöé   e\dist\index.js:43:23)                                                     ΓöéΓöé   at Strapi.bootstrap (D:\works\IT\mediation\cms\node_modules\@strapi\core   ΓöéΓöé   \dist\Strapi.js:344:23)                                                    ΓöéΓöé   at Strapi.load (D:\works\IT\mediation\cms\node_modules\@strapi\core\dist   ΓöéΓöé   \Strapi.js:319:20)                                                         ΓöéΓöé   at async Object.develop (D:\works\IT\mediation\cms\node_modules\@strapi\   ΓöéΓöé   strapi\dist\src\node\develop.js:170:32)                                    ΓöéΓöé   at async action (D:\works\IT\mediation\cms\node_modules\@strapi\strapi\d   ΓöéΓöé   ist\src\cli\commands\develop.js:15:9)                                      ΓöéΓöé   at async Command.parseAsync                                                ΓöéΓöé   (D:\works\IT\mediation\cms\node_modules\commander\lib\command.js:923:5)    ΓöéΓöé   at async runCLI                                                            ΓöéΓöé   (D:\works\IT\mediation\cms\node_modules\@strapi\strapi\dist\cli.js:89:5)   ΓöéΓöé                                                                              ΓöéΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ

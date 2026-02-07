@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_layout_newsletter_configs",
+  "info": {
+    "displayName": "Newsletter Config",
+    "icon": "mail"
+  },
+  "options": {},
+  "attributes": {
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "heading": {
+      "type": "string",
+      "default": "Subscribe to our newsletter"
+    },
+    "description": {
+      "type": "text"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Subscribe"
+    }
+  }
+}

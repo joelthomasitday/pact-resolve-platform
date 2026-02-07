@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "footer_settings",
+  "info": {
+    "singularName": "footer-setting",
+    "pluralName": "footer-settings",
+    "displayName": "Footer Settings"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "tagline": {
+      "type": "string"
+    },
+    "socialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.social-link"
+    },
+    "quickLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.quick-link"
+    },
+    "newsletter": {
+      "type": "component",
+      "repeatable": false,
+      "component": "layout.newsletter-config"
+    },
+    "copyrightText": {
+      "type": "string"
+    }
+  }
+}

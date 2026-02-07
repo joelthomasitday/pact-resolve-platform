@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "academy_faculties",
+  "info": {
+    "singularName": "academy-faculty",
+    "pluralName": "academy-faculties",
+    "displayName": "Academy Faculty"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "role": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "bio": {
+      "type": "text"
+    },
+    "profileUrl": {
+      "type": "string"
+    },
+    "programs": {
+      "type": "enumeration",
+      "enum": ["mediation", "arbitration", "negotiation"],
+      "required": true
+    },
+    "courseTypes": {
+      "type": "enumeration",
+      "enum": ["foundational", "advanced"]
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

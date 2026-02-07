@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_featured_contents",
+  "info": {
+    "displayName": "Featured Content",
+    "icon": "star"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::academy-course.academy-course"
+    },
+    "resources": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::resource-item.resource-item"
+    }
+  }
+}

@@ -33,11 +33,21 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
   },
 }
 
-export default function RootLayout({
+import { getGlobalSettings } from "@/lib/strapi"
+import { Footer } from "@/components/footer"
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  let globalSettings = null;
+  try {
+    globalSettings = await getGlobalSettings();
+  } catch (error) {
+    console.error('Failed to load global settings from Strapi:', error);
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -46,9 +56,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
       </head>
       <body className={`font-sans antialiased text-foreground bg-background`}>
-        <Navbar />
+        <Navbar globalSettings={globalSettings} />
         {children}
-        <WhatsAppButton floating />
+        <Footer globalSettings={globalSettings} />
+        <WhatsAppButton floating phoneNumber={globalSettings?.whatsapp} />
         <Analytics />
       </body>
     </html>

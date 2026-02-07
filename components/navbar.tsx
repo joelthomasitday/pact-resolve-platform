@@ -8,8 +8,15 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
-export function Navbar() {
+import { getStrapiMedia } from "@/lib/strapi";
+
+interface NavbarProps {
+  globalSettings?: any;
+}
+
+export function Navbar({ globalSettings }: NavbarProps) {
   const [isLoaded, setIsLoaded] = useState(false);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [expandedItem, setExpandedItem] = useState<number | null>(null);
   const pathname = usePathname();
@@ -112,8 +119,8 @@ export function Navbar() {
           >
             <div className="relative h-10 md:h-12 lg:h-14 w-auto transition-transform duration-300">
               <Image
-                src="/images/pact-logo.png"
-                alt="PACT"
+                src={getStrapiMedia(globalSettings?.logo?.url) || "/images/pact-logo.png"}
+                alt={globalSettings?.companyName || "PACT"}
                 width={150}
                 height={60}
                 className="h-full w-auto object-contain"
@@ -122,7 +129,7 @@ export function Navbar() {
             </div>
             <div className="flex flex-col justify-center">
               <span className="font-sans text-lg md:text-xl lg:text-2xl font-black tracking-tighter text-white leading-none">
-                PACT
+                {globalSettings?.companyName || "PACT"}
               </span>
               <span className="text-[7px] md:text-[8px] lg:text-[9px] font-medium text-white/70 uppercase tracking-wide leading-tight block mt-0.5">
                 The peacekeeping and<br />conflict resolution team
@@ -232,7 +239,7 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 z-[60] bg-navy-950/80 backdrop-blur-sm lg:hidden transition-opacity"
+              className="fixed inset-0 z-60 bg-navy-950/80 backdrop-blur-sm lg:hidden transition-opacity"
             />
             
             <motion.div
@@ -240,14 +247,14 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 z-[70] h-full w-[310px] bg-navy-950 border-l border-white/10 shadow-2xl lg:hidden flex flex-col"
+              className="fixed top-0 right-0 z-70 h-full w-[310px] bg-navy-950 border-l border-white/10 shadow-2xl lg:hidden flex flex-col"
             >
               <div className="flex items-center justify-between p-6 h-[72px] border-b border-white/5">
                 <div className="flex items-center gap-3">
                   <div className="relative h-8 w-auto shrink-0">
                     <Image
-                      src="/images/pact-logo.png"
-                      alt="PACT"
+                      src={getStrapiMedia(globalSettings?.logo?.url) || "/images/pact-logo.png"}
+                      alt={globalSettings?.companyName || "PACT"}
                       width={100}
                       height={40}
                       className="h-full w-auto object-contain"
@@ -255,7 +262,7 @@ export function Navbar() {
                     />
                   </div>
                   <span className="font-sans text-xl font-black tracking-tighter text-white uppercase leading-none">
-                    PACT
+                    {globalSettings?.companyName || "PACT"}
                   </span>
                 </div>
                 <button 

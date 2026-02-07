@@ -16,6 +16,9 @@ export function WhatsAppButton({
   message = "Hello! I would like to know more about PACT Mediation.",
   floating = false 
 }: WhatsAppButtonProps) {
+  // Clean phone number (remove +, spaces, etc)
+  const cleanPhone = phoneNumber?.replace(/[^0-9]/g, "") || "919765987280";
+
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -37,7 +40,7 @@ export function WhatsAppButton({
 
   if (isAdmin) return null;
 
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 
   if (!floating) {
     return (

@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "academy_courses",
+  "info": {
+    "singularName": "academy-course",
+    "pluralName": "academy-courses",
+    "displayName": "Academy Course"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "program": {
+      "type": "enumeration",
+      "enum": ["mediation", "arbitration", "negotiation"],
+      "required": true
+    },
+    "courseType": {
+      "type": "enumeration",
+      "enum": ["foundational", "advanced"],
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string"
+    },
+    "liveSession": {
+      "type": "string"
+    },
+    "assessment": {
+      "type": "string"
+    },
+    "certification": {
+      "type": "string"
+    },
+    "feeAmount": {
+      "type": "decimal"
+    },
+    "feeCurrency": {
+      "type": "string",
+      "default": "INR"
+    },
+    "feeNote": {
+      "type": "string"
+    },
+    "ctaText": {
+      "type": "string"
+    },
+    "ctaLink": {
+      "type": "string"
+    },
+    "benefits": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.text-item"
+    },
+    "enrollmentStatus": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

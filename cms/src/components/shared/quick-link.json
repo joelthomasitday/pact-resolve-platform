@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_quick_links",
+  "info": {
+    "displayName": "Quick Link",
+    "icon": "link"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

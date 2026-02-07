@@ -9,7 +9,6 @@ import { PanelNeutrals } from "@/components/sections/home/panel-neutrals";
 import { Collaborators } from "@/components/sections/home/collaborators";
 import { Supporters } from "@/components/sections/home/supporters";
 import { NetworkLogos } from "@/components/sections/home/network-logos";
-import { Footer } from "@/components/footer";
 import { GrainOverlay } from "@/components/grain-overlay";
 import { FadeIn } from "@/components/motion-wrapper";
 
@@ -52,8 +51,6 @@ export default function Home() {
         <div id="network">
           <NetworkLogos />
         </div>
-        
-        <Footer />
       </FadeIn>
     </main>
   );
