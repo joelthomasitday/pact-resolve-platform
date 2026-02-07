@@ -44,16 +44,7 @@ export default function AdminDashboardLayout({
             {children}
           </div>
         </div>
-        <footer className="p-8 border-t bg-white dark:bg-navy-950/50 mt-auto">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} PACT Resolve Platform. All rights reserved.</p>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-primary transition-colors">Support</a>
-            </div>
-          </div>
-        </footer>
+
       </main>
     </div>
   );
