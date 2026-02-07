@@ -1,17 +1,19 @@
 import { z } from "zod";
 
-export const globalSettingsSchema = z.object({
-  siteName: z.string().min(1).optional(),
-  siteDescription: z.string().optional(),
-  contactEmail: z.string().email().optional(),
-  socialLinks: z.object({
-    facebook: z.string().url().optional(),
-    twitter: z.string().url().optional(),
-    linkedin: z.string().url().optional(),
-    instagram: z.string().url().optional(),
-  }).optional(),
-  footerText: z.string().optional(),
+const contactPersonSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  phone: z.string().min(1, "Phone is required"),
+  role: z.string().optional(),
 });
+
+export const globalSettingsSchema = z.object({
+  email: z.string().email("Invalid email format").optional().or(z.literal("")),
+  whatsapp: z.string().optional(),
+  contactPersons: z.array(contactPersonSchema).optional().default([]),
+  address: z.string().optional(),
+  companyName: z.string().optional(),
+});
+
 
 export const contentSchema = z.object({
   title: z.string().min(1),
