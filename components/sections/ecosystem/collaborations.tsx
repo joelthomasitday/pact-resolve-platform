@@ -181,9 +181,9 @@ export function Collaborations() {
       />
 
       {/* Strategic Partnerships Section */}
-      <div className="pt-20 pb-24 md:py-32 bg-white relative">
+      <div className="pt-16 pb-20 md:py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <FadeInUp className="mb-24">
+          <FadeInUp className="mb-12">
             <h3 className="text-4xl md:text-6xl font-light text-navy-950 tracking-tight mb-8">Strategic Partnerships</h3>
             <div className="h-1.5 w-16 bg-gold-500" />
           </FadeInUp>
@@ -218,7 +218,7 @@ export function Collaborations() {
 
 
       {/* Why Alliances Matter */}
-      <div className="py-24 md:py-32 bg-navy-950 text-white relative overflow-hidden">
+      <div className="py-16 md:py-24 bg-navy-950 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-500/5 blur-[100px] rounded-full" />
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-16 lg:gap-32 items-center">
@@ -264,9 +264,9 @@ export function Collaborations() {
       </div>
 
       {/* Collaborators-in-Practice */}
-      <div className="py-24 md:py-32 bg-white">
+      <div className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <FadeInUp className="mb-24">
+          <FadeInUp className="mb-12">
             <h3 className="text-4xl md:text-6xl font-light text-navy-950 tracking-tight mb-6">Collaborators-in-Practice</h3>
             <div className="h-1.5 w-16 bg-gold-500 rounded-full" />
           </FadeInUp>
@@ -293,25 +293,17 @@ export function Collaborations() {
 
 
       {/* Academic Associations */}
-      <div className="py-24 md:py-32 bg-navy-50/50 relative overflow-hidden">
+      <div className="py-16 md:py-24 bg-navy-50/50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_1.5fr] gap-16 lg:gap-32 items-start">
-            <FadeInUp className="sticky top-32">
-              <h3 className="text-4xl md:text-5xl font-light text-navy-950 mb-8 uppercase tracking-tight">Academic <br /><span className="text-gold-500 italic font-medium">Associations</span></h3>
-              <p className="text-lg text-navy-950/60 font-light leading-relaxed mb-12">
-                A core pillar of The PACT’s ecosystem is its long-standing collaboration with law schools, universities, and academic institutions that open their classrooms and campuses to mediation. Together, we run boot camps, guest lectures, competitions, and certificate programs that introduce thousands of students to the skills and values of collaborative dispute resolution. Our collaborators include:
-              </p>
-              
-              <div className="flex flex-col gap-4">
-                 <div className="p-6 rounded-3xl bg-white border border-navy-100 shadow-sm">
-                   <div className="flex items-center gap-3 mb-2">
-                     <BookOpen className="w-5 h-5 text-gold-500" />
-                     <span className="text-xs font-mono uppercase tracking-widest text-navy-950/40 font-bold">Expansion</span>
-                   </div>
-                   <p className="text-2xl font-bold text-navy-950 tracking-tight">Expanding horizons in legal education since 2015</p>
-                 </div>
-              </div>
-            </FadeInUp>
+          <div className="grid grid-cols-1 xl:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20 items-start">
+            <div className="xl:sticky xl:top-32">
+              <FadeInUp>
+                <h3 className="text-4xl md:text-5xl font-light text-navy-950 mb-8 uppercase tracking-tight">Academic <br /><span className="text-gold-500 italic font-medium">Associations</span></h3>
+                <p className="text-lg text-navy-950/60 font-light leading-relaxed">
+                  A core pillar of The PACT’s ecosystem is its long-standing collaboration with law schools, universities, and academic institutions that open their classrooms and campuses to mediation. Together, we run boot camps, guest lectures, competitions, and certificate programs that introduce thousands of students to the skills and values of collaborative dispute resolution. Our collaborators include:
+                </p>
+              </FadeInUp>
+            </div>
 
             <div className="space-y-12">
               {/* Large Carousel for Current Associations */}
@@ -347,8 +339,8 @@ export function Collaborations() {
                 <div className="relative w-full overflow-hidden py-4 border-y border-navy-100/50">
                   <div className="flex whitespace-nowrap overflow-hidden">
                     <motion.div 
-                      animate={{ x: [0, -1000] }}
-                      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                      animate={{ x: ["0%", "-100%"] }}
+                      transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
                       className="flex gap-12 shrink-0 pr-12"
                     >
                       {olderAssociations.map((item, i) => (
@@ -358,8 +350,8 @@ export function Collaborations() {
                       ))}
                     </motion.div>
                     <motion.div 
-                      animate={{ x: [0, -1000] }}
-                      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                      animate={{ x: ["0%", "-100%"] }}
+                      transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
                       className="flex gap-12 shrink-0 pr-12"
                     >
                       {olderAssociations.map((item, i) => (
@@ -372,35 +364,93 @@ export function Collaborations() {
                 </div>
               </div>
             </div>
+
+            {/* Bottom Full-Width Horizontal Feature */}
+            <FadeInUp className="xl:col-span-2 mt-12 md:mt-20">
+              <div className="relative p-8 md:p-12 rounded-[3rem] md:rounded-[4rem] bg-white border border-navy-100 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.03)] flex flex-col lg:flex-row lg:items-center justify-between gap-10 overflow-hidden group hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)] transition-all duration-700">
+                {/* Decorative element */}
+                <div className="absolute top-0 right-0 w-80 h-80 bg-gold-500/5 blur-[80px] rounded-full -mr-40 -mt-40 group-hover:bg-gold-500/10 transition-colors duration-700" />
+                
+                <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12 flex-1">
+                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-4xl bg-navy-950 flex items-center justify-center shrink-0 shadow-2xl shadow-navy-950/20 group-hover:scale-105 transition-transform duration-500">
+                    <BookOpen className="w-8 h-8 md:w-12 md:h-12 text-gold-500" />
+                  </div>
+                  <div className="text-center md:text-left">
+                    <div className="flex items-center gap-3 justify-center md:justify-start mb-4">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-gold-500/60 font-bold">The Evolution</span>
+                      <div className="w-12 h-px bg-gold-500/20" />
+                    </div>
+                    <h4 className="text-3xl md:text-5xl font-bold text-navy-900 tracking-tighter leading-tight mb-2">
+                       Expanding <span className="text-gold-500 italic font-medium">horizons</span> in legal education
+                    </h4>
+                    <p className="text-xl md:text-2xl font-light text-navy-950/30 tracking-tight italic">since 2015</p>
+                  </div>
+                </div>
+
+                <div className="relative z-10 h-px w-full lg:h-24 lg:w-px bg-navy-100/50 hidden lg:block" />
+                
+                <div className="relative z-10 max-w-sm text-center lg:text-left">
+                  <p className="text-lg md:text-xl text-navy-900/60 font-light leading-relaxed">
+                    A decade of pioneering mediation advocacy and collaborative law across India's premier academic institutions, touching thousands of lives.
+                  </p>
+                </div>
+              </div>
+            </FadeInUp>
           </div>
         </div>
       </div>
 
       {/* Mission Mediation Alliances */}
-      <div className="py-24 md:py-32 bg-white">
+      <div className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-          <div className="text-center mb-16">
-            <h3 className="text-2xl font-light text-navy-950 mb-6 uppercase tracking-tight">Mission Mediation Alliances</h3>
-            <p className="max-w-4xl mx-auto text-navy-950/60 text-lg font-light leading-relaxed mb-16 italic">
+          <div className="text-center">
+            <h3 className="text-2xl font-light text-navy-950 mb-4 uppercase tracking-tight">Mission Mediation Alliances</h3>
+            <p className="max-w-4xl mx-auto text-navy-950/60 text-base md:text-lg font-light leading-relaxed mb-10 italic">
               We are privileged to collaborate with some of India’s leading law firms, whose support has helped us design and deliver real-world, practice-oriented mediation experiences for students and professionals alike. These firms contribute as mentors, assessors, speakers and trainers across our initiatives. Our collaborators include:
             </p>
             
-            <div className="relative w-full border-y border-navy-50 bg-navy-50/20 py-16 px-6 md:px-12 rounded-[3rem]">
-               <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-16">
-                 {displayMentoring.map((partner, i) => (
-                   <div key={i} className="h-10 w-40 relative group grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-                     <Image 
-                       src={(partner as any).logo || "/partners/placeholder.png"} 
-                       alt={partner.name} 
-                       fill 
-                       className="object-contain" 
-                       sizes="(max-width: 768px) 100vw, 20vw"
-                     />
-                     <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-[8px] font-mono uppercase tracking-widest text-navy-950 font-bold">
-                       {partner.name}
+            <div className="relative w-full overflow-hidden border-y border-navy-100/50 py-12">
+               <div className="flex whitespace-nowrap">
+                 <motion.div 
+                   animate={{ x: ["0%", "-100%"] }}
+                   transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                   className="flex gap-16 items-center shrink-0 pr-16"
+                 >
+                   {displayMentoring.map((partner, i) => (
+                     <div key={i} className="h-10 w-40 relative group grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 shrink-0">
+                       <Image 
+                         src={(partner as any).logo || "/partners/placeholder.png"} 
+                         alt={partner.name} 
+                         fill 
+                         className="object-contain" 
+                         sizes="160px"
+                       />
+                       <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-[8px] font-mono uppercase tracking-widest text-navy-950 font-bold">
+                         {partner.name}
+                       </div>
                      </div>
-                   </div>
-                 ))}
+                   ))}
+                 </motion.div>
+                 <motion.div 
+                   animate={{ x: ["0%", "-100%"] }}
+                   transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                   className="flex gap-16 items-center shrink-0 pr-16"
+                 >
+                   {displayMentoring.map((partner, i) => (
+                     <div key={i} className="h-10 w-40 relative group grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 shrink-0">
+                       <Image 
+                         src={(partner as any).logo || "/partners/placeholder.png"} 
+                         alt={partner.name} 
+                         fill 
+                         className="object-contain" 
+                         sizes="160px"
+                       />
+                       <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-[8px] font-mono uppercase tracking-widest text-navy-950 font-bold">
+                         {partner.name}
+                       </div>
+                     </div>
+                   ))}
+                 </motion.div>
                </div>
             </div>
           </div>
@@ -408,34 +458,63 @@ export function Collaborations() {
       </div>
 
       {/* Supporting Organisations */}
-      <div className="py-24 border-t border-navy-100 bg-navy-50/30">
+      <div className="py-16 border-t border-navy-100 bg-navy-50/30">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <div className="flex flex-col items-center text-center">
-            <h3 className="text-2xl font-light text-navy-950 mb-12 uppercase tracking-tight italic">Supporting Organisations</h3>
-            <p className="max-w-3xl text-navy-950/50 text-base font-light mb-16 leading-relaxed">
+            <h3 className="text-2xl font-light text-navy-950 mb-8 uppercase tracking-tight italic">Supporting Organisations</h3>
+            <p className="max-w-3xl text-navy-950/50 text-sm md:text-base font-light mb-12 leading-relaxed">
               Our work is also strengthened by alliances with specialised mediation and ADR institutions in India and abroad, who share their expertise, platforms, and networks to deepen the impact of #MissionMediation. Our collaborators (current / past) include:
             </p>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12 w-full">
-              {displaySupporters.map((s, i) => (
-                <div key={i} className="flex flex-col items-center justify-center p-6 bg-white rounded-3xl border border-navy-100/50 shadow-sm hover:shadow-xl hover:border-gold-500/20 transition-all duration-500 group">
-                  {(s as any).logo ? (
-                    <div className="h-12 w-full relative group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-100">
-                      <Image src={(s as any).logo} alt={s.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 15vw" />
-                    </div>
-                  ) : (
-                    <div className="text-center">
-                      <span className="text-xs font-mono uppercase tracking-widest text-navy-950/30 group-hover:text-gold-500 transition-colors duration-300 font-bold leading-tight block">
-                        {s.name}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              ))}
-              {/* The "And Others" indicator */}
-              <div className="flex items-center justify-center p-6 bg-navy-950 rounded-3xl border border-navy-950 shadow-md group">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500 font-black">And Others</span>
-              </div>
+            <div className="relative w-full overflow-hidden border-y border-navy-100/30 py-12">
+               <div className="flex whitespace-nowrap">
+                 <motion.div 
+                   animate={{ x: ["0%", "-100%"] }}
+                   transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
+                   className="flex gap-16 items-center shrink-0 pr-16"
+                 >
+                   {displaySupporters.map((s, i) => (
+                     <div key={i} className="flex flex-col items-center justify-center group h-12 w-48 shrink-0 relative transition-all duration-500">
+                       {(s as any).logo ? (
+                         <div className="h-full w-full relative grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                           <Image src={(s as any).logo} alt={s.name} fill className="object-contain" sizes="192px" />
+                         </div>
+                       ) : (
+                         <span className="text-xs font-mono uppercase tracking-widest text-navy-950/30 group-hover:text-gold-500 transition-colors duration-300 font-bold leading-tight block text-center italic">
+                           {s.name}
+                         </span>
+                       )}
+                     </div>
+                   ))}
+                   {/* The "And Others" indicator */}
+                   <div className="h-10 px-6 flex items-center justify-center bg-navy-950 rounded-full border border-navy-950 shadow-md group shrink-0">
+                     <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500 font-black">And Others</span>
+                   </div>
+                 </motion.div>
+                 
+                 <motion.div 
+                   animate={{ x: ["0%", "-100%"] }}
+                   transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
+                   className="flex gap-16 items-center shrink-0 pr-16"
+                 >
+                   {displaySupporters.map((s, i) => (
+                     <div key={i} className="flex flex-col items-center justify-center group h-12 w-48 shrink-0 relative transition-all duration-500">
+                       {(s as any).logo ? (
+                         <div className="h-full w-full relative grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                           <Image src={(s as any).logo} alt={s.name} fill className="object-contain" sizes="192px" />
+                         </div>
+                       ) : (
+                         <span className="text-xs font-mono uppercase tracking-widest text-navy-950/30 group-hover:text-gold-500 transition-colors duration-300 font-bold leading-tight block text-center italic">
+                           {s.name}
+                         </span>
+                       )}
+                     </div>
+                   ))}
+                   <div className="h-10 px-6 flex items-center justify-center bg-navy-950 rounded-full border border-navy-950 shadow-md group shrink-0">
+                     <span className="text-[10px] font-mono uppercase tracking-widest text-gold-500 font-black">And Others</span>
+                   </div>
+                 </motion.div>
+               </div>
             </div>
           </div>
         </div>
