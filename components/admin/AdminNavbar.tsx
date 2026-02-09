@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import { CommandCenter } from "./CommandCenter";
 
 
 export function AdminNavbar() {
@@ -54,13 +55,8 @@ export function AdminNavbar() {
                 Live Website
              </Link>
              
-             <div className="hidden xl:flex items-center w-64 relative group">
-               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-navy-950/20 group-focus-within:text-accent transition-colors" />
-               <input 
-                  placeholder="Quick search..." 
-                  className="bg-transparent border-b border-navy-950/5 pl-9 pr-4 py-1.5 text-xs text-navy-950 w-full focus:outline-none focus:border-accent transition-all placeholder:text-navy-950/20"
-               />
-            </div>
+              <CommandCenter />
+
           </div>
         )}
       </div>
@@ -93,12 +89,14 @@ export function AdminNavbar() {
                       <p className="text-[10px] font-bold text-navy-950/30 uppercase tracking-widest">Active Account</p>
                       <p className="text-sm font-black text-navy-950 truncate">{user?.email}</p>
                    </div>
-                   <DropdownMenuItem className="cursor-pointer gap-3 rounded-xl py-3 px-4 hover:bg-slate-50 focus:bg-accent/5 focus:text-accent transition-all group">
-                      <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center group-hover:bg-accent/10">
-                        <User className="w-4 h-4 text-navy-950/40 group-hover:text-accent" />
-                      </div>
-                      <span className="font-bold text-xs uppercase tracking-widest">Profile</span>
-                   </DropdownMenuItem>
+                   <Link href="/admin/profile">
+                     <DropdownMenuItem className="cursor-pointer gap-3 rounded-xl py-3 px-4 hover:bg-slate-50 focus:bg-accent/5 focus:text-accent transition-all group">
+                        <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center group-hover:bg-accent/10">
+                          <User className="w-4 h-4 text-navy-950/40 group-hover:text-accent" />
+                        </div>
+                        <span className="font-bold text-xs uppercase tracking-widest">Profile</span>
+                     </DropdownMenuItem>
+                   </Link>
                    <div className="h-px bg-slate-50 my-1 mx-2" />
                    <DropdownMenuItem 
                       onClick={logout}

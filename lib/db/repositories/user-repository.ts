@@ -7,7 +7,10 @@ export class UserRepository {
 
   static async findByEmail(email: string): Promise<IUser | null> {
     const db = await getDb();
-    const user = await db.collection<IUser>(this.collectionName).findOne({ email });
+    const cleanEmail = email.toLowerCase().trim();
+    const user = await db.collection<IUser>(this.collectionName).findOne({ 
+      email: { $regex: new RegExp(`^${cleanEmail}$`, "i") } 
+    });
     return user;
   }
 

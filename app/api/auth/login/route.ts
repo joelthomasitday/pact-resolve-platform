@@ -16,8 +16,14 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     step = "validating";
     
+    // Pre-process email before validation
+    const processedBody = { ...body };
+    if (typeof processedBody.email === 'string') {
+      processedBody.email = processedBody.email.toLowerCase().trim();
+    }
+
     // Validation
-    const validation = loginSchema.safeParse(body);
+    const validation = loginSchema.safeParse(processedBody);
     if (!validation.success) {
       return NextResponse.json(
         { error: "Invalid credentials format" },
@@ -30,11 +36,21 @@ export async function POST(request: NextRequest) {
     step = "finding-user";
 
     // Find user
+    console.log(`[AUTH] Searching for user: ${email}`);
     const user = await UserRepository.findByEmail(email);
     
-    if (!user || !user.password) {
+    if (!user) {
+      console.warn(`[AUTH] User not found: ${email}`);
       return NextResponse.json(
-        { error: "Invalid email or password" },
+        { error: "Email address not registered" },
+        { status: 401 }
+      );
+    }
+    console.log(`[AUTH] User found: ${user.email} (ID: ${user._id})`);
+
+    if (!user.password && !(user as any).hashedPassword) {
+      return NextResponse.json(
+        { error: "Account has no password set" },
         { status: 401 }
       );
     }
@@ -50,10 +66,12 @@ export async function POST(request: NextRequest) {
 
     step = "verifying-password";
     // Verify password
-    const isPasswordMatch = await verifyPassword(password, user.password);
+    const hashedPassword = user.password || (user as any).hashedPassword;
+    const isPasswordMatch = await verifyPassword(password, hashedPassword);
     if (!isPasswordMatch) {
+      console.warn(`[AUTH] Incorrect password for user: ${email}`);
       return NextResponse.json(
-        { error: "Invalid email or password" },
+        { error: "Incorrect password. Please try again." },
         { status: 401 }
       );
     }

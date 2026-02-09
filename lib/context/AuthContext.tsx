@@ -11,6 +11,7 @@ interface AuthContextType {
   logout: () => void;
   isLoading: boolean;
   isAdmin: boolean;
+  updateUser: (newUser: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -67,6 +68,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push("/admin/login");
   };
 
+  const updateUser = (newUser: User) => {
+    setUser(newUser);
+    localStorage.setItem("admin_user", JSON.stringify(newUser));
+  };
+
   const isAdmin = user?.role === "admin";
 
   return (
@@ -78,6 +84,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         logout,
         isLoading,
         isAdmin,
+        updateUser,
       }}
     >
       {children}

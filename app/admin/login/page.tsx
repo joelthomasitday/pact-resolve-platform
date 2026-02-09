@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Lock, Mail, Loader2, ArrowLeft } from "lucide-react";
+import { Lock, Mail, Loader2, ArrowLeft, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -38,6 +38,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function AdminLoginPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
   const router = useRouter();
   const { login } = useAuth();
 
@@ -51,6 +52,7 @@ export default function AdminLoginPage() {
 
   async function onSubmit(data: LoginFormValues) {
     setIsLoading(true);
+    setLoginError(null);
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -63,7 +65,9 @@ export default function AdminLoginPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Login failed. Please check your credentials.");
+        const errorMsg = result.error || "Login failed. Please check your credentials.";
+        setLoginError(errorMsg);
+        throw new Error(errorMsg);
       }
 
       toast.success("Login successful! Redirecting to dashboard...");
@@ -117,6 +121,12 @@ export default function AdminLoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {loginError && (
+              <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+                <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+                <p className="text-sm font-bold text-red-700">{loginError}</p>
+              </div>
+            )}
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
