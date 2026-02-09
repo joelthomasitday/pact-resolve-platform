@@ -43,7 +43,7 @@ export function ContactSection() {
 
             <div className="space-y-4 md:space-y-8">
               <a
-                href="mailto:hello@pact-mediation.com"
+                href="mailto:official@thepact.in"
                 className="group block"
               >
                 <div className="mb-1 flex items-center gap-2">
@@ -51,7 +51,7 @@ export function ContactSection() {
                   <span className="font-mono text-xs text-foreground/60">Email</span>
                 </div>
                 <p className="text-base text-foreground transition-colors group-hover:text-foreground/70 md:text-2xl">
-                  hello@pact-mediation.com
+                  official@thepact.in
                 </p>
               </a>
 
@@ -63,16 +63,39 @@ export function ContactSection() {
                 <p className="text-base text-foreground md:text-2xl">Available Worldwide</p>
               </div>
 
-              <div className="flex gap-2 pt-2 md:pt-4">
-                {["LinkedIn", "Facebook", "Twitter", "Contact"].map((social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
-                  >
-                    {social}
-                  </a>
-                ))}
+              <div className="flex gap-4 pt-2 md:pt-4">
+                <a
+                  href="https://www.linkedin.com/company/the-pact/?originalSubdomain=in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="https://www.facebook.com/thepactindia/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
+                >
+                  Facebook
+                </a>
+                <a
+                  href="https://www.instagram.com/pact_india/?hl=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://www.youtube.com/@MissionMediationbyPACT"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
+                >
+                  YouTube
+                </a>
               </div>
             </div>
           </div>

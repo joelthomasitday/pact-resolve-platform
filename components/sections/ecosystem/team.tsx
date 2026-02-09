@@ -15,19 +15,25 @@ const teamData = {
       name: "Jonathan Rodrigues",
       role: "Managing Partner",
       bio: "Jonathan Rodrigues is an Accredited International Mediator with an academic background in Psychology and Law and prior professional experience in journalism and education. He pursued an LL.M. in Mediation and Conflict Resolution in the UK and has served as a mediator in various capacities in Glasgow and London. Jonathan is certified as a civil, commercial, and workplace mediator by bodies including IIAM, IICA, TCM, PSMA, NALSA and IAM, and has delivered a TEDx talk on the Multi-Door Dispute Resolution System. He acts as a consultant at The TCM Group (London) Mediator Academy (London) and ICFML (Portugal/Brazil). He advises MediateIndia! and is the Regional Assistant Editor – South Asia for Kluwer Mediation Blog. Jonathan is the host of the Mission Mediation Podcast and Editor at Mediation Simplified.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80"
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
+      profileUrl: "https://www.linkedin.com/in/jonathan-rodrigues-07a9ab82/",
+      email: "jonathan@thepact.in"
     },
     {
       name: "Nisshant Laroia",
       role: "Managing Partner",
       bio: "Nisshant Laroia is an Accredited Mediator, trained and certified by IIAM, IICA, PSMA, and a certified Mediation Counsel by SIMI and SCMA. A graduate of Gujarat National Law University (GNLU), he has worked as in-house counsel at Yogic Naturals, a pioneering health and wellness brand. Nisshant is the author of Mediation Simplified and co-founder of the Global Academy for Advocacy in Dispute Resolution (GAADR). He has worked with 15,000+ law students, introducing them to mediation, and is also an associate-grade arbitrator with the Chartered Institute of Arbitrators (CIArb). He has served as a mediator at the Delhi Dispute Resolution Society mediation centre.",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80"
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80",
+      profileUrl: "https://www.linkedin.com/in/nisshant-laroia-7b952a106/",
+      email: "nisshant@thepact.in"
     },
     {
       name: "New Partner Name",
       role: "Managing Partner",
       bio: "This is a placeholder for a new Managing Partner. They will bring extensive experience in mediation and conflict resolution to the leadership team at PACT.",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80"
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80",
+      profileUrl: "#",
+      email: "info@thepact.in"
     }
   ],
   mentors: [
@@ -139,10 +145,18 @@ export function TeamSection() {
                         
                         <div className="flex flex-wrap items-center justify-center md:justify-start gap-8 pt-6">
                           <div className="flex gap-4">
-                            <a href="#" className="w-12 h-12 rounded-full border border-navy-100 flex items-center justify-center text-navy-950 hover:bg-navy-950 hover:text-white transition-all shadow-sm">
+                            <a 
+                              href={partner.profileUrl || "#"} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="w-12 h-12 rounded-full border border-navy-100 flex items-center justify-center text-navy-950 hover:bg-navy-950 hover:text-white transition-all shadow-sm"
+                            >
                               <Linkedin className="w-5 h-5" />
                             </a>
-                            <a href="#" className="w-12 h-12 rounded-full border border-navy-100 flex items-center justify-center text-navy-950 hover:bg-navy-950 hover:text-white transition-all shadow-sm">
+                            <a 
+                              href={partner.email ? `mailto:${partner.email}` : "mailto:official@thepact.in"} 
+                              className="w-12 h-12 rounded-full border border-navy-100 flex items-center justify-center text-navy-950 hover:bg-navy-950 hover:text-white transition-all shadow-sm"
+                            >
                               <Mail className="w-5 h-5" />
                             </a>
                           </div>
@@ -196,10 +210,18 @@ export function TeamSection() {
                       {/* Integrated Action Area */}
                       <div className="flex items-center justify-center sm:justify-start gap-6 pt-4 border-t border-navy-50/50 mt-2">
                         <div className="flex gap-2">
-                           <a href="#" className="w-8 h-8 rounded-full border border-navy-100 flex items-center justify-center text-navy-950/40 hover:bg-navy-950 hover:text-white hover:border-transparent transition-all">
+                           <a 
+                             href={partner.profileUrl || "#"} 
+                             target="_blank" 
+                             rel="noopener noreferrer"
+                             className="w-8 h-8 rounded-full border border-navy-100 flex items-center justify-center text-navy-950/40 hover:bg-navy-950 hover:text-white hover:border-transparent transition-all"
+                           >
                              <Linkedin className="w-3.5 h-3.5" />
                            </a>
-                           <a href="#" className="w-8 h-8 rounded-full border border-navy-100 flex items-center justify-center text-navy-950/40 hover:bg-navy-950 hover:text-white hover:border-transparent transition-all">
+                           <a 
+                             href={partner.email ? `mailto:${partner.email}` : "mailto:official@thepact.in"} 
+                             className="w-8 h-8 rounded-full border border-navy-100 flex items-center justify-center text-navy-950/40 hover:bg-navy-950 hover:text-white hover:border-transparent transition-all"
+                           >
                              <Mail className="w-3.5 h-3.5" />
                            </a>
                         </div>

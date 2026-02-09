@@ -289,11 +289,11 @@ export const partnersSeed: Omit<Partner, "_id" | "createdAt" | "updatedAt">[] = 
 export const footerSettingsSeed: Omit<FooterSettings, "_id" | "createdAt" | "updatedAt"> = {
   tagline: "Professional Mediation Platform for International Dispute Resolution and Strategic Excellence.",
   socialLinks: [
-    { platform: "facebook", url: "#", enabled: true },
-    { platform: "linkedin", url: "#", enabled: true },
-    { platform: "instagram", url: "#", enabled: true },
-    { platform: "youtube", url: "#", enabled: true },
-    { platform: "whatsapp", url: "#", enabled: true },
+    { platform: "facebook", url: "https://www.facebook.com/thepactindia/", enabled: true },
+    { platform: "linkedin", url: "https://www.linkedin.com/company/the-pact/?originalSubdomain=in", enabled: true },
+    { platform: "instagram", url: "https://www.instagram.com/pact_india/?hl=en", enabled: true },
+    { platform: "youtube", url: "https://www.youtube.com/@MissionMediationbyPACT", enabled: true },
+    { platform: "whatsapp", url: "https://wa.me/919765987280", enabled: true },
   ],
   quickLinks: [
     { label: "Privacy Policy", href: "/privacy", order: 1 },

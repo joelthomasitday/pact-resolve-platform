@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { MagneticButton } from "@/components/magnetic-button";
-import { Video, Phone, Mail, User, Clock, X, ArrowRight, MessageSquare, ShieldCheck } from "lucide-react";
+import { Video, Phone, Mail, User, Clock, X, ArrowRight, MessageSquare, ShieldCheck, Facebook, Linkedin, Instagram, Youtube } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Form, 
@@ -69,10 +69,27 @@ export function CTASection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 text-gold-600 text-[10px] md:text-sm font-semibold mb-6 border border-gold-500/20"
+            className="inline-flex flex-col md:flex-row items-center gap-4 mb-6"
           >
-            <MessageSquare className="h-4 w-4" />
-            <span>Connect With Us</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 text-gold-600 text-[10px] md:text-sm font-semibold border border-gold-500/20">
+              <MessageSquare className="h-4 w-4" />
+              <span>Connect With Us</span>
+            </div>
+            
+            <div className="flex items-center gap-4 text-navy-400">
+              <a href="https://www.facebook.com/thepactindia/" target="_blank" rel="noopener noreferrer" className="hover:text-gold-500 transition-colors">
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a href="https://www.linkedin.com/company/the-pact/?originalSubdomain=in" target="_blank" rel="noopener noreferrer" className="hover:text-gold-500 transition-colors">
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a href="https://www.instagram.com/pact_india/?hl=en" target="_blank" rel="noopener noreferrer" className="hover:text-gold-500 transition-colors">
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a href="https://www.youtube.com/@MissionMediationbyPACT" target="_blank" rel="noopener noreferrer" className="hover:text-gold-500 transition-colors">
+                <Youtube className="h-4 w-4" />
+              </a>
+            </div>
           </motion.div>
           
           <motion.h2 
@@ -129,7 +146,7 @@ export function CTASection() {
             </div>
             <div>
               <div className="text-[10px] uppercase tracking-widest text-gold-600 font-bold mb-0.5">Email Us</div>
-              <div className="text-lg font-semibold text-navy-950 tracking-tight">info@pactmediators.com</div>
+              <div className="text-lg font-semibold text-navy-950 tracking-tight">official@thepact.in</div>
             </div>
           </motion.div>
         </div>

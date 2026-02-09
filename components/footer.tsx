@@ -23,16 +23,16 @@ export function Footer() {
               <div className="space-y-4">
                 <h4 className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-white/40">Connect With Us</h4>
                 <div className="flex flex-col gap-2">
-                  <Link href="#" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
+                  <Link href="https://www.facebook.com/thepactindia/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
                     <Facebook className="h-4 w-4" /> Facebook
                   </Link>
-                  <Link href="#" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
+                  <Link href="https://www.linkedin.com/company/the-pact/?originalSubdomain=in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
                     <Linkedin className="h-4 w-4" /> LinkedIn
                   </Link>
-                  <Link href="#" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
+                  <Link href="https://www.instagram.com/pact_india/?hl=en" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
                     <Instagram className="h-4 w-4" /> Instagram
                   </Link>
-                  <Link href="#" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
+                  <Link href="https://www.youtube.com/@MissionMediationbyPACT" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
                     <Youtube className="h-4 w-4" /> YouTube
                   </Link>
                   <div className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group cursor-pointer">
@@ -48,6 +48,7 @@ export function Footer() {
                   <Link href="/terms" className="text-xs md:text-sm hover:text-gold-500 transition-colors">Terms of Service</Link>
                   <Link href="/resources" className="text-xs md:text-sm hover:text-gold-500 transition-colors">Resources</Link>
                   <Link href="/academy" className="text-xs md:text-sm hover:text-gold-500 transition-colors">Academy</Link>
+                  <Link href="/admin" className="text-xs md:text-sm text-white/20 hover:text-gold-500 transition-colors pt-2 border-t border-white/5">Portal Access</Link>
                 </div>
               </div>
             </div>
