@@ -97,6 +97,17 @@ export function Footer() {
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
           </div>
+          <p>
+            Powered By{" "}
+            <a
+              href="https://wizforbizcreative.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gold-500 hover:text-white transition-colors"
+            >
+              Wiz For Biz Creative
+            </a>
+          </p>
         </div>
       </div>
     </footer>
