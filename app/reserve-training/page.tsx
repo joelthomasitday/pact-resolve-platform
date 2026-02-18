@@ -42,6 +42,12 @@ const trainingSchema = z.object({
   participants: z.string().optional(),
 });
 
+function sendInquiryEmail(subject: string, body: string) {
+  if (typeof window === "undefined") return;
+  const mailto = `mailto:official@thepact.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+}
+
 const luxuryEasing = "easeOut";
 
 export default function ReserveTrainingPage() {
@@ -63,7 +69,19 @@ export default function ReserveTrainingPage() {
   });
 
   function onSubmit(data: z.infer<typeof trainingSchema>) {
-    console.log(data);
+    sendInquiryEmail(
+      "New Academy Training Inquiry",
+      [
+        `Name: ${data.fullName}`,
+        `Email: ${data.email}`,
+        `Contact: ${data.contact}`,
+        `Organization: ${data.organization || "-"}`,
+        `Training Type: ${data.trainingType}`,
+        `Preferred Mode: ${data.mode}`,
+        `Participants: ${data.participants || "-"}`,
+        `Best Time to Call: ${data.bestTime}`,
+      ].join("\n")
+    );
     setIsSubmitted(true);
   }
 
@@ -464,7 +482,7 @@ export default function ReserveTrainingPage() {
                               className="w-full sm:w-auto group flex items-center justify-center gap-3 px-10 py-4 rounded-xl bg-linear-to-r from-gold-500 to-amber-400 text-navy-950 font-bold hover:shadow-xl hover:shadow-gold-500/30 transition-all duration-300"
                             >
                               <Send className="h-5 w-5" />
-                              Reserve Training
+                              Submit Inquiry
                             </button>
                           )}
                         </div>

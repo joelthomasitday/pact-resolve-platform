@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { MagneticButton } from "@/components/magnetic-button";
-import { Video, Phone, Mail, User, Clock, X, ArrowRight, MessageSquare, ShieldCheck, Facebook, Linkedin, Instagram, Youtube } from "lucide-react";
+import { Video, Phone, Mail, User, GraduationCap, X, ArrowRight, ShieldCheck, Facebook, Linkedin, Instagram, Youtube } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Form, 
@@ -27,6 +27,12 @@ const trainingSchema = z.object({
   bestTime: z.string(),
 });
 
+function sendInquiryEmail(subject: string, body: string) {
+  if (typeof window === "undefined") return;
+  const mailto = `mailto:official@thepact.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+}
+
 export function CTASection() {
   const [activeForm, setActiveForm] = useState<"training" | null>(null);
 
@@ -43,7 +49,17 @@ export function CTASection() {
   });
 
   function onTrainingSubmit(data: z.infer<typeof trainingSchema>) {
-    console.log(data);
+    sendInquiryEmail(
+      "New Academy Training Inquiry",
+      [
+        `Name: ${data.fullName}`,
+        `Email: ${data.email}`,
+        `Contact: ${data.contact}`,
+        `Training Type: ${data.trainingType}`,
+        `Preferred Mode: ${data.mode}`,
+        `Best Time to Call: ${data.bestTime}`,
+      ].join("\n")
+    );
     setActiveForm(null);
   }
 
@@ -72,7 +88,7 @@ export function CTASection() {
             className="inline-flex flex-col md:flex-row items-center gap-4 mb-6"
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 text-gold-600 text-xs md:text-sm font-semibold border border-gold-500/20">
-              <MessageSquare className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4" />
               <span>Connect With Us</span>
             </div>
             
@@ -99,8 +115,8 @@ export function CTASection() {
             transition={{ delay: 0.1 }}
             className="text-3xl md:text-6xl font-light text-navy-950 mb-6 tracking-tight leading-[1.1]"
           >
-            Got a query or simply ready? <br className="hidden md:block" />
-            <span className="font-semibold text-navy-900">We’ll get help to you right away.</span>
+            Thinking of Trying Mediation… But Not Sure? <br className="hidden md:block" />
+            <span className="font-semibold text-navy-900">Let’s Talk It Out on a Confidential & Complimentary Call.</span>
           </motion.h2>
           
           <motion.p 
@@ -128,8 +144,8 @@ export function CTASection() {
               <Phone className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-xs uppercase tracking-widest text-gold-600 font-bold mb-0.5">9am – 3pm IST</div>
               <div className="text-lg font-semibold text-navy-950 tracking-tight">9765987280</div>
+              <div className="text-sm text-navy-600 font-medium tracking-tight">9958488857</div>
             </div>
           </motion.div>
 
@@ -225,7 +241,7 @@ export function CTASection() {
             
             <div className="relative z-10">
               <div className="h-14 w-14 md:h-16 md:w-16 rounded-2xl bg-accent flex items-center justify-center text-navy-950 mb-8 transition-all duration-500 group-hover:scale-110 shadow-xl shadow-accent/20">
-                <Clock className="h-6 w-6 md:h-8 md:w-8" />
+                <GraduationCap className="h-6 w-6 md:h-8 md:w-8" />
               </div>
 
               <div className="space-y-4">
@@ -328,7 +344,7 @@ export function CTASection() {
                       </div>
                       <div className="pt-10 flex justify-center sm:justify-end">
                         <MagneticButton size="lg" className="font-bold bg-gold-500 text-navy-950 hover:bg-navy-950 hover:text-white shadow-2xl" type="submit">
-                          Reserve Training
+                          Submit Inquiry
                         </MagneticButton>
                       </div>
                     </form>
