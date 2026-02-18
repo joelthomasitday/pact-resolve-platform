@@ -42,8 +42,8 @@ export function AdminNavbar() {
               </span>
               <Badge variant="outline" className="text-[9px] h-4 px-1.5 bg-accent/5 border-accent/20 text-accent font-black tracking-widest uppercase">Admin</Badge>
             </div>
-            <span className="hidden md:block text-[8px] font-medium text-navy-950/40 uppercase tracking-wide leading-tight mt-1">
-              The peacekeeping and<br />conflict resolution team
+            <span className="hidden md:block text-[9px] font-medium text-navy-950/45 tracking-wide leading-tight mt-1">
+              Mediation Academy<br />&amp; Institutional Mediation Services
             </span>
           </div>
         </Link>

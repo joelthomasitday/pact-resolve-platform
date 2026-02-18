@@ -124,8 +124,8 @@ export function Navbar() {
               <span className="font-sans text-lg md:text-xl lg:text-2xl font-black tracking-tighter text-white leading-none">
                 PACT
               </span>
-              <span className="text-[7px] md:text-[8px] lg:text-[9px] font-medium text-white/70 uppercase tracking-wide leading-tight block mt-0.5">
-                The peacekeeping and<br />conflict resolution team
+              <span className="text-[8px] md:text-[9px] lg:text-[10px] font-medium text-white/70 tracking-wide leading-tight block mt-0.5">
+                Mediation Academy<br />&amp; Institutional Mediation Services
               </span>
             </div>
           </Link>
@@ -232,7 +232,7 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 z-[60] bg-navy-950/80 backdrop-blur-sm lg:hidden transition-opacity"
+              className="fixed inset-0 z-60 bg-navy-950/80 backdrop-blur-sm lg:hidden transition-opacity"
             />
             
             <motion.div
@@ -240,7 +240,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 z-[70] h-full w-[310px] bg-navy-950 border-l border-white/10 shadow-2xl lg:hidden flex flex-col"
+              className="fixed top-0 right-0 z-70 h-full w-[310px] bg-navy-950 border-l border-white/10 shadow-2xl lg:hidden flex flex-col"
             >
               <div className="flex items-center justify-between p-6 h-[72px] border-b border-white/5">
                 <div className="flex items-center gap-3">
@@ -254,9 +254,14 @@ export function Navbar() {
                       priority
                     />
                   </div>
-                  <span className="font-sans text-xl font-black tracking-tighter text-white uppercase leading-none">
-                    PACT
-                  </span>
+                  <div className="flex flex-col justify-center">
+                    <span className="font-sans text-xl font-black tracking-tighter text-white uppercase leading-none">
+                      PACT
+                    </span>
+                    <span className="text-[10px] font-medium text-white/70 tracking-wide leading-tight mt-1">
+                      Mediation Academy<br />&amp; Institutional Mediation Services
+                    </span>
+                  </div>
                 </div>
                 <button 
                   onClick={() => setMobileMenuOpen(false)}
