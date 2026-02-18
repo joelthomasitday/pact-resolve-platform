@@ -155,7 +155,7 @@ export default function PodcastPage() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-gold-500"></span>
                 </span>
-                <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">
                   Streaming Now
                 </span>
               </div>
@@ -200,7 +200,7 @@ export default function PodcastPage() {
         {/* Cinematic Elements */}
         <div className="absolute bottom-10 left-10 hidden xl:flex items-center gap-4">
           <div className="w-12 h-px bg-white/20" />
-          <span className="text-white/20 font-mono text-[9px] tracking-widest uppercase">New Episode Every Week</span>
+          <span className="text-white/20  text-[9px] tracking-widest uppercase">New Episode Every Week</span>
         </div>
       </section>
 
@@ -215,7 +215,7 @@ export default function PodcastPage() {
               <FadeInUp>
                 <div className="inline-flex items-center gap-3 mb-6">
                   <Mic className="w-5 h-5 text-gold-500" />
-                  <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                  <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                     Hosted & Produced
                   </span>
                 </div>
@@ -229,13 +229,13 @@ export default function PodcastPage() {
                 </p>
                 
                 <div className="flex flex-wrap gap-4">
-                  <div className="px-4 py-2 rounded-full bg-navy-50 text-navy-950/60 text-xs font-mono uppercase tracking-widest">
+                  <div className="px-4 py-2 rounded-full bg-navy-50 text-navy-950/60 text-xs  uppercase tracking-widest">
                     IMI Certified Mediator
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-navy-50 text-navy-950/60 text-xs font-mono uppercase tracking-widest">
+                  <div className="px-4 py-2 rounded-full bg-navy-50 text-navy-950/60 text-xs  uppercase tracking-widest">
                     Author
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-navy-50 text-navy-950/60 text-xs font-mono uppercase tracking-widest">
+                  <div className="px-4 py-2 rounded-full bg-navy-50 text-navy-950/60 text-xs  uppercase tracking-widest">
                     Advocate
                   </div>
                 </div>
@@ -273,7 +273,7 @@ export default function PodcastPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-3 mb-6 justify-center">
                 <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                   Benefits
                 </span>
                 <div className="h-px w-8 bg-gold-500" />
@@ -315,7 +315,7 @@ export default function PodcastPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-500/20 border border-gold-500/30 mb-6">
                 <Sparkles className="w-4 h-4 text-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-widest uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-widest uppercase font-bold">
                   Season 2
                 </span>
               </div>
@@ -391,7 +391,7 @@ export default function PodcastPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-3 mb-6 justify-center">
                 <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                   Season 1
                 </span>
                 <div className="h-px w-8 bg-gold-500" />
@@ -430,7 +430,7 @@ export default function PodcastPage() {
                       
                       {/* Floating Identity */}
                       <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-                        <div className="px-3 py-1 rounded-full bg-navy-950/90 text-xs font-mono font-bold text-gold-500 border border-gold-500/20 backdrop-blur-md">
+                        <div className="px-3 py-1 rounded-full bg-navy-950/90 text-xs  font-bold text-gold-500 border border-gold-500/20 backdrop-blur-md">
                           S1 EP{String(episode.number).padStart(2, '0')}
                         </div>
                       </div>
@@ -446,7 +446,7 @@ export default function PodcastPage() {
                     {/* Content Area - Clean and Stable */}
                     <div className="p-6 md:p-8 flex flex-col flex-1 bg-white">
                       <div className="mb-4">
-                        <span className="text-xs font-mono uppercase tracking-[0.2em] text-gold-600 font-bold">
+                        <span className="text-xs  uppercase tracking-[0.2em] text-gold-600 font-bold">
                           {episode.theme}
                         </span>
                       </div>
@@ -479,7 +479,7 @@ export default function PodcastPage() {
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-3 mb-6 justify-center">
                     <div className="h-px w-8 bg-gold-500" />
-                    <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                    <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                       Collaborate
                     </span>
                     <div className="h-px w-8 bg-gold-500" />

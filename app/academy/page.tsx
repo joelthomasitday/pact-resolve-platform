@@ -68,7 +68,7 @@ export default function AcademyPage() {
             <FadeInUp className="text-center max-w-4xl mx-auto">
               <div className="inline-flex items-center gap-3 mb-8 justify-center">
                 <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">
                   GAADR
                 </span>
                 <div className="h-px w-8 bg-gold-500" />
@@ -157,7 +157,7 @@ export default function AcademyPage() {
                         <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-gold-500 border border-white/10 group-hover:bg-gold-500 group-hover:text-navy-950 group-hover:scale-110 transition-all duration-300 shadow-lg">
                           <program.icon className="w-6 h-6" />
                         </div>
-                        <span className="font-mono text-xs text-white/60 uppercase tracking-widest group-hover:text-gold-500 transition-colors hidden sm:block">{program.subtitle}</span>
+                        <span className=" text-xs text-white/60 uppercase tracking-widest group-hover:text-gold-500 transition-colors hidden sm:block">{program.subtitle}</span>
                       </div>
                       <span className="font-serif text-5xl text-white/5 font-bold group-hover:text-white/10 transition-colors select-none">{program.id}</span>
                     </div>

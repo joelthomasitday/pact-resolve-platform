@@ -15,9 +15,9 @@ export function AboutPact() {
         {/* Header Section */}
         <FadeInUp className="text-center mb-16 md:mb-20 space-y-6">
           <div className="inline-flex items-center gap-4 opacity-40">
-            <span className="text-xs font-mono tracking-[0.4em] uppercase text-white">Chapter One</span>
+            <span className="text-xs  tracking-[0.4em] uppercase text-white">Chapter One</span>
             <div className="h-px w-8 md:w-12 bg-white/30" />
-            <span className="text-xs font-mono tracking-[0.4em] uppercase text-white">The Legacy</span>
+            <span className="text-xs  tracking-[0.4em] uppercase text-white">The Legacy</span>
           </div>
           
           <h2 className="text-4xl md:text-7xl font-light tracking-tight text-white leading-[1.1]">
@@ -37,7 +37,7 @@ export function AboutPact() {
               <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">
                 17,000+
               </span>
-              <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">
+              <span className="text-[9px] md:text-xs  uppercase tracking-widest text-white/40">
                 Trained Users
               </span>
             </StaggerItem>
@@ -45,7 +45,7 @@ export function AboutPact() {
               <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">
                 8,600+
               </span>
-              <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">
+              <span className="text-[9px] md:text-xs  uppercase tracking-widest text-white/40">
                 Mediated Hours
               </span>
             </StaggerItem>
@@ -53,7 +53,7 @@ export function AboutPact() {
               <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">
                 2,500+
               </span>
-              <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">
+              <span className="text-[9px] md:text-xs  uppercase tracking-widest text-white/40">
                 Certified Lawyers
               </span>
             </StaggerItem>
@@ -61,7 +61,7 @@ export function AboutPact() {
               <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">
                 160+
               </span>
-              <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">
+              <span className="text-[9px] md:text-xs  uppercase tracking-widest text-white/40">
                 Institution Collabs
               </span>
             </StaggerItem>
@@ -87,7 +87,7 @@ export function AboutPact() {
           <div className="absolute -top-4 -right-4 bg-navy-950 border border-white/10 px-6 py-3 rounded-full shadow-xl hidden md:block">
             <div className="flex items-center gap-3">
               <History className="w-4 h-4 text-gold-500" />
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-white/80">Interactive Timeline 2015 - 2026</span>
+              <span className="text-xs  uppercase tracking-[0.2em] text-white/80">Interactive Timeline 2015 - 2026</span>
             </div>
           </div>
         </FadeIn>

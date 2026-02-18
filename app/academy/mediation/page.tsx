@@ -30,7 +30,7 @@ const SectionHeader = ({ subtitle, title, description, dark = false, center = fa
   <FadeInUp className={cn("mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
     <div className="inline-flex items-center gap-4 mb-6 opacity-80">
       <div className={cn("h-px w-12 bg-gold-500", dark ? "bg-gold-500" : "bg-gold-500/50")} />
-      <span className={cn("text-xs md:text-xs font-mono tracking-[0.4em] uppercase font-bold", dark ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
+      <span className={cn("text-xs md:text-xs  tracking-[0.4em] uppercase font-bold", dark ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
     </div>
     <h2 className={cn("text-4xl sm:text-5xl md:text-7xl lg:text-[5rem] font-light tracking-tight mb-8 leading-[0.95]", dark ? "text-white" : "text-navy-950")}>
       {title.split(' ').map((word, i) => (
@@ -72,7 +72,7 @@ const CurriculumRoadmap = ({ modules, type, dark = false }: { modules: any[], ty
            >
              <div className="flex items-center gap-4 md:gap-8 grow min-w-0">
                 <span className={cn(
-                  "font-mono text-lg md:text-2xl transition-colors duration-500 shrink-0",
+                  " text-lg md:text-2xl transition-colors duration-500 shrink-0",
                   activeStep === i ? "text-gold-500 font-medium" : (dark ? "text-white/20" : "text-navy-900/10")
                 )}>
                   0{i + 1}
@@ -90,7 +90,7 @@ const CurriculumRoadmap = ({ modules, type, dark = false }: { modules: any[], ty
                   <div className="hidden md:flex items-center gap-6 px-8 grow opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                     <div className={cn("h-px grow transition-all duration-500", activeStep === i ? "bg-gold-500/50" : (dark ? "bg-white/10" : "bg-navy-100"))} />
                     <span className={cn(
-                      "font-mono text-xs uppercase tracking-[0.2em] whitespace-nowrap transition-colors duration-300",
+                      " text-xs uppercase tracking-[0.2em] whitespace-nowrap transition-colors duration-300",
                       activeStep === i ? "text-gold-500" : (dark ? "text-white/30" : "text-navy-900/20")
                     )}>
                       {type} Phase
@@ -132,7 +132,7 @@ const CurriculumRoadmap = ({ modules, type, dark = false }: { modules: any[], ty
                        dark ? "bg-white/5 border-white/10 group-hover:bg-white/10" : "bg-white/5 border-white/10 group-hover:bg-white/10 shadow-lg"
                      )}>
                         <Video className="w-6 h-6 text-gold-500" />
-                        <span className={cn("text-[9px] font-mono uppercase tracking-widest font-bold", dark ? "text-white/40" : "text-white/40")}>Streamable</span>
+                        <span className={cn("text-[9px]  uppercase tracking-widest font-bold", dark ? "text-white/40" : "text-white/40")}>Streamable</span>
                      </div>
                    </div>
                  </div>
@@ -164,7 +164,7 @@ const MediationHero = () => (
       <FadeInUp>
         <div className="flex items-center gap-3 mb-4 sm:mb-6 md:mb-8">
           <div className="h-px w-8 md:w-12 bg-gold-500" />
-          <span className="text-gold-500 font-mono text-xs md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
+          <span className="text-gold-500  text-xs md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
             Academy / Mediation
           </span>
         </div>
@@ -198,7 +198,7 @@ const MediationHero = () => (
                 <div className="h-10 w-10 rounded-full bg-gold-500/20 flex items-center justify-center">
                   <Handshake className="w-5 h-5 text-gold-500" />
                 </div>
-                <span className="text-xs font-mono text-white/40 uppercase tracking-widest">Collaborative Resolution</span>
+                <span className="text-xs  text-white/40 uppercase tracking-widest">Collaborative Resolution</span>
               </div>
             </div>
           </div>
@@ -261,7 +261,7 @@ export default function MediationPage() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-gold-500/20 border-t-gold-500 rounded-full animate-spin" />
-          <p className="text-navy-950/40 font-mono text-xs uppercase tracking-widest">Loading Academy...</p>
+          <p className="text-navy-950/40  text-xs uppercase tracking-widest">Loading Academy...</p>
         </div>
       </div>
     );
@@ -277,7 +277,7 @@ export default function MediationPage() {
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
           <div className="flex-1 space-y-8">
             <FadeInUp>
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-navy-50 text-xs font-mono text-navy-950/40 uppercase tracking-widest mb-4">Corporate Training</div>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-navy-50 text-xs  text-navy-950/40 uppercase tracking-widest mb-4">Corporate Training</div>
               <h2 className="text-4xl md:text-6xl font-light tracking-tight text-navy-950 mb-6">
                 Train Your <span className="text-gold-500 italic font-medium">Team</span>
               </h2>
@@ -309,7 +309,7 @@ export default function MediationPage() {
                 <div className="absolute -inset-4 bg-gold-500/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative flex flex-col gap-6">
                   <div className="flex items-center gap-3 text-navy-950/30">
-                    <span className="text-xs font-mono uppercase tracking-[0.4em]">Inquiry</span>
+                    <span className="text-xs  uppercase tracking-[0.4em]">Inquiry</span>
                     <div className="h-px w-8 bg-navy-100" />
                   </div>
                   <a href="mailto:academy@thepact.in" className="flex items-center gap-6 group/link">
@@ -320,7 +320,7 @@ export default function MediationPage() {
                       <h4 className="text-2xl md:text-3xl font-light text-navy-950 group-hover/link:text-gold-500 transition-colors">
                         academy<span className="text-gold-500 font-medium group-hover/link:text-navy-950">@</span>thepact.in
                       </h4>
-                      <p className="text-xs font-mono uppercase tracking-widest text-navy-950/40 mt-1">Connect for Custom Modules</p>
+                      <p className="text-xs  uppercase tracking-widest text-navy-950/40 mt-1">Connect for Custom Modules</p>
                     </div>
                   </a>
                 </div>
@@ -363,19 +363,19 @@ export default function MediationPage() {
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-widest block font-bold">Mode</span>
+                    <span className="text-[9px]  text-navy-950/30 uppercase tracking-widest block font-bold">Mode</span>
                     <p className="text-lg text-navy-950/70 font-light">{foundationalCourse.mode}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-widest block font-bold">Live Session</span>
+                    <span className="text-[9px]  text-navy-950/30 uppercase tracking-widest block font-bold">Live Session</span>
                     <p className="text-lg text-navy-950/70 font-light">{foundationalCourse.liveSession}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-widest block font-bold">Assessment</span>
+                    <span className="text-[9px]  text-navy-950/30 uppercase tracking-widest block font-bold">Assessment</span>
                     <p className="text-lg text-navy-950/70 font-light">{foundationalCourse.assessment}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-widest block font-bold">Certification</span>
+                    <span className="text-[9px]  text-navy-950/30 uppercase tracking-widest block font-bold">Certification</span>
                     <p className="text-lg text-navy-950/70 font-light">{foundationalCourse.certification}</p>
                   </div>
                 </div>
@@ -389,13 +389,13 @@ export default function MediationPage() {
                   <div className="p-8 lg:p-12 lg:border-r border-navy-50 shrink-0 bg-slate-50/50">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
-                      <span className="text-xs font-mono uppercase tracking-[0.4em] text-navy-950/40 font-bold">{foundationalCourse.enrollmentStatus || "Enrollment Open"}</span>
+                      <span className="text-xs  uppercase tracking-[0.4em] text-navy-950/40 font-bold">{foundationalCourse.enrollmentStatus || "Enrollment Open"}</span>
                     </div>
                     <div className="flex items-baseline gap-3">
                       <p className="text-5xl md:text-6xl font-light text-navy-950 tracking-tighter">{foundationalCourse.feeAmount}</p>
                       <div className="flex flex-col">
-                        <p className="text-sm font-bold text-gold-600 font-mono tracking-widest leading-none">{foundationalCourse.feeCurrency}</p>
-                        <p className="text-xs font-mono text-navy-950/20 uppercase tracking-widest mt-1">{foundationalCourse.feeNote}</p>
+                        <p className="text-sm font-bold text-gold-600  tracking-widest leading-none">{foundationalCourse.feeCurrency}</p>
+                        <p className="text-xs  text-navy-950/20 uppercase tracking-widest mt-1">{foundationalCourse.feeNote}</p>
                       </div>
                     </div>
                   </div>
@@ -407,7 +407,7 @@ export default function MediationPage() {
                         <div className="w-10 h-10 rounded-xl bg-navy-50 flex items-center justify-center text-gold-500 group-hover/item:bg-gold-500 group-hover/item:text-white transition-colors">
                           <Video className="w-4 h-4" />
                         </div>
-                        <span className="text-[11px] font-mono uppercase tracking-widest text-navy-950/60 font-medium whitespace-nowrap">{benefit}</span>
+                        <span className="text-[11px]  uppercase tracking-widest text-navy-950/60 font-medium whitespace-nowrap">{benefit}</span>
                       </div>
                     ))}
                   </div>
@@ -432,7 +432,7 @@ export default function MediationPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-6 mb-12">
                    <div className="h-px bg-navy-100 grow" />
-                   <span className="text-xs font-mono uppercase tracking-[0.4em] text-navy-950/20 font-bold">Course Modules</span>
+                   <span className="text-xs  uppercase tracking-[0.4em] text-navy-950/20 font-bold">Course Modules</span>
                    <div className="h-px bg-navy-100 grow" />
                 </div>
                 <CurriculumRoadmap modules={foundationModulesArr} type="Foundational" />
@@ -460,7 +460,7 @@ export default function MediationPage() {
                     <div className="absolute inset-0 bg-navy-950/10 group-hover:bg-transparent transition-colors duration-700" />
                   </div>
                   <h4 className="text-xl font-medium text-navy-950 mb-1">{member.name}</h4>
-                  <p className="text-sm font-mono uppercase tracking-widest text-gold-500 font-bold">{member.role}</p>
+                  <p className="text-sm  uppercase tracking-widest text-gold-500 font-bold">{member.role}</p>
                 </div>
               ))}
               {faculty.filter(f => f.courseTypes?.includes('foundational')).length < 4 && (
@@ -498,19 +498,19 @@ export default function MediationPage() {
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-white/30 uppercase tracking-widest block font-bold">Mode</span>
+                    <span className="text-[9px]  text-white/30 uppercase tracking-widest block font-bold">Mode</span>
                     <p className="text-lg text-white/70 font-light">{advancedCourse.mode}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-white/30 uppercase tracking-widest block font-bold">Live Session</span>
+                    <span className="text-[9px]  text-white/30 uppercase tracking-widest block font-bold">Live Session</span>
                     <p className="text-lg text-white/70 font-light">{advancedCourse.liveSession}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-white/30 uppercase tracking-widest block font-bold">Assessment</span>
+                    <span className="text-[9px]  text-white/30 uppercase tracking-widest block font-bold">Assessment</span>
                     <p className="text-lg text-white/70 font-light">{advancedCourse.assessment}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-white/30 uppercase tracking-widest block font-bold">Certification</span>
+                    <span className="text-[9px]  text-white/30 uppercase tracking-widest block font-bold">Certification</span>
                     <p className="text-lg text-white/70 font-light">{advancedCourse.certification}</p>
                   </div>
                 </div>
@@ -524,13 +524,13 @@ export default function MediationPage() {
                   <div className="p-8 lg:p-12 lg:border-r border-white/5 shrink-0 bg-white/2">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse shadow-[0_0_10px_rgba(191,154,102,0.8)]" />
-                      <span className="text-xs font-mono uppercase tracking-[0.4em] text-white/40 font-bold">{advancedCourse.enrollmentStatus || "Enrollment Open"}</span>
+                      <span className="text-xs  uppercase tracking-[0.4em] text-white/40 font-bold">{advancedCourse.enrollmentStatus || "Enrollment Open"}</span>
                     </div>
                     <div className="flex items-baseline gap-3">
                       <p className="text-5xl md:text-6xl font-light text-white tracking-tighter">{advancedCourse.feeAmount}</p>
                       <div className="flex flex-col">
-                        <p className="text-sm font-bold text-gold-400 font-mono tracking-widest leading-none">{advancedCourse.feeCurrency}</p>
-                        <p className="text-xs font-mono text-white/20 uppercase tracking-widest mt-1">{advancedCourse.feeNote}</p>
+                        <p className="text-sm font-bold text-gold-400  tracking-widest leading-none">{advancedCourse.feeCurrency}</p>
+                        <p className="text-xs  text-white/20 uppercase tracking-widest mt-1">{advancedCourse.feeNote}</p>
                       </div>
                     </div>
                   </div>
@@ -542,7 +542,7 @@ export default function MediationPage() {
                         <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gold-400 group-hover/item:bg-gold-500 group-hover/item:text-navy-950 transition-colors">
                           <Video className="w-4 h-4" />
                         </div>
-                        <span className="text-[11px] font-mono uppercase tracking-widest text-white/50 font-medium whitespace-nowrap">{benefit}</span>
+                        <span className="text-[11px]  uppercase tracking-widest text-white/50 font-medium whitespace-nowrap">{benefit}</span>
                       </div>
                     ))}
                   </div>
@@ -563,7 +563,7 @@ export default function MediationPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-6 mb-12">
                    <div className="h-px bg-white/5 grow" />
-                   <span className="text-xs font-mono uppercase tracking-[0.4em] text-white/20 font-bold">Advanced Modules</span>
+                   <span className="text-xs  uppercase tracking-[0.4em] text-white/20 font-bold">Advanced Modules</span>
                    <div className="h-px bg-white/5 grow" />
                 </div>
                 <CurriculumRoadmap modules={advancedModulesArr} type="Advanced" dark />
@@ -591,7 +591,7 @@ export default function MediationPage() {
                     <div className="absolute inset-0 bg-navy-950/10 group-hover:bg-transparent transition-colors duration-700" />
                   </div>
                   <h4 className="text-xl font-medium text-navy-950 mb-1">{member.name}</h4>
-                  <p className="text-sm font-mono uppercase tracking-widest text-gold-500 font-bold">{member.role}</p>
+                  <p className="text-sm  uppercase tracking-widest text-gold-500 font-bold">{member.role}</p>
                 </div>
               ))}
               <div className="flex flex-col items-center justify-center p-8 rounded-4xl border-2 border-dashed border-navy-100 bg-slate-50/50">
@@ -616,7 +616,7 @@ export default function MediationPage() {
                 <div className="space-y-8">
                   <div className="inline-flex items-center gap-4">
                     <div className="h-px w-12 bg-gold-500" />
-                    <span className="text-xs font-mono tracking-[0.4em] uppercase font-bold text-gold-500">Global Academy</span>
+                    <span className="text-xs  tracking-[0.4em] uppercase font-bold text-gold-500">Global Academy</span>
                   </div>
                   
                   <h2 className="text-5xl md:text-7xl font-light leading-[0.95] tracking-tighter">
@@ -634,8 +634,8 @@ export default function MediationPage() {
                     className="flex items-center justify-between p-8 rounded-4xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-gold-500 hover:border-gold-500 transition-all duration-500 group/btn"
                   >
                     <div className="space-y-1">
-                      <span className="text-xs font-mono uppercase tracking-[0.3em] text-white/40 group-hover/btn:text-navy-950/50 font-bold">Direct Email</span>
-                      <p className="text-2xl md:text-3xl font-light text-white group-hover/btn:text-navy-950 transition-colors font-mono tracking-tight">academy@thepact.in</p>
+                      <span className="text-xs  uppercase tracking-[0.3em] text-white/40 group-hover/btn:text-navy-950/50 font-bold">Direct Email</span>
+                      <p className="text-2xl md:text-3xl font-light text-white group-hover/btn:text-navy-950 transition-colors  tracking-tight">academy@thepact.in</p>
                     </div>
                     <div className="w-14 h-14 rounded-2xl bg-gold-500/10 flex items-center justify-center group-hover/btn:bg-navy-950 group-hover/btn:text-white transition-all">
                       <Mail className="w-6 h-6 text-gold-500" />
@@ -644,11 +644,11 @@ export default function MediationPage() {
                   
                   <div className="grid grid-cols-2 gap-6">
                     <div className="p-6 rounded-2xl bg-white/2 border border-white/5">
-                      <p className="text-xs font-mono uppercase tracking-widest text-white/30 mb-2">Response Time</p>
+                      <p className="text-xs  uppercase tracking-widest text-white/30 mb-2">Response Time</p>
                       <p className="text-lg font-light text-white/80">Within 24 Hours</p>
                     </div>
                     <div className="p-6 rounded-2xl bg-white/2 border border-white/5 flex flex-col justify-between">
-                      <p className="text-xs font-mono uppercase tracking-widest text-white/30 mb-2">Status</p>
+                      <p className="text-xs  uppercase tracking-widest text-white/30 mb-2">Status</p>
                       <div className="flex items-center gap-2">
                         <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                         <span className="text-lg font-light text-white/80">Active</span>
@@ -685,7 +685,7 @@ export default function MediationPage() {
                     />
                   </div>
                   <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    <span className="text-xs font-mono uppercase tracking-[0.2em] text-gold-600 font-bold">{partner.name}</span>
+                    <span className="text-xs  uppercase tracking-[0.2em] text-gold-600 font-bold">{partner.name}</span>
                   </div>
                 </div>
               ))}

@@ -21,7 +21,7 @@ export function Footer() {
             
             <div className="grid grid-cols-2 gap-8 md:gap-16 w-full text-left">
               <div className="space-y-4">
-                <h4 className="text-xs md:text-xs font-mono uppercase tracking-widest text-white/40">Connect With Us</h4>
+                <h4 className="text-xs md:text-xs  uppercase tracking-widest text-white/40">Connect With Us</h4>
                 <div className="flex flex-col gap-2">
                   <Link href="https://www.facebook.com/thepactindia/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-xs md:text-sm hover:text-gold-500 transition-colors group">
                     <Facebook className="h-4 w-4" /> Facebook
@@ -42,8 +42,8 @@ export function Footer() {
               </div>
               
               <div className="space-y-4">
-                <h4 className="text-xs md:text-xs font-mono uppercase tracking-widest text-white/40">Quick Links</h4>
-                <div className="flex flex-col gap-2 font-mono">
+                <h4 className="text-xs md:text-xs  uppercase tracking-widest text-white/40">Quick Links</h4>
+                <div className="flex flex-col gap-2 ">
                   <Link href="/privacy" className="text-xs md:text-sm hover:text-gold-500 transition-colors">Privacy Policy</Link>
                   <Link href="/terms" className="text-xs md:text-sm hover:text-gold-500 transition-colors">Terms of Service</Link>
                   <Link href="/resources" className="text-xs md:text-sm hover:text-gold-500 transition-colors">Resources</Link>
@@ -73,16 +73,16 @@ export function Footer() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <h4 className="text-xs font-mono uppercase tracking-widest text-white/40">Email</h4>
+                <h4 className="text-xs  uppercase tracking-widest text-white/40">Email</h4>
                 <a href="mailto:official@thepact.in" className="text-sm hover:text-gold-500 transition-colors block">official@thepact.in</a>
               </div>
               <div className="space-y-2">
-                <h4 className="text-xs font-mono uppercase tracking-widest text-white/40">Phone</h4>
+                <h4 className="text-xs  uppercase tracking-widest text-white/40">Phone</h4>
                 <p className="text-sm text-white/70">Nisshant: +91 91234 56789</p>
                 <p className="text-sm text-white/70">Jonathan: +91 98765 43210</p>
               </div>
               <div className="md:col-span-2 space-y-2">
-                <h4 className="text-xs font-mono uppercase tracking-widest text-white/40">Address</h4>
+                <h4 className="text-xs  uppercase tracking-widest text-white/40">Address</h4>
                 <p className="text-sm text-white/70 leading-relaxed max-w-xs">
                   Postal Address: PACT International Headquarters, ADR Tower, New Delhi, India.
                 </p>
@@ -91,7 +91,7 @@ export function Footer() {
           </div>
         </div>
         
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-white/30">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs  text-white/30">
           <p>© 2026 PACT. All Rights Reserved.</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>

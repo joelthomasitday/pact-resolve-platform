@@ -50,7 +50,7 @@ export function AboutSection({ scrollToSection }: { scrollToSection?: (id: strin
                   <div className="text-3xl font-light text-foreground md:text-6xl lg:text-7xl">{stat.value}</div>
                   <div>
                     <div className="font-sans text-base font-light text-foreground md:text-xl">{stat.label}</div>
-                    <div className="font-mono text-xs text-foreground/80">{stat.sublabel}</div>
+                    <div className=" text-xs text-foreground/80">{stat.sublabel}</div>
                   </div>
                 </div>
               )

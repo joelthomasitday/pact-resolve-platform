@@ -236,7 +236,7 @@ export default function LibraryAdminPage() {
                 ) : filteredItems.map((item) => (
                   <TableRow key={(item._id as any).toString()} className="group hover:bg-navy-50/50 transition-colors border-navy-50/50">
                     <TableCell className="pl-8">
-                      <span className="font-mono text-xs font-bold text-navy-950/30">#{item.order}</span>
+                      <span className=" text-xs font-bold text-navy-950/30">#{item.order}</span>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-4">
@@ -251,7 +251,7 @@ export default function LibraryAdminPage() {
                         </div>
                         <div className="flex flex-col max-w-[250px]">
                           <span className="font-bold text-navy-950 text-sm truncate">{item.title}</span>
-                          <span className="text-xs text-navy-950/40 font-mono uppercase tracking-widest truncate">
+                          <span className="text-xs text-navy-950/40  uppercase tracking-widest truncate">
                             {item.subtitle || item.author || "-"}
                           </span>
                         </div>

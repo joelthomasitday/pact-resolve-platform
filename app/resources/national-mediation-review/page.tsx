@@ -89,7 +89,7 @@ export default function NationalMediationReviewPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-3 mb-6 justify-center">
                 <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                   Our Focus
                 </span>
                 <div className="h-px w-8 bg-gold-500" />
@@ -140,7 +140,7 @@ export default function NationalMediationReviewPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-3 mb-6 justify-center">
                 <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                   Audience
                 </span>
                 <div className="h-px w-8 bg-gold-500" />
@@ -184,7 +184,7 @@ export default function NationalMediationReviewPage() {
               <FadeInUp className="text-center mb-16">
                 <div className="inline-flex items-center gap-3 mb-6 justify-center">
                   <div className="h-px w-8 bg-gold-500" />
-                  <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                  <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                     Contribute
                   </span>
                   <div className="h-px w-8 bg-gold-500" />
@@ -221,7 +221,7 @@ export default function NationalMediationReviewPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-500/10 border border-gold-500/20 mb-6">
                 <Sparkles className="w-4 h-4 text-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-widest uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-widest uppercase font-bold">
                   Coming Soon
                 </span>
               </div>
@@ -240,7 +240,7 @@ export default function NationalMediationReviewPage() {
                   transition={{ delay: i * 0.1 }}
                   className="text-center p-6 md:p-8 rounded-2xl bg-navy-50 border border-navy-100"
                 >
-                  <p className="text-navy-950/40 font-mono text-xs uppercase tracking-widest mb-2">
+                  <p className="text-navy-950/40  text-xs uppercase tracking-widest mb-2">
                     {detail.label}
                   </p>
                   <p className="text-navy-950 text-xl font-light">

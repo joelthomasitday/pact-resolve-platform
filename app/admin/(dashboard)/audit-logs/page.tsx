@@ -197,7 +197,7 @@ export default function AuditLogsPage() {
                             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center border border-primary/10 group-hover:scale-110 transition-transform">
                               <UserIcon className="w-4 h-4 text-primary" />
                             </div>
-                            <span className="text-xs font-mono font-medium text-slate-600 truncate max-w-[120px] bg-slate-50 px-2 py-1 rounded-md border border-slate-100">{log.userId}</span>
+                            <span className="text-xs  font-medium text-slate-600 truncate max-w-[120px] bg-slate-50 px-2 py-1 rounded-md border border-slate-100">{log.userId}</span>
                           </div>
                         </TableCell>
                         <TableCell>
@@ -257,7 +257,7 @@ export default function AuditLogsPage() {
                 <p className="text-muted-foreground/70 text-xs font-bold uppercase tracking-widest flex items-center gap-1.5 mb-2">
                     <UserIcon className="w-3.5 h-3.5" /> User Identity
                 </p>
-                <p className="font-mono text-xs font-medium text-slate-600 bg-white px-2 py-1 rounded border border-slate-100 inline-block">{selectedLog?.userId}</p>
+                <p className=" text-xs font-medium text-slate-600 bg-white px-2 py-1 rounded border border-slate-100 inline-block">{selectedLog?.userId}</p>
               </div>
             </div>
             <div className="space-y-3">
@@ -271,7 +271,7 @@ export default function AuditLogsPage() {
                     <div className="w-2.5 h-2.5 rounded-full bg-amber-500/20 border border-amber-500/50" />
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/20 border border-emerald-500/50" />
                 </div>
-                <pre className="text-emerald-400/90 text-xs leading-relaxed font-mono custom-scrollbar">
+                <pre className="text-emerald-400/90 text-xs leading-relaxed  custom-scrollbar">
                   {JSON.stringify(selectedLog?.details || {}, null, 2)}
                 </pre>
               </div>

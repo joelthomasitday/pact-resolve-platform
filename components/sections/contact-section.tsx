@@ -38,7 +38,7 @@ export function ContactSection() {
                 <br />
                 Engagement
               </h2>
-              <p className="font-mono text-xs text-foreground/60 md:text-base">/ Initiate your professional resolution process</p>
+              <p className=" text-xs text-foreground/60 md:text-base">/ Initiate your professional resolution process</p>
             </div>
 
             <div className="space-y-4 md:space-y-8">
@@ -48,7 +48,7 @@ export function ContactSection() {
               >
                 <div className="mb-1 flex items-center gap-2">
                   <Mail className="h-3 w-3 text-foreground/60" />
-                  <span className="font-mono text-xs text-foreground/60">Email</span>
+                  <span className=" text-xs text-foreground/60">Email</span>
                 </div>
                 <p className="text-base text-foreground transition-colors group-hover:text-foreground/70 md:text-2xl">
                   official@thepact.in
@@ -58,7 +58,7 @@ export function ContactSection() {
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <MapPin className="h-3 w-3 text-foreground/60" />
-                  <span className="font-mono text-xs text-foreground/60">Location</span>
+                  <span className=" text-xs text-foreground/60">Location</span>
                 </div>
                 <p className="text-base text-foreground md:text-2xl">Available Worldwide</p>
               </div>
@@ -68,7 +68,7 @@ export function ContactSection() {
                   href="https://www.linkedin.com/company/the-pact/?originalSubdomain=in"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
+                  className="border-b border-transparent  text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
                 >
                   LinkedIn
                 </a>
@@ -76,7 +76,7 @@ export function ContactSection() {
                   href="https://www.facebook.com/thepactindia/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
+                  className="border-b border-transparent  text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
                 >
                   Facebook
                 </a>
@@ -84,7 +84,7 @@ export function ContactSection() {
                   href="https://www.instagram.com/pact_india/?hl=en"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
+                  className="border-b border-transparent  text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
                 >
                   Instagram
                 </a>
@@ -92,7 +92,7 @@ export function ContactSection() {
                   href="https://www.youtube.com/@MissionMediationbyPACT"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
+                  className="border-b border-transparent  text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
                 >
                   YouTube
                 </a>
@@ -104,7 +104,7 @@ export function ContactSection() {
           <div className="flex flex-col justify-center">
             <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div>
-                <label className="mb-1 block font-mono text-xs text-foreground/60 md:mb-2">Name</label>
+                <label className="mb-1 block  text-xs text-foreground/60 md:mb-2">Name</label>
                 <input
                   type="text"
                   value={formData.name}
@@ -116,7 +116,7 @@ export function ContactSection() {
               </div>
 
               <div>
-                <label className="mb-1 block font-mono text-xs text-foreground/60 md:mb-2">Email</label>
+                <label className="mb-1 block  text-xs text-foreground/60 md:mb-2">Email</label>
                 <input
                   type="email"
                   value={formData.email}
@@ -128,7 +128,7 @@ export function ContactSection() {
               </div>
 
               <div>
-                <label className="mb-1 block font-mono text-xs text-foreground/60 md:mb-2">Message</label>
+                <label className="mb-1 block  text-xs text-foreground/60 md:mb-2">Message</label>
                 <textarea
                   rows={3}
                   value={formData.message}
@@ -150,7 +150,7 @@ export function ContactSection() {
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </MagneticButton>
                 {submitSuccess && (
-                  <p className="mt-3 text-center font-mono text-sm text-foreground/80">Message sent successfully!</p>
+                  <p className="mt-3 text-center  text-sm text-foreground/80">Message sent successfully!</p>
                 )}
               </div>
             </form>

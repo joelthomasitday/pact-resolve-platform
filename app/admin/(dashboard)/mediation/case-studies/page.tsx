@@ -223,7 +223,7 @@ export default function CaseStudiesAdminPage() {
                <div className="absolute inset-0 flex flex-col justify-end p-6 pointer-events-none">
                   <div className="flex items-center gap-3 mb-2">
                      <Badge variant={item.isActive ? "success" : "secondary"} className="rounded-full text-xs uppercase font-bold border-none px-3">{item.isActive ? "Active" : "Hidden"}</Badge>
-                     <span className="font-mono text-xs text-white/60 uppercase">Order #{item.order}</span>
+                     <span className=" text-xs text-white/60 uppercase">Order #{item.order}</span>
                   </div>
                   <h3 className="text-xl font-bold text-white uppercase italic tracking-tight group-hover:text-accent transition-colors">{item.title}</h3>
                </div>

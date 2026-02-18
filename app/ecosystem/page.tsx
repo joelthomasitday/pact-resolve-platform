@@ -131,7 +131,7 @@ export default function EcosystemPage() {
                                 <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-gold-500 border border-white/10 group-hover:bg-gold-500 group-hover:text-navy-950 group-hover:scale-110 transition-all duration-300 shadow-lg">
                                     <feature.icon className="w-6 h-6" />
                                 </div>
-                                <span className="font-mono text-xs text-white/60 uppercase tracking-widest group-hover:text-gold-500 transition-colors hidden sm:block">{feature.subtitle}</span>
+                                <span className=" text-xs text-white/60 uppercase tracking-widest group-hover:text-gold-500 transition-colors hidden sm:block">{feature.subtitle}</span>
                             </div>
                             <span className="font-serif text-5xl text-white/5 font-bold group-hover:text-white/10 transition-colors select-none">{feature.id}</span>
                         </div>

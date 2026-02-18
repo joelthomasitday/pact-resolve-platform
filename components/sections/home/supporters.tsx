@@ -28,7 +28,7 @@ export function Supporters() {
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-3 mb-4">
             <div className="h-px w-8 bg-gold-500" />
-            <p className="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] font-bold">
+            <p className="text-gold-500  text-xs uppercase tracking-[0.3em] font-bold">
               Testimonials
             </p>
             <div className="h-px w-8 bg-gold-500" />
@@ -82,7 +82,7 @@ export function Supporters() {
 
                 <div className="mt-8 pt-6 border-t border-white/5">
                   <p className="text-white font-semibold tracking-tight text-lg">{t.author}</p>
-                  <p className="text-gold-500/70 text-xs font-mono uppercase tracking-[0.2em] mt-1.5">{t.company}</p>
+                  <p className="text-gold-500/70 text-xs  uppercase tracking-[0.2em] mt-1.5">{t.company}</p>
                 </div>
               </div>
             </motion.div>

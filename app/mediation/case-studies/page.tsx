@@ -141,7 +141,7 @@ const CaseHero = () => (
       <FadeInUp>
         <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6 md:mb-8">
           <div className="h-px w-8 md:w-12 bg-gold-500" />
-          <span className="text-gold-500 font-mono text-xs md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
+          <span className="text-gold-500  text-xs md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
             Mediation / Case Studies
           </span>
           <div className="h-px w-8 md:w-12 bg-gold-500" />
@@ -208,7 +208,7 @@ export default function CaseStudiesPage() {
                       <h3 className="text-2xl md:text-3xl font-light text-white tracking-tight leading-none group-hover:text-gold-500 transition-colors">
                         {cs.title}
                       </h3>
-                      <div className="mt-4 flex items-center gap-2 text-xs font-mono text-white/40 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="mt-4 flex items-center gap-2 text-xs  text-white/40 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                         View Details <Plus className="w-3 h-3" />
                       </div>
                    </div>
@@ -260,7 +260,7 @@ export default function CaseStudiesPage() {
 
                 <div className="max-w-3xl">
                    <div className="mb-10 border-b border-navy-50 pb-8">
-                      <span className="text-gold-600 font-mono text-xs tracking-widest uppercase block mb-3 font-bold">Confidential Case Study</span>
+                      <span className="text-gold-600  text-xs tracking-widest uppercase block mb-3 font-bold">Confidential Case Study</span>
                       <h2 className="text-3xl md:text-5xl font-light text-navy-950 tracking-tight mb-8">{cases[selectedCase].title} Mediation</h2>
                       <p className="text-lg md:text-xl text-navy-950/80 font-light leading-relaxed">
                         {cases[selectedCase].summary}

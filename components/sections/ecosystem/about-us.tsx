@@ -107,9 +107,9 @@ export function AboutUs() {
                 Through mediation services, advocacy training, consulting and capacity-building initiatives, The PACT advances a culture of dialogue, confidentiality, and collaboration—helping individuals and organisations resolve disputes efficiently while preserving relationships and reputations.
               </p>
               <div className="flex flex-wrap gap-3 md:gap-4">
-                <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-xs font-mono text-navy-950/40 uppercase tracking-widest">Est. 2015</div>
-                <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-xs font-mono text-navy-950/40 uppercase tracking-widest">17,000+ Users</div>
-                <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-xs font-mono text-navy-950/40 uppercase tracking-widest">Global Standards</div>
+                <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-xs  text-navy-950/40 uppercase tracking-widest">Est. 2015</div>
+                <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-xs  text-navy-950/40 uppercase tracking-widest">17,000+ Users</div>
+                <div className="px-4 md:px-6 py-2 rounded-full bg-navy-50 text-xs  text-navy-950/40 uppercase tracking-widest">Global Standards</div>
               </div>
             </FadeInUp>
           </div>
@@ -129,7 +129,7 @@ export function AboutUs() {
             <FadeInUp>
               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 mb-8">
                 <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
-                <span className="text-xs md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">Our Reach</span>
+                <span className="text-xs md:text-xs  tracking-[0.4em] uppercase text-navy-950/60 font-bold">Our Reach</span>
               </div>
               <h2 className="text-4xl sm:text-5xl md:text-[5.5rem] font-extralight tracking-tight text-navy-950 mb-8 leading-[0.95]">
                 What We <span className="italic font-medium text-gold-500">Do</span>
@@ -169,7 +169,7 @@ export function AboutUs() {
                   
                   <div className="grow space-y-4 relative z-10 w-full">
                     <div className="space-y-1">
-                      <span className="text-xs font-mono uppercase tracking-[0.5em] text-gold-500/60 font-bold">Module {i + 1}</span>
+                      <span className="text-xs  uppercase tracking-[0.5em] text-gold-500/60 font-bold">Module {i + 1}</span>
                       <h3 className="text-xl md:text-2xl font-light text-navy-950 tracking-tighter leading-tight italic group-hover:text-gold-500 transition-colors duration-500 uppercase">
                         {item.title}
                       </h3>
@@ -191,7 +191,7 @@ export function AboutUs() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
           <FadeInUp className="mb-20 md:mb-32">
             <div className="flex flex-col items-center text-center">
-              <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase mb-4 block">Our Values</span>
+              <span className="text-gold-500  text-xs tracking-[0.4em] uppercase mb-4 block">Our Values</span>
               <h2 className="text-[12vw] md:text-8xl font-light text-white tracking-tighter mb-8 leading-none italic uppercase">
                 Just Be <span className="font-bold text-gold-500">NICER!</span>
               </h2>
@@ -237,7 +237,7 @@ export function AboutUs() {
           <FadeInUp className="text-center mb-16">
             <div className="inline-flex items-center gap-3 mb-4">
               <Trophy className="w-5 h-5 text-gold-500" />
-              <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">Recognition</span>
+              <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">Recognition</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-light text-navy-950 tracking-tight">Accolades and Awards</h2>
           </FadeInUp>
@@ -308,7 +308,7 @@ export function AboutUs() {
       <section className="py-24 md:py-32 bg-navy-950 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
           <FadeInUp className="text-center mb-16 space-y-4">
-             <h3 className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">Our Journey</h3>
+             <h3 className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">Our Journey</h3>
              <h2 className="text-4xl md:text-6xl font-light text-white tracking-tight">A Decade of <span className="text-gold-500 italic">Impact</span></h2>
           </FadeInUp>
           

@@ -15,14 +15,14 @@ export function EcosystemSection() {
           <h2 className="mb-2 font-sans text-5xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
             Ecosystem
           </h2>
-          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Our impact and networks</p>
+          <p className=" text-sm text-foreground/60 md:text-base">/ Our impact and networks</p>
         </div>
 
         <div className="grid gap-12 md:grid-cols-2">
           {items.map((item, i) => (
             <div key={i} className="group relative flex flex-col gap-4 p-8 rounded-3xl border border-foreground/5 bg-foreground/1 hover:bg-foreground/3 transition-all duration-500">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-foreground/5 font-mono text-xl group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-foreground/5  text-xl group-hover:bg-primary group-hover:text-white transition-all duration-500">
                   {i + 1}
                 </div>
                 <h3 className="font-sans text-3xl font-light text-foreground">{item.title}</h3>

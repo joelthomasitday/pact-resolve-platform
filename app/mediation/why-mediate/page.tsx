@@ -63,7 +63,7 @@ const RESOLUTION_STEPS_FALLBACK = [
 const SectionHeader = ({ subtitle, title, description, light = false, center = false }: { subtitle: string, title: string, description?: string, light?: boolean, center?: boolean }) => (
   <FadeInUp className={cn("mb-8 md:mb-16", center ? "flex flex-col items-center text-center" : "")}>
     <div className="inline-flex items-center gap-4 mb-4 opacity-70">
-      <span className={cn("text-xs md:text-xs font-mono tracking-[0.4em] uppercase", light ? "text-white" : "text-navy-950")}>{subtitle}</span>
+      <span className={cn("text-xs md:text-xs  tracking-[0.4em] uppercase", light ? "text-white" : "text-navy-950")}>{subtitle}</span>
       <div className={cn("h-px w-8 bg-gold-500/50", light ? "bg-gold-500" : "bg-gold-500")} />
     </div>
     <h2 className={cn("text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-4 sm:mb-6 leading-[1.1]", light ? "text-white" : "text-navy-950")}>
@@ -95,7 +95,7 @@ const WhyMediateHero = () => (
       <FadeInUp>
         <div className="flex items-center gap-3 mb-4 sm:mb-6 md:mb-8">
           <div className="h-px w-8 md:w-12 bg-gold-500" />
-          <span className="text-gold-500 font-mono text-xs md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
+          <span className="text-gold-500  text-xs md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
             Mediation / Why Mediate
           </span>
         </div>
@@ -122,7 +122,7 @@ const WhyMediateHero = () => (
                 <div className="h-10 w-10 rounded-full bg-gold-500/20 flex items-center justify-center">
                   <Globe className="w-5 h-5 text-gold-500" />
                 </div>
-                <span className="text-xs font-mono text-white/40 uppercase tracking-widest">Global Standards of Practice</span>
+                <span className="text-xs  text-white/40 uppercase tracking-widest">Global Standards of Practice</span>
               </div>
             </div>
           </div>
@@ -153,7 +153,7 @@ const PuzzlePieces = () => {
           <FadeInUp>
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 mb-8">
               <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
-              <span className="text-xs md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">The PACT Advantage</span>
+              <span className="text-xs md:text-xs  tracking-[0.4em] uppercase text-navy-950/60 font-bold">The PACT Advantage</span>
             </div>
             <h2 className="text-4xl sm:text-5xl md:text-[5.5rem] font-extralight tracking-tight text-navy-950 mb-8 leading-[0.95]">
               Why Mediate at <span className="italic font-medium text-gold-500">PACT</span>
@@ -257,7 +257,7 @@ const PactProvides = () => {
               >
                 <div className="flex items-center gap-4 md:gap-8 shrink-0">
                   <span className={cn(
-                    "font-mono text-lg md:text-2xl transition-colors duration-500",
+                    " text-lg md:text-2xl transition-colors duration-500",
                     activeStep === i ? "text-gold-500 font-medium" : "text-white/20"
                   )}>
                     {i + 1}.
@@ -274,7 +274,7 @@ const PactProvides = () => {
                 <div className="hidden md:flex items-center gap-6 px-8 grow opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                    <div className={cn("h-px grow transition-all duration-500", activeStep === i ? "bg-gold-500/50" : "bg-white/10")} />
                    <span className={cn(
-                     "font-mono text-xs uppercase tracking-[0.2em] whitespace-nowrap transition-colors duration-300",
+                     " text-xs uppercase tracking-[0.2em] whitespace-nowrap transition-colors duration-300",
                      activeStep === i ? "text-gold-500" : "text-white/30"
                    )}>
                      {step.label}
@@ -408,13 +408,13 @@ const Checklist = () => {
               onClick={() => setSelectedIdx(i)}
               className="p-10 min-h-[300px] cursor-pointer rounded-[3rem] bg-navy-50/50 border border-navy-100 flex flex-col items-center justify-between gap-6 group hover:bg-white hover:border-gold-500 transition-all duration-700 hover:shadow-2xl hover:scale-[1.02]"
             >
-              <div className="w-16 h-16 rounded-2xl bg-navy-950 text-white flex items-center justify-center font-mono font-bold group-hover:bg-gold-500 transition-all duration-500 group-hover:rotate-6 shadow-xl">
+              <div className="w-16 h-16 rounded-2xl bg-navy-950 text-white flex items-center justify-center  font-bold group-hover:bg-gold-500 transition-all duration-500 group-hover:rotate-6 shadow-xl">
                 0{i+1}
               </div>
               <p className="text-xl md:text-2xl text-navy-950 font-light leading-snug tracking-tight">
                 {item}
               </p>
-              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-gold-600 opacity-60 group-hover:opacity-100 transition-opacity">
+              <div className="flex items-center gap-2 text-xs  font-bold uppercase tracking-[0.2em] text-gold-600 opacity-60 group-hover:opacity-100 transition-opacity">
                 Explore Details <Plus className="w-3 h-3 group-hover:rotate-90 transition-transform" />
               </div>
             </motion.div>
@@ -465,7 +465,7 @@ const Checklist = () => {
                   <div className="w-16 h-16 rounded-2xl bg-gold-500 text-navy-950 flex items-center justify-center mb-8 shadow-2xl shadow-gold-500/20">
                     {React.createElement(CHECKLIST_MODAL_DATA[selectedIdx].icon, { className: "w-8 h-8" })}
                   </div>
-                  <h4 className="text-gold-500 font-mono text-xs tracking-widest uppercase mb-4 opacity-80 font-bold">
+                  <h4 className="text-gold-500  text-xs tracking-widest uppercase mb-4 opacity-80 font-bold">
                     Case Assessment 0{selectedIdx + 1}
                   </h4>
                   <h2 className="text-3xl md:text-5xl font-light tracking-tighter italic leading-[1.1] mb-6">
@@ -489,7 +489,7 @@ const Checklist = () => {
               <div className="flex-1 overflow-y-auto p-10 md:p-16 custom-scrollbar">
                 <div className="max-w-2xl">
                    <div className="mb-12">
-                      <p className="text-navy-950/40 font-mono text-xs tracking-widest uppercase mb-4">The Assessment</p>
+                      <p className="text-navy-950/40  text-xs tracking-widest uppercase mb-4">The Assessment</p>
                       <h3 className="text-2xl md:text-3xl font-light text-navy-950 tracking-tight leading-snug mb-8 bg-navy-50/50 p-6 rounded-2xl border border-navy-100/50">
                          "{CHECKLIST_MODAL_DATA[selectedIdx].summary}"
                       </h3>

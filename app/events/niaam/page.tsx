@@ -52,7 +52,7 @@ const SectionHeader = ({ subtitle, title, description, light = false, center = f
   <FadeInUp className={cn("mb-8 sm:mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
     <div className="inline-flex items-center gap-2 sm:gap-4 mb-3 sm:mb-6 opacity-80">
       <div className={cn("h-px w-8 sm:w-12 bg-gold-500", light ? "bg-gold-500" : "bg-gold-500/50")} />
-      <span className={cn("text-xs sm:text-[11px] md:text-xs font-mono tracking-[0.2em] sm:tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
+      <span className={cn("text-xs sm:text-[11px] md:text-xs  tracking-[0.2em] sm:tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
     </div>
     <h2 className={cn("text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[5rem] font-light tracking-tight mb-4 sm:mb-6 md:mb-8 leading-[1.1] sm:leading-[0.95]", light ? "text-white" : "text-navy-950")}>
       {title.split(' ').map((word, i) => (
@@ -113,7 +113,7 @@ const AwardCard = ({ awardee, image }: { awardee: AwardRecipient, image: string 
                   {/* Artistic Year Divider */}
                   <div className="flex items-center justify-center gap-4">
                     <div className="h-px w-8 sm:w-12 bg-linear-to-r from-transparent to-gold-500/30" />
-                    <span className="text-xs sm:text-xs font-mono font-bold text-gold-600 tracking-[0.4em] uppercase">{awardee.year}</span>
+                    <span className="text-xs sm:text-xs  font-bold text-gold-600 tracking-[0.4em] uppercase">{awardee.year}</span>
                     <div className="h-px w-8 sm:w-12 bg-linear-to-l from-transparent to-gold-500/30" />
                   </div>
                   
@@ -121,14 +121,14 @@ const AwardCard = ({ awardee, image }: { awardee: AwardRecipient, image: string 
                     <h3 className="text-xl sm:text-2xl font-bold text-navy-950 tracking-tight leading-[1.1] group-hover:text-gold-600 transition-all duration-500 uppercase italic px-2 wrap-break-word">
                        {awardee.name}
                     </h3>
-                    <div className="inline-flex items-center px-4 py-1 rounded-full bg-navy-50/50 border border-navy-100/50 text-[9px] sm:text-xs text-navy-950/50 font-mono uppercase tracking-[0.15em] group-hover:border-gold-500/30 group-hover:bg-gold-500/5 group-hover:text-gold-700 transition-all duration-500">
+                    <div className="inline-flex items-center px-4 py-1 rounded-full bg-navy-50/50 border border-navy-100/50 text-[9px] sm:text-xs text-navy-950/50  uppercase tracking-[0.15em] group-hover:border-gold-500/30 group-hover:bg-gold-500/5 group-hover:text-gold-700 transition-all duration-500">
                        {awardee.category}
                     </div>
                   </div>
 
                   <div className="pt-2 flex items-center justify-center gap-2.5 text-navy-950/20 group-hover:text-navy-950/40 transition-colors duration-500">
                      <MapPin className="w-4 h-4" />
-                     <span className="text-xs uppercase tracking-[0.25em] font-bold font-mono">{awardee.city}</span>
+                     <span className="text-xs uppercase tracking-[0.25em] font-bold ">{awardee.city}</span>
                   </div>
                 </div>
               </div>
@@ -168,27 +168,27 @@ const AwardCard = ({ awardee, image }: { awardee: AwardRecipient, image: string 
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <div className="h-px w-10 bg-gold-500" />
-                  <span className="text-gold-500 font-mono text-xs sm:text-sm tracking-[0.4em] uppercase font-bold">{awardee.year} RECIPIENT</span>
+                  <span className="text-gold-500  text-xs sm:text-sm tracking-[0.4em] uppercase font-bold">{awardee.year} RECIPIENT</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter italic text-white uppercase leading-[0.9] wrap-break-word">{awardee.name}</h2>
               </div>
               
               <div className="space-y-8 sm:space-y-10">
                 <div className="space-y-3">
-                   <p className="text-xs sm:text-xs font-mono text-white/40 uppercase tracking-[0.3em] font-bold">Category of Distinction</p>
+                   <p className="text-xs sm:text-xs  text-white/40 uppercase tracking-[0.3em] font-bold">Category of Distinction</p>
                    <p className="text-2xl sm:text-3xl font-light text-gold-500 italic leading-tight">{awardee.category}</p>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-8">
                   <div className="space-y-3">
-                    <p className="text-xs sm:text-xs font-mono text-white/40 uppercase tracking-[0.3em] font-bold">Jurisdiction</p>
+                    <p className="text-xs sm:text-xs  text-white/40 uppercase tracking-[0.3em] font-bold">Jurisdiction</p>
                     <div className="flex items-center gap-2 text-white/80">
                         <MapPin className="w-4 h-4 text-gold-500" />
                         <p className="text-lg font-light">{awardee.city}</p>
                     </div>
                   </div>
                   <div className="space-y-3">
-                    <p className="text-xs sm:text-xs font-mono text-white/40 uppercase tracking-[0.3em] font-bold">Status</p>
+                    <p className="text-xs sm:text-xs  text-white/40 uppercase tracking-[0.3em] font-bold">Status</p>
                     <div className="flex items-center gap-2 text-white/80">
                         <Medal className="w-4 h-4 text-gold-500" />
                         <p className="text-lg font-light italic">Certified</p>
@@ -326,7 +326,7 @@ export default function NIAAMPage() {
           <FadeInUp>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-gold-500" />
-              <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">
+              <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">
                 Honouring Excellence
               </span>
             </div>
@@ -411,7 +411,7 @@ export default function NIAAMPage() {
                     <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
                   </div>
                   <div>
-                    <p className="text-[8px] sm:text-[9px] md:text-xs font-mono uppercase tracking-[0.2em] sm:tracking-[0.3em] text-navy-950/40 font-bold mb-1">Benchmark</p>
+                    <p className="text-[8px] sm:text-[9px] md:text-xs  uppercase tracking-[0.2em] sm:tracking-[0.3em] text-navy-950/40 font-bold mb-1">Benchmark</p>
                     <p className="text-base sm:text-lg md:text-xl font-bold text-navy-950 tracking-tight leading-tight">Annual Conferment</p>
                   </div>
                 </div>
@@ -485,7 +485,7 @@ export default function NIAAMPage() {
                             <info.icon className="w-6 h-6" />
                          </div>
                          <div className="space-y-1">
-                            <span className="text-xs font-mono uppercase tracking-widest text-white/30 font-bold">{info.label}</span>
+                            <span className="text-xs  uppercase tracking-widest text-white/30 font-bold">{info.label}</span>
                             <p className="text-xl font-light text-white italic">{info.value}</p>
                          </div>
                       </div>
@@ -520,7 +520,7 @@ export default function NIAAMPage() {
           
           <div className="mt-20 flex flex-col items-center">
             <div className="h-px w-24 bg-gold-500/30 mb-8" />
-            <p className="text-navy-950/40 font-mono text-xs uppercase tracking-[0.4em] font-bold text-center">
+            <p className="text-navy-950/40  text-xs uppercase tracking-[0.4em] font-bold text-center">
               Continually updated with new inductees of excellence
             </p>
           </div>
@@ -568,7 +568,7 @@ export default function NIAAMPage() {
                           </div>
 
                           <div className="absolute bottom-0 left-0 right-0 p-8 md:p-14 bg-linear-to-t from-navy-950/80 via-navy-950/40 to-transparent translate-y-6 group-hover/image:translate-y-0 opacity-0 group-hover/image:opacity-100 transition-all duration-700">
-                            <span className="text-gold-500 font-mono text-xs md:text-xs tracking-[0.4em] uppercase font-bold mb-3 block">NIAAM Collection</span>
+                            <span className="text-gold-500  text-xs md:text-xs tracking-[0.4em] uppercase font-bold mb-3 block">NIAAM Collection</span>
                             <h4 className="text-2xl md:text-5xl font-bold text-white tracking-tighter leading-none mb-4 italic">{item.title || `Ceremonial Moment ${i + 1}`}</h4>
                             <p className="text-base md:text-xl text-white/70 font-light max-w-2xl line-clamp-1">{item.description || "Celebrating the advancement of mediation excellence in India."}</p>
                           </div>
@@ -592,7 +592,7 @@ export default function NIAAMPage() {
                         
                         <div className="absolute inset-x-0 bottom-0 p-10 md:p-24 bg-linear-to-t from-black/90 via-black/20 to-transparent transition-all duration-700 opacity-0 group-hover:modal:opacity-100 translate-y-8 group-hover:modal:translate-y-0">
                            <div className="max-w-7xl mx-auto">
-                            <span className="text-gold-500 font-mono text-xs md:text-sm tracking-[0.6em] uppercase font-bold mb-6 block">NIAAM Archive</span>
+                            <span className="text-gold-500  text-xs md:text-sm tracking-[0.6em] uppercase font-bold mb-6 block">NIAAM Archive</span>
                             <h3 className="text-4xl md:text-[8rem] font-bold text-white tracking-tighter leading-[0.8] mb-8 italic">National ImPACT Awards</h3>
                             <p className="text-xl md:text-3xl text-white/70 font-light leading-relaxed max-w-4xl">{item.description || "A look back at the moments that define the benchmark of excellence in mediation across India."}</p>
                            </div>

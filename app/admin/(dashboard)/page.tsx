@@ -199,7 +199,7 @@ export default function DashboardOverview() {
                   <div key={i} className="space-y-4">
                     <div className="flex justify-between items-end px-1">
                       <span className="text-sm font-bold text-navy-950 uppercase tracking-tight">{item.label}</span>
-                      <span className="text-xs font-mono font-bold text-muted-foreground bg-muted/30 px-2 py-0.5 rounded-md">
+                      <span className="text-xs  font-bold text-muted-foreground bg-muted/30 px-2 py-0.5 rounded-md">
                         {Math.round((item.count / item.total) * 100)}%
                       </span>
                     </div>

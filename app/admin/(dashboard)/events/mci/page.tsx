@@ -299,7 +299,7 @@ export default function MCIGalleryPage() {
               {isSaving ? <Loader2 className="w-5 h-5 mr-3 animate-spin" /> : <Save className="w-5 h-5 mr-3" />}
               Publish Gallery
             </Button>
-            <p className="text-xs text-center text-white/40 font-mono uppercase tracking-tighter">
+            <p className="text-xs text-center text-white/40  uppercase tracking-tighter">
               {eventData ? `Linked to ${eventData.year} Edition` : "Draft Mode"}
             </p>
           </div>

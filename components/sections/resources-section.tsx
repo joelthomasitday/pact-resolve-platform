@@ -17,7 +17,7 @@ export function ResourcesSection() {
           <h2 className="mb-2 font-sans text-5xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
             Resources
           </h2>
-          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Knowledge hub for dispute resolution</p>
+          <p className=" text-sm text-foreground/60 md:text-base">/ Knowledge hub for dispute resolution</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -27,7 +27,7 @@ export function ResourcesSection() {
               className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-foreground/5 bg-foreground/2 p-6 transition-all duration-300 hover:bg-foreground/5 hover:shadow-2xl"
             >
               <div className="flex flex-col gap-1">
-                <span className="font-mono text-xs uppercase tracking-widest text-foreground/40">
+                <span className=" text-xs uppercase tracking-widest text-foreground/40">
                   {resource.category}
                 </span>
                 <h3 className="font-sans text-xl font-light text-foreground group-hover:text-primary transition-colors">

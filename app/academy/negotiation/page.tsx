@@ -30,7 +30,7 @@ const SectionHeader = ({ subtitle, title, description, dark = false, center = fa
   <FadeInUp className={cn("mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
     <div className="inline-flex items-center gap-4 mb-6 opacity-80">
       <div className={cn("h-px w-12 bg-gold-500", dark ? "bg-gold-500" : "bg-gold-500/50")} />
-      <span className={cn("text-xs md:text-xs font-mono tracking-[0.4em] uppercase font-bold", dark ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
+      <span className={cn("text-xs md:text-xs  tracking-[0.4em] uppercase font-bold", dark ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
     </div>
     <h2 className={cn("text-4xl sm:text-5xl md:text-7xl lg:text-[5rem] font-light tracking-tight mb-8 leading-[0.95]", dark ? "text-white" : "text-navy-950")}>
       {title.split(' ').map((word, i) => (
@@ -72,7 +72,7 @@ const CurriculumRoadmap = ({ modules, type, dark = false }: { modules: any[], ty
            >
              <div className="flex items-center gap-4 md:gap-8 grow min-w-0">
                 <span className={cn(
-                  "font-mono text-lg md:text-2xl transition-colors duration-500 shrink-0",
+                  " text-lg md:text-2xl transition-colors duration-500 shrink-0",
                   activeStep === i ? "text-gold-500 font-medium" : (dark ? "text-white/20" : "text-navy-900/10")
                 )}>
                   0{i + 1}
@@ -90,7 +90,7 @@ const CurriculumRoadmap = ({ modules, type, dark = false }: { modules: any[], ty
                   <div className="hidden md:flex items-center gap-6 px-8 grow opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                     <div className={cn("h-px grow transition-all duration-500", activeStep === i ? "bg-gold-500/50" : (dark ? "bg-white/10" : "bg-navy-100"))} />
                     <span className={cn(
-                      "font-mono text-xs uppercase tracking-[0.2em] whitespace-nowrap transition-colors duration-300",
+                      " text-xs uppercase tracking-[0.2em] whitespace-nowrap transition-colors duration-300",
                       activeStep === i ? "text-gold-500" : (dark ? "text-white/30" : "text-navy-900/20")
                     )}>
                       {type} Phase
@@ -132,7 +132,7 @@ const CurriculumRoadmap = ({ modules, type, dark = false }: { modules: any[], ty
                        dark ? "bg-white/5 border-white/10 group-hover:bg-white/10" : "bg-white/5 border-white/10 group-hover:bg-white/10 shadow-lg"
                      )}>
                         <Video className="w-6 h-6 text-gold-500" />
-                        <span className={cn("text-[9px] font-mono uppercase tracking-widest font-bold", dark ? "text-white/40" : "text-white/40")}>Streamable</span>
+                        <span className={cn("text-[9px]  uppercase tracking-widest font-bold", dark ? "text-white/40" : "text-white/40")}>Streamable</span>
                      </div>
                    </div>
                  </div>
@@ -164,7 +164,7 @@ const NegotiationHero = () => (
       <FadeInUp>
         <div className="flex items-center gap-3 mb-4 sm:mb-6 md:mb-8">
           <div className="h-px w-8 md:w-12 bg-gold-500" />
-          <span className="text-gold-500 font-mono text-xs md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
+          <span className="text-gold-500  text-xs md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
             Academy / Negotiation
           </span>
         </div>
@@ -198,7 +198,7 @@ const NegotiationHero = () => (
                 <div className="h-10 w-10 rounded-full bg-gold-500/20 flex items-center justify-center">
                   <MessageSquare className="w-5 h-5 text-gold-500" />
                 </div>
-                <span className="text-xs font-mono text-white/40 uppercase tracking-widest">Strategic Communication</span>
+                <span className="text-xs  text-white/40 uppercase tracking-widest">Strategic Communication</span>
               </div>
             </div>
           </div>
@@ -257,7 +257,7 @@ export default function NegotiationPage() {
       <div className="min-h-screen bg-navy-950 flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-gold-500/20 border-t-gold-500 rounded-full animate-spin" />
-          <p className="text-white/40 font-mono text-xs uppercase tracking-widest">Loading Academy...</p>
+          <p className="text-white/40  text-xs uppercase tracking-widest">Loading Academy...</p>
         </div>
       </div>
     );
@@ -273,7 +273,7 @@ export default function NegotiationPage() {
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
           <div className="flex-1 space-y-8">
             <FadeInUp>
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-navy-50 text-xs font-mono text-navy-950/40 uppercase tracking-widest mb-4">Corporate Training</div>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-navy-50 text-xs  text-navy-950/40 uppercase tracking-widest mb-4">Corporate Training</div>
               <h2 className="text-4xl md:text-6xl font-light tracking-tight text-navy-950 mb-6">
                 Train Your <span className="text-gold-500 italic font-medium">Team</span>
               </h2>
@@ -301,7 +301,7 @@ export default function NegotiationPage() {
             </StaggerContainer>
 
             <FadeInUp delay={0.4} className="pt-8">
-              <p className="text-sm font-mono uppercase tracking-widest text-navy-950/40 mb-4">Contact Us</p>
+              <p className="text-sm  uppercase tracking-widest text-navy-950/40 mb-4">Contact Us</p>
               <a href="mailto:academy@thepact.in" className="text-2xl md:text-3xl font-light text-navy-950 hover:text-gold-500 transition-colors">
                 Write to us at – <span className="underline decoration-gold-500/30">academy@thepact.in</span>
               </a>
@@ -343,19 +343,19 @@ export default function NegotiationPage() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-widest block font-bold">Mode</span>
+                    <span className="text-[9px]  text-navy-950/30 uppercase tracking-widest block font-bold">Mode</span>
                     <p className="text-lg text-navy-950/70 font-light">{foundationalCourse.mode}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-widest block font-bold">Live Session</span>
+                    <span className="text-[9px]  text-navy-950/30 uppercase tracking-widest block font-bold">Live Session</span>
                     <p className="text-lg text-navy-950/70 font-light">{foundationalCourse.liveSession}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-widest block font-bold">Assessment</span>
+                    <span className="text-[9px]  text-navy-950/30 uppercase tracking-widest block font-bold">Assessment</span>
                     <p className="text-lg text-navy-950/70 font-light">{foundationalCourse.assessment}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-widest block font-bold">Certification</span>
+                    <span className="text-[9px]  text-navy-950/30 uppercase tracking-widest block font-bold">Certification</span>
                     <p className="text-lg text-navy-950/70 font-light">{foundationalCourse.certification}</p>
                   </div>
                 </div>
@@ -365,11 +365,11 @@ export default function NegotiationPage() {
                   <div className="absolute -inset-1 bg-linear-to-r from-gold-500/10 to-transparent rounded-[2.6rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                   <div className="relative">
                     <div className="flex items-center justify-between mb-8">
-                      <h5 className="text-xs font-mono uppercase tracking-[0.3em] font-bold text-navy-950/40">Fee</h5>
+                      <h5 className="text-xs  uppercase tracking-[0.3em] font-bold text-navy-950/40">Fee</h5>
                       <Sparkles className="w-5 h-5 text-gold-500" />
                     </div>
                     <div className="mb-8">
-                      <p className="text-5xl font-light text-navy-950 mb-2 tracking-tighter">{foundationalCourse.feeAmount} <span className="text-sm font-mono text-navy-950/20">{foundationalCourse.feeCurrency} {foundationalCourse.feeNote}</span></p>
+                      <p className="text-5xl font-light text-navy-950 mb-2 tracking-tighter">{foundationalCourse.feeAmount} <span className="text-sm  text-navy-950/20">{foundationalCourse.feeCurrency} {foundationalCourse.feeNote}</span></p>
                     </div>
                     <MagneticButton variant="primary" size="lg" className="w-full">
                       <Link href={foundationalCourse.ctaLink || "#"} className="w-full flex justify-center py-2 text-base font-bold uppercase tracking-widest">{foundationalCourse.ctaText || "Sign Up"}</Link>
@@ -383,7 +383,7 @@ export default function NegotiationPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-6 mb-12">
                    <div className="h-px bg-navy-100 grow" />
-                   <span className="text-xs font-mono uppercase tracking-[0.4em] text-navy-950/20 font-bold">Course Modules</span>
+                   <span className="text-xs  uppercase tracking-[0.4em] text-navy-950/20 font-bold">Course Modules</span>
                    <div className="h-px bg-navy-100 grow" />
                 </div>
                 <CurriculumRoadmap modules={foundationModulesArr} type="Foundation" />
@@ -413,7 +413,7 @@ export default function NegotiationPage() {
                   <div className="absolute inset-0 bg-navy-950/10 group-hover:bg-transparent transition-colors duration-700" />
                 </div>
                 <h4 className="text-xl font-medium text-navy-950 mb-1">{faculty.name}</h4>
-                <p className="text-sm font-mono uppercase tracking-widest text-gold-500 font-bold">{faculty.role}</p>
+                <p className="text-sm  uppercase tracking-widest text-gold-500 font-bold">{faculty.role}</p>
               </div>
             ))}
             <div className="flex flex-col items-center justify-center p-8 rounded-4xl border-2 border-dashed border-navy-100 bg-slate-50/50">
@@ -448,19 +448,19 @@ export default function NegotiationPage() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block">Mode</span>
+                    <span className="text-[9px]  text-white/20 uppercase tracking-widest block">Mode</span>
                     <p className="text-lg text-white/80 font-light">{advancedCourse.mode}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block">Live Session</span>
+                    <span className="text-[9px]  text-white/20 uppercase tracking-widest block">Live Session</span>
                     <p className="text-lg text-white/80 font-light">{advancedCourse.liveSession}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block">Assessment</span>
+                    <span className="text-[9px]  text-white/20 uppercase tracking-widest block">Assessment</span>
                     <p className="text-lg text-white/80 font-light">{advancedCourse.assessment}</p>
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block">Certification</span>
+                    <span className="text-[9px]  text-white/20 uppercase tracking-widest block">Certification</span>
                     <p className="text-lg text-white/80 font-light">{advancedCourse.certification}</p>
                   </div>
                 </div>
@@ -470,11 +470,11 @@ export default function NegotiationPage() {
                   <div className="absolute -inset-1 bg-linear-to-r from-gold-500/20 to-transparent rounded-[2.6rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                   <div className="relative">
                     <div className="flex items-center justify-between mb-8">
-                      <h5 className="text-xs font-mono uppercase tracking-[0.3em] font-bold text-gold-500/60">Fee</h5>
+                      <h5 className="text-xs  uppercase tracking-[0.3em] font-bold text-gold-500/60">Fee</h5>
                       <Award className="w-5 h-5 text-gold-500" />
                     </div>
                     <div className="mb-8">
-                      <p className="text-5xl font-light text-white mb-2 tracking-tighter">{advancedCourse.feeAmount} <span className="text-sm font-mono text-white/20">{advancedCourse.feeCurrency} {advancedCourse.feeNote}</span></p>
+                      <p className="text-5xl font-light text-white mb-2 tracking-tighter">{advancedCourse.feeAmount} <span className="text-sm  text-white/20">{advancedCourse.feeCurrency} {advancedCourse.feeNote}</span></p>
                     </div>
                     <MagneticButton variant="primary" size="lg" className="w-full">
                       <Link href={advancedCourse.ctaLink || "#"} className="w-full flex justify-center py-2 text-base font-bold uppercase tracking-widest">{advancedCourse.ctaText || "Sign Up"}</Link>
@@ -487,7 +487,7 @@ export default function NegotiationPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-6 mb-12">
                    <div className="h-px bg-white/10 grow" />
-                   <span className="text-xs font-mono uppercase tracking-[0.4em] text-white/20 font-bold">Course Module</span>
+                   <span className="text-xs  uppercase tracking-[0.4em] text-white/20 font-bold">Course Module</span>
                    <div className="h-px bg-white/10 grow" />
                 </div>
                 <CurriculumRoadmap modules={advancedModulesArr} type="Advanced" dark />
@@ -515,7 +515,7 @@ export default function NegotiationPage() {
                     <div className="absolute inset-0 bg-navy-950/10 group-hover:bg-transparent transition-colors duration-700" />
                   </div>
                   <h4 className="text-xl font-medium text-navy-950 mb-1">{member.name}</h4>
-                  <p className="text-sm font-mono uppercase tracking-widest text-gold-500 font-bold">{member.role}</p>
+                  <p className="text-sm  uppercase tracking-widest text-gold-500 font-bold">{member.role}</p>
                 </div>
               ))}
               {faculty.length < 4 && (

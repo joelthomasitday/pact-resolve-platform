@@ -12,7 +12,7 @@ export default function TermsPage() {
             Terms of <span className="font-semibold italic">Service</span>
           </h1>
           <div className="h-1 w-20 bg-gold-500 mb-8" />
-          <p className="text-navy-900/60 text-sm font-mono uppercase tracking-[0.2em]">
+          <p className="text-navy-900/60 text-sm  uppercase tracking-[0.2em]">
             Last Updated: February 9, 2026
           </p>
         </div>
@@ -70,11 +70,11 @@ export default function TermsPage() {
             </div>
             <div className="flex flex-col md:flex-row gap-8">
               <div className="flex-1 p-6 bg-navy-950 text-white rounded-3xl">
-                <h4 className="text-gold-500 font-mono text-xs uppercase tracking-widest mb-4">Support Email</h4>
+                <h4 className="text-gold-500  text-xs uppercase tracking-widest mb-4">Support Email</h4>
                 <a href="mailto:official@thepact.in" className="text-xl font-medium hover:text-gold-500 transition-colors">official@thepact.in</a>
               </div>
               <div className="flex-1 p-6 bg-slate-100 rounded-3xl border border-navy-950/5 text-navy-950">
-                <h4 className="text-navy-950/40 font-mono text-xs uppercase tracking-widest mb-4">Mailing Address</h4>
+                <h4 className="text-navy-950/40  text-xs uppercase tracking-widest mb-4">Mailing Address</h4>
                 <p className="text-sm font-medium leading-relaxed">
                   PACT International Headquarters,<br />
                   ADR Tower, New Delhi, India.

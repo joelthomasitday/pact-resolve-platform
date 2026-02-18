@@ -101,7 +101,7 @@ export function TeamSection() {
         <div className="mb-32">
           <div className="flex items-center gap-4 mb-20 justify-center md:justify-start">
             <div className="h-px w-12 bg-gold-500" />
-            <h3 className="text-base font-mono uppercase tracking-[0.4em] text-navy-950/40">Managing Partners</h3>
+            <h3 className="text-base  uppercase tracking-[0.4em] text-navy-950/40">Managing Partners</h3>
           </div>
           
           {/* Featured Managing Partner */}
@@ -130,7 +130,7 @@ export function TeamSection() {
                       <div className="flex-1 space-y-8 text-center md:text-left">
                         <div className="space-y-2">
                           <div className="flex items-center justify-center md:justify-start gap-4 mb-4">
-                            <span className="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] font-bold">{partner.role}</span>
+                            <span className="text-gold-500  text-xs uppercase tracking-[0.3em] font-bold">{partner.role}</span>
                             <div className="h-px w-8 bg-gold-500/20" />
                           </div>
                           <h4 className="text-[10vw] md:text-6xl font-light text-navy-950 tracking-tighter leading-none uppercase">
@@ -197,7 +197,7 @@ export function TeamSection() {
                     {/* Content - Vertically Aligned */}
                     <div className="flex-1 space-y-4 text-center sm:text-left">
                       <div className="space-y-1">
-                        <span className="text-gold-500 font-mono text-[9px] uppercase tracking-[0.3em] font-bold block">{partner.role}</span>
+                        <span className="text-gold-500  text-[9px] uppercase tracking-[0.3em] font-bold block">{partner.role}</span>
                         <h4 className="text-2xl md:text-3xl font-light text-navy-950 tracking-tight leading-tight uppercase">
                            {partner.name.split(' ')[0]} <span className="text-gold-500 font-medium">{partner.name.split(' ').slice(1).join(' ')}</span>
                         </h4>
@@ -243,7 +243,7 @@ export function TeamSection() {
         {/* Mentors & Neutrals */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 pb-24 border-b border-navy-50">
           <div>
-             <h3 className="text-xl font-mono uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Strategic Mentors</h3>
+             <h3 className="text-xl  uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Strategic Mentors</h3>
             <div className="space-y-2">
               {mentors.map((m: any, i: number) => (
                 <div key={i} className="group flex items-center gap-6 py-5 border-b border-navy-50/50 hover:border-gold-500/30 transition-all duration-500 cursor-pointer">
@@ -260,7 +260,7 @@ export function TeamSection() {
                   
                   <div className="grow">
                     <h4 className="text-xl font-light text-navy-950 group-hover:text-gold-500 transition-colors">{m.name}</h4>
-                    <p className="text-xs font-mono uppercase tracking-[0.2em] text-navy-950/40">{m.role}</p>
+                    <p className="text-xs  uppercase tracking-[0.2em] text-navy-950/40">{m.role}</p>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-navy-950/10 group-hover:text-gold-500 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
                 </div>
@@ -269,7 +269,7 @@ export function TeamSection() {
           </div>
           
           <div>
-             <h3 className="text-xl font-mono uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Featured Mediators</h3>
+             <h3 className="text-xl  uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Featured Mediators</h3>
              <div className="space-y-2">
                {mediators.map((m: any, i: number) => (
                  <div key={i} className="group flex items-center gap-6 py-5 border-b border-navy-50/50 hover:border-gold-500/30 transition-all duration-500 cursor-pointer">
@@ -286,7 +286,7 @@ export function TeamSection() {
 
                    <div className="grow">
                      <h4 className="text-xl font-light text-navy-950 group-hover:text-gold-500 transition-colors">{m.name}</h4>
-                     <p className="text-xs font-mono uppercase tracking-widest text-gold-500 font-bold">{m.niche}</p>
+                     <p className="text-xs  uppercase tracking-widest text-gold-500 font-bold">{m.niche}</p>
                    </div>
                    <ArrowUpRight className="w-5 h-5 text-navy-950/10 group-hover:text-gold-500 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
                  </div>
@@ -298,7 +298,7 @@ export function TeamSection() {
         {/* Members & Externs */}
         <div className="pt-20 grid grid-cols-1 md:grid-cols-2 gap-20 md:gap-32">
           <div>
-             <h3 className="text-xl font-mono uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Team Members</h3>
+             <h3 className="text-xl  uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Team Members</h3>
              <div className="space-y-2">
                {members.map((m: any, i: number) => (
                  <div key={i} className="group flex items-center gap-5 py-4 border-b border-navy-50 hover:border-gold-500/20 transition-all duration-300 cursor-pointer">
@@ -319,7 +319,7 @@ export function TeamSection() {
              </div>
           </div>
           <div>
-             <h3 className="text-xl font-mono uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Mediation Externs</h3>
+             <h3 className="text-xl  uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Mediation Externs</h3>
              <div className="space-y-2">
                 {externs.map((m: any, i: number) => (
                   <div key={i} className="group flex items-center gap-5 py-4 border-b border-navy-50 hover:border-gold-500/20 transition-all duration-300 cursor-pointer">
@@ -336,7 +336,7 @@ export function TeamSection() {
                     <div className="grow flex items-center justify-between">
                       <span className="text-lg font-light text-navy-950/80 group-hover:text-gold-600 transition-colors">{m.name}</span>
                       <div className="flex items-center gap-3">
-                        <span className="text-[9px] font-mono uppercase tracking-widest text-gold-500/60 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">Externship</span>
+                        <span className="text-[9px]  uppercase tracking-widest text-gold-500/60 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">Externship</span>
                         <div className="w-1.5 h-1.5 rounded-full bg-navy-100 group-hover:bg-gold-500 transition-colors" />
                       </div>
                     </div>
@@ -352,7 +352,7 @@ export function TeamSection() {
                       </div>
                       <div className="text-left">
                         <p className="text-sm font-bold text-navy-950 uppercase tracking-widest mb-1">Join the Mission</p>
-                        <p className="text-xs text-navy-950/40 font-mono uppercase tracking-widest">Apply for Externship</p>
+                        <p className="text-xs text-navy-950/40  uppercase tracking-widest">Apply for Externship</p>
                       </div>
                     </div>
                     <ArrowUpRight className="w-5 h-5 text-navy-950/20 group-hover/join:text-gold-500 transition-colors" />

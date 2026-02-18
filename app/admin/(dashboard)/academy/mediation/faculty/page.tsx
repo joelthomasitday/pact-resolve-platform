@@ -225,7 +225,7 @@ export default function MediationFacultyPage() {
                   <Badge variant={item.isActive ? "success" : "secondary"} className="rounded-full text-xs uppercase font-bold border-none px-3">
                     {item.isActive ? "Active" : "Hidden"}
                   </Badge>
-                  <span className="font-mono text-xs text-white/60 uppercase">Order #{item.order}</span>
+                  <span className=" text-xs text-white/60 uppercase">Order #{item.order}</span>
                 </div>
                 <h3 className="text-xl font-bold text-white group-hover:text-gold-400 transition-colors">{item.name}</h3>
                 <p className="text-sm text-white/60">{item.role}</p>

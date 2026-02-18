@@ -225,7 +225,7 @@ export default function JournalAdminPage() {
                 ) : filteredItems.map((item) => (
                   <TableRow key={(item._id as any).toString()} className="group hover:bg-navy-50/50 transition-colors border-navy-50/50">
                     <TableCell className="pl-8">
-                      <span className="font-mono text-xs font-bold text-navy-950/30">#{item.order}</span>
+                      <span className=" text-xs font-bold text-navy-950/30">#{item.order}</span>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-4">

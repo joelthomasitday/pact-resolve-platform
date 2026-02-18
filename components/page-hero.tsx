@@ -85,7 +85,7 @@ export function PageHero({ title, subtitle, description, children }: PageHeroPro
         isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
       }`}>
         <div className="mb-6 inline-block rounded-full border border-foreground/20 bg-foreground/5 px-4 py-1.5 backdrop-blur-md">
-          <p className="font-mono text-xs text-foreground/80 uppercase tracking-widest">
+          <p className=" text-xs text-foreground/80 uppercase tracking-widest">
             {subtitle}
           </p>
         </div>

@@ -298,7 +298,7 @@ export default function AdvocateMaximusAdminPage() {
               {isSaving ? <Loader2 className="w-5 h-5 mr-3 animate-spin" /> : <Save className="w-5 h-5 mr-3" />}
               Publish Changes
             </Button>
-            <p className="text-xs text-center text-white/40 font-mono uppercase tracking-tighter">
+            <p className="text-xs text-center text-white/40  uppercase tracking-tighter">
               Connected to MongoDB Atlas & Vercel
             </p>
           </div>
@@ -461,7 +461,7 @@ export default function AdvocateMaximusAdminPage() {
                     </p>
                     <div className="pt-4 flex items-center gap-4">
                        <div className="grow h-12 bg-white/5 rounded-2xl flex items-center px-4 border border-white/10">
-                          <span className="font-mono text-xs font-bold text-emerald-500 uppercase tracking-widest">Active Status</span>
+                          <span className=" text-xs font-bold text-emerald-500 uppercase tracking-widest">Active Status</span>
                           <div className="ml-auto w-4 h-4 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse" />
                        </div>
                     </div>

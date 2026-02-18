@@ -261,7 +261,7 @@ export default function NewsAdminPage() {
                 ) : (
                   filteredNews.map((item) => (
                     <TableRow key={(item._id as any).toString()} className="hover:bg-muted/30 transition-colors group">
-                      <TableCell className="font-mono text-xs">{item.order}</TableCell>
+                      <TableCell className=" text-xs">{item.order}</TableCell>
                       <TableCell>
                         <div className="w-16 h-10 rounded-lg overflow-hidden border bg-muted shrink-0">
                           {item.image?.url ? (

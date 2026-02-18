@@ -65,7 +65,7 @@ export function WhyPact() {
         {/* Header Section */}
         <FadeInUp className="mb-12 md:mb-20">
           <div className="inline-flex items-center gap-4 mb-6 opacity-60">
-            <span className="text-xs font-mono tracking-[0.4em] uppercase text-white">Why PACT</span>
+            <span className="text-xs  tracking-[0.4em] uppercase text-white">Why PACT</span>
             <div className="h-px w-8 md:w-12 bg-gold-500/50" />
           </div>
           <h2 className="text-3xl md:text-6xl font-light tracking-tight text-white mb-6 md:mb-8 leading-[1.2]">
@@ -127,7 +127,7 @@ export function WhyPact() {
                               <p className="text-base text-white/60 leading-relaxed font-light">
                                 {section.description}
                               </p>
-                              <button className="flex items-center gap-3 text-gold-500 text-xs font-mono uppercase tracking-widest hover:text-white transition-colors">
+                              <button className="flex items-center gap-3 text-gold-500 text-xs  uppercase tracking-widest hover:text-white transition-colors">
                                 <span className="border-b border-gold-500/30 pb-1">{section.cta}</span>
                                 <ArrowRight className="w-3.5 h-3.5" />
                               </button>
@@ -167,7 +167,7 @@ export function WhyPact() {
                     </p>
                   </div>
                   
-                  <button className="group flex items-center gap-4 text-gold-500 font-mono text-[9px] md:text-xs uppercase tracking-[0.3em] hover:text-white transition-colors duration-300">
+                  <button className="group flex items-center gap-4 text-gold-500  text-[9px] md:text-xs uppercase tracking-[0.3em] hover:text-white transition-colors duration-300">
                     <span className="border-b border-gold-500/30 pb-1 group-hover:border-white transition-colors">{activeContent.cta}</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>

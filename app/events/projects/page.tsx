@@ -151,7 +151,7 @@ export default function ProjectsPage() {
           <FadeInUp>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-gold-500" />
-              <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">
+              <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">
                 #MissionMediation
               </span>
             </div>
@@ -423,7 +423,7 @@ export default function ProjectsPage() {
                             />
                             <div className="absolute inset-0 bg-navy-950/20 group-hover/image:bg-navy-950/10 transition-colors duration-700" />
                             <div className="absolute inset-x-0 bottom-0 p-8 md:p-14 bg-linear-to-t from-black/80 to-transparent translate-y-6 group-hover/image:translate-y-0 opacity-0 group-hover/image:opacity-100 transition-all duration-700">
-                              <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold mb-3 block">Mission Highlights</span>
+                              <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold mb-3 block">Mission Highlights</span>
                               <h4 className="text-2xl md:text-5xl font-bold text-white tracking-tighter italic uppercase">Event Moment {i + 1}</h4>
                             </div>
                           </div>

@@ -60,7 +60,7 @@ const SectionHeader = ({ subtitle, title, description, light = false, center = f
   <FadeInUp className={cn("mb-8 sm:mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
     <div className="inline-flex items-center gap-2 sm:gap-4 mb-3 sm:mb-6 opacity-80">
       <div className={cn("h-px w-8 sm:w-12 bg-gold-500", light ? "bg-gold-500" : "bg-gold-500/50")} />
-      <span className={cn("text-xs sm:text-[11px] md:text-xs font-mono tracking-[0.2em] sm:tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
+      <span className={cn("text-xs sm:text-[11px] md:text-xs  tracking-[0.2em] sm:tracking-[0.4em] uppercase font-bold", light ? "text-gold-500" : "text-navy-950/60")}>{subtitle}</span>
     </div>
     <h2 className={cn("text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[5rem] font-light tracking-tight mb-4 sm:mb-6 md:mb-8 leading-[1.1] sm:leading-[0.95]", light ? "text-white" : "text-navy-950")}>
       {title.split(' ').map((word, i) => (
@@ -162,7 +162,7 @@ export default function MMCPage() {
           <FadeInUp>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-gold-500" />
-              <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">
+              <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">
                 The Stakeholder Gathering
               </span>
             </div>
@@ -186,7 +186,7 @@ export default function MMCPage() {
                      { label: "2026 Sponsors", icon: MoreHorizontal, value: "More Details Soon", color: "text-white/40" }
                    ].map((item, i) => (
                      <div key={i} className="flex flex-col gap-2 sm:gap-3 group/item">
-                        <span className="text-[9px] sm:text-xs font-mono text-white/50 uppercase tracking-[0.15em] sm:tracking-[0.2em] font-bold">{item.label}</span>
+                        <span className="text-[9px] sm:text-xs  text-white/50 uppercase tracking-[0.15em] sm:tracking-[0.2em] font-bold">{item.label}</span>
                         <div className={cn("flex items-center gap-3 transition-colors", item.color)}>
                           <item.icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                           <span className="text-sm sm:text-base md:text-lg font-medium tracking-tight">{item.value}</span>
@@ -263,7 +263,7 @@ export default function MMCPage() {
                     <MessageSquare className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
                   </div>
                   <div>
-                    <p className="text-[8px] sm:text-[9px] md:text-xs font-mono uppercase tracking-[0.2em] sm:tracking-[0.3em] text-navy-950/40 font-bold mb-1">Format</p>
+                    <p className="text-[8px] sm:text-[9px] md:text-xs  uppercase tracking-[0.2em] sm:tracking-[0.3em] text-navy-950/40 font-bold mb-1">Format</p>
                     <p className="text-base sm:text-lg md:text-xl font-bold text-navy-950 tracking-tight leading-tight">Uniquely Immersive</p>
                   </div>
                 </div>
@@ -343,7 +343,7 @@ export default function MMCPage() {
                     <div className="absolute inset-0 bg-linear-to-t from-navy-950/90 via-navy-950/20 to-transparent group-hover:from-navy-950/95 transition-all duration-500" />
                     <div className="absolute bottom-8 left-8 right-8 text-left">
                       <h3 className="text-2xl font-bold text-white tracking-tight italic mb-1">{item.name}</h3>
-                      <p className="text-xs text-gold-500/80 font-mono uppercase tracking-widest font-bold">{item.title}</p>
+                      <p className="text-xs text-gold-500/80  uppercase tracking-widest font-bold">{item.title}</p>
                     </div>
                   </FadeInUp>
                 </CarouselItem>
@@ -399,7 +399,7 @@ export default function MMCPage() {
                       </div>
                       <div className="space-y-2">
                         <h4 className="text-lg font-bold text-navy-950 tracking-tight leading-none group-hover:text-gold-500 transition-colors uppercase">{group.text}</h4>
-                        <p className="text-xs uppercase tracking-[0.2em] font-mono text-navy-950/40">{group.sub}</p>
+                        <p className="text-xs uppercase tracking-[0.2em]  text-navy-950/40">{group.sub}</p>
                       </div>
                       <div className="h-px w-8 bg-navy-100 mt-6 group-hover:w-12 group-hover:bg-gold-500 transition-all duration-500" />
                     </div>
@@ -423,7 +423,7 @@ export default function MMCPage() {
                   <div className="flex flex-col gap-6">
                     <div className="flex items-center gap-4">
                       <div className="h-px w-12 bg-gold-500" />
-                      <span className="text-xs font-mono uppercase tracking-[0.4em] text-gold-500 font-bold">The Mission Continues</span>
+                      <span className="text-xs  uppercase tracking-[0.4em] text-gold-500 font-bold">The Mission Continues</span>
                     </div>
                     <div className="space-y-1">
                       <h3 className="text-4xl md:text-7xl font-bold text-white italic tracking-tighter leading-none">
@@ -467,7 +467,7 @@ export default function MMCPage() {
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-transparent to-transparent opacity-60" />
                 <div className="absolute bottom-10 left-10">
-                   <p className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold mb-2">Original Campaign</p>
+                   <p className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold mb-2">Original Campaign</p>
                    <h3 className="text-4xl font-bold italic tracking-tighter">{highlights[0]?.title || "Event Poster 2025"}</h3>
                 </div>
               </FadeInUp>
@@ -485,7 +485,7 @@ export default function MMCPage() {
                         className="object-cover transition-transform duration-1000 group-hover:scale-110"
                       />
                       <div className="absolute inset-x-0 bottom-0 p-6 bg-linear-to-t from-navy-950/80 to-transparent">
-                        <span className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">{item.title || `Frame 2025 - 0${i + 1}`}</span>
+                        <span className="text-xs  text-gold-500 uppercase tracking-widest font-bold">{item.title || `Frame 2025 - 0${i + 1}`}</span>
                       </div>
                    </FadeInUp>
                 ))}
@@ -550,7 +550,7 @@ export default function MMCPage() {
                         {item.headline}
                       </h3>
                       
-                      <div className="mt-12 flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-navy-950/40 group-hover:text-gold-500 transition-all duration-300">
+                      <div className="mt-12 flex items-center gap-2 text-xs  font-bold uppercase tracking-widest text-navy-950/40 group-hover:text-gold-500 transition-all duration-300">
                         View Article <ExternalLink className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>

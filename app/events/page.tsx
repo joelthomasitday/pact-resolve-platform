@@ -99,7 +99,7 @@ export default function EventsPage() {
           <FadeInUp className="text-center max-w-5xl mx-auto space-y-12">
             <div className="inline-flex items-center gap-4 justify-center">
               <div className="h-px w-12 bg-gold-500" />
-              <span className="text-gold-500 font-mono text-xs tracking-[0.5em] uppercase font-bold">
+              <span className="text-gold-500  text-xs tracking-[0.5em] uppercase font-bold">
                 Connect & Engage
               </span>
               <div className="h-px w-12 bg-gold-500" />
@@ -124,7 +124,7 @@ export default function EventsPage() {
             <div className="space-y-6">
               <div className="inline-flex items-center gap-3 opacity-80">
                 <div className="h-px w-10 bg-gold-500" />
-                <span className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Initiatives</span>
+                <span className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Initiatives</span>
               </div>
               <h2 className="text-5xl md:text-7xl font-light text-white tracking-tight leading-none italic uppercase">
                 Browse our <br />
@@ -178,7 +178,7 @@ export default function EventsPage() {
                           <event.icon className="w-8 h-8" />
                         </div>
                         <div className="space-y-1">
-                          <span className="font-mono text-xs text-white/40 uppercase tracking-[0.4em] font-bold group-hover:text-gold-500 transition-colors">{event.subtitle}</span>
+                          <span className=" text-xs text-white/40 uppercase tracking-[0.4em] font-bold group-hover:text-gold-500 transition-colors">{event.subtitle}</span>
                           <div className="h-px w-8 bg-gold-500/30 group-hover:w-full transition-all duration-500" />
                         </div>
                       </div>
@@ -241,7 +241,7 @@ export default function EventsPage() {
                       { label: "Hosting", value: "Local Chapters" }
                     ].map((item, idx) => (
                       <div key={idx} className="flex flex-col items-center lg:items-end">
-                         <span className="text-[9px] font-mono uppercase tracking-[0.4em] text-white/30 font-bold mb-1">{item.label}</span>
+                         <span className="text-[9px]  uppercase tracking-[0.4em] text-white/30 font-bold mb-1">{item.label}</span>
                          <span className="text-sm font-bold text-gold-500/60 uppercase tracking-widest">{item.value}</span>
                       </div>
                     ))}

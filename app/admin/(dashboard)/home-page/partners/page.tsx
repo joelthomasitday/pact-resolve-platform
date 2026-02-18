@@ -112,7 +112,7 @@ export default function PartnersAdminPage() {
                 <TableRow><TableCell colSpan={5} className="text-center py-10"><Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" /></TableCell></TableRow>
               ) : data.map((item) => (
                 <TableRow key={item._id?.toString()}>
-                  <TableCell className="font-mono text-xs">{item.order}</TableCell>
+                  <TableCell className=" text-xs">{item.order}</TableCell>
                   <TableCell>
                     <div className="relative w-12 h-8 bg-muted p-1 rounded">
                       <Image 

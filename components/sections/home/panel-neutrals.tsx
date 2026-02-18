@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Linkedin } from "lucide-react";
 import type { PanelMember } from "@/lib/db/schemas";
 
@@ -31,7 +32,7 @@ export function PanelNeutrals() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6 md:gap-8 text-center md:text-left">
           <div className="items-center md:items-start flex flex-col md:block">
             <div className="inline-block px-4 py-1.5 rounded-full border border-black/10 bg-black/5 mb-6">
-              <span className="text-xs md:text-xs font-mono uppercase tracking-widest text-black/60">
+              <span className="text-xs md:text-xs uppercase tracking-widest text-black/60">
                 Expertise
               </span>
             </div>
@@ -39,10 +40,18 @@ export function PanelNeutrals() {
               Panel of Neutrals
             </h2>
           </div>
-          <p className="max-w-md text-black/60 font-light text-base md:text-lg mx-auto md:mx-0">
-            Our panel comprises distinguished legal professionals and seasoned mediators dedicated to impartial
-            resolution.
-          </p>
+          <div className="flex flex-col items-center md:items-end gap-4 max-w-md mx-auto md:mx-0">
+            <p className="text-black/60 font-light text-base md:text-lg">
+              Our panel comprises distinguished legal professionals and seasoned mediators dedicated to impartial
+              resolution.
+            </p>
+            <Link
+              href="/mediation/mediator-panel"
+              className="inline-flex items-center justify-center rounded-full border border-black/10 bg-black text-white px-6 py-2 text-sm font-medium tracking-wide hover:bg-black/90 hover:border-black/20 transition-colors"
+            >
+              See More Neutrals
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -69,7 +78,7 @@ export function PanelNeutrals() {
                 )}
               </div>
               <h3 className="text-xl font-medium text-black mb-1">{member.name}</h3>
-              <p className="text-sm text-black/40 font-mono">{member.role}</p>
+              <p className="text-sm text-black/40">{member.role}</p>
             </div>
           ))}
         </div>

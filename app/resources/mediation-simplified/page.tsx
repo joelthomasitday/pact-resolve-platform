@@ -83,7 +83,7 @@ export default function MediationSimplifiedPage() {
           <FadeInUp>
             <div className="max-w-4xl">
               <div className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 backdrop-blur-md mb-8">
-                <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">
                   Now Available
                 </span>
               </div>
@@ -118,7 +118,7 @@ export default function MediationSimplifiedPage() {
         {/* Decorative Element */}
         <div className="absolute bottom-10 left-10 hidden xl:flex items-center gap-4">
           <div className="w-12 h-px bg-white/20" />
-          <span className="text-white/20 font-mono text-[9px] tracking-widest uppercase">The PACT Resources</span>
+          <span className="text-white/20  text-[9px] tracking-widest uppercase">The PACT Resources</span>
         </div>
       </section>
 
@@ -129,7 +129,7 @@ export default function MediationSimplifiedPage() {
               <FadeInUp>
                 <div className="inline-flex items-center gap-3 mb-6">
                   <BookOpen className="w-5 h-5 text-gold-500" />
-                  <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                  <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                     India's Only Workbook on Mediation
                   </span>
                 </div>
@@ -213,7 +213,7 @@ export default function MediationSimplifiedPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-3 mb-6 justify-center">
                 <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                   Contents
                 </span>
                 <div className="h-px w-8 bg-gold-500" />
@@ -238,7 +238,7 @@ export default function MediationSimplifiedPage() {
                   )}
                 >
                   <div className="flex items-start gap-4">
-                    <span className="font-mono text-3xl text-gold-500/30 font-bold group-hover:text-gold-500 transition-colors">
+                    <span className=" text-3xl text-gold-500/30 font-bold group-hover:text-gold-500 transition-colors">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <h3 className="text-lg md:text-xl font-light text-navy-950 group-hover:text-gold-500 transition-colors leading-snug">
@@ -258,7 +258,7 @@ export default function MediationSimplifiedPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-3 mb-6 justify-center">
                 <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                   Testimonials
                 </span>
                 <div className="h-px w-8 bg-gold-500" />
@@ -313,7 +313,7 @@ export default function MediationSimplifiedPage() {
 
                     <div className="mt-8 pt-6 border-t border-white/5">
                       <p className="text-white font-semibold tracking-tight text-lg">{review.name}</p>
-                      <p className="text-gold-500/70 text-xs font-mono uppercase tracking-[0.2em] mt-1.5">{review.role}</p>
+                      <p className="text-gold-500/70 text-xs  uppercase tracking-[0.2em] mt-1.5">{review.role}</p>
                     </div>
                   </div>
                 </motion.div>

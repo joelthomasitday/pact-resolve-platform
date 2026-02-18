@@ -53,7 +53,7 @@ function NewsCard({ item }: { item: NewsItem }) {
         </div>
       </div>
       <div className="p-6 flex flex-col grow">
-        <span className="text-xs font-mono text-black/40 mb-3">{item.date}</span>
+        <span className="text-xs  text-black/40 mb-3">{item.date}</span>
         <h3 className="text-xl font-medium text-black leading-snug group-hover:text-primary transition-colors line-clamp-2" title={item.title}>
           {item.title}
         </h3>
@@ -121,7 +121,7 @@ export function NewsSection() {
             <h2 className="text-3xl md:text-5xl font-light tracking-tight text-black leading-tight uppercase">
               PACT NEWS – GET WITH IT
             </h2>
-            <p className="mt-4 text-black/60 font-mono text-xs md:text-sm uppercase tracking-widest leading-relaxed">
+            <p className="mt-4 text-black/60  text-xs md:text-sm uppercase tracking-widest leading-relaxed">
               Focussed Articles • Events • Press Releases • Podcasts • Blogs
             </p>
           </div>

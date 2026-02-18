@@ -17,7 +17,7 @@ export function EventsSection() {
           <h2 className="mb-2 font-sans text-5xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
             Events
           </h2>
-          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Connecting the mediation community</p>
+          <p className=" text-sm text-foreground/60 md:text-base">/ Connecting the mediation community</p>
         </div>
 
         <div className="space-y-4">
@@ -27,13 +27,13 @@ export function EventsSection() {
               className="group flex flex-col md:flex-row md:items-center justify-between border-b border-foreground/10 py-6 transition-all hover:px-4"
             >
               <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8">
-                <span className="font-mono text-xs text-foreground/40 md:w-24">{event.type}</span>
+                <span className=" text-xs text-foreground/40 md:w-24">{event.type}</span>
                 <h3 className="font-sans text-2xl font-light text-foreground md:text-4xl group-hover:text-primary transition-colors">
                   {event.title}
                 </h3>
               </div>
               <div className="mt-2 md:mt-0">
-                <span className="font-mono text-sm text-foreground/60">{event.date}</span>
+                <span className=" text-sm text-foreground/60">{event.date}</span>
               </div>
             </div>
           ))}

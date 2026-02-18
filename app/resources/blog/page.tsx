@@ -97,7 +97,7 @@ export default function BlogPage() {
                   <FadeInUp className="mb-16">
                     <div className="inline-flex items-center gap-3 mb-6">
                       <div className="h-px w-8 bg-gold-500" />
-                      <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                      <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                         Articles
                       </span>
                       <div className="h-px w-8 bg-gold-500" />
@@ -130,7 +130,7 @@ export default function BlogPage() {
                           {blog.title}
                         </h3>
                         <p className="text-navy-950/60 text-sm font-light mb-1">{blog.author || "Unknown Author"}</p>
-                        <p className="text-gold-500/70 text-xs font-mono uppercase tracking-widest">{blog.publication || blog.subtitle}</p>
+                        <p className="text-gold-500/70 text-xs  uppercase tracking-widest">{blog.publication || blog.subtitle}</p>
                       </motion.a>
                     ))}
                   </div>
@@ -145,7 +145,7 @@ export default function BlogPage() {
                   <FadeInUp className="mb-16">
                     <div className="inline-flex items-center gap-3 mb-6">
                       <div className="h-px w-8 bg-gold-500" />
-                      <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                      <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                         Publications
                       </span>
                       <div className="h-px w-8 bg-gold-500" />
@@ -190,7 +190,7 @@ export default function BlogPage() {
                   <FadeInUp className="text-center mb-16">
                     <div className="inline-flex items-center gap-3 mb-6 justify-center">
                       <div className="h-px w-8 bg-gold-500" />
-                      <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                      <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                         Videos
                       </span>
                       <div className="h-px w-8 bg-gold-500" />
@@ -218,7 +218,7 @@ export default function BlogPage() {
                             <Youtube className="w-6 h-6 text-[#FF0000] group-hover:text-white" />
                           </div>
                           {video.subtitle && (
-                            <span className="text-xs font-mono uppercase tracking-widest text-white/40 bg-white/5 px-3 py-1 rounded-full">
+                            <span className="text-xs  uppercase tracking-widest text-white/40 bg-white/5 px-3 py-1 rounded-full">
                               {video.subtitle}
                             </span>
                           )}
@@ -241,7 +241,7 @@ export default function BlogPage() {
                   <FadeInUp className="mb-16">
                     <div className="inline-flex items-center gap-3 mb-6">
                       <div className="h-px w-8 bg-gold-500" />
-                      <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                      <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                         Library
                       </span>
                       <div className="h-px w-8 bg-gold-500" />
@@ -300,7 +300,7 @@ export default function BlogPage() {
                   <FadeInUp className="mb-16">
                     <div className="inline-flex items-center gap-3 mb-6">
                       <div className="h-px w-8 bg-gold-500" />
-                      <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                      <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                         Press
                       </span>
                       <div className="h-px w-8 bg-gold-500" />
@@ -330,7 +330,7 @@ export default function BlogPage() {
                           <h3 className="text-lg md:text-xl font-medium text-navy-950 mb-1 group-hover:text-gold-500 transition-colors">
                             {news.title}
                           </h3>
-                          <p className="text-gold-500/70 text-sm font-mono uppercase tracking-widest">{news.publication || news.subtitle}</p>
+                          <p className="text-gold-500/70 text-sm  uppercase tracking-widest">{news.publication || news.subtitle}</p>
                         </div>
                         <ArrowUpRight className="w-6 h-6 text-navy-950/30 group-hover:text-gold-500 transition-colors shrink-0" />
                       </motion.a>

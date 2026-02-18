@@ -21,7 +21,7 @@ export function EcosystemSubPageHero({ tag, title, description, className }: Eco
         <FadeInUp className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-3 mb-8 justify-center">
             <div className="h-px w-8 bg-gold-500" />
-            <span className="text-gold-500 font-mono text-xs tracking-[0.4em] uppercase font-bold">
+            <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">
               {tag}
             </span>
             <div className="h-px w-8 bg-gold-500" />

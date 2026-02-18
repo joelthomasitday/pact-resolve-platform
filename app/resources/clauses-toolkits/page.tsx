@@ -162,7 +162,7 @@ export default function ClausesToolkitsPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-3 mb-6 justify-center">
                 <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                   Benefits
                 </span>
                 <div className="h-px w-8 bg-gold-500" />
@@ -248,7 +248,7 @@ export default function ClausesToolkitsPage() {
                 <div>
                   <div className="inline-flex items-center gap-3 mb-6">
                     <div className="h-px w-8 bg-gold-500" />
-                    <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                    <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                       Templates
                     </span>
                     <div className="h-px w-8 bg-gold-500" />
@@ -282,7 +282,7 @@ export default function ClausesToolkitsPage() {
                     className="w-full flex items-center justify-between p-6 text-left group"
                   >
                     <div className="flex items-center gap-4">
-                      <span className="w-10 h-10 rounded-xl bg-navy-950 flex items-center justify-center text-gold-500 font-mono font-bold group-hover:bg-gold-500 group-hover:text-navy-950 transition-colors">
+                      <span className="w-10 h-10 rounded-xl bg-navy-950 flex items-center justify-center text-gold-500  font-bold group-hover:bg-gold-500 group-hover:text-navy-950 transition-colors">
                         {clause.id}
                       </span>
                       <div>
@@ -326,7 +326,7 @@ export default function ClausesToolkitsPage() {
                                 )}
                               </button>
                             </div>
-                            <h4 className="text-sm font-mono uppercase tracking-widest text-gold-500 mb-4">
+                            <h4 className="text-sm  uppercase tracking-widest text-gold-500 mb-4">
                               Mediation Agreement
                             </h4>
                             <p className="text-navy-950/80 font-light leading-relaxed whitespace-pre-line pr-20">
@@ -349,7 +349,7 @@ export default function ClausesToolkitsPage() {
             <FadeInUp className="text-center mb-16">
               <div className="inline-flex items-center gap-3 mb-6 justify-center">
                 <div className="h-px w-8 bg-gold-500" />
-                <span className="text-gold-500 font-mono text-xs tracking-[0.3em] uppercase font-bold">
+                <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
                   Practical Guides
                 </span>
                 <div className="h-px w-8 bg-gold-500" />
@@ -384,7 +384,7 @@ export default function ClausesToolkitsPage() {
                   <p className="text-white/60 font-light text-sm mb-4 leading-relaxed">
                     {toolkit.description}
                   </p>
-                  <span className="text-xs font-mono uppercase tracking-widest text-gold-500/70">
+                  <span className="text-xs  uppercase tracking-widest text-gold-500/70">
                     {toolkit.source}
                   </span>
                 </motion.a>

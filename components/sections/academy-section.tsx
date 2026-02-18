@@ -32,7 +32,7 @@ export function AcademySection() {
           <h2 className="mb-4 font-sans text-5xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
             Academy <span className="text-gold-500 italic font-medium">Pillars</span>
           </h2>
-          <p className="font-mono text-sm text-foreground/40 md:text-base tracking-[0.2em] uppercase">/ Specialized Professional Training</p>
+          <p className=" text-sm text-foreground/40 md:text-base tracking-[0.2em] uppercase">/ Specialized Professional Training</p>
         </div>
 
         <div className="grid gap-12 md:grid-cols-3">
@@ -41,11 +41,11 @@ export function AcademySection() {
               <div className="h-px w-full bg-foreground/10 transition-all duration-700 group-hover:bg-gold-500 group-hover:w-full" />
               <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-start">
-                  <span className="font-mono text-xs text-foreground/40">0{i + 1}</span>
+                  <span className=" text-xs text-foreground/40">0{i + 1}</span>
                   <ArrowRight className="w-5 h-5 text-foreground/20 group-hover:text-gold-500 transition-all duration-500 group-hover:translate-x-2" />
                 </div>
                 <div>
-                  <h4 className="font-mono text-xs uppercase tracking-[0.3em] text-gold-500 mb-1">{course.subtitle}</h4>
+                  <h4 className=" text-xs uppercase tracking-[0.3em] text-gold-500 mb-1">{course.subtitle}</h4>
                   <h3 className="font-sans text-3xl font-light text-foreground md:text-4xl group-hover:text-gold-500 transition-colors duration-500">{course.title}</h3>
                 </div>
                 <p className="text-base leading-relaxed text-foreground/60 max-w-sm">{course.description}</p>

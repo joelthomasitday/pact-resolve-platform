@@ -160,7 +160,7 @@ export default function WhyPointsAdminPage() {
 
                <div className="grow space-y-3">
                   <div className="flex items-center justify-center gap-3">
-                    <span className="font-mono text-xs text-accent font-bold uppercase tracking-widest bg-accent/10 px-2 py-0.5 rounded">Point #{item.order}</span>
+                    <span className=" text-xs text-accent font-bold uppercase tracking-widest bg-accent/10 px-2 py-0.5 rounded">Point #{item.order}</span>
                     <Badge variant={item.isActive ? "success" : "secondary"} className="rounded-full text-xs uppercase font-bold">{item.isActive ? "Active" : "Hidden"}</Badge>
                   </div>
                   <h3 className="text-xl font-bold text-navy-950 uppercase italic tracking-tight group-hover:text-accent transition-colors">{item.title}</h3>

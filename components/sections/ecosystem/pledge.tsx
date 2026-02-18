@@ -91,7 +91,7 @@ export function PledgeSection() {
              <FadeInUp>
                <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 mb-8">
                  <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
-                 <span className="text-xs md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">The Strategic Edge</span>
+                 <span className="text-xs md:text-xs  tracking-[0.4em] uppercase text-navy-950/60 font-bold">The Strategic Edge</span>
                </div>
                <h3 className="text-[12vw] sm:text-5xl md:text-7xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-none">
                  Why The <br />
@@ -110,7 +110,7 @@ export function PledgeSection() {
                   <div className="group relative h-full px-6 py-10 rounded-5xl bg-navy-50/20 border border-navy-100/30 hover:bg-white hover:border-gold-500/20 transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col items-center text-center">
                     
                     {/* Number Background Detail */}
-                    <div className="absolute -bottom-6 -right-4 text-[8rem] font-bold text-navy-950/1.5 group-hover:text-gold-500/4 transition-all duration-1000 select-none pointer-events-none font-mono">
+                    <div className="absolute -bottom-6 -right-4 text-[8rem] font-bold text-navy-950/1.5 group-hover:text-gold-500/4 transition-all duration-1000 select-none pointer-events-none ">
                       {i + 1 < 10 ? `0${i + 1}` : i + 1}
                     </div>
 
@@ -124,7 +124,7 @@ export function PledgeSection() {
                     
                     <div className="grow space-y-4 relative z-10 w-full">
                       <div className="space-y-1">
-                        <span className="text-xs font-mono uppercase tracking-[0.5em] text-gold-500/60 font-bold">Edge {i + 1}</span>
+                        <span className="text-xs  uppercase tracking-[0.5em] text-gold-500/60 font-bold">Edge {i + 1}</span>
                         <h4 className="text-xl md:text-2xl font-light text-navy-950 tracking-tighter leading-tight italic group-hover:text-gold-500 transition-colors duration-500 uppercase">
                           {benefit.title}
                         </h4>
@@ -145,10 +145,10 @@ export function PledgeSection() {
       <div className="py-16 bg-navy-50/30 border-y border-navy-100/50">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
            <div className="flex flex-col md:flex-row items-center justify-between gap-8 opacity-40">
-              <h4 className="text-xl font-mono uppercase tracking-[0.3em] text-navy-950 shrink-0">Join the League of Leaders</h4>
+              <h4 className="text-xl  uppercase tracking-[0.3em] text-navy-950 shrink-0">Join the League of Leaders</h4>
               <div className="flex flex-wrap justify-center gap-12 grayscale">
                  {/* Logic Space Placeholder */}
-                 <div className="text-xs font-mono tracking-widest font-bold items-center flex gap-2">LOGOS <div className="w-1 h-1 rounded-full bg-navy-950" /> UPDATES COMING SOON</div>
+                 <div className="text-xs  tracking-widest font-bold items-center flex gap-2">LOGOS <div className="w-1 h-1 rounded-full bg-navy-950" /> UPDATES COMING SOON</div>
               </div>
            </div>
         </div>
@@ -165,7 +165,7 @@ export function PledgeSection() {
               <FadeInUp>
                  <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-navy-50 border border-navy-100 mb-8">
                    <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
-                   <span className="text-xs md:text-xs font-mono tracking-[0.4em] uppercase text-navy-950/60 font-bold">The Core Mission</span>
+                   <span className="text-xs md:text-xs  tracking-[0.4em] uppercase text-navy-950/60 font-bold">The Core Mission</span>
                  </div>
                  <h3 className="text-[12vw] md:text-6xl font-extralight tracking-tight text-navy-950 mb-8 uppercase leading-none">
                    Primary <br />
@@ -183,7 +183,7 @@ export function PledgeSection() {
                             0{i+1}
                          </div>
                          <div className="space-y-2 pt-1">
-                           <span className="text-gold-500 font-mono text-xs uppercase tracking-[0.3em] font-bold">Goal {i+1}</span>
+                           <span className="text-gold-500  text-xs uppercase tracking-[0.3em] font-bold">Goal {i+1}</span>
                            <p className="text-xl text-navy-950 font-light leading-relaxed tracking-tight group-hover:text-navy-950 transition-colors duration-500">
                              {obj.desc}
                            </p>
@@ -206,7 +206,7 @@ export function PledgeSection() {
                     <div className="relative z-10">
                       <div className="inline-flex items-center gap-3 mb-12">
                         <div className="w-10 h-px bg-gold-500" />
-                        <h4 className="text-xs md:text-xs font-mono uppercase tracking-[0.4em] text-gold-500 font-bold">Legal Disclaimer</h4>
+                        <h4 className="text-xs md:text-xs  uppercase tracking-[0.4em] text-gold-500 font-bold">Legal Disclaimer</h4>
                       </div>
                       
                       <div className="space-y-10">
@@ -225,7 +225,7 @@ export function PledgeSection() {
                       </div>
 
                       <div className="mt-16 pt-12 border-t border-white/10">
-                         <p className="text-xs font-mono uppercase tracking-[0.2em] text-white/30 leading-relaxed max-w-xs">
+                         <p className="text-xs  uppercase tracking-[0.2em] text-white/30 leading-relaxed max-w-xs">
                            Refer to Section 6 of The Mediation Act, 2023 for statutory guidelines and non-eligible disputes.
                          </p>
                       </div>
@@ -262,7 +262,7 @@ export function PledgeSection() {
                     
                     <div className="space-y-6">
                       <div className="space-y-2">
-                         <p className="text-sm font-mono text-gold-500 uppercase tracking-widest font-bold">The Document</p>
+                         <p className="text-sm  text-gold-500 uppercase tracking-widest font-bold">The Document</p>
                          <h3 className="text-4xl md:text-7xl font-extralight tracking-tighter text-navy-950 uppercase leading-none">
                            The Mediation <br/> <span className="text-gold-500 font-medium italic">Pledge</span>
                          </h3>
@@ -281,7 +281,7 @@ export function PledgeSection() {
                            <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform" />
                         </div>
                       </button>
-                      <p className="mt-6 text-xs font-mono text-navy-950/30 uppercase tracking-widest">Takes approx. 2 minutes</p>
+                      <p className="mt-6 text-xs  text-navy-950/30 uppercase tracking-widest">Takes approx. 2 minutes</p>
                     </div>
                  </div>
               </motion.div>
@@ -334,7 +334,7 @@ export function PledgeSection() {
                           
                           <div className="pt-6 text-center">
                             <div className="inline-flex flex-col items-center gap-4">
-                              <div className="text-xs font-mono uppercase tracking-[0.4em] text-gold-500 font-bold">The Commitment</div>
+                              <div className="text-xs  uppercase tracking-[0.4em] text-gold-500 font-bold">The Commitment</div>
                               <h4 className="text-xl md:text-3xl font-light uppercase tracking-tight text-navy-950 italic">Accordingly, we <span className="text-gold-500 font-medium lowercase">affirm</span> that:</h4>
                               <div className="h-px w-24 bg-gold-500/30" />
                             </div>
@@ -350,19 +350,19 @@ export function PledgeSection() {
                              </div>
                              <div className="space-y-8">
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Contractual Integration</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Contractual Integration</p>
                                   <p className="text-base text-navy-950/70 font-light leading-relaxed">We are prepared to explore the inclusion of mediation clauses in contracts and agreements that concern us or we are a party to.</p>
                                 </div>
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Non-contractual Preference</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Non-contractual Preference</p>
                                   <p className="text-base text-navy-950/70 font-light leading-relaxed">In the absence of such mediation clauses, we are prepared to actively consider mediation as an early and effective means of resolving disputes.</p>
                                 </div>
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Good-Faith Engagement</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Good-Faith Engagement</p>
                                   <p className="text-base text-navy-950/70 font-light leading-relaxed">In matters referred to mediation, we commit to participating in good faith, with appropriate decision-making authority, and with a genuine intention to explore acceptable solutions.</p>
                                 </div>
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Preservation of Rights</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Preservation of Rights</p>
                                   <p className="text-sm text-navy-950/70 font-light leading-relaxed opacity-60">This pledge does not create binding legal obligations or restrict access to other resolution mechanisms.</p>
                                 </div>
                              </div>
@@ -376,19 +376,19 @@ export function PledgeSection() {
                              </div>
                              <div className="space-y-8">
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Contractual Integration</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Contractual Integration</p>
                                   <p className="text-base text-white/60 font-light leading-relaxed">We are prepared to explore the inclusion of mediation clauses in contracts and agreements that concern our clients.</p>
                                 </div>
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Non-contractual Preference</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Non-contractual Preference</p>
                                   <p className="text-base text-white/60 font-light leading-relaxed">We commit to proactively counselling the client to consider mediation as an early and effective means of resolving disputes.</p>
                                 </div>
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Good-Faith Engagement</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Good-Faith Engagement</p>
                                   <p className="text-base text-white/60 font-light leading-relaxed">We commit to counselling our client in good faith, engaging in appropriate skills with intention to explore solutions.</p>
                                 </div>
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Preservation of Rights</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Preservation of Rights</p>
                                   <p className="text-sm text-white/40 font-light leading-relaxed">This pledge reflects an intention to promote mediation and does not create binding legal obligations.</p>
                                 </div>
                              </div>
@@ -402,15 +402,15 @@ export function PledgeSection() {
                              </div>
                              <div className="space-y-8">
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Education Commitment</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Education Commitment</p>
                                   <p className="text-base text-navy-950/70 font-light leading-relaxed">Integrating mediation theory, practice, and ethics into curriculum to develop mediation-skilled professionals.</p>
                                 </div>
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Experiential Learning</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Experiential Learning</p>
                                   <p className="text-base text-navy-950/70 font-light leading-relaxed">Promoting hands-on training, simulations, and clinical programmes that build practical competencies.</p>
                                 </div>
                                 <div className="space-y-3">
-                                  <p className="text-xs font-mono text-gold-500 uppercase tracking-widest font-bold">Culture Advancement</p>
+                                  <p className="text-xs  text-gold-500 uppercase tracking-widest font-bold">Culture Advancement</p>
                                   <p className="text-base text-navy-950/70 font-light leading-relaxed">Support research, awareness, and collaboration to strengthen the culture of consensual dispute resolution.</p>
                                 </div>
                              </div>
@@ -427,7 +427,7 @@ export function PledgeSection() {
                                 "Email of Signatory", "Email of Organisation"
                               ].map((label) => (
                                 <div key={label} className="space-y-2 group">
-                                   <label className="text-[12px] font-mono uppercase tracking-[0.2em] text-navy-950/40 group-focus-within:text-gold-500 transition-colors font-bold">{label}</label>
+                                   <label className="text-[12px]  uppercase tracking-[0.2em] text-navy-950/40 group-focus-within:text-gold-500 transition-colors font-bold">{label}</label>
                                    <input 
                                      type="text" 
                                      className="w-full bg-transparent border-b border-navy-100 py-3 font-sans text-navy-950 outline-hidden focus:border-gold-500 transition-all placeholder:text-navy-950/10" 
@@ -470,7 +470,7 @@ export function PledgeSection() {
 
                               <div className="flex flex-col lg:flex-row items-center justify-between gap-10 py-12 border-t border-navy-100/50">
                                 <div className="space-y-3 text-center lg:text-left">
-                                  <p className="text-xs font-mono text-navy-950/40 uppercase tracking-[0.4em] font-bold">Ready to lead?</p>
+                                  <p className="text-xs  text-navy-950/40 uppercase tracking-[0.4em] font-bold">Ready to lead?</p>
                                   <h5 className="text-2xl md:text-4xl font-light text-navy-950 uppercase tracking-tight italic">Formalise your <span className="text-gold-500 font-medium">commitment</span></h5>
                                 </div>
 
@@ -478,7 +478,7 @@ export function PledgeSection() {
                                   {/* Instructions/Email - Visual as secondary info */}
                                   <div className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-4 rounded-full bg-white border border-navy-100 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)]">
                                     <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse" />
-                                    <p className="text-xs font-mono text-navy-950/60 uppercase tracking-widest leading-none">
+                                    <p className="text-xs  text-navy-950/60 uppercase tracking-widest leading-none">
                                       Email logo to: <span className="text-navy-950 font-bold hover:text-gold-500 transition-colors cursor-pointer select-all">official@thepact.in</span>
                                     </p>
                                   </div>

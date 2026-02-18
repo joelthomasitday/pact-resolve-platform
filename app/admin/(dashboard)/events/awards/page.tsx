@@ -273,7 +273,7 @@ export default function AwardsManagementPage() {
               {isSaving ? <Loader2 className="w-5 h-5 mr-3 animate-spin" /> : <Save className="w-5 h-5 mr-3" />}
               Publish Updates
             </Button>
-            <p className="text-xs text-center text-white/40 font-mono uppercase tracking-tighter">
+            <p className="text-xs text-center text-white/40  uppercase tracking-tighter">
               {eventData ? `Linked to ${eventData.year} Edition` : "Draft Mode"}
             </p>
           </div>
@@ -321,7 +321,7 @@ export default function AwardsManagementPage() {
                         <div>
                           <div className="flex items-center gap-2 mb-6">
                             <Medal className="w-4 h-4 text-purple-600" />
-                            <span className="text-xs font-mono font-bold text-purple-600 tracking-[0.3em] uppercase">
+                            <span className="text-xs  font-bold text-purple-600 tracking-[0.3em] uppercase">
                                 NIAAM Honoree
                             </span>
                           </div>
@@ -334,13 +334,13 @@ export default function AwardsManagementPage() {
                         <div className="space-y-4">
                            <div className="h-px w-12 bg-purple-500/30 group-hover:w-full transition-all duration-700" />
                            <div className="flex flex-col gap-1">
-                               <span className="text-[9px] font-mono text-navy-950/30 uppercase tracking-[0.2em] font-bold">Category</span>
+                               <span className="text-[9px]  text-navy-950/30 uppercase tracking-[0.2em] font-bold">Category</span>
                                <p className="text-md font-light text-navy-950/60 group-hover:text-navy-950 transition-colors">{item.category}</p>
                            </div>
                            
                            <div className="flex items-center gap-2 text-navy-950/20 group-hover:text-navy-950/40 transition-colors">
                               <MapPin className="w-3.5 h-3.5" />
-                              <span className="text-xs font-mono uppercase tracking-[0.2em] font-bold">{item.city}</span>
+                              <span className="text-xs  uppercase tracking-[0.2em] font-bold">{item.city}</span>
                            </div>
                         </div>
                     </div>

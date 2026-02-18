@@ -25,7 +25,7 @@ export default function Error({
         </p>
       </div>
 
-      <div className="p-6 rounded-xl bg-slate-950 text-slate-50 font-mono text-sm overflow-auto border border-slate-800 shadow-2xl">
+      <div className="p-6 rounded-xl bg-slate-950 text-slate-50  text-sm overflow-auto border border-slate-800 shadow-2xl">
         <div className="grid gap-6">
           <div>
             <span className="text-red-400 font-bold uppercase tracking-wider text-xs block mb-2">Error Message</span>
@@ -37,7 +37,7 @@ export default function Error({
           {error.digest && (
              <div>
               <span className="text-blue-400 font-bold uppercase tracking-wider text-xs block mb-2">Digest ID</span>
-              <p className="font-mono text-blue-200 bg-blue-500/10 p-2 rounded w-fit">{error.digest}</p>
+              <p className=" text-blue-200 bg-blue-500/10 p-2 rounded w-fit">{error.digest}</p>
             </div>
           )}
         </div>
