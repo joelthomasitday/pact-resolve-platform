@@ -10,7 +10,11 @@ import {
   ImageIcon, 
   ArrowLeft,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  MessageSquareQuote,
+  Info,
+  HelpCircle,
+  Globe
 } from "lucide-react";
 import { DashboardSectionCard } from "@/components/admin/DashboardSectionCard";
 import { FadeInUp, StaggerContainer } from "@/components/motion-wrapper";
@@ -49,6 +53,38 @@ export default function HomepageDashboard() {
       link: "/admin/home-page/partners",
       color: "text-amber-600",
       bg: "bg-amber-50/50"
+    },
+    {
+      title: "Trusted to Deliver",
+      description: "Manage PACT Testimonials — quotes, card images, profile pictures, and star ratings.",
+      icon: MessageSquareQuote,
+      link: "/admin/home-page/testimonials",
+      color: "text-rose-600",
+      bg: "bg-rose-50/50"
+    },
+    {
+      title: "About PACT",
+      description: "Manage legacy text, stats, and the journey timeline image.",
+      icon: Info,
+      link: "/admin/home-page/about",
+      color: "text-cyan-600",
+      bg: "bg-cyan-50/50"
+    },
+    {
+      title: "Why PACT",
+      description: "Manage the feature tabs, descriptions, and call-to-action buttons.",
+      icon: HelpCircle,
+      link: "/admin/home-page/why",
+      color: "text-indigo-600",
+      bg: "bg-indigo-50/50"
+    },
+    {
+      title: "Network Logos",
+      description: "Manage the scrolling network names at the bottom of the page.",
+      icon: Globe,
+      link: "/admin/home-page/network-logos",
+      color: "text-slate-600",
+      bg: "bg-slate-50/50"
     }
   ];
 

@@ -1,16 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { FadeIn, FadeInUp } from "@/components/motion-wrapper";
-
-const networks = [
-  "GAADR",
-  "MCI",
-  "Podcast",
-  "Advocate Maximus",
-  "ODRC"
-];
+import { NetworkLogo } from "@/lib/db/schemas";
 
 export function NetworkLogos() {
+  const [networks, setNetworks] = useState<NetworkLogo[]>([]);
+
+  useEffect(() => {
+    async function fetchNetworks() {
+      try {
+        const res = await fetch("/api/content/network-logos");
+        const result = await res.json();
+        if (result.success) setNetworks(result.data || []);
+      } catch (error) {
+        console.error("Failed to fetch networks", error);
+      }
+    }
+    fetchNetworks();
+  }, []);
+
+  if (networks.length === 0) return null;
+
   return (
     <section className="py-12 md:py-20 bg-black text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
@@ -22,43 +33,15 @@ export function NetworkLogos() {
         
         <FadeIn className="relative w-full overflow-hidden" delay={0.2}>
           <div className="flex animate-marquee">
-            {/* First set of items */}
-            {networks.map((name, i) => (
+            {/* Multiply items to fill the track and loop smoothly */}
+            {[...networks, ...networks, ...networks, ...networks].map((item, i) => (
               <div 
-                key={`set1-${i}`} 
+                key={`${item._id}-${i}`} 
                 className="shrink-0 px-6 md:px-12 lg:px-16"
               >
                 <div className="flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity duration-500 h-16 md:h-24">
                   <span className="text-xl md:text-3xl font-light tracking-tighter whitespace-nowrap">
-                    {name}
-                  </span>
-                </div>
-              </div>
-            ))}
-            
-            {/* Duplicate set for seamless loop */}
-            {networks.map((name, i) => (
-              <div 
-                key={`set2-${i}`} 
-                className="shrink-0 px-6 md:px-12 lg:px-16"
-              >
-                <div className="flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity duration-500 h-16 md:h-24">
-                  <span className="text-xl md:text-3xl font-light tracking-tighter whitespace-nowrap">
-                    {name}
-                  </span>
-                </div>
-              </div>
-            ))}
-            
-            {/* Third set for extra smoothness */}
-            {networks.map((name, i) => (
-              <div 
-                key={`set3-${i}`} 
-                className="shrink-0 px-6 md:px-12 lg:px-16"
-              >
-                <div className="flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity duration-500 h-16 md:h-24">
-                  <span className="text-xl md:text-3xl font-light tracking-tighter whitespace-nowrap">
-                    {name}
+                    {item.name}
                   </span>
                 </div>
               </div>
@@ -73,12 +56,12 @@ export function NetworkLogos() {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.333%);
+            transform: translateX(-50%);
           }
         }
         
         .animate-marquee {
-          animation: marquee 20s linear infinite;
+          animation: marquee 30s linear infinite;
         }
       `}</style>
     </section>

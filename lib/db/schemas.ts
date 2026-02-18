@@ -589,7 +589,75 @@ export interface EcosystemTeamMember extends BaseDocument {
 
 
 // ============================================================================
-// 13. RESOURCES CONTENT
+// 13. TESTIMONIALS (Trusted to Deliver – PACT Testimonials)
+// ============================================================================
+
+export interface Testimonial extends BaseDocument {
+  /** Name of the person giving the testimonial */
+  name: string;
+  /** Their title/role, e.g., "Managing Partner" */
+  title: string;
+  /** Company or organisation name */
+  company: string;
+  /** The testimonial quote text */
+  quote: string;
+  /** Star rating (1-5) */
+  rating: number;
+  /** Background/card image (e.g. boardroom photo) */
+  image: ImageData;
+  /** Profile picture of the person */
+  profileImage: ImageData;
+  /** Display order */
+  order: number;
+  /** Whether this testimonial is visible */
+  isActive: boolean;
+}
+
+// ============================================================================
+// 14. ABOUT PACT SETTINGS
+// ============================================================================
+
+export interface AboutPactSettings extends BaseDocument {
+  title: string;
+  subtitle1: string; // e.g. "Chapter One"
+  subtitle2: string; // e.g. "The Legacy"
+  description: string;
+  stats: {
+    label: string;
+    value: string;
+    order: number;
+  }[];
+  journeyImage: ImageData;
+  journeyLabel: string; // e.g. "Interactive Timeline 2015 - 2026"
+  isActive: boolean;
+}
+
+// ============================================================================
+// 15. WHY PACT POINTS
+// ============================================================================
+
+export interface WhyPactPoint extends BaseDocument {
+  label: string;
+  title: string;
+  description: string;
+  cta: string;
+  iconName: string; // lucide icon name
+  order: number;
+  isActive: boolean;
+}
+
+// ============================================================================
+// 16. NETWORK LOGOS
+// ============================================================================
+
+export interface NetworkLogo extends BaseDocument {
+  name: string;
+  order: number;
+  isActive: boolean;
+}
+
+// ============================================================================
+// 17. RESOURCES CONTENT
 // ============================================================================
 
 export type ResourceType = 
@@ -665,6 +733,12 @@ export const COLLECTIONS = {
   ECOSYSTEM_TEAM: "ecosystemTeam",
   // Resources collections
   RESOURCES: "resources",
+  // Testimonials
+  TESTIMONIALS: "testimonials",
+  // Homepage editable sections
+  ABOUT_PACT: "aboutPact",
+  WHY_PACT: "whyPact",
+  NETWORK_LOGOS: "networkLogos",
 } as const;
 
 export type CollectionName = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];
