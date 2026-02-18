@@ -31,24 +31,42 @@ export function AboutPact() {
         </FadeInUp>
 
         {/* Stats Section */}
-        <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-16 md:mb-24 pb-12 border-b border-white/5">
-          <StaggerItem className="text-center space-y-2 group">
-            <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">2500+</span>
-            <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">Cases Resolved</span>
-          </StaggerItem>
-          <StaggerItem className="text-center space-y-2 group">
-            <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">98%</span>
-            <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">Success Rate</span>
-          </StaggerItem>
-          <StaggerItem className="text-center space-y-2 group">
-            <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">15+</span>
-            <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">Global Chapters</span>
-          </StaggerItem>
-          <StaggerItem className="text-center space-y-2 group">
-            <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">5000+</span>
-            <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">Trained Neutrals</span>
-          </StaggerItem>
-        </StaggerContainer>
+        <div className="mb-16 md:mb-24 pb-12 border-b border-white/5">
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            <StaggerItem className="text-center space-y-2 group">
+              <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">
+                17,000+
+              </span>
+              <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">
+                Trained Users
+              </span>
+            </StaggerItem>
+            <StaggerItem className="text-center space-y-2 group">
+              <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">
+                8,600+
+              </span>
+              <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">
+                Mediated Hours
+              </span>
+            </StaggerItem>
+            <StaggerItem className="text-center space-y-2 group">
+              <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">
+                2,500+
+              </span>
+              <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">
+                Certified Lawyers
+              </span>
+            </StaggerItem>
+            <StaggerItem className="text-center space-y-2 group">
+              <span className="block text-3xl md:text-5xl font-light text-white group-hover:text-gold-500 transition-colors duration-300">
+                160+
+              </span>
+              <span className="text-[9px] md:text-xs font-mono uppercase tracking-widest text-white/40">
+                Institution Collabs
+              </span>
+            </StaggerItem>
+          </StaggerContainer>
+        </div>
 
         {/* The Massive Journey Display */}
         <FadeIn className="relative group -mx-6 md:mx-0" delay={0.2}>
