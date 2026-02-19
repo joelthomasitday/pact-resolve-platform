@@ -188,7 +188,7 @@ export default function PodcastPage() {
             src={heroBanner?.image || "/assets/img/podcast-hero.png"}
             alt="Mission Mediation Podcast"
             fill
-            className="object-cover object-[50%_35%] opacity-70 transition-transform duration-[10s] hover:scale-110"
+            className="object-cover object-top opacity-70 transition-transform duration-[10s] hover:scale-110 origin-top"
             priority
           />
           

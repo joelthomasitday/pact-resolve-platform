@@ -31,7 +31,7 @@ const SECTIONS = [
   },
   {
     title: "Podcast",
-    description: "Manage Mission Mediation Podcast episodes.",
+    description: "Manage podcast episodes and the hero banner section.",
     icon: Mic,
     link: "/admin/resources/podcast",
     color: "text-rose-600",
