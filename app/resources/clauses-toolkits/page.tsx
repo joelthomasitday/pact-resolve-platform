@@ -61,10 +61,26 @@ const whyMediationClauses = [
 ];
 
 const essentials = [
-  "Name of Institution or Service Provider",
-  "Timeline for Mediation",
-  "Agreement on Splitting Expenses",
-  "Mode of Mediation – Online / In-person / Hybrid",
+  {
+    title: "Name of Institution or Service Provider",
+    description: "Explicitly naming PACT or a professional provider ensures structured administration and procedural certainty.",
+    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop",
+  },
+  {
+    title: "Timeline for Mediation",
+    description: "Defining clear timeframes (e.g., 60 days) prevents open-ended disputes and ensures focused negotiations.",
+    image: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=2068&auto=format&fit=crop",
+  },
+  {
+    title: "Agreement on Splitting Expenses",
+    description: "Pre-agreeing on cost-sharing maintain neutrality and demonstrates equal commitment from all parties.",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2011&auto=format&fit=crop",
+  },
+  {
+    title: "Mode of Representation",
+    description: "Specifying Online, In-person, or Hybrid modes allows for better logistical planning and cost optimization.",
+    image: "https://images.unsplash.com/photo-1573497019707-1c042488f49a?q=80&w=2070&auto=format&fit=crop",
+  },
 ];
 
 const sampleClauses = [
@@ -140,6 +156,8 @@ export default function ClausesToolkitsPage() {
   const [expandedClause, setExpandedClause] = useState<string | null>("A");
   const [copiedClause, setCopiedClause] = useState<string | null>(null);
   const [toolkitItems, setToolkitItems] = useState<ResourceItem[]>([]);
+  const [essentialItems, setEssentialItems] = useState<any[]>([]);
+  const [activeEssential, setActiveEssential] = useState(0);
 
   useEffect(() => {
     async function fetchToolkits() {
@@ -154,8 +172,28 @@ export default function ClausesToolkitsPage() {
       }
     }
 
+    async function fetchEssentials() {
+      try {
+        const res = await fetch("/api/content/clauses-essentials");
+        const data = await res.json();
+        if (data.success) {
+          setEssentialItems(data.data || []);
+        }
+      } catch (error) {
+        console.error("Failed to fetch essentials", error);
+      }
+    }
+
     fetchToolkits();
+    fetchEssentials();
   }, []);
+
+  const visibleEssentials = useMemo(() => {
+    if (essentialItems.length > 0) {
+      return essentialItems.sort((a, b) => (a.order || 0) - (b.order || 0));
+    }
+    return essentials;
+  }, [essentialItems]);
 
   const visibleToolkits = useMemo(() => {
     if (toolkitItems.length > 0) {
@@ -247,29 +285,122 @@ export default function ClausesToolkitsPage() {
         </section>
 
         {/* Essentials Checklist */}
-        <section className="py-16 bg-navy-50">
+        <section className="py-24 md:py-32 bg-white overflow-hidden relative">
+          {/* Background Highlight */}
+          <div className="absolute inset-0 lg:left-1/2 bg-navy-50/30 -z-10 hidden lg:block" />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-navy-50/30 -z-10 lg:hidden" />
+          
           <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
-            <FadeInUp>
-              <div className="max-w-3xl mx-auto text-center">
-                <h3 className="text-2xl md:text-3xl font-light text-navy-950 mb-8">
-                  Ensure Clarity on <span className="text-gold-500 italic font-medium">Essentials</span>
-                </h3>
-                <div className="flex flex-wrap justify-center gap-4">
-                  {essentials.map((item, i) => (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+              
+              {/* Left Column: Content */}
+              <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left">
+                <FadeInUp>
+                  <div className="inline-flex items-center gap-4 mb-8 justify-center lg:justify-start">
+                    <span className="h-px w-10 bg-gold-500" />
+                    <span className="text-gold-500 text-sm tracking-[0.4em] uppercase font-bold">
+                      Essential Checklist
+                    </span>
+                  </div>
+                  
+                  <h2 className="text-4xl md:text-5xl font-light text-navy-950 mb-10 tracking-tight leading-[1.1]">
+                    The Core <br className="hidden lg:block" />{" "}
+                    <span className="text-gold-500 italic font-medium">Essentials</span>
+                  </h2>
+                  
+                  <div className="relative pl-0 lg:pl-8 space-y-8 flex flex-col items-center lg:items-start">
+                    {/* Vertical Progress Line - Hidden on mobile for cleaner look, or adapt */}
+                    <div className="absolute left-0 top-2 bottom-2 w-px bg-navy-100 hidden lg:block">
+                      <motion.div 
+                        className="absolute left-0 w-px bg-gold-500 shadow-[0_0_8px_rgba(212,175,55,0.4)]"
+                        animate={{ 
+                          height: "25%",
+                          top: `${activeEssential * 25}%` 
+                        }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    </div>
+
+                    {visibleEssentials.map((item, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setActiveEssential(i)}
+                        className="group flex flex-col items-center lg:items-start text-center lg:text-left relative outline-none w-full"
+                      >
+                        <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4 mb-2">
+                          <span className={cn(
+                            "text-xs font-bold tracking-tighter transition-colors duration-300",
+                            activeEssential === i ? "text-gold-500" : "text-navy-950/20"
+                          )}>
+                            0{i + 1}
+                          </span>
+                          <span className={cn(
+                            "text-lg md:text-xl font-light transition-all duration-500",
+                            activeEssential === i ? "text-navy-950" : "text-navy-950/40 group-hover:text-navy-950/60"
+                          )}>
+                            {item.title}
+                          </span>
+                        </div>
+                        <AnimatePresence>
+                          {activeEssential === i && (
+                            <motion.div 
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="overflow-hidden"
+                            >
+                              <p className="text-navy-950/60 text-sm md:text-base font-light max-w-[280px] md:max-w-sm lg:pl-8 pt-1 leading-relaxed italic">
+                                {item.description}
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </button>
+                    ))}
+                  </div>
+                </FadeInUp>
+              </div>
+
+              {/* Right Column: Image */}
+              <div className="relative flex justify-center lg:justify-end">
+                <div className="relative w-full max-w-lg aspect-4/3 group">
+                  <AnimatePresence mode="wait">
                     <motion.div
-                      key={i}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 }}
-                      className="px-5 py-3 rounded-full bg-white border border-navy-100 text-navy-950 text-sm font-medium shadow-sm"
+                      key={activeEssential}
+                      initial={{ opacity: 0, scale: 1.05 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute inset-0 rounded-[2.5rem] overflow-hidden bg-navy-950 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)]"
                     >
-                      {item}
+                      <img 
+                        src={visibleEssentials[activeEssential]?.image?.url || visibleEssentials[activeEssential]?.image} 
+                        alt={visibleEssentials[activeEssential]?.title}
+                        className="w-full h-full object-cover"
+                      />
+                      
+                      {/* Dynamic Overlays */}
+                      <div className="absolute top-8 left-8 flex flex-col gap-2">
+                        <motion.span 
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] uppercase font-bold tracking-widest"
+                        >
+                          Requirement {activeEssential + 1}
+                        </motion.span>
+                      </div>
+                      
+                      <div className="absolute inset-0 bg-linear-to-t from-navy-950/80 via-transparent to-transparent opacity-40 pointer-events-none" />
                     </motion.div>
-                  ))}
+                  </AnimatePresence>
+                  
+                  {/* Design Accents */}
+                  <div className="absolute -top-10 -right-10 w-48 h-48 bg-gold-500/10 rounded-full blur-[60px] -z-10" />
+                  <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-navy-500/10 rounded-full blur-[60px] -z-10" />
                 </div>
               </div>
-            </FadeInUp>
+
+            </div>
           </div>
         </section>
 

@@ -68,6 +68,14 @@ const SECTIONS = [
     link: "/admin/resources/nmr",
     color: "text-indigo-600",
     bg: "bg-indigo-50/50"
+  },
+  {
+    title: "Clauses & Toolkits",
+    description: "Manage the 'Essential Checklist' items: titles, descriptions, and images.",
+    icon: Database,
+    link: "/admin/resources/clauses-toolkits",
+    color: "text-gold-600",
+    bg: "bg-amber-50/50"
   }
 ];
 

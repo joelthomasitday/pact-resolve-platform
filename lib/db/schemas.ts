@@ -705,7 +705,24 @@ export interface ResourceItem extends BaseDocument {
 }
 
 // ============================================================================
-// 18. NMR CONTENT (National Mediation Review)
+// 18. CLAUSES & TOOLKITS - ESSENTIALS
+// ============================================================================
+
+export interface EssentialChecklist extends BaseDocument {
+  /** The item number/title, e.g. "Name of Institution or Service Provider" */
+  title: string;
+  /** Detailed description of this essential item */
+  description: string;
+  /** Image associated with this essential item */
+  image: ImageData;
+  /** Display order (1, 2, 3...) */
+  order: number;
+  /** Whether visible */
+  isActive: boolean;
+}
+
+// ============================================================================
+// 19. NMR CONTENT (National Mediation Review)
 // ============================================================================
 
 export interface NmrContent extends BaseDocument {
@@ -764,6 +781,8 @@ export const COLLECTIONS = {
   NETWORK_LOGOS: "networkLogos",
   // NMR Content
   NMR_CONTENT: "nmrContent",
+  // Clauses & Toolkits
+  CLAUSES_ESSENTIALS: "clausesEssentials",
 } as const;
 
 export type CollectionName = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];

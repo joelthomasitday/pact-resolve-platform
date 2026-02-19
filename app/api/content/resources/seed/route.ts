@@ -371,6 +371,36 @@ const journalPublications: Partial<ResourceItem>[] = [
   },
 ];
 
+const toolkitItems: Partial<ResourceItem>[] = [
+  {
+    type: "toolkit",
+    title: "Billing in Mediation",
+    description: "How do you bill for commercial mediation services?",
+    url: "https://www.barandbench.com/columns/commercial-mediation-how-do-you-bill",
+    publication: "Bar & Bench",
+    order: 1,
+    isActive: true,
+  },
+  {
+    type: "toolkit",
+    title: "Enforcement of Mediation",
+    description: "Legitimacy of private mediation in the pre-legislation era",
+    url: "https://www.scconline.com/blog/post/2021/11/29/legitimacy-of-private-mediation-in-the-pre-legislation-era-busting-myths-with-facts/",
+    publication: "SCC Online",
+    order: 2,
+    isActive: true,
+  },
+  {
+    type: "toolkit",
+    title: "Mediation Preparation",
+    description: "Complete guide to preparing for a mediation session",
+    url: "https://www.livelaw.in/law-firms/law-firm-articles-/mediation-amicus-advocates-and-solicitors-camp-arbitration-and-mediation-practice-idex-legal-181711",
+    publication: "LiveLaw",
+    order: 3,
+    isActive: true,
+  },
+];
+
 export async function POST(request: NextRequest) {
   try {
     const { db } = await connectToDatabase();
@@ -388,7 +418,8 @@ export async function POST(request: NextRequest) {
       ...recommendedBooks,
       ...newsFeatures,
       ...podcastEpisodes,
-      ...journalPublications
+      ...journalPublications,
+      ...toolkitItems
     ].map(withTime);
 
     await db.collection(COLLECTIONS.RESOURCES).insertMany(allItems);

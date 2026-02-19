@@ -65,7 +65,8 @@ export async function middleware(request: NextRequest) {
   }
 
   // ALLOW GET requests for content APIs without token
-  if (!token && isContentRoute && method === "GET") {
+  // ALSO allow POST to /seed routes for initialization
+  if (!token && isContentRoute && (method === "GET" || pathname.endsWith("/seed"))) {
     return NextResponse.next();
   }
 
