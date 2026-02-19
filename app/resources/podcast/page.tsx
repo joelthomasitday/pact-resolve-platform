@@ -290,7 +290,7 @@ export default function PodcastPage() {
                   <div className="absolute inset-4 bg-gold-500/20 rounded-3xl blur-3xl" />
                   <div className="relative aspect-square rounded-3xl overflow-hidden bg-navy-50 border border-navy-100 shadow-2xl">
                   <Image
-                      src="/assets/img/host-jonathan.png"
+                      src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop"
                       alt="Jonathan Rodrigues"
                       fill
                       className="object-cover"

@@ -13,7 +13,8 @@ import {
   Image as ImageIcon,
   ExternalLink,
   Calendar,
-  Users
+  Users,
+  Sparkles
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -281,6 +282,108 @@ export default function PodcastAdminPage() {
         </CardContent>
       </Card>
 
+      {/* Upcoming Episodes Management */}
+      <Card className="rounded-3xl border-none shadow-xl shadow-navy-950/5 bg-white overflow-hidden">
+        <CardContent className="p-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-600 border border-amber-500/20">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-navy-950 tracking-tight">Upcoming Episodes (Season 2)</h2>
+                <p className="text-navy-950/40 text-xs font-black uppercase tracking-widest mt-1">Manage the 3 featured episodes displayed in the Season 2 section</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-2">
+               <Badge className="bg-amber-500/10 text-amber-600 border-amber-500/20 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                 Featured Section
+               </Badge>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[1, 2, 3].map((pos) => {
+              const episode = items
+                .filter(i => i.isFeatured && i.category !== "hero-banner")
+                .sort((a, b) => (a.order || 0) - (b.order || 0))[pos - 1];
+
+              return (
+                <div key={pos} className="space-y-4">
+                  <div className="flex items-center justify-between px-1">
+                    <Label className="text-[10px] uppercase tracking-[0.2em] font-black text-navy-950/40">Episode Slot {pos}</Label>
+                    {episode && (
+                      <button 
+                        onClick={() => openEditDialog(episode)}
+                        className="text-[10px] font-bold text-primary hover:underline uppercase tracking-widest"
+                      >
+                        Edit Details
+                      </button>
+                    )}
+                  </div>
+                  
+                  <div className="relative group aspect-square rounded-2xl overflow-hidden bg-navy-50 border border-navy-100/50 shadow-inner">
+                    <ImageUpload 
+                      value={episode?.image || `/podcast/season2-ep${pos}.png`}
+                      onChange={async (url) => {
+                        try {
+                          setIsSaving(true);
+                          const method = episode ? "PUT" : "POST";
+                          const body = episode 
+                            ? { ...episode, image: url } 
+                            : { 
+                                title: `Upcoming Episode ${pos}`, 
+                                type: "podcast", 
+                                category: "Season 2", 
+                                image: url, 
+                                isActive: true, 
+                                isFeatured: true,
+                                order: pos 
+                              };
+
+                          const response = await fetch("/api/content/resources", {
+                            method,
+                            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                            body: JSON.stringify(body)
+                          });
+                          
+                          const result = await response.json();
+                          if (result.success) {
+                            toast.success(`Episode ${pos} updated`);
+                            fetchItems();
+                          } else {
+                            toast.error(result.error || "Update failed");
+                          }
+                        } catch (error) {
+                          toast.error("Error saving episode");
+                        } finally {
+                          setIsSaving(false);
+                        }
+                      }}
+                    />
+                  </div>
+                  {episode && (
+                    <div className="px-1">
+                      <p className="text-sm font-bold text-navy-950 truncate">{episode.title}</p>
+                      <p className="text-[10px] text-navy-950/40 uppercase font-black tracking-widest mt-0.5">{episode.category || "Season 2"}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          
+          <div className="mt-8 flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-100/50">
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+            <p className="text-[11px] text-amber-950/70 leading-relaxed font-medium">
+              These 3 episodes are highlighted in the <span className="font-bold">"Upcoming Episodes"</span> section on the podcast page. Ensure they are marked as <span className="font-bold text-amber-600">Featured</span> to appear here.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+
       <Card className="rounded-3xl border-none shadow-xl shadow-navy-950/5 bg-white overflow-hidden">
         <CardContent className="p-0">
           <div className="p-6 border-b border-navy-50 flex items-center gap-4">
@@ -480,19 +583,12 @@ export default function PodcastAdminPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Thumbnail Image URL</Label>
-                  <div className="relative">
-                    <ImageIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-950/20" />
-                    <Input 
-                      value={editingItem?.image || ""} 
-                      onChange={(e) => setEditingItem(prev => ({ ...prev!, image: e.target.value }))} 
-                      className="pl-10 h-12 rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20"
-                      placeholder="https://..."
-                    />
-                  </div>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <ImageUpload
+                  label="Thumbnail Image"
+                  value={editingItem?.image || ""}
+                  onChange={(url) => setEditingItem(prev => ({ ...prev!, image: url }))}
+                />
                 <div className="space-y-2">
                   <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Video URL (YouTube)</Label>
                   <div className="relative">
