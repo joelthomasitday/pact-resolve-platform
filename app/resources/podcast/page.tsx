@@ -388,9 +388,10 @@ export default function PodcastPage() {
                   >
                     <div className="relative aspect-square">
                       <Image
-                        src={episode.image || "/podcast/season2-ep1.png"}
+                        src={episode.image || `/podcast/season2-ep${(i % 3) + 1}.png`}
                         alt={episode.title}
                         fill
+                        unoptimized={true}
                         className="object-cover"
                       />
                     </div>
@@ -440,6 +441,7 @@ export default function PodcastPage() {
                         src={episode.image || "/assets/img/podcast-thumb-dummy.png"}
                         alt={episode.title}
                         fill
+                        unoptimized={true}
                         className="object-cover transition-transform duration-1000 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-transparent transition-colors duration-500" />

@@ -127,6 +127,7 @@ export default function BlogPage() {
                               src={blog.image}
                               alt={blog.title}
                               fill
+                              unoptimized={true}
                               className="object-cover group-hover:scale-105 transition-transform duration-700"
                             />
                           ) : (
@@ -162,13 +163,14 @@ export default function BlogPage() {
                             </div>
                             
                             {blog.logo ? (
-                              <div className="w-12 h-12 rounded-xl bg-white border border-navy-100 p-2 shadow-sm shrink-0 flex items-center justify-center group-hover:border-gold-500/30 transition-colors">
-                                <Image 
+                              <div className="w-12 h-12 rounded-xl bg-white border border-navy-100 p-2 shadow-sm shrink-0 flex items-center justify-center group-hover:border-gold-500/30 transition-all overflow-hidden">
+                                <img 
                                   src={blog.logo} 
                                   alt={`${blog.publication || "Publication"} logo`} 
-                                  width={40} 
-                                  height={40} 
-                                  className="object-contain" 
+                                  className="w-full h-full object-contain"
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).src = 'https://placehold.jp/24/002b4e/ffffff/80x80.png?text=LOGO';
+                                  }}
                                 />
                               </div>
                             ) : (
