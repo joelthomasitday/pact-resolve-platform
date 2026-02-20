@@ -6,6 +6,7 @@ import {
   Users, 
   Trophy, 
   Handshake,
+  Award,
   ArrowRight
 } from "lucide-react";
 import { DashboardSectionCard } from "@/components/admin/DashboardSectionCard";
@@ -38,6 +39,14 @@ const SECTIONS = [
     link: "/admin/ecosystem/about",
     color: "text-amber-600",
     bg: "bg-amber-50/50"
+  },
+  {
+    title: "Pledge Signatories",
+    description: "Manage the League of Leaders signatories in the PACT Mediation Pledge page.",
+    icon: Award,
+    link: "/admin/ecosystem/pledge",
+    color: "text-purple-600",
+    bg: "bg-purple-50/50"
   }
 ];
 

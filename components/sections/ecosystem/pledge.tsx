@@ -9,9 +9,11 @@ import {
   Loader2, Check, PenTool
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/motion-wrapper";
 import { cn } from "@/lib/utils";
 import { EcosystemSubPageHero } from "./ecosystem-subpage-hero";
+import { type PledgeSignatory } from "@/lib/db/schemas";
 
 const benefits = [
   {
@@ -89,6 +91,16 @@ export function PledgeSection() {
     registry: false
   });
 
+  const [signatories, setSignatories] = useState<PledgeSignatory[]>([]);
+
+  useEffect(() => {
+    fetch("/api/content/ecosystem/pledge/signatories")
+      .then(res => res.json())
+      .then(result => {
+        if (result.success) setSignatories(result.data);
+      });
+  }, []);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -158,6 +170,7 @@ export function PledgeSection() {
   };
 
   return (
+    <>
     <section id="pledge" className="bg-white overflow-hidden pb-32">
       {/* Hero / Intro */}
       <EcosystemSubPageHero 
@@ -355,8 +368,9 @@ export function PledgeSection() {
                       </p>
                     </div>
 
-                    <div>
+                    <div className="flex flex-col items-center gap-6">
                       <button 
+                        onClick={() => setIsFormOpen(true)}
                         className="group/btn relative inline-flex items-center justify-center gap-3 md:gap-4 bg-navy-950 text-white px-6 py-4 md:px-12 md:py-6 w-full md:w-auto rounded-full font-bold uppercase tracking-widest text-xs transition-all hover:bg-gold-500 hover:scale-105 shadow-xl"
                       >
                         Read & Sign The Pledge
@@ -364,9 +378,16 @@ export function PledgeSection() {
                            <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform" />
                         </div>
                       </button>
-                      <p className="mt-6 text-xs  text-navy-950/30 uppercase tracking-widest">Takes approx. 2 minutes</p>
+                      
+                      <Link href="/mediation">
+                        <button className="group relative px-8 py-3 rounded-full border border-navy-100 text-navy-950/60 font-medium text-xs uppercase tracking-widest hover:border-gold-500/50 hover:text-navy-950 transition-all">
+                          Why Mediation?
+                        </button>
+                      </Link>
+                      
+                      <p className="text-xs text-navy-950/30 uppercase tracking-widest">Takes approx. 2 minutes</p>
                     </div>
-                 </div>
+                  </div>
               </motion.div>
             ) : (
               <motion.div
@@ -614,7 +635,7 @@ export function PledgeSection() {
                                               </label>
                                            </div>
                                            <p className="text-lg text-navy-950/70 font-light leading-relaxed">
-                                              We agree to be listed as a signatory on PACT’s <span className="text-navy-950 font-normal">Official Digital Registry</span>.
+                                              We agree to be listed as a signatory on PACT’s <span className="text-navy-950 font-normal">website</span>.
                                            </p>
                                         </div>
                                       </div>
@@ -691,5 +712,99 @@ export function PledgeSection() {
         </div>
       </div>
     </section>
+
+    {/* League of Leaders Section - Redesigned */}
+    {signatories.length > 0 && (
+      <section className="py-40 bg-white relative overflow-hidden border-t border-navy-50">
+        {/* Subtle background layers */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(191,154,102,0.05),transparent_50%)]" />
+        <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-gold-500/20 to-transparent" />
+        
+        <div className="container px-6 mx-auto relative z-10">
+          <div className="max-w-5xl mx-auto space-y-24">
+            
+            {/* Header Content */}
+            <div className="text-center space-y-8">
+              <div className="inline-flex items-center gap-4">
+                <div className="h-px w-8 bg-gold-500/30" />
+                <span className="text-[10px] uppercase tracking-[0.6em] text-gold-600 font-black">Member Registry</span>
+                <div className="h-px w-8 bg-gold-500/30" />
+              </div>
+              
+              <div className="space-y-4">
+                <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-navy-950 uppercase leading-none">
+                  The League of <br />
+                  <span className="italic font-medium text-gold-500">Leaders</span>
+                </h2>
+                <p className="text-lg text-navy-950/40 font-light max-w-xl mx-auto leading-relaxed">
+                  Pioneering organizations and individuals committed to the future of consensual resolution.
+                </p>
+              </div>
+            </div>
+
+            {/* Signatories Grid/Marquee */}
+            <div className="relative pt-12">
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-x-16 md:gap-y-24">
+                  {signatories.map((sig, idx) => (
+                    <motion.div 
+                      key={idx}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.1, duration: 0.8 }}
+                      className="group flex flex-col items-center gap-8"
+                    >
+                      {/* Logo Frame */}
+                      <div className="relative w-full aspect-square max-w-[280px]">
+                        {/* Decorative circles/glow */}
+                        <div className="absolute inset-0 rounded-[3rem] bg-navy-50/30 group-hover:bg-gold-500/5 transition-colors duration-700" />
+                        <div className="absolute -inset-4 rounded-[4rem] border border-navy-50 scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-700 pointer-events-none" />
+                        
+                        <div className="relative h-full w-full bg-white rounded-[3rem] p-12 flex items-center justify-center shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05)] group-hover:shadow-[0_40px_80px_-20px_rgba(191,154,102,0.15)] transition-all duration-700 group-hover:-translate-y-4 border border-navy-50/50 group-hover:border-gold-500/20 overflow-hidden">
+                           <div className="absolute inset-0 bg-linear-to-b from-transparent to-navy-50/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                           <img 
+                            src={sig.logo} 
+                            alt={sig.name} 
+                            className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 relative z-10"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Text details with elegant separator */}
+                      <div className="text-center space-y-4 relative">
+                        <div className="space-y-1">
+                          <h4 className="text-xl font-bold text-navy-950 uppercase tracking-tight italic group-hover:text-gold-600 transition-colors duration-500">
+                            {sig.name}
+                          </h4>
+                          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-gold-500/60 flex items-center justify-center gap-3">
+                            <span className="h-px w-3 bg-gold-500/20" />
+                            {sig.sector}
+                            <span className="h-px w-3 bg-gold-500/20" />
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+               </div>
+            </div>
+
+            {/* Verification Footer */}
+            <div className="pt-24 border-t border-navy-50 text-center">
+               <div className="inline-flex items-center gap-6 px-8 py-4 rounded-full bg-navy-50/50 border border-navy-100 group cursor-default">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-navy-950/40 group-hover:text-navy-950 transition-colors">
+                    Registry updated monthly • next verification cycle: march 2026
+                  </span>
+               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Dynamic background accents */}
+        <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold-500/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 right-0 translate-x-1/3 translate-y-1/3 w-[600px] h-[600px] bg-navy-950/5 blur-[140px] rounded-full pointer-events-none" />
+      </section>
+    )}
+    </>
   );
 }

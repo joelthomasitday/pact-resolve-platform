@@ -587,6 +587,21 @@ export interface EcosystemTeamMember extends BaseDocument {
   isActive: boolean;
 }
 
+/** Pledge Signatory (League of Leaders) */
+export interface PledgeSignatory extends BaseDocument {
+  /** Organization name */
+  name: string;
+  /** Industry sector, e.g. "Food & Hospitality" */
+  sector: string;
+  /** Logo image data */
+  logo: string;
+  /** Display order */
+  order: number;
+  /** Whether visible */
+  isActive: boolean;
+}
+
+
 
 // ============================================================================
 // 13. TESTIMONIALS (Trusted to Deliver – PACT Testimonials)
@@ -783,6 +798,8 @@ export const COLLECTIONS = {
   NMR_CONTENT: "nmrContent",
   // Clauses & Toolkits
   CLAUSES_ESSENTIALS: "clausesEssentials",
+  // Pledge Signatories
+  PLEDGE_SIGNATORIES: "pledgeSignatories",
 } as const;
 
 export type CollectionName = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];
