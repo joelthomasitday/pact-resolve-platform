@@ -48,6 +48,7 @@ import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/context/AuthContext";
 import { type EcosystemTeamMember, type EcosystemTeamCategory } from "@/lib/db/schemas";
 
@@ -145,6 +146,7 @@ export default function EcosystemTeamAdminPage() {
       image: "", 
       bio: "", 
       niche: "",
+      linkedin: "",
       profileUrl: "",
       email: "",
       order: items.length + 1, 
@@ -367,13 +369,22 @@ export default function EcosystemTeamAdminPage() {
                 )}
               </div>
 
-              <div className="space-y-2">
-                <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Profile Bio</Label>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center ml-1">
+                  <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40">Profile / Biography (Aim for 100-150 words)</Label>
+                  <span className={cn(
+                    "text-[10px] font-bold px-2 py-1 rounded-md tracking-widest uppercase",
+                    (editingItem?.bio?.split(/\s+/).filter(Boolean).length || 0) > 150 ? "bg-red-50 text-red-500" : 
+                    (editingItem?.bio?.split(/\s+/).filter(Boolean).length || 0) >= 100 ? "bg-green-50 text-green-600" : "bg-navy-50 text-navy-400"
+                  )}>
+                    {editingItem?.bio?.split(/\s+/).filter(Boolean).length || 0} Words
+                  </span>
+                </div>
                 <Textarea 
                   value={editingItem?.bio || ""} 
                   onChange={(e) => setEditingItem(prev => ({ ...prev!, bio: e.target.value }))} 
-                  className="min-h-[120px] rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20 resize-none p-4"
-                  placeholder="Comprehensive professional biography..."
+                  className="min-h-[160px] rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20 resize-none p-4 text-sm leading-relaxed"
+                  placeholder="Share a compelling 100-150 word story about the professional journey, expertise and impact..."
                 />
               </div>
 
@@ -385,21 +396,33 @@ export default function EcosystemTeamAdminPage() {
                     <Input 
                       value={editingItem?.image || ""} 
                       onChange={(e) => setEditingItem(prev => ({ ...prev!, image: e.target.value }))} 
-                      className="pl-10 h-12 rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20"
-                      placeholder="https://..."
+                      className="pl-10 h-12 rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20 text-sm font-medium"
+                      placeholder="https://images.unsplash.com/..."
                       required 
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">LinkedIn URL</Label>
+                  <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">LinkedIn Handle / URL</Label>
                   <div className="relative">
                     <Linkedin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-950/20" />
                     <Input 
+                      value={editingItem?.linkedin || ""} 
+                      onChange={(e) => setEditingItem(prev => ({ ...prev!, linkedin: e.target.value }))} 
+                      className="pl-10 h-12 rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20 text-sm font-medium"
+                      placeholder="e.g. linkedin-handle or full-url"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Other Profile / Website URL</Label>
+                  <div className="relative">
+                    <ArrowLeft className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-950/20 rotate-180" />
+                    <Input 
                       value={editingItem?.profileUrl || ""} 
                       onChange={(e) => setEditingItem(prev => ({ ...prev!, profileUrl: e.target.value }))} 
-                      className="pl-10 h-12 rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20"
-                      placeholder="https://linkedin.com/in/..."
+                      className="pl-10 h-12 rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20 text-sm font-medium"
+                      placeholder="https://..."
                     />
                   </div>
                 </div>

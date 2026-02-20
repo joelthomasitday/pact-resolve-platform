@@ -577,7 +577,9 @@ export interface EcosystemTeamMember extends BaseDocument {
   bio?: string;
   /** Niche/Expertise (for Featured Experts) */
   niche?: string;
-  /** LinkedIn or profile URL */
+  /** LinkedIn handle or URL */
+  linkedin?: string;
+  /** General profile URL */
   profileUrl?: string;
   /** Email (optional) */
   email?: string;
