@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { type EcosystemTeamMember } from "@/lib/db/schemas";
+import { ExternshipFormModal } from "./externship-form-modal";
 
 function getLinkedInUrl(link: string | undefined | null) {
   if (!link) return "";
@@ -148,6 +149,7 @@ export function TeamSection() {
   const [team, setTeam] = useState<EcosystemTeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedProfile, setSelectedProfile] = useState<EcosystemTeamMember | null>(null);
+  const [showExternshipForm, setShowExternshipForm] = useState(false);
 
   useEffect(() => {
     const fetchTeam = async () => {
@@ -168,13 +170,13 @@ export function TeamSection() {
 
   // Body scroll lock
   useEffect(() => {
-    if (selectedProfile) {
+    if (selectedProfile || showExternshipForm) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
     return () => { document.body.style.overflow = 'unset'; };
-  }, [selectedProfile]);
+  }, [selectedProfile, showExternshipForm]);
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -504,7 +506,10 @@ export function TeamSection() {
                 
                 {/* Join the Mission CTA */}
                 <div className="pt-8">
-                  <button className="group/join w-full flex items-center justify-between p-6 rounded-3xl bg-navy-50/50 border border-navy-100/50 hover:bg-white hover:border-gold-500/30 hover:shadow-xl transition-all duration-500">
+                  <button 
+                    onClick={() => setShowExternshipForm(true)}
+                    className="group/join w-full flex items-center justify-between p-6 rounded-3xl bg-navy-50/50 border border-navy-100/50 hover:bg-white hover:border-gold-500/30 hover:shadow-xl transition-all duration-500"
+                  >
                     <div className="flex items-center gap-5">
                       <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-navy-950 group-hover/join:bg-gold-500 group-hover/join:text-white transition-all duration-500 group-hover/join:rotate-12 shadow-sm border border-navy-100/50">
                         <Plus className="w-6 h-6" />
@@ -527,6 +532,11 @@ export function TeamSection() {
             <ProfileModal 
               member={selectedProfile} 
               onClose={() => setSelectedProfile(null)} 
+            />
+          )}
+          {showExternshipForm && (
+            <ExternshipFormModal 
+              onClose={() => setShowExternshipForm(false)} 
             />
           )}
         </AnimatePresence>,
