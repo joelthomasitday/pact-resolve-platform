@@ -22,6 +22,8 @@ import { FadeInUp, StaggerContainer, StaggerItem } from "@/components/motion-wra
 import { EcosystemSubPageHero } from "./ecosystem-subpage-hero";
 import { useState, useEffect } from "react";
 import { type EcosystemAward } from "@/lib/db/schemas";
+import { Facebook, Linkedin, Instagram, Youtube, MessageCircle } from "lucide-react";
+import Link from "next/link";
 
 const whatWeDoItems = [
   { title: "Private Mediation Services", icon: ShieldCheck },
@@ -63,6 +65,41 @@ const values = [
   }
 ];
 
+const socialLinks = [
+  {
+    name: "LinkedIn",
+    handle: "the-pact",
+    icon: Linkedin,
+    color: "bg-[#0077b5]",
+    link: "https://www.linkedin.com/company/the-pact/?originalSubdomain=in",
+    description: "Professional updates, case studies, and corporate networking."
+  },
+  {
+    name: "Instagram",
+    handle: "@pact_india",
+    icon: Instagram,
+    color: "bg-linear-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7]",
+    link: "https://www.instagram.com/pact_india/?hl=en",
+    description: "Visual stories, event highlights, and community moments."
+  },
+  {
+    name: "YouTube",
+    handle: "@MissionMediationbyPACT",
+    icon: Youtube,
+    color: "bg-[#FF0000]",
+    link: "https://www.youtube.com/@MissionMediationbyPACT",
+    description: "Watch our masterclasses, webinars, and expert interviews."
+  },
+  {
+    name: "Facebook",
+    handle: "thepactindia",
+    icon: Facebook,
+    color: "bg-[#1877F2]",
+    link: "https://www.facebook.com/thepactindia/",
+    description: "Community news, discussions, and event announcements."
+  }
+];
+
 export function AboutUs() {
   const [awards, setAwards] = useState<EcosystemAward[]>([]);
   const [loading, setLoading] = useState(true);
@@ -90,7 +127,7 @@ export function AboutUs() {
       <EcosystemSubPageHero 
         tag="About Us"
         title={<>Transforming the <br /> <span className="text-gold-500 italic font-medium">culture of dialogue</span></>}
-        description="PACT works with law firms, corporates, institutions, and professionals to promote mediation as a practical, ethical, and effective pathway to resolution."
+          description="PACT works with law firms, corporates, institutions, and professionals to promote mediation as a practical, ethical, and effective pathway to resolution."
       />
       
       <section className="pt-16 pb-16 md:pt-24 md:pb-24 bg-white overflow-hidden">
@@ -300,6 +337,80 @@ export function AboutUs() {
                 <div className="aspect-4/3 rounded-4xl bg-navy-50 animate-pulse" />
               </>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* Social Media Highlights */}
+      <section className="py-24 md:py-32 bg-white relative">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            <div className="lg:col-span-5 space-y-8">
+              <FadeInUp>
+                <div className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-600 font-bold text-[10px] uppercase tracking-widest mb-4">
+                  Community
+                </div>
+                <h2 className="text-4xl md:text-6xl font-light text-navy-950 tracking-tighter leading-none mb-6">
+                  Join the <br /> <span className="text-gold-500 italic font-medium">Conversation</span>
+                </h2>
+                <p className="text-lg text-navy-950/60 font-light leading-relaxed max-w-md">
+                  We are building a global movement to humanize conflict. Follow our journey across various platforms for the latest in mediation.
+                </p>
+                
+                <div className="pt-8 flex flex-col gap-4">
+                   <Link 
+                    href="https://wa.me/919123456789" 
+                    target="_blank"
+                    className="flex items-center gap-4 group cursor-pointer w-fit"
+                   >
+                      <div className="w-12 h-12 rounded-full bg-navy-50 flex items-center justify-center group-hover:bg-[#25D366] transition-colors duration-500">
+                        <MessageCircle className="w-5 h-5 text-navy-950 group-hover:text-white" />
+                      </div>
+                      <div>
+                        <p className="text-xs uppercase tracking-widest text-navy-950/40 font-bold">Direct Support</p>
+                        <p className="text-navy-950 font-medium group-hover:text-[#25D366] transition-colors">Connect on WhatsApp</p>
+                      </div>
+                   </Link>
+                </div>
+              </FadeInUp>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {socialLinks.map((social, i) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="group relative overflow-hidden rounded-3xl border border-navy-100 p-8 hover:border-gold-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-gold-500/5"
+                  >
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex justify-between items-start mb-12">
+                        <div className={`w-12 h-12 rounded-2xl ${social.color} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+                          <social.icon className="w-6 h-6" />
+                        </div>
+                        <ArrowRight className="w-5 h-5 text-navy-950/20 group-hover:text-gold-500 group-hover:translate-x-1 transition-all" />
+                      </div>
+                      
+                      <div className="mt-auto">
+                        <h3 className="text-2xl font-light text-navy-950 mb-1">{social.name}</h3>
+                        <p className="text-gold-500 font-medium text-sm mb-4 tracking-tight">{social.handle}</p>
+                        <p className="text-xs text-navy-950/40 leading-relaxed font-light">
+                          {social.description}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {/* Hover Background Accent */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/2 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 group-hover:bg-gold-500/10 transition-colors" />
+                  </motion.a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
