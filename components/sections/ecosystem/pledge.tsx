@@ -435,7 +435,7 @@ export function PledgeSection() {
                                   <div className="pt-6 text-center">
                                     <div className="inline-flex flex-col items-center gap-4">
                                       <div className="text-xs uppercase tracking-[0.4em] text-gold-500 font-bold">The Commitment</div>
-                                      <h4 className="text-xl md:text-3xl font-light uppercase tracking-tight text-navy-950 italic">Accordingly, we <span className="text-gold-500 font-medium lowercase">affirm</span> that:</h4>
+                                      <h4 className="text-xl md:text-3xl font-light uppercase tracking-tight text-navy-950 italic">We <span className="text-gold-500 font-medium lowercase">confirm</span> that</h4>
                                       <div className="h-px w-24 bg-gold-500/30" />
                                     </div>
                                   </div>
