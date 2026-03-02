@@ -71,6 +71,8 @@ export interface NewsItem extends BaseDocument {
   date: string;
   /** Featured image */
   image: ImageData;
+  /** Brand/Publication logo */
+  logo?: ImageData;
   /** External link to the full content */
   link: string;
   /** Display order (lower = appears first) */
@@ -209,6 +211,7 @@ export interface MCIGalleryImage {
 export interface MCIMediaCoverage {
   id?: string;
   publication: string;
+  logo?: string;
   headline: string;
   url: string;
   order?: number;

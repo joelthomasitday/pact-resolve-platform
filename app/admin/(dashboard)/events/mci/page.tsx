@@ -50,7 +50,7 @@ export default function MCIManagementPage() {
   const [eventData, setEventData] = useState<MCIEvent | null>(null);
   const [gallery, setGallery] = useState<Array<{ id: string; url: string; title: string; description: string; order: number }>>([]);
   const [partners, setPartners] = useState<Array<{ id: string; name: string; logo: string; order: number }>>([]);
-  const [press, setPress] = useState<Array<{ id: string; publication: string; headline: string; url: string; order: number }>>([]);
+  const [press, setPress] = useState<Array<{ id: string; publication: string; logo?: string; headline: string; url: string; order: number }>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [activeTab, setActiveTab] = useState<'gallery' | 'partners' | 'press'>('gallery');
@@ -61,7 +61,7 @@ export default function MCIManagementPage() {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [tempItem, setTempItem] = useState<{ url: string; title: string; description: string; order: number }>({ url: "", title: "", description: "", order: 0 });
   const [tempPartner, setTempPartner] = useState<{ name: string; logo: string; order: number }>({ name: "", logo: "", order: 0 });
-  const [tempPress, setTempPress] = useState<{ publication: string; headline: string; url: string; order: number }>({ publication: "", headline: "", url: "", order: 0 });
+  const [tempPress, setTempPress] = useState<{ publication: string; logo?: string; headline: string; url: string; order: number }>({ publication: "", logo: "", headline: "", url: "", order: 0 });
 
 
   // Fallback images matching the public website for initial setup
@@ -107,31 +107,37 @@ export default function MCIManagementPage() {
   const fallbackPress = [
     {
       publication: "SCC Online",
+      logo: "/images/mci/press/SCC Times Logo.png",
       headline: "Live: PACT, SAM & GNLU Mediation Championship India 2023",
       url: "https://www.scconline.com/blog/post/2023/09/08/live-pact-sam-gnlu-mediation-championship-india-2023/"
     },
     {
       publication: "Bar & Bench",
+      logo: "/images/mci/press/brand_2x.png.jpeg",
       headline: "Legal League Consulting joins The PACT in hosting India's League of Mediation Champions at GNLU",
       url: "https://www.barandbench.com/news/corporate/legal-league-consulting-joins-the-pact-in-hosting-indias-league-of-mediation-champions-at-gnlu"
     },
     {
       publication: "SCC Blog",
+      logo: "/images/mci/press/SCC Times Logo.png",
       headline: "SAM and GNLU join The PACT to further Mission Mediation in India",
       url: "https://blog.scconline.gen.in/post/2023/09/04/sam-and-gnlu-join-the-pact-to-further-mission-mediation-in-india/"
     },
     {
-      publication: "Bar & Bench",
+      publication: "Bar Bulletin",
+      logo: "/images/mci/press/bar bulletin logo.png",
       headline: "GIMAC, GNLU and The PACT to host Mediation Championship India 2024",
       url: "https://www.barandbench.com/Law-School/gimac-gnlu-and-the-pact-to-host-mediation-championship-india-2024"
     },
     {
       publication: "LiveLaw",
+      logo: "/images/mci/press/Live Law Logo.png",
       headline: "Mediation Championship India 2024: GIMAC & The PACT",
       url: "https://www.livelaw.in/lawschool/mediation-championship-india-gimac-the-pact-mediation-268982"
     },
     {
       publication: "Lexology",
+      logo: "",
       headline: "Partnerships & Sponsors for Mediation Championship India 2024",
       url: "https://www.lexology.com/library/detail.aspx?g=2af664c4-1152-41ef-aae5-86aae73229be"
     }
@@ -350,7 +356,7 @@ export default function MCIManagementPage() {
   // --- Press Actions ---
   const addPressItem = () => {
     setEditingIndex(null);
-    setTempPress({ publication: "", headline: "", url: "", order: press.length + 1 });
+    setTempPress({ publication: "", logo: "", headline: "", url: "", order: press.length + 1 });
     setIsPressDialogOpen(true);
   };
 
@@ -663,25 +669,34 @@ export default function MCIManagementPage() {
                   className="h-full"
                 >
                   <Card className="group relative h-full flex flex-col bg-white dark:bg-navy-900 border-none shadow-sm hover:shadow-xl transition-all duration-300 rounded-3xl overflow-hidden border border-navy-50/50 p-6 space-y-4">
-                    <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-all">
-                      <Button size="icon" variant="secondary" className="w-7 h-7 rounded-lg" onClick={() => openPressEditDialog(index)}>
-                        <Edit className="w-3.5 h-3.5" />
-                      </Button>
-                      <Button size="icon" variant="destructive" className="w-7 h-7 rounded-lg" onClick={() => removePressItem(index)}>
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </Button>
+                    <div className="flex justify-between items-start mb-4">
+                      {item.logo ? (
+                        <div className="relative h-8 w-24">
+                          <Image src={item.logo} alt={item.publication} fill className="object-contain object-left grayscale group-hover:grayscale-0 transition-all opacity-40 group-hover:opacity-100" />
+                        </div>
+                      ) : (
+                        <span className="text-xs font-bold tracking-widest uppercase text-navy-950/40 group-hover:text-gold-500 transition-colors">
+                          {item.publication || "Unknown Publication"}
+                        </span>
+                      )}
+                      
+                      <div className="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                        <Button size="icon" variant="secondary" className="w-7 h-7 rounded-lg" onClick={(e) => { e.preventDefault(); openPressEditDialog(index); }}>
+                          <Edit className="w-3.5 h-3.5" />
+                        </Button>
+                        <Button size="icon" variant="destructive" className="w-7 h-7 rounded-lg" onClick={(e) => { e.preventDefault(); removePressItem(index); }}>
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
+                      </div>
                     </div>
                     
-                    <div>
-                      <span className="text-xs font-bold tracking-widest uppercase text-navy-950/40">
-                        {item.publication || "Unknown Publication"}
-                      </span>
-                      <h3 className="text-lg font-medium text-navy-950 mt-2 line-clamp-3">
+                    <div className="flex-1">
+                      <h3 className="text-lg font-medium text-navy-950 line-clamp-3 group-hover:text-navy-800 transition-colors leading-tight">
                         {item.headline || "Untitled Article"}
                       </h3>
-                      <Link href={item.url} target="_blank" className="text-xs text-rose-600 mt-2 block hover:underline line-clamp-1">
+                      <p className="text-[10px] text-navy-950/30 mt-3 truncate group-hover:text-gold-500 transition-colors">
                         {item.url}
-                      </Link>
+                      </p>
                     </div>
 
                     <div className="flex justify-between items-center border-t border-navy-50/50 pt-4 mt-auto">
@@ -712,14 +727,14 @@ export default function MCIManagementPage() {
 
       {/* Gallery Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-4xl w-[95vw] p-0 overflow-hidden rounded-4xl border-none bg-white">
-          <div className="bg-navy-950 p-8 text-white">
+        <DialogContent className="max-w-4xl w-[95vw] p-0 overflow-hidden rounded-4xl border-none bg-white flex flex-col max-h-[90vh]">
+          <div className="bg-navy-950 p-8 text-white shrink-0">
             <DialogTitle className="text-2xl font-bold flex items-center gap-3">
               <ImageIcon className="w-6 h-6 text-amber-500" />
               {editingIndex !== null ? "Edit Memory" : "Add New Memory"}
             </DialogTitle>
           </div>
-          <div className="p-8 space-y-6">
+          <div className="p-8 space-y-6 overflow-y-auto grow custom-scrollbar">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
                 <Label>Memory Image</Label>
@@ -737,7 +752,7 @@ export default function MCIManagementPage() {
               </div>
             </div>
           </div>
-          <DialogFooter className="p-8 bg-gray-50 flex justify-end gap-3">
+          <DialogFooter className="p-8 bg-gray-50 flex justify-end gap-3 shrink-0">
             <Button variant="ghost" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
             <Button onClick={saveGalleryTempItem} className="bg-navy-950 text-white">Save Changes</Button>
           </DialogFooter>
@@ -746,14 +761,14 @@ export default function MCIManagementPage() {
 
       {/* Partner Dialog */}
       <Dialog open={isPartnerDialogOpen} onOpenChange={setIsPartnerDialogOpen}>
-        <DialogContent className="max-w-md w-[95vw] p-0 overflow-hidden rounded-4xl border-none bg-white">
-          <div className="bg-navy-950 p-8 text-white">
+        <DialogContent className="max-w-md w-[95vw] p-0 overflow-hidden rounded-4xl border-none bg-white flex flex-col max-h-[90vh]">
+          <div className="bg-navy-950 p-8 text-white shrink-0">
             <DialogTitle className="text-xl font-bold flex items-center gap-3">
               <LayoutGrid className="w-6 h-6 text-indigo-400" />
               {editingIndex !== null ? "Edit Partner" : "Add Partner"}
             </DialogTitle>
           </div>
-          <div className="p-8 space-y-6">
+          <div className="p-8 space-y-6 overflow-y-auto grow custom-scrollbar">
             <div className="space-y-2">
               <Label>Partner Logo</Label>
               <ImageUpload value={tempPartner.logo} onChange={(logo) => setTempPartner({ ...tempPartner, logo })} />
@@ -763,7 +778,7 @@ export default function MCIManagementPage() {
               <Input value={tempPartner.name} onChange={e => setTempPartner({ ...tempPartner, name: e.target.value })} placeholder="e.g. Khaitan & Co" />
             </div>
           </div>
-          <DialogFooter className="p-8 bg-gray-50 flex justify-end gap-3">
+          <DialogFooter className="p-8 bg-gray-50 flex justify-end gap-3 shrink-0">
             <Button variant="ghost" onClick={() => setIsPartnerDialogOpen(false)}>Cancel</Button>
             <Button onClick={savePartnerTempItem} className="bg-navy-950 text-white font-bold">Add Partner</Button>
           </DialogFooter>
@@ -771,14 +786,19 @@ export default function MCIManagementPage() {
       </Dialog>
       {/* Press Dialog */}
       <Dialog open={isPressDialogOpen} onOpenChange={setIsPressDialogOpen}>
-        <DialogContent className="max-w-md w-[95vw] p-0 overflow-hidden rounded-4xl border-none bg-white">
-          <div className="bg-navy-950 p-8 text-white">
+        <DialogContent className="max-w-md w-[95vw] p-0 overflow-hidden rounded-4xl border-none bg-white flex flex-col max-h-[90vh]">
+          <div className="bg-navy-950 p-8 text-white shrink-0">
             <DialogTitle className="text-xl font-bold flex items-center gap-3">
               <Info className="w-6 h-6 text-rose-400" />
               {editingIndex !== null ? "Edit Article" : "Add Article"}
             </DialogTitle>
           </div>
-          <div className="p-8 space-y-6">
+          <div className="p-8 space-y-6 overflow-y-auto grow custom-scrollbar">
+            <div className="space-y-2">
+              <Label>Publication Logo</Label>
+              <ImageUpload value={tempPress.logo || ""} onChange={(logo) => setTempPress({ ...tempPress, logo })} />
+              <p className="text-[10px] text-muted-foreground italic">Use a transparent PNG logo if possible (e.g. Scconline logo)</p>
+            </div>
             <div className="space-y-2">
               <Label>Publication Name</Label>
               <Input value={tempPress.publication} onChange={e => setTempPress({ ...tempPress, publication: e.target.value })} placeholder="e.g. SCC Online" />
@@ -792,7 +812,7 @@ export default function MCIManagementPage() {
               <Input type="url" value={tempPress.url} onChange={e => setTempPress({ ...tempPress, url: e.target.value })} placeholder="https://..." />
             </div>
           </div>
-          <DialogFooter className="p-8 bg-gray-50 flex justify-end gap-3">
+          <DialogFooter className="p-8 bg-gray-50 flex justify-end gap-3 shrink-0">
             <Button variant="ghost" onClick={() => setIsPressDialogOpen(false)}>Cancel</Button>
             <Button onClick={savePressTempItem} className="bg-navy-950 text-white font-bold">Save Article</Button>
           </DialogFooter>

@@ -217,6 +217,7 @@ const newsFeatures: Partial<ResourceItem>[] = [
     title: "Challenges to the Mediation Profession (2020)",
     publication: "SCC Online Times",
     subtitle: "SCC Online Times",
+    logo: "/images/mci/press/SCC Times Logo.png",
     url: "https://www.scconline.com/blog/post/2020/10/31/in-conversation-with-jonathan-rodrigues-on-online-mediation-challenges-and-future-of-profession/",
     order: 1,
     isActive: true
@@ -226,6 +227,7 @@ const newsFeatures: Partial<ResourceItem>[] = [
     title: "PACT as a start-up (2018)",
     publication: "Superlawyer",
     subtitle: "Superlawyer",
+    logo: "", // Placeholder for user upload
     url: "https://superlawyer.in/jonathan-rodrigues-co-founder-pact-challenges-start-up-online-mediation-career-adr/",
     order: 2,
     isActive: true
@@ -404,6 +406,7 @@ const toolkitItems: Partial<ResourceItem>[] = [
     description: "How do you bill for commercial mediation services?",
     url: "https://www.barandbench.com/columns/commercial-mediation-how-do-you-bill",
     publication: "Bar & Bench",
+    logo: "/images/mci/press/brand_2x.png.jpeg",
     order: 1,
     isActive: true,
   },
@@ -413,6 +416,7 @@ const toolkitItems: Partial<ResourceItem>[] = [
     description: "Legitimacy of private mediation in the pre-legislation era",
     url: "https://www.scconline.com/blog/post/2021/11/29/legitimacy-of-private-mediation-in-the-pre-legislation-era-busting-myths-with-facts/",
     publication: "SCC Online",
+    logo: "/images/mci/press/SCC Times Logo.png",
     order: 2,
     isActive: true,
   },
@@ -422,6 +426,7 @@ const toolkitItems: Partial<ResourceItem>[] = [
     description: "Complete guide to preparing for a mediation session",
     url: "https://www.livelaw.in/law-firms/law-firm-articles-/mediation-amicus-advocates-and-solicitors-camp-arbitration-and-mediation-practice-idex-legal-181711",
     publication: "LiveLaw",
+    logo: "/images/mci/press/Live Law Logo.png",
     order: 3,
     isActive: true,
   },

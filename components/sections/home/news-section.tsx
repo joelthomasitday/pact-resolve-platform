@@ -53,7 +53,19 @@ function NewsCard({ item }: { item: NewsItem }) {
         </div>
       </div>
       <div className="p-6 flex flex-col grow">
-        <span className="text-xs  text-black/40 mb-3">{item.date}</span>
+        <div className="flex justify-between items-start mb-3">
+          <span className="text-xs text-black/40 uppercase tracking-tight">{item.date}</span>
+          {item.logo?.url && (
+            <div className="relative h-4 w-16 opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all">
+              <Image 
+                src={item.logo.url} 
+                alt={item.logo.alt || "Publication logo"} 
+                fill 
+                className="object-contain object-right"
+              />
+            </div>
+          )}
+        </div>
         <h3 className="text-xl font-medium text-black leading-snug group-hover:text-primary transition-colors line-clamp-2" title={item.title}>
           {item.title}
         </h3>
