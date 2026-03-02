@@ -61,7 +61,7 @@ export function Sidebar() {
         {menuItems.map((item) => {
           if (item.adminOnly && !isAdmin) return null;
           
-          const isActive = pathname === item.href;
+          const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(`${item.href}/`));
           
           return (
             <Link
