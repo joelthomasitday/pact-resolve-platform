@@ -213,8 +213,8 @@ export function CTASection() {
             </div>
             <div className="relative z-10 flex flex-wrap gap-4 items-center mt-auto">
               <a href="/initiate-mediation" target="_blank" rel="noopener noreferrer" className="w-full">
-                <MagneticButton enableMotion size="lg" className="group w-full py-6 text-xs uppercase tracking-[0.2em] font-black bg-white! text-navy-950! hover:bg-accent! hover:text-navy-950! transition-colors duration-300 rounded-xl shadow-xl shadow-white/5">
-                  <span className="flex items-center gap-3">Select & Inquire <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" /></span>
+                <MagneticButton enableMotion size="lg" className="group w-full py-5 sm:py-6 px-2 text-[11px] sm:text-xs uppercase tracking-widest sm:tracking-[0.2em] font-black bg-white! text-navy-950! hover:bg-accent! hover:text-navy-950! transition-colors duration-300 rounded-xl shadow-xl shadow-white/5">
+                  <span className="flex items-center justify-center gap-2 sm:gap-3 text-center">Select & Inquire <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 group-hover:translate-x-1 transition-transform" /></span>
                 </MagneticButton>
               </a>
             </div>
@@ -240,8 +240,8 @@ export function CTASection() {
               <p className="text-base md:text-lg mt-6 max-w-sm text-navy-600/60 font-medium leading-relaxed">Book a reserved seat for the upcoming batches of the PACT Academy.</p>
             </div>
             <div className="relative z-10 flex flex-wrap gap-4 items-center mt-auto">
-              <button onClick={() => setActiveForm("training")} className="group w-full relative flex items-center justify-center gap-3 py-5 bg-navy-950 text-white text-xs uppercase tracking-[0.2em] font-black rounded-xl overflow-hidden shadow-2xl shadow-navy-950/10 hover:bg-navy-900 transition-all hover:scale-[1.02]">
-                Check Calendar & Enroll <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <button onClick={() => setActiveForm("training")} className="group w-full relative flex items-center justify-center gap-2 sm:gap-3 py-5 px-2 sm:px-3 bg-navy-950 text-white text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-[0.2em] font-black rounded-xl overflow-hidden shadow-2xl shadow-navy-950/10 hover:bg-navy-900 transition-all hover:scale-[1.02]">
+                <span className="text-center">Check Calendar & Enroll</span> <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 shrink-0 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
             <div className="absolute bottom-[-5%] right-[-5%] opacity-5 rotate-12 transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-6 select-none pointer-events-none"><User size={260} /></div>
