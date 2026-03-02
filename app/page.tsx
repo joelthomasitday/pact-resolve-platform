@@ -25,16 +25,16 @@ export default function Home() {
           <NewsSection />
         </div>
         
-        <div id="about">
-          <AboutPact />
+        <div id="why-pact">
+          <WhyPact />
         </div>
         
         <div id="contact">
           <CTASection />
         </div>
         
-        <div id="why-pact">
-          <WhyPact />
+        <div id="about">
+          <AboutPact />
         </div>
         
         <div id="panel">
