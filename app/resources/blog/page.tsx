@@ -57,7 +57,8 @@ export default function BlogPage() {
         <ResourceSubPageHero
           tag="Resources"
           title={<><span className="text-gold-500">Blog</span> & Library</>}
-          description="Thoughtful insights, short tutorials, upcoming conferences and recommended literature on mediation and collaborative conflict resolution. If you're looking for practical clarity (not heavy jargon), you're in the right&nbsp;place."
+          description="Thoughtful insights, short tutorials, upcoming conferences and recommended literature on mediation and collaborative conflict resolution. If you're looking for practical clarity (no heavy jargon), you're in the right place."
+          descriptionClassName="max-w-5xl"
         />
 
         {/* Submit Guidelines */}
