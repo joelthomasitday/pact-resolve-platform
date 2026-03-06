@@ -40,6 +40,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import { useAuth } from "@/lib/context/AuthContext";
 import { AcademyProgramCard } from "@/lib/db/schemas";
 
@@ -449,19 +450,12 @@ export default function AcademyProgramsPage() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2"><ImageIcon className="w-4 h-4" /> Background Image URL</Label>
-                <Input
-                  value={editingItem?.imageUrl || ""}
-                  onChange={(e) => setEditingItem((p) => ({ ...p!, imageUrl: e.target.value }))}
-                  placeholder="https://images.unsplash.com/..."
-                />
-                {editingItem?.imageUrl && (
-                  <div className="h-24 rounded-xl overflow-hidden mt-2 border border-navy-100">
-                    <img src={editingItem.imageUrl} alt="preview" className="w-full h-full object-cover" />
-                  </div>
-                )}
-              </div>
+              <ImageUpload 
+                label="Background Image"
+                description="This background image appears behind the card details."
+                value={editingItem?.imageUrl}
+                onChange={(url) => setEditingItem((p) => ({ ...p!, imageUrl: url }))}
+              />
 
               <div className="space-y-2">
                 <Label>Color Gradient (Tailwind classes)</Label>

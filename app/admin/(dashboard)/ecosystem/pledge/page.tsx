@@ -12,10 +12,10 @@ import {
   ArrowLeft,
   Image as ImageIcon,
   Building2,
-  Upload
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import {
   Table,
   TableBody,
@@ -55,7 +55,6 @@ export default function PledgeSignatoriesAdminPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<Partial<PledgeSignatory> | null>(null);
   const [isSaving, setIsSaving] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => { fetchItems(); }, []);
@@ -74,34 +73,6 @@ export default function PledgeSignatoriesAdminPage() {
     finally { setIsLoading(false); }
   }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setIsUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        headers: { "Authorization": `Bearer ${token}` },
-        body: formData,
-      });
-
-      const result = await res.json();
-      if (result.success) {
-        setEditingItem(prev => ({ ...prev!, logo: result.data.url }));
-        toast.success("Logo uploaded successfully");
-      } else {
-        toast.error(result.error || "Upload failed");
-      }
-    } catch (error) {
-      toast.error("Upload failed");
-    } finally {
-      setIsUploading(false);
-    }
-  };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this signatory?")) return;
@@ -315,55 +286,15 @@ export default function PledgeSignatoriesAdminPage() {
               </div>
 
               <div className="space-y-4">
-                <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Organisation Logo</Label>
-                
-                <div className="flex items-center gap-6 p-6 rounded-2xl bg-navy-50/50 border-2 border-dashed border-navy-100 group-hover:border-gold-500/50 transition-all">
-                  <div className="relative w-24 h-24 rounded-xl bg-white flex items-center justify-center border border-navy-100 overflow-hidden shadow-sm group">
-                    {editingItem?.logo ? (
-                      <img src={editingItem.logo} alt="Preview" className="w-full h-full object-contain p-2" />
-                    ) : (
-                      <ImageIcon className="w-8 h-8 text-navy-950/10" />
-                    )}
-                    {isUploading && (
-                      <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
-                        <Loader2 className="w-6 h-6 animate-spin text-gold-500" />
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="flex-1 space-y-3">
-                    <p className="text-sm text-navy-950/60 leading-relaxed">
-                      Upload a high-quality logo (solid background or transparent PNG preferred)
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={() => document.getElementById("logo-upload")?.click()}
-                        disabled={isUploading}
-                        className="rounded-full bg-white border-navy-100 hover:border-gold-500 hover:text-gold-500 transition-all gap-2"
-                      >
-                        <Upload className="w-3.5 h-3.5" />
-                        {editingItem?.logo ? "Change Logo" : "Upload Logo"}
-                      </Button>
-                      <input 
-                        id="logo-upload"
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={handleFileUpload}
-                      />
-                      {editingItem?.logo && (
-                         <Input 
-                            value={editingItem.logo} 
-                            onChange={(e) => setEditingItem(prev => ({ ...prev!, logo: e.target.value }))} 
-                            className="h-9 px-4 rounded-full bg-white border-navy-100 text-sm w-full mt-2"
-                            placeholder="Or paste URL..."
-                         />
-                      )}
-                    </div>
-                  </div>
+                <div className="pt-2">
+                  <ImageUpload 
+                    label="Organisation Logo" 
+                    value={editingItem?.logo || ""} 
+                    onChange={(url) => setEditingItem(prev => ({ ...prev!, logo: url }))}
+                  />
+                  <p className="text-xs text-navy-950/40 mt-2 ml-1">
+                    Upload a high-quality logo (solid background or transparent PNG preferred)
+                  </p>
                 </div>
               </div>
 

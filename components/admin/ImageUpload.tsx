@@ -17,9 +17,21 @@ interface ImageUploadProps {
 }
 
 export function ImageUpload({ value, onChange, label, description, className }: ImageUploadProps) {
+  // Extract URL if the value is an object (ImageData schema)
+  const getUrlFromValue = (val: any): string => {
+    if (typeof val === 'string') return val;
+    if (val && typeof val === 'object' && 'url' in val) return val.url;
+    return '';
+  };
+
   const [isUploading, setIsUploading] = useState(false);
   const [useUrl, setUseUrl] = useState(false);
-  const [urlValue, setUrlValue] = useState(value || "");
+  const [urlValue, setUrlValue] = useState(getUrlFromValue(value));
+
+  // Sync internal state with prop changes (crucial for when the parent switches between items)
+  React.useEffect(() => {
+    setUrlValue(getUrlFromValue(value));
+  }, [value]);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -50,17 +62,26 @@ export function ImageUpload({ value, onChange, label, description, className }: 
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Upload failed");
+        throw new Error(result.error || `Upload failed (${response.status})`);
       }
 
-      onChange(result.data.url);
-      setUrlValue(result.data.url);
+      // Handle different API response structures
+      const url = result.url || (result.data && result.data.url);
+      
+      if (!url) {
+        throw new Error("Invalid response from upload server");
+      }
+
+      onChange(url);
+      setUrlValue(url);
       toast.success("Image uploaded successfully");
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.message || "Failed to upload image");
       console.error("Upload error:", error);
     } finally {
       setIsUploading(false);
+      // Reset input
+      e.target.value = "";
     }
   };
 

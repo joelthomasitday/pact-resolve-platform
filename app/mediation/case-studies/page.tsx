@@ -194,12 +194,18 @@ export default function CaseStudiesPage() {
                   onClick={() => setSelectedCase(i)}
                   className="group cursor-pointer relative aspect-square rounded-[2.5rem] overflow-hidden border border-navy-100 shadow-sm hover:shadow-2xl transition-all duration-500"
                 >
-                   <Image 
-                     src={cs.image} 
-                     alt={cs.title} 
-                     fill 
-                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                   />
+                   {cs.image ? (
+                     <Image 
+                       src={cs.image} 
+                       alt={cs.title} 
+                       fill 
+                       className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                     />
+                   ) : (
+                     <div className="w-full h-full bg-navy-50 flex items-center justify-center">
+                       {React.createElement(getIcon(cs.iconName), { className: "w-16 h-16 text-navy-200" })}
+                     </div>
+                   )}
                    <div className="absolute inset-0 bg-navy-950/40 group-hover:bg-navy-950/60 transition-colors" />
                    <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
                       <div className="mb-4 w-12 h-12 rounded-2xl bg-gold-500 text-navy-950 flex items-center justify-center shadow-lg transform group-hover:-translate-y-2 transition-transform">
@@ -220,7 +226,7 @@ export default function CaseStudiesPage() {
 
       <AnimatePresence>
         {selectedCase !== null && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-8">
+          <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 md:p-8">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -235,12 +241,18 @@ export default function CaseStudiesPage() {
             >
               {/* Sidebar Image */}
               <div className="relative w-full md:w-[35%] h-[200px] md:h-auto overflow-hidden shrink-0">
-                 <Image 
-                   src={cases[selectedCase].image} 
-                   alt={cases[selectedCase].title} 
-                   fill 
-                   className="object-cover"
-                 />
+                 {cases[selectedCase].image ? (
+                   <Image 
+                     src={cases[selectedCase].image} 
+                     alt={cases[selectedCase].title} 
+                     fill 
+                     className="object-cover"
+                   />
+                 ) : (
+                   <div className="w-full h-full bg-navy-50 flex items-center justify-center">
+                     {React.createElement(getIcon(cases[selectedCase].iconName), { className: "w-20 h-20 text-navy-200" })}
+                   </div>
+                 )}
                  <div className="absolute inset-0 bg-navy-950/20" />
                  <div className="absolute top-8 left-8">
                     <div className="w-14 h-14 rounded-2xl bg-gold-500 text-navy-950 flex items-center justify-center shadow-2xl">
