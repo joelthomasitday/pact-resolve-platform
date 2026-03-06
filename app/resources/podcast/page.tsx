@@ -86,9 +86,19 @@ export default function PodcastPage() {
 
   const pastEpisodes = useMemo(() => {
     return episodes
-      .filter((e) => e.category !== "hero-banner" && !upcomingEpisodes.some(u => (u._id as any).toString() === (e._id as any).toString()))
+      .filter((e) => e.category !== "hero-banner" && e.category !== "podcast-host" && !upcomingEpisodes.some(u => (u._id as any).toString() === (e._id as any).toString()))
       .sort((a, b) => (a.order || 0) - (b.order || 0));
   }, [episodes, upcomingEpisodes]);
+
+  const hostData = useMemo(
+    () => episodes.find((e) => e.category === "podcast-host") || {
+      title: "Jonathan Rodrigues",
+      subtitle: "Hosted & Produced",
+      description: "As an IMI Qualified Mediator and founder of PACT, Jonathan brings together global mediation practitioners for candid conversations about what makes mediation work",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop"
+    },
+    [episodes]
+  );
 
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-background">
@@ -185,16 +195,16 @@ export default function PodcastPage() {
                 <div className="inline-flex items-center gap-3 mb-6">
                   <Mic className="w-5 h-5 text-gold-500" />
                   <span className="text-gold-500  text-xs tracking-[0.3em] uppercase font-bold">
-                    Hosted & Produced
+                    {hostData.subtitle}
                   </span>
                 </div>
                 
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-navy-950 tracking-tight mb-6 leading-[1.1]">
-                  Jonathan <span className="text-gold-500 italic font-medium">Rodrigues</span>
+                  {hostData.title.split(' ')[0]} <span className="text-gold-500 italic font-medium">{hostData.title.split(' ').slice(1).join(' ')}</span>
                 </h2>
                 
                 <p className="text-lg text-navy-950/60 font-light leading-relaxed mb-8">
-                  As an IMI Qualified Mediator and founder of PACT, Jonathan brings together global mediation practitioners for candid conversations about what makes mediation work
+                  {hostData.description}
                 </p>
               </FadeInUp>
               
@@ -203,8 +213,8 @@ export default function PodcastPage() {
                   <div className="absolute inset-4 bg-gold-500/20 rounded-3xl blur-3xl" />
                   <div className="relative aspect-square rounded-3xl overflow-hidden bg-navy-50 border border-navy-100 shadow-2xl">
                   <Image
-                      src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop"
-                      alt="Jonathan Rodrigues"
+                      src={hostData.image || "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop"}
+                      alt={hostData.title}
                       fill
                       className="object-cover"
                     />

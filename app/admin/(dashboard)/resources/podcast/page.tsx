@@ -60,6 +60,7 @@ export default function PodcastAdminPage() {
   const [editingItem, setEditingItem] = useState<Partial<ResourceItem> | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isHeroSaving, setIsHeroSaving] = useState(false);
+  const [isHostSaving, setIsHostSaving] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => { fetchItems(); }, []);
@@ -154,7 +155,7 @@ export default function PodcastAdminPage() {
   };
 
   const filteredItems = items
-    .filter(item => item.category !== "hero-banner")
+    .filter(item => item.category !== "hero-banner" && item.category !== "podcast-host")
     .filter(item => 
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
       item.subtitle?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -379,6 +380,143 @@ export default function PodcastAdminPage() {
             <p className="text-[11px] text-amber-950/70 leading-relaxed font-medium">
               These 3 episodes are highlighted in the <span className="font-bold">"Upcoming Episodes"</span> section on the podcast page. Ensure they are marked as <span className="font-bold text-amber-600">Featured</span> to appear here.
             </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Podcast Host Management */}
+      <Card className="rounded-3xl border-none shadow-xl shadow-navy-950/5 bg-white overflow-hidden">
+        <CardContent className="p-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 border border-indigo-500/20">
+                <Users className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-navy-950 tracking-tight">Podcast Host Details</h2>
+                <p className="text-navy-950/40 text-xs font-black uppercase tracking-widest mt-1">Manage the host/producer bio and profile photo</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+             <div className="lg:col-span-1">
+                <Label className="text-sm uppercase tracking-[0.2em] font-black text-navy-950/40 ml-1">Host Profile Photo</Label>
+                <div className="mt-4">
+                  <ImageUpload 
+                    value={items.find(i => i.category === "podcast-host")?.image || "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop"}
+                    onChange={async (url) => {
+                      const hostItem = items.find(i => i.category === "podcast-host") || { 
+                        title: "Jonathan Rodrigues", 
+                        subtitle: "Hosted & Produced", 
+                        description: "As an IMI Qualified Mediator and founder of PACT, Jonathan brings together global mediation practitioners for candid conversations about what makes mediation work",
+                        type: "podcast", 
+                        category: "podcast-host",
+                        isActive: true,
+                        order: 0
+                      };
+                      setItems(prev => {
+                        const existing = prev.find(i => i.category === "podcast-host");
+                        if (existing) {
+                          return prev.map(i => i.category === "podcast-host" ? { ...i, image: url } : i);
+                        }
+                        return [...prev, { ...hostItem, image: url } as ResourceItem];
+                      });
+                    }}
+                  />
+                </div>
+             </div>
+
+             <div className="lg:col-span-2 space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Host Name</Label>
+                    <Input 
+                      value={items.find(i => i.category === "podcast-host")?.title || "Jonathan Rodrigues"} 
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setItems(prev => {
+                          const existing = prev.find(i => i.category === "podcast-host");
+                          if (existing) return prev.map(i => i.category === "podcast-host" ? { ...i, title: val } : i);
+                          return [...prev, { title: val, type: "podcast", category: "podcast-host", isActive: true, order: 0 } as ResourceItem];
+                        });
+                      }}
+                      className="h-12 rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Label / Title</Label>
+                    <Input 
+                      value={items.find(i => i.category === "podcast-host")?.subtitle || "Hosted & Produced"} 
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setItems(prev => {
+                          const existing = prev.find(i => i.category === "podcast-host");
+                          if (existing) return prev.map(i => i.category === "podcast-host" ? { ...i, subtitle: val } : i);
+                          return [...prev, { subtitle: val, type: "podcast", category: "podcast-host", isActive: true, order: 0 } as ResourceItem];
+                        });
+                      }}
+                      className="h-12 rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Biography</Label>
+                  <Textarea 
+                    value={items.find(i => i.category === "podcast-host")?.description || "As an IMI Qualified Mediator and founder of PACT, Jonathan brings together global mediation practitioners for candid conversations about what makes mediation work"} 
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setItems(prev => {
+                        const existing = prev.find(i => i.category === "podcast-host");
+                        if (existing) return prev.map(i => i.category === "podcast-host" ? { ...i, description: val } : i);
+                        return [...prev, { description: val, type: "podcast", category: "podcast-host", isActive: true, order: 0 } as ResourceItem];
+                      });
+                    }}
+                    className="min-h-[120px] rounded-xl bg-navy-50/50 border-none focus-visible:ring-primary/20 resize-none p-4"
+                  />
+                </div>
+
+                <div className="flex justify-end">
+                  <Button 
+                    disabled={isHostSaving}
+                    onClick={async () => {
+                      setIsHostSaving(true);
+                      try {
+                        const hostItem = items.find(i => i.category === "podcast-host") || { 
+                          title: "Jonathan Rodrigues", 
+                          subtitle: "Hosted & Produced", 
+                          description: "As an IMI Qualified Mediator and founder of PACT, Jonathan brings together global mediation practitioners for candid conversations about what makes mediation work",
+                          image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop",
+                          type: "podcast", 
+                          category: "podcast-host",
+                          isActive: true,
+                          order: 0
+                        };
+                        const method = (hostItem as any)._id ? "PUT" : "POST";
+                        const response = await fetch("/api/content/resources", {
+                          method,
+                          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                          body: JSON.stringify(hostItem)
+                        });
+                        if ((await response.json()).success) {
+                          toast.success("Host details updated successfully");
+                          fetchItems();
+                        } else {
+                          toast.error("Failed to save host details");
+                        }
+                      } catch (error) {
+                        toast.error("Save failed");
+                      } finally {
+                        setIsHostSaving(false);
+                      }
+                    }}
+                    className="rounded-xl px-8 h-12 bg-navy-950 hover:bg-navy-900 text-white font-bold transition-all shadow-lg"
+                  >
+                    {isHostSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : "Save Host Details"}
+                  </Button>
+                </div>
+             </div>
           </div>
         </CardContent>
       </Card>
