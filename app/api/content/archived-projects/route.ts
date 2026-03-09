@@ -26,14 +26,95 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ success: true, data: project });
     }
     
-    if (all === "true") {
-      // Get ALL projects for admin dashboard
-      const projects = await collection.find({}).sort({ order: 1 }).toArray();
-      return NextResponse.json({ success: true, data: projects });
+    let filter = {};
+    if (all !== "true") {
+      filter = { isActive: true };
     }
     
-    // Get active projects by default
-    const projects = await collection.find({ isActive: true }).sort({ order: 1 }).toArray();
+    let projects = await collection.find(filter).sort({ order: 1 }).toArray();
+
+    // Auto-seed if collection is completely empty and administrator is requesting all
+    const totalCount = await collection.countDocuments({});
+    if (totalCount === 0 && all === "true") {
+      const legacyProjects = [
+        {
+          title: "BITS Law School | Panel on Mediation & Arbitration in International Commercial Conflicts",
+          location: "Mumbai, 2025",
+          description: "Exploring how mixed-mode dispute resolution is shaping cross-border business disputes and India's evolving position in that space.",
+          link: "https://www.youtube.com/watch?v=nQLB_E2Z3hg",
+          category: "Webinar",
+          image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80",
+          order: 1,
+          isActive: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          title: "Saveetha School of Law - Three-Day Workshop on Mediation",
+          location: "Chennai, 2024",
+          description: "Intensive skills workshop introducing core mediation principles, empathic listening, and the IMPACT model.",
+          link: "https://saveethalaw.com/news/three-day-workshop-on-mediation",
+          category: "Workshop",
+          image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80",
+          order: 2,
+          isActive: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          title: "SRM University Delhi-NCR (Haryana) - Mediation & Negotiation Workshop",
+          location: "Sonepat, 2023",
+          description: "Two-day workshop for final-year students on mediator qualities and practical negotiation strategy.",
+          link: "https://srmuniversity.ac.in/event/workshop-on-mediation-and-negotiation",
+          category: "Workshop",
+          image: "https://images.unsplash.com/photo-1577891729319-f4871c6ecdf1?auto=format&fit=crop&q=80",
+          order: 3,
+          isActive: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          title: "Manav Rachna University – Mediation Bootcamp",
+          location: "Faridabad, 2023",
+          description: "A intensive Bootcamp organised by MRU's Centre of Excellence on ADR with Jonathan Rodrigues as trainer.",
+          link: "https://manavrachna.edu.in/assets/campus/mru/pdf/sol-newsletter-4.pdf",
+          category: "Bootcamp",
+          image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80",
+          order: 4,
+          isActive: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          title: "LedX × The PACT – Mediation & Conflict Bootcamp",
+          location: "Indore, 2022",
+          description: "Indore based bootcamp teaching foundational mediation concepts and client-counselling techniques.",
+          link: "https://classroom.ledx.law/bootcamp-on-mediation-client-counselling/",
+          category: "Bootcamp",
+          image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80",
+          order: 5,
+          isActive: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          title: "Lawctopus × The PACT – Online ADR Bootcamp",
+          location: "Online, 2020",
+          description: "Online intensive training students and young professionals on negotiation strategy and mediation process.",
+          link: "https://www.lawctopus.com/adrbootcamp/",
+          category: "Online Bootcamp",
+          image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80",
+          order: 6,
+          isActive: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      ];
+
+      await collection.insertMany(legacyProjects as ArchivedProject[]);
+      projects = await collection.find(filter).sort({ order: 1 }).toArray();
+    }
+    
     return NextResponse.json({ success: true, data: projects });
   } catch (error) {
     console.error("Error fetching Archived Projects:", error);

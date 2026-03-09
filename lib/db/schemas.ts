@@ -1027,6 +1027,22 @@ export const COLLECTIONS = {
   WORKBOOK_CHAPTERS: "workbookChapters",
   // Legal Pages
   LEGAL_PAGES: "legalPages",
+  // Project Gallery
+  PROJECT_GALLERY: "projectGallery",
 } as const;
+
+/** Image for the general Project & Events gallery */
+export interface ProjectGalleryImage extends BaseDocument {
+  /** The image data */
+  image: ImageData;
+  /** Title for the moment */
+  title: string;
+  /** Optional description */
+  description?: string;
+  /** Display order */
+  order: number;
+  /** Whether visible on the website */
+  isActive: boolean;
+}
 
 export type CollectionName = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];

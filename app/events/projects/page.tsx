@@ -12,8 +12,6 @@ import {
   Globe, 
   Zap, 
   Calendar,
-  Search,
-  History,
   MapPin,
   PlayCircle,
   Scale,
@@ -23,8 +21,11 @@ import {
   Target,
   FlaskConical,
   Award,
-  Loader2
+  Loader2,
+  Image as ImageIcon,
+  History as HistoryIcon
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -47,7 +48,7 @@ import { Footer } from "@/components/footer";
 import { MagneticButton } from "@/components/magnetic-button";
 import { Collaborators } from "@/components/sections/home/collaborators";
 import { cn } from "@/lib/utils";
-import { ProjectUpdate, ArchivedProject } from "@/lib/db/schemas";
+import { ProjectUpdate, ArchivedProject, ProjectGalleryImage } from "@/lib/db/schemas";
 
 const SectionHeader = ({ subtitle, title, description, light = false, center = false }: { subtitle: string, title: string, description?: string, light?: boolean, center?: boolean }) => (
   <FadeInUp className={cn("mb-12 md:mb-20", center ? "flex flex-col items-center text-center" : "")}>
@@ -136,35 +137,18 @@ const archives = [
   }
 ];
 
-// Default fallback data for Watch Out For section
-const defaultUpdates = [
-  { 
-    title: "Workshop on Mediation", 
-    date: "March 2026", 
-    location: "SRM Law School, Haryana",
-    iconName: "FlaskConical",
-    category: "Workshop"
-  },
-  { 
-    title: "ODRC Negotiation Contest", 
-    date: "June 2026", 
-    location: "Online Event",
-    iconName: "Target",
-    category: "Competition"
-  },
-  { 
-    title: "Lecture on Mediation", 
-    date: "April 2026", 
-    location: "IIULER Law School, Goa",
-    iconName: "Award",
-    category: "Lecture"
-  }
+const defaultGallery = [
+  { url: "https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?auto=format&fit=crop&q=80", title: "Global Summit", description: "Ceremonial highlights" },
+  { url: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80", title: "Institutional Signing", description: "New partnerships" },
+  { url: "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?auto=format&fit=crop&q=80", title: "Award Ceremony", description: "Celebrating excellence" },
+  { url: "https://images.unsplash.com/photo-1475721027187-4024733923f9?auto=format&fit=crop&q=80", title: "Mediation Workshop", description: "Skill development" },
 ];
 
 export default function ProjectsPage() {
   const [projectUpdates, setProjectUpdates] = useState<ProjectUpdate[]>([]);
   const [archivedProjects, setArchivedProjects] = useState<ArchivedProject[]>([]);
-  const [isLoadingUpdates, setIsLoadingUpdates] = useState(true);
+  const [galleryImages, setGalleryImages] = useState<ProjectGalleryImage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -172,43 +156,48 @@ export default function ProjectsPage() {
         // Fetch project updates
         const updatesRes = await fetch("/api/content/project-updates", { cache: 'no-store' });
         const updatesResult = await updatesRes.json();
-        
-        if (updatesResult.success && updatesResult.data && updatesResult.data.length > 0) {
+        if (updatesResult.success && updatesResult.data?.length > 0) {
           setProjectUpdates(updatesResult.data);
-        } else {
-          setProjectUpdates(defaultUpdates as ProjectUpdate[]);
         }
 
         // Fetch archived projects
         const archivesRes = await fetch("/api/content/archived-projects", { cache: 'no-store' });
         const archivesResult = await archivesRes.json();
-        
-        if (archivesResult.success && archivesResult.data && archivesResult.data.length > 0) {
+        if (archivesResult.success && archivesResult.data?.length > 0) {
           setArchivedProjects(archivesResult.data);
-        } else {
-          setArchivedProjects(archives as ArchivedProject[]);
         }
+
+        // Fetch gallery images
+        const galleryRes = await fetch("/api/content/project-gallery", { cache: 'no-store' });
+        const galleryResult = await galleryRes.json();
+        if (galleryResult.success && galleryResult.data?.length > 0) {
+          setGalleryImages(galleryResult.data);
+        }
+
       } catch (error) {
         console.error("Failed to fetch data:", error);
-        setProjectUpdates(defaultUpdates as ProjectUpdate[]);
-        setArchivedProjects(archives as ArchivedProject[]);
       } finally {
-        setIsLoadingUpdates(false);
+        setIsLoading(false);
       }
     }
 
     fetchData();
   }, []);
 
-  const displayUpdates = projectUpdates.length > 0 ? projectUpdates : defaultUpdates;
+  const displayUpdates = projectUpdates.length > 0 ? projectUpdates : [];
   const displayArchives = archivedProjects.length > 0 ? archivedProjects : archives;
+  const displayGallery = galleryImages.length > 0 ? galleryImages.map(img => ({
+    url: img.image?.url,
+    title: img.title,
+    description: img.description
+  })) : defaultGallery;
 
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-white text-navy-950">
       <GrainOverlay />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-32 pb-20 md:pt-40 md:pb-32 bg-navy-950 overflow-hidden dark">
+      <section className="relative min-h-screen flex items-center pt-32 pb-20 md:pt-40 md:pb-32 bg-navy-950 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80"
@@ -220,7 +209,6 @@ export default function ProjectsPage() {
           <div className="absolute inset-0 bg-linear-to-b from-navy-950/40 via-navy-950/90 to-navy-950" />
           <div className="absolute inset-0 bg-linear-to-r from-navy-950 via-transparent to-transparent opacity-80" />
           
-          {/* Subtle Accent Glows */}
           <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-gold-500/5 blur-[120px] rounded-full translate-x-1/2 pointer-events-none" />
           <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-white/5 blur-[120px] rounded-full -translate-x-1/2 pointer-events-none" />
         </div>
@@ -229,13 +217,10 @@ export default function ProjectsPage() {
           <FadeInUp>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-gold-500" />
-              <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold">
-                #MissionMediation
-              </span>
+              <span className="text-gold-500 text-xs tracking-[0.4em] uppercase font-bold">#MissionMediation</span>
             </div>
-            <h1 className="page-title text-[12vw] sm:text-[10vw] md:text-[8.5rem] font-extrabold text-white tracking-tighter leading-[0.8] mb-16 select-none italic uppercase">
-              EVENTS & <br />
-              <span className="text-gold-500">PROJECTS</span> 
+            <h1 className="page-title text-[12vw] sm:text-[10vw] md:text-[8.5rem] font-extrabold text-white tracking-tighter leading-[0.8] mb-16 italic uppercase">
+              EVENTS & <br /> <span className="text-gold-500">PROJECTS</span> 
             </h1>
             
             <div className="max-w-5xl space-y-12">
@@ -246,17 +231,12 @@ export default function ProjectsPage() {
                 <p className="text-xl md:text-2xl text-white/70 font-light max-w-3xl leading-relaxed">
                   We seek to mainstream mediation, build professional capacity, and empower individuals with collaborative dispute resolution skills.
                 </p>
-
-                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 pt-8 sm:pt-12 w-full sm:w-auto">
-                  <MagneticButton variant="primary" size="lg" className="group w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5">
-                    <a href="mailto:official@thepact.in" className="flex items-center justify-center gap-3 text-base sm:text-lg">
-                       Inquire for Collaboration <Mail className="w-5 h-5" />
-                    </a>
+                <div className="flex flex-col sm:flex-row items-center gap-6 pt-12">
+                  <MagneticButton variant="primary" size="lg" className="w-full sm:w-auto">
+                    <a href="mailto:official@thepact.in" className="flex items-center justify-center gap-3">Inquire for Collaboration <Mail className="w-5 h-5" /></a>
                   </MagneticButton>
-                  <MagneticButton variant="secondary" size="lg" className="group w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5">
-                    <a href="#archives" className="flex items-center justify-center gap-3 text-base sm:text-lg text-white">
-                       View Archive <History className="w-5 h-5" />
-                    </a>
+                  <MagneticButton variant="secondary" size="lg" className="w-full sm:w-auto text-white">
+                    <a href="#archives" className="flex items-center justify-center gap-3">View Archive <HistoryIcon className="w-5 h-5" /></a>
                   </MagneticButton>
                 </div>
               </div>
@@ -266,15 +246,9 @@ export default function ProjectsPage() {
       </section>
 
       {/* Engagement Grid Section */}
-      <section className="py-16 md:py-24 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
-          <SectionHeader 
-            subtitle="Get Involved" 
-            title="Partner with our Mission" 
-            center
-            description="Diverse engagement platforms designed to foster mediation across legal and business ecosystems."
-          />
-
+      <section className="py-24 bg-white relative">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+          <SectionHeader subtitle="Get Involved" title="Partner with our Mission" center description="Diverse engagement platforms designed to foster mediation across legal and business ecosystems." />
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { icon: BookOpen, text: "Lectures & Seminars at Universities", color: "text-blue-600 bg-blue-50" },
@@ -285,18 +259,12 @@ export default function ProjectsPage() {
               { icon: Scale, text: "Support and Co-Host a Competition", color: "text-indigo-600 bg-indigo-50" }
             ].map((item, i) => (
               <StaggerItem key={i}>
-                <div className="group relative h-full p-10 rounded-[2.5rem] bg-navy-50/50 border border-transparent hover:border-gold-500/30 hover:bg-white hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] transition-all duration-500 overflow-hidden text-center flex flex-col items-center">
-                  <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 border border-navy-100/10", item.color)}>
+                <div className="group h-full p-10 rounded-[2.5rem] bg-navy-50/50 border border-transparent hover:border-gold-500/30 hover:bg-white hover:shadow-2xl transition-all duration-500 text-center flex flex-col items-center">
+                  <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-8", item.color)}>
                     <item.icon className="w-8 h-8" />
                   </div>
-                  <div className="space-y-4">
-                    <h4 className="text-xl font-bold text-navy-950 tracking-tight leading-tight group-hover:text-gold-500 transition-colors uppercase">{item.text}</h4>
-                  </div>
-                  <div className="mt-8">
-                     <a href="mailto:official@thepact.in" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-navy-300 group-hover:text-gold-600 transition-colors">
-                        Invite PACT <ArrowUpRight className="w-3 h-3" />
-                     </a>
-                  </div>
+                  <h4 className="text-xl font-bold text-navy-950 uppercase group-hover:text-gold-500 transition-colors">{item.text}</h4>
+                  <div className="mt-8"><a href="mailto:official@thepact.in" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-navy-300 group-hover:text-gold-600">Invite PACT <ArrowUpRight className="w-3 h-3" /></a></div>
                 </div>
               </StaggerItem>
             ))}
@@ -305,190 +273,115 @@ export default function ProjectsPage() {
       </section>
 
       {/* Watch Out For Section */}
-      <section className="py-16 md:py-24 bg-navy-950 relative overflow-hidden dark">
-        <div className="absolute inset-0 z-0 opacity-10">
-          <Image 
-            src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80"
-            alt="Upcoming"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
-          <SectionHeader subtitle="Upcoming" title="Watch Out For" light center />
-           
-          {isLoadingUpdates ? (
-            <div className="flex justify-center py-20">
-              <Loader2 className="w-10 h-10 animate-spin text-gold-500" />
-            </div>
-          ) : displayUpdates.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-white/50 text-lg">No upcoming events. Check back soon!</p>
-            </div>
-          ) : (
-            <div className={`grid gap-8 md:gap-12 mt-20 ${displayUpdates.length === 1 ? 'grid-cols-1 max-w-2xl mx-auto' : displayUpdates.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'}`}>
-              {displayUpdates.map((item: any, i: number) => {
-                const IconComponent = iconMap[item.iconName] || Calendar;
+      {displayUpdates.length > 0 && (
+        <section className="py-24 bg-navy-950 relative overflow-hidden dark">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
+            <SectionHeader subtitle="Upcoming" title="Watch Out For" light center />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
+              {displayUpdates.map((item, i) => {
+                const IconComponent = iconMap[item.iconName || "Calendar"] || Calendar;
                 return (
-                <FadeInUp key={item._id || i} delay={i * 0.1}>
-                  <div className="group relative h-full p-12 rounded-[3.5rem] bg-white/5 backdrop-blur-xl border border-white/10 hover:border-gold-500/40 hover:bg-white/10 transition-all duration-700 shadow-2xl flex flex-col">
-                    <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-gold-500 mb-10 group-hover:scale-110 group-hover:rotate-6 transition-all border border-white/5">
-                      <IconComponent className="w-8 h-8" />
-                    </div>
-                    
-                    <div className="flex flex-col gap-2 mb-8">
-                       <span className="text-xs tracking-[0.3em] text-gold-500 font-semibold uppercase">
-                         {item.category} • {item.date}
-                       </span>
-                       <h3 className="text-3xl font-bold text-white leading-tight tracking-tighter uppercase group-hover:text-gold-500 transition-colors">
-                         {item.title}
-                       </h3>
-                    </div>
-
-                    <div className="mt-auto pt-8 border-t border-white/5 flex items-center gap-4">
-                       <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gold-500">
-                          <MapPin className="w-4 h-4" />
-                       </div>
-                        <div className="flex flex-col">
-                           <span className="text-[9px] tracking-widest text-white/30 font-semibold">Location</span>
-                           <span className="text-xs font-bold tracking-widest text-white/70">{item.location}</span>
-                        </div>
-                    </div>
-                  </div>
-                </FadeInUp>
-              )})}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Legacy Section */}
-      <section id="archives" className="py-24 md:py-32 bg-navy-50 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_70%_30%,rgba(191,154,102,0.05),transparent_60%)] pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
-          <SectionHeader subtitle="Legacy" title="Archived Projects" center />
-          
-          <div className="space-y-6 max-w-6xl mx-auto">
-                {displayArchives.map((item: any, i: number) => (
-                  <FadeInUp key={item._id || i} delay={i * 0.05}>
-                    <div className="group relative flex flex-col md:flex-row gap-8 items-center p-6 md:p-8 rounded-4xl bg-white border border-navy-100/80 shadow-xs hover:border-gold-500/30 hover:shadow-xl transition-all duration-500 overflow-hidden">
-                        {/* Compact Image */}
-                        <div className="w-full md:w-56 h-40 relative rounded-xl overflow-hidden shrink-0">
-                          <Image 
-                            src={item.image} 
-                            fill 
-                            className="object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0" 
-                            alt={item.title} 
-                          />
-                          <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-transparent transition-colors duration-700" />
-                        </div>
-                        
-                        <div className="grow space-y-4">
-                          <div className="flex flex-wrap items-center gap-4">
-                            <span className="px-3 py-1 rounded-full bg-navy-50 text-xs text-navy-950/40 uppercase tracking-widest font-bold">
-                              {item.category}
-                            </span>
-                            <span className="text-xs text-gold-600 uppercase tracking-widest font-semibold flex items-center gap-2">
-                              <MapPin className="w-3 h-3" /> {item.location}
-                            </span>
-                          </div>
-                          
-                          <h3 className="text-xl md:text-2xl font-light text-navy-950 group-hover:text-gold-500 transition-colors uppercase italic tracking-tight leading-tight">
-                            {item.title}
-                          </h3>
-                          
-                          <p className="text-sm text-navy-950/50 font-light leading-relaxed max-w-3xl">
-                            {item.description}
-                          </p>
-                        </div>
-
-                        <div className="shrink-0 w-full md:w-auto">
-                          <a 
-                            href={item.link} 
-                            target="_blank" 
-                            className="group/link inline-flex items-center gap-4 px-8 py-4 rounded-full bg-navy-50 group-hover:bg-navy-950 text-navy-950 group-hover:text-white transition-all duration-500 w-full md:w-auto justify-center"
-                          >
-                            <span className="text-xs font-bold uppercase tracking-widest">View Project</span>
-                            <div className="w-8 h-8 rounded-full bg-white text-navy-950 flex items-center justify-center shadow-sm group-hover/link:scale-110 group-hover/link:rotate-45 transition-all">
-                              <ExternalLink className="w-4 h-4" />
-                            </div>
-                          </a>
-                        </div>
-
-                        {/* Subtle Interaction Line */}
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gold-500 group-hover:h-1/2 transition-all duration-700" />
+                  <FadeInUp key={item._id?.toString() || i} delay={i * 0.1}>
+                    <div className="group h-full p-12 rounded-[3.5rem] bg-white/5 backdrop-blur-xl border border-white/10 hover:border-gold-500/40 hover:bg-white/10 transition-all duration-700 shadow-2xl flex flex-col">
+                      <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-gold-500 mb-10 group-hover:scale-110 transition-all">
+                        <IconComponent className="w-8 h-8" />
+                      </div>
+                      <div className="space-y-4 mb-8">
+                        <span className="text-xs tracking-[0.3em] text-gold-500 font-bold uppercase">{item.category} • {item.date}</span>
+                        <h3 className="text-3xl font-bold text-white uppercase group-hover:text-gold-500 transition-colors">{item.title}</h3>
+                      </div>
+                      <div className="mt-auto pt-8 border-t border-white/5 flex items-center gap-4 text-white/70">
+                        <MapPin className="w-4 h-4 text-gold-500" />
+                        <span className="text-xs font-bold tracking-widest uppercase">{item.location}</span>
+                      </div>
                     </div>
                   </FadeInUp>
-                ))}
+                );
+              })}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Archives Section */}
+      <section id="archives" className="py-24 md:py-32 bg-navy-50">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+          <SectionHeader subtitle="Legacy" title="Archived Projects" center />
+          <div className="space-y-6 max-w-6xl mx-auto">
+            {displayArchives.map((item: any, i: number) => (
+              <FadeInUp key={item._id || i} delay={i * 0.05}>
+                  <div className="group relative flex flex-col md:flex-row gap-8 items-center p-6 md:p-8 rounded-4xl bg-white border border-navy-100/80 shadow-xs hover:border-gold-500/30 hover:shadow-xl transition-all duration-500">
+                  <div className="w-full md:w-56 h-40 relative rounded-xl overflow-hidden shrink-0">
+                    <Image src={item.image} fill className="object-cover transition-all duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0" alt={item.title} />
+                  </div>
+                  <div className="grow space-y-4">
+                    <div className="flex flex-wrap items-center gap-4">
+                      <Badge className="bg-navy-50 text-navy-400 border-none uppercase tracking-widest px-3">{item.category}</Badge>
+                      <span className="text-xs text-gold-600 uppercase tracking-widest font-bold flex items-center gap-2"><MapPin className="w-3 h-3" /> {item.location}</span>
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-bold text-navy-950 uppercase italic group-hover:text-gold-500 transition-colors">{item.title}</h3>
+                    <p className="text-sm text-navy-950/50 font-light leading-relaxed">{item.description}</p>
+                  </div>
+                  <div className="shrink-0 w-full md:w-auto">
+                    <a href={item.link} target="_blank" className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-navy-50 group-hover:bg-navy-950 text-navy-950 group-hover:text-white transition-all duration-500 w-full md:w-auto justify-center">
+                      <span className="text-xs font-bold uppercase tracking-widest">View Project</span>
+                      <div className="w-8 h-8 rounded-full bg-white text-navy-950 flex items-center justify-center shadow-sm group-hover:rotate-45 transition-all"><ExternalLink className="w-4 h-4" /></div>
+                    </a>
+                  </div>
+                </div>
+              </FadeInUp>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Ceremonial Gallery - verified images */}
-      <section className="py-16 md:py-24 bg-white border-t border-navy-100/50">
+      {/* Dynamic Gallery Section */}
+      <section className="py-24 bg-white border-t border-navy-100/50 overflow-hidden">
         <div className="max-w-7xl mx-auto mb-16 px-6 md:px-12 lg:px-24">
           <SectionHeader subtitle="Moments" title="Gallery" center />
         </div>
         
         <div className="w-full">
-          <Carousel
-            opts={{ align: "center", loop: true }}
-            plugins={[Autoplay({ delay: 4000 })]}
-            className="w-full relative group/carousel"
-          >
-            <CarouselContent className="-ml-4 md:ml-0">
-                {[
-                  "https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1475721027187-4024733923f9?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80",
-                  "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80"
-                ].map((url, i) => (
-                  <CarouselItem key={i} className="pl-4 md:pl-0 basis-[90%] md:basis-[70%] lg:basis-[60%] px-2 md:px-4">
+          <Carousel opts={{ align: "center", loop: true }} plugins={[Autoplay({ delay: 4000 })]} className="w-full">
+            <CarouselContent className="md:ml-0">
+                {displayGallery.map((item: any, i: number) => (
+                  <CarouselItem key={i} className="basis-[90%] md:basis-[70%] lg:basis-[60%] px-4">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <button className="w-full text-left group/image relative outline-hidden cursor-pointer">
-                          <div className="aspect-16/10 md:aspect-21/9 w-full relative rounded-5xl md:rounded-[4rem] overflow-hidden bg-navy-900/10 shadow-2xl group-hover/image:shadow-gold-500/20 transition-all duration-1000">
-                            <Image 
-                              src={url}
-                              alt={`Pact Moment ${i + 1}`}
-                              fill
-                              className="object-cover transition-all duration-2000 group-hover/image:scale-105 grayscale group-hover/image:grayscale-0"
-                            />
-                            <div className="absolute inset-0 bg-navy-950/20 group-hover/image:bg-navy-950/10 transition-colors duration-700" />
-                            <div className="absolute inset-x-0 bottom-0 p-8 md:p-14 bg-linear-to-t from-black/80 to-transparent translate-y-6 group-hover/image:translate-y-0 opacity-0 group-hover/image:opacity-100 transition-all duration-700">
-                              <span className="text-gold-500  text-xs tracking-[0.4em] uppercase font-bold mb-3 block">Mission Highlights</span>
-                              <h4 className="text-2xl md:text-5xl font-bold text-white tracking-tighter italic uppercase">Event Moment {i + 1}</h4>
+                        <button className="w-full text-left group relative outline-none cursor-pointer">
+                          <div className="aspect-video w-full relative rounded-4xl overflow-hidden bg-navy-900 shadow-2xl group-hover:shadow-gold-500/20 transition-all duration-1000">
+                            {item.url ? <Image src={item.url} alt={item.title} fill className="object-cover transition-all duration-1000 group-hover:scale-105 grayscale group-hover:grayscale-0" /> : <div className="w-full h-full flex items-center justify-center bg-gray-100"><ImageIcon className="w-12 h-12 text-gray-300" /></div>}
+                            <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-transparent transition-colors duration-700" />
+                            <div className="absolute inset-x-0 bottom-0 p-8 md:p-14 bg-linear-to-t from-black/90 to-transparent translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
+                              <span className="text-gold-500 text-xs tracking-[0.4em] uppercase font-bold mb-3 block">Pact Highlights</span>
+                              <h4 className="text-2xl md:text-5xl font-bold text-white tracking-tighter italic uppercase underline decoration-gold-500/30 underline-offset-8">{item.title}</h4>
                             </div>
                           </div>
                         </button>
                       </DialogTrigger>
-                      <DialogContent className="max-w-none! w-screen h-screen p-0 m-0 border-none bg-black/90 backdrop-blur-3xl focus:outline-hidden flex items-center justify-center z-100">
-                        <DialogTitle className="sr-only">Event Moment {i + 1}</DialogTitle>
-                        <div className="relative w-[96vw] h-[85vh] rounded-4xl md:rounded-[6rem] overflow-hidden bg-navy-950 border border-white/10 group/modal">
-                          <DialogClose className="absolute top-8 right-8 z-50 w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white hover:bg-gold-500 hover:text-navy-950 transition-all duration-500">
+                      <DialogContent className="max-w-none! w-screen h-screen p-0 m-0 border-none bg-black/95 flex items-center justify-center z-100">
+                        <DialogTitle className="sr-only">{item.title}</DialogTitle>
+                        <div className="relative w-[90vw] h-[80vh] rounded-[4rem] overflow-hidden">
+                          <DialogClose className="absolute top-8 right-8 z-50 w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center text-white hover:bg-gold-500 transition-all">
                             <X className="w-8 h-8" />
                           </DialogClose>
-                          <Image src={url} alt={`Moment ${i+1}`} fill className="object-cover" />
+                          {item.url && <Image src={item.url} alt={item.title} fill className="object-cover" />}
                         </div>
                       </DialogContent>
                     </Dialog>
                   </CarouselItem>
                 ))}
             </CarouselContent>
-            <div className="flex items-center justify-center gap-6 mt-12 md:mt-16">
-              <CarouselPrevious className="static translate-y-0 w-16 h-16 rounded-full border-navy-100 bg-navy-50 text-navy-950 hover:bg-gold-500 transition-all shadow-2xl" />
-              <div className="h-px w-24 bg-navy-100" />
-              <CarouselNext className="static translate-y-0 w-16 h-16 rounded-full border-navy-100 bg-navy-50 text-navy-950 hover:bg-gold-500 transition-all shadow-2xl" />
+            <div className="flex items-center justify-center gap-6 mt-16">
+              <CarouselPrevious className="static translate-y-0 w-16 h-16 rounded-full border-navy-100 bg-navy-50 text-navy-950 hover:bg-gold-500 transition-all" />
+              <div className="h-px w-24 bg-navy-100 font-black italic tracking-widest text-[10px] items-center flex justify-center uppercase text-navy-900/20">Scroll</div>
+              <CarouselNext className="static translate-y-0 w-16 h-16 rounded-full border-navy-100 bg-navy-50 text-navy-950 hover:bg-gold-500 transition-all" />
             </div>
           </Carousel>
         </div>
       </section>
 
-      {/* Collaborators Section */}
-      <div className="bg-white -mt-12 md:-mt-20">
+      <div className="bg-white">
         <Collaborators />
       </div>
 

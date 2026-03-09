@@ -46,24 +46,24 @@ const eventCategories = [
     bg: "bg-emerald-500/10"
   },
   {
-    title: "Events & Projects",
-    description: "Manage miscellaneous general events and special institutional projects.",
+    title: "General Event Instances",
+    description: "Manage specific general event records, covers, and their individual mini-galleries.",
     icon: Calendar,
     link: "/admin/events/general",
     color: "text-rose-500",
     bg: "bg-rose-500/10"
   },
   {
-    title: "Watch Out For",
-    description: "Manage upcoming events section on the Events & Projects page.",
-    icon: Calendar,
+    title: "Events & Projects Page",
+    description: "Manage upcoming entries (Watch Out For) and the main ceremonial gallery.",
+    icon: ImageIcon,
     link: "/admin/events/projects",
     color: "text-amber-500",
     bg: "bg-amber-500/10"
   },
   {
-    title: "Archived Projects",
-    description: "Manage legacy/archived projects section on the Events & Projects page.",
+    title: "Projects Archives",
+    description: "Manage legacy and archived projects shown on the Events & Projects page.",
     icon: Calendar,
     link: "/admin/events/archived",
     color: "text-rose-500",
