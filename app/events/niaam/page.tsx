@@ -558,11 +558,11 @@ export default function NIAAMPage() {
           >
             <CarouselContent className="-ml-4 md:ml-0">
                 {galleryItems.map((item, i) => (
-                  <CarouselItem key={i} className="pl-4 md:pl-0 basis-[90%] md:basis-[70%] lg:basis-[60%] px-2 md:px-4">
+                  <CarouselItem key={i} className="pl-4 md:pl-0 basis-[90%] md:basis-[70%] lg:basis-[60%] px-2 md:px-4 h-[50vw] max-h-[600px] min-h-[260px]">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <button className="w-full text-left group/image relative outline-hidden cursor-pointer">
-                          <div className="relative h-full w-full rounded-2xl sm:rounded-4xl overflow-hidden border border-navy-100/10 bg-white shadow-2xl transition-all duration-700 group-hover:shadow-gold-500/10 group-hover:border-gold-500/20">
+                        <button className="w-full h-full text-left group/image relative outline-hidden cursor-pointer">
+                          <div className="relative h-full w-full rounded-2xl sm:rounded-4xl overflow-hidden border border-navy-100/10 bg-navy-900 shadow-2xl transition-all duration-700 group-hover:shadow-gold-500/10 group-hover:border-gold-500/20">
                             <Image 
                               src={item.url || ""}
                               alt={item.title || `Ceremony Moment ${i + 1}`}
