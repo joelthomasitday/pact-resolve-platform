@@ -238,12 +238,12 @@ export default function MCIPage() {
           <SectionHeader subtitle="Retrospective" title="MCI Final Frames" center />
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-            {[
+            {(eventData?.retrospective && eventData.retrospective.length > 0 ? eventData.retrospective : [
               { year: 2025, image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80" },
               { year: 2024, image: "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?auto=format&fit=crop&q=80" },
               { year: 2023, image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80" }
-            ].map((item) => (
-              <FadeInUp key={item.year} className="group relative aspect-video rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] overflow-hidden bg-navy-50 shadow-sm hover:shadow-2xl transition-all duration-700">
+            ]).map((item: any, index: number) => (
+              <FadeInUp key={item.id || item.year || index} className="group relative aspect-video rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] overflow-hidden bg-navy-50 shadow-sm hover:shadow-2xl transition-all duration-700">
                 <Image
                   src={item.image}
                   alt={`MCI Final Frame ${item.year}`}

@@ -14,10 +14,11 @@ interface ContentTabProps {
   eventData: MCIEvent | null;
   isSaving: boolean;
   token: string | null;
-  onSaved: (updated: Partial<MCIEvent>) => void;
+  onChange: (updated: Partial<MCIEvent>) => void;
+  onSave: (updated: Partial<MCIEvent>) => Promise<void>;
 }
 
-export function ContentTab({ eventData, isSaving: parentSaving, token, onSaved }: ContentTabProps) {
+export function ContentTab({ eventData, isSaving: parentSaving, token, onChange, onSave }: ContentTabProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [isUploadingPdf, setIsUploadingPdf] = useState(false);
 
@@ -56,6 +57,34 @@ export function ContentTab({ eventData, isSaving: parentSaving, token, onSaved }
     });
   }, [eventData]);
 
+  const updateForm = (updater: (prev: typeof form) => typeof form) => {
+    setForm(prev => {
+      const next = updater(prev);
+      const payload: Partial<MCIEvent> = {
+        subtitle: next.subtitle,
+        title: next.title.filter(Boolean),
+        heroDescription: [next.heroDesc0, next.heroDesc1].filter(Boolean),
+        eventDetails: {
+          dates: next.dates,
+          venue: next.venue,
+          hosts: next.hosts,
+          sponsors: next.sponsors,
+        },
+        vision: {
+          subtitle: eventData?.vision?.subtitle || "GLOBAL VISION",
+          title: eventData?.vision?.title || "Globally Unique",
+          experienceText: eventData?.vision?.experienceText || "10+ Years",
+          description: [next.visionDesc0, next.visionDesc1].filter(Boolean),
+          brochurePdfUrl: next.brochurePdfUrl,
+        },
+        heroImage: { url: next.heroImageUrl, alt: "MCI Hero" },
+        visionImage: { url: next.visionImageUrl, alt: "MCI Vision" },
+      };
+      onChange(payload);
+      return next;
+    });
+  };
+
   const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -69,7 +98,7 @@ export function ContentTab({ eventData, isSaving: parentSaving, token, onSaved }
       const result = await res.json();
       const url = result.url || result.data?.url;
       if (!url) throw new Error("No URL returned");
-      setForm(p => ({ ...p, brochurePdfUrl: url }));
+      updateForm(p => ({ ...p, brochurePdfUrl: url }));
       toast.success("PDF uploaded!");
     } catch (err: any) {
       toast.error(err.message || "PDF upload failed");
@@ -81,44 +110,29 @@ export function ContentTab({ eventData, isSaving: parentSaving, token, onSaved }
 
   const handleSaveContent = async () => {
     if (!eventData?._id) { toast.error("No event record to update. Please save gallery first."); return; }
-    setIsSaving(true);
-    try {
-      const payload = {
-        ...eventData,
-        subtitle: form.subtitle,
-        title: form.title.filter(Boolean),
-        heroDescription: [form.heroDesc0, form.heroDesc1].filter(Boolean),
-        eventDetails: {
-          dates: form.dates,
-          venue: form.venue,
-          hosts: form.hosts,
-          sponsors: form.sponsors,
-        },
-        vision: {
-          ...(eventData.vision || {}),
-          description: [form.visionDesc0, form.visionDesc1].filter(Boolean),
-          brochurePdfUrl: form.brochurePdfUrl,
-        },
-        heroImage: { url: form.heroImageUrl, alt: "MCI Hero" },
-        visionImage: { url: form.visionImageUrl, alt: "MCI Vision" },
-      };
-      const res = await fetch("/api/content/mci-event", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify(payload),
-      });
-      const result = await res.json();
-      if (result.success) {
-        toast.success("Page content saved!");
-        onSaved(payload);
-      } else {
-        toast.error(result.error || "Save failed");
-      }
-    } catch (e) {
-      toast.error("Save failed");
-    } finally {
-      setIsSaving(false);
-    }
+    
+    const payload: Partial<MCIEvent> = {
+      subtitle: form.subtitle,
+      title: form.title.filter(Boolean),
+      heroDescription: [form.heroDesc0, form.heroDesc1].filter(Boolean),
+      eventDetails: {
+        dates: form.dates,
+        venue: form.venue,
+        hosts: form.hosts,
+        sponsors: form.sponsors,
+      },
+      vision: {
+        subtitle: eventData.vision?.subtitle || "GLOBAL VISION",
+        title: eventData.vision?.title || "Globally Unique",
+        experienceText: eventData.vision?.experienceText || "10+ Years",
+        description: [form.visionDesc0, form.visionDesc1].filter(Boolean),
+        brochurePdfUrl: form.brochurePdfUrl,
+      },
+      heroImage: { url: form.heroImageUrl, alt: "MCI Hero" },
+      visionImage: { url: form.visionImageUrl, alt: "MCI Vision" },
+    };
+    
+    await onSave(payload);
   };
 
   const saving = isSaving || parentSaving;
@@ -142,27 +156,27 @@ export function ContentTab({ eventData, isSaving: parentSaving, token, onSaved }
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <Field label="Top Subtitle Line">
-              <Input value={form.subtitle} onChange={e => setForm(p => ({ ...p, subtitle: e.target.value }))} placeholder="India's Premier Mediation Event" />
+              <Input value={form.subtitle} onChange={e => updateForm(p => ({ ...p, subtitle: e.target.value }))} placeholder="India's Premier Mediation Event" />
             </Field>
             <Field label="Title Line 1">
-              <Input value={form.title[0]} onChange={e => setForm(p => ({ ...p, title: [e.target.value, p.title[1], p.title[2]] }))} placeholder="MEDIATION" />
+              <Input value={form.title[0]} onChange={e => updateForm(p => ({ ...p, title: [e.target.value, p.title[1], p.title[2]] }))} placeholder="MEDIATION" />
             </Field>
             <Field label="Title Line 2 (gold highlight)">
-              <Input value={form.title[1]} onChange={e => setForm(p => ({ ...p, title: [p.title[0], e.target.value, p.title[2]] }))} placeholder="CHAMPIONSHIP" />
+              <Input value={form.title[1]} onChange={e => updateForm(p => ({ ...p, title: [p.title[0], e.target.value, p.title[2]] }))} placeholder="CHAMPIONSHIP" />
             </Field>
             <Field label="Title Line 3">
-              <Input value={form.title[2]} onChange={e => setForm(p => ({ ...p, title: [p.title[0], p.title[1], e.target.value] }))} placeholder="INDIA" />
+              <Input value={form.title[2]} onChange={e => updateForm(p => ({ ...p, title: [p.title[0], p.title[1], e.target.value] }))} placeholder="INDIA" />
             </Field>
             <Field label="Hero Description (Paragraph 1)">
-              <Textarea value={form.heroDesc0} onChange={e => setForm(p => ({ ...p, heroDesc0: e.target.value }))} className="min-h-[80px] resize-none" placeholder="The fourth edition of India's Mediation Champions League..." />
+              <Textarea value={form.heroDesc0} onChange={e => updateForm(p => ({ ...p, heroDesc0: e.target.value }))} className="min-h-[80px] resize-none" placeholder="The fourth edition of India's Mediation Champions League..." />
             </Field>
             <Field label="Hero Description (Paragraph 2)">
-              <Textarea value={form.heroDesc1} onChange={e => setForm(p => ({ ...p, heroDesc1: e.target.value }))} className="min-h-[80px] resize-none" placeholder="The flagship event also serves as a great space..." />
+              <Textarea value={form.heroDesc1} onChange={e => updateForm(p => ({ ...p, heroDesc1: e.target.value }))} className="min-h-[80px] resize-none" placeholder="The flagship event also serves as a great space..." />
             </Field>
           </div>
           <div className="space-y-2">
             <Label>Hero Background Image</Label>
-            <ImageUpload value={form.heroImageUrl} onChange={url => setForm(p => ({ ...p, heroImageUrl: url }))} />
+            <ImageUpload value={form.heroImageUrl} onChange={url => updateForm(p => ({ ...p, heroImageUrl: url }))} />
             <p className="text-xs text-muted-foreground">Shown as the full-screen background on the hero section</p>
           </div>
         </div>
@@ -171,10 +185,10 @@ export function ContentTab({ eventData, isSaving: parentSaving, token, onSaved }
       {/* Event Details */}
       <Section title="Event Details" icon={<Calendar className="w-4 h-4" />} color="blue">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Field label="Dates"><Input value={form.dates} onChange={e => setForm(p => ({ ...p, dates: e.target.value }))} placeholder="September 2026" /></Field>
-          <Field label="Venue / City"><Input value={form.venue} onChange={e => setForm(p => ({ ...p, venue: e.target.value }))} placeholder="New Delhi" /></Field>
-          <Field label="Hosts"><Input value={form.hosts} onChange={e => setForm(p => ({ ...p, hosts: e.target.value }))} placeholder="GNLU, GIMAC..." /></Field>
-          <Field label="Sponsors"><Input value={form.sponsors} onChange={e => setForm(p => ({ ...p, sponsors: e.target.value }))} placeholder="Coming Soon" /></Field>
+          <Field label="Dates"><Input value={form.dates} onChange={e => updateForm(p => ({ ...p, dates: e.target.value }))} placeholder="September 2026" /></Field>
+          <Field label="Venue / City"><Input value={form.venue} onChange={e => updateForm(p => ({ ...p, venue: e.target.value }))} placeholder="New Delhi" /></Field>
+          <Field label="Hosts"><Input value={form.hosts} onChange={e => updateForm(p => ({ ...p, hosts: e.target.value }))} placeholder="GNLU, GIMAC..." /></Field>
+          <Field label="Sponsors"><Input value={form.sponsors} onChange={e => updateForm(p => ({ ...p, sponsors: e.target.value }))} placeholder="Coming Soon" /></Field>
         </div>
       </Section>
 
@@ -183,17 +197,17 @@ export function ContentTab({ eventData, isSaving: parentSaving, token, onSaved }
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <Field label="Vision Description (Paragraph 1)">
-              <Textarea value={form.visionDesc0} onChange={e => setForm(p => ({ ...p, visionDesc0: e.target.value }))} className="min-h-[100px] resize-none" placeholder='Mediation Championship India - "MCI" - is a Mediation Champions League...' />
+              <Textarea value={form.visionDesc0} onChange={e => updateForm(p => ({ ...p, visionDesc0: e.target.value }))} className="min-h-[100px] resize-none" placeholder='Mediation Championship India - "MCI" - is a Mediation Champions League...' />
             </Field>
             <Field label="Vision Description (Paragraph 2)">
-              <Textarea value={form.visionDesc1} onChange={e => setForm(p => ({ ...p, visionDesc1: e.target.value }))} className="min-h-[100px] resize-none" placeholder="Challengers showcase their wits..." />
+              <Textarea value={form.visionDesc1} onChange={e => updateForm(p => ({ ...p, visionDesc1: e.target.value }))} className="min-h-[100px] resize-none" placeholder="Challengers showcase their wits..." />
             </Field>
             <Field label="Brochure PDF URL">
               <div className="space-y-2">
                 <div className="flex gap-2">
                   <div className="relative flex-1">
                     <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-                    <Input value={form.brochurePdfUrl} onChange={e => setForm(p => ({ ...p, brochurePdfUrl: e.target.value }))} placeholder="https://... or upload PDF →" className="pl-8" />
+                    <Input value={form.brochurePdfUrl} onChange={e => updateForm(p => ({ ...p, brochurePdfUrl: e.target.value }))} placeholder="https://... or upload PDF →" className="pl-8" />
                   </div>
                   <label className="cursor-pointer">
                     <Button type="button" variant="outline" size="sm" className="h-10 pointer-events-none gap-1.5 rounded-xl whitespace-nowrap" disabled={isUploadingPdf}>
@@ -207,7 +221,7 @@ export function ContentTab({ eventData, isSaving: parentSaving, token, onSaved }
                   <div className="flex items-center gap-2 text-xs text-emerald-600">
                     <FileText className="w-3.5 h-3.5" />
                     <span className="truncate">{form.brochurePdfUrl}</span>
-                    <button onClick={() => setForm(p => ({ ...p, brochurePdfUrl: "" }))} className="ml-auto shrink-0">
+                    <button onClick={() => updateForm(p => ({ ...p, brochurePdfUrl: "" }))} className="ml-auto shrink-0">
                       <X className="w-3.5 h-3.5 text-destructive" />
                     </button>
                   </div>
@@ -217,7 +231,7 @@ export function ContentTab({ eventData, isSaving: parentSaving, token, onSaved }
           </div>
           <div className="space-y-2">
             <Label>Vision Section Image</Label>
-            <ImageUpload value={form.visionImageUrl} onChange={url => setForm(p => ({ ...p, visionImageUrl: url }))} />
+            <ImageUpload value={form.visionImageUrl} onChange={url => updateForm(p => ({ ...p, visionImageUrl: url }))} />
             <p className="text-xs text-muted-foreground">Large cinematic image in the "Globally Unique" section</p>
           </div>
         </div>

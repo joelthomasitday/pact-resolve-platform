@@ -209,6 +209,13 @@ export interface MCIChampion {
   mediatorName: string;
 }
 
+/** Retrospective frame (MCI Final Frames) */
+export interface MCIRetrospectiveFrame {
+  id: string;
+  year: number;
+  image: string;
+}
+
 /** Past edition entry */
 export interface MCIPastEdition {
   year: string;
@@ -286,6 +293,8 @@ export interface MCIEvent extends BaseDocument {
   mediaCoverage: MCIMediaCoverage[];
   /** Rewards and benefits */
   rewards: MCIReward[];
+  /** Retrospective Final Frames images */
+  retrospective?: MCIRetrospectiveFrame[];
   /** Strategic partners for Advocate Maximus */
   strategicPartners?: ConclaveHighlight[];
   /** Mentoring partners for MCI */

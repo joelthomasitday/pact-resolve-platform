@@ -56,17 +56,21 @@ export default function MCIManagementPage() {
   const [partners, setPartners] = useState<Array<{ id: string; name: string; logo: string; order: number }>>([]);
   const [press, setPress] = useState<Array<{ id: string; publication: string; logo?: string; headline: string; url: string; order: number }>>([]);
   const [pastEditions, setPastEditions] = useState<PastEdition[]>([]);
+  const [retrospective, setRetrospective] = useState<Array<{ id: string; year: number; image: string }>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState<'gallery' | 'partners' | 'press' | 'editions' | 'content'>('gallery');
+  const [activeTab, setActiveTab] = useState<'gallery' | 'partners' | 'press' | 'editions' | 'content' | 'retrospective'>('gallery');
+  const [unsavedContent, setUnsavedContent] = useState<Partial<MCIEvent> | null>(null);
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [isPressDialogOpen, setIsPressDialogOpen] = useState(false);
+  const [isRetrospectDialogOpen, setIsRetrospectDialogOpen] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [tempItem, setTempItem] = useState<{ url: string; title: string; description: string; order: number }>({ url: "", title: "", description: "", order: 0 });
   const [tempPartner, setTempPartner] = useState<{ name: string; logo: string; order: number }>({ name: "", logo: "", order: 0 });
   const [tempPress, setTempPress] = useState<{ publication: string; logo?: string; headline: string; url: string; order: number }>({ publication: "", logo: "", headline: "", url: "", order: 0 });
+  const [tempRetrospect, setTempRetrospect] = useState<{ year: number; image: string }>({ year: new Date().getFullYear(), image: "" });
 
 
   // Fallback images matching the public website for initial setup
@@ -148,6 +152,12 @@ export default function MCIManagementPage() {
     }
   ].map((p, i) => ({ ...p, order: i + 1 }));
 
+  const fallbackRetrospective = [
+    { year: 2025, image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80" },
+    { year: 2024, image: "https://images.unsplash.com/photo-1523287562758-66c7fc58967f?auto=format&fit=crop&q=80" },
+    { year: 2023, image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80" }
+  ].map((p, i) => ({ ...p, id: `retro-${i}` }));
+
   useEffect(() => { fetchEvent(); }, []);
 
   async function fetchEvent() {
@@ -197,6 +207,14 @@ export default function MCIManagementPage() {
               id: item.id || `edition-${idx}-${Date.now()}`
             }));
           setPastEditions(editionsWithIds);
+
+          // Set Retrospective
+          const retroWithIds = (activeEvent.retrospective && activeEvent.retrospective.length > 0 ? activeEvent.retrospective : fallbackRetrospective)
+            .map((item: any, idx: number) => ({
+              ...item,
+              id: item.id || `retro-${idx}-${Date.now()}`
+            }));
+          setRetrospective(retroWithIds);
         } else {
           setGallery(fallbackGallery.map((item, idx) => ({ ...item, id: `fallback-${idx}` })));
           setPartners([]);
@@ -217,27 +235,39 @@ export default function MCIManagementPage() {
     finally { setIsLoading(false); }
   }
 
-  const handleSave = async (overrideGallery?: any[], overridePartners?: any[], overridePress?: any[], overrideEditions?: any[]) => {
+  const handleSave = async (overrides: {
+    gallery?: any[], 
+    partners?: any[], 
+    press?: any[], 
+    editions?: any[],
+    retrospective?: any[],
+    eventData?: Partial<MCIEvent>
+  } = {}) => {
     setIsSaving(true);
     try {
-      const gList = overrideGallery || gallery;
-      const pList = overridePartners || partners;
-      const pressList = overridePress || press;
-      const editionsList = overrideEditions || pastEditions;
-      const galleryToSave = gList.map(({ id, ...rest }) => rest);
-      const partnersToSave = pList.map(({ id, ...rest }) => rest);
-      const pressToSave = pressList.map(({ id, ...rest }) => rest);
-      const editionsToSave = editionsList.map(({ id, ...rest }) => rest);
+      const gList = overrides.gallery || gallery;
+      const pList = overrides.partners || partners;
+      const pressList = overrides.press || press;
+      const editionsList = overrides.editions || pastEditions;
+      const rList = overrides.retrospective || retrospective;
+      const galleryToSave = gList.map(({ id, ...rest }: any) => rest);
+      const partnersToSave = pList.map(({ id, ...rest }: any) => rest);
+      const pressToSave = pressList.map(({ id, ...rest }: any) => rest);
+      const editionsToSave = editionsList.map(({ id, ...rest }: any) => rest);
+      const retrospectiveToSave = rList.map(({ id, ...rest }: any) => rest);
 
       const method = (eventData && eventData._id) ? "PUT" : "POST";
       const payload = (eventData && eventData._id) 
         ? { 
             ...eventData, 
+            ...unsavedContent,
+            ...overrides.eventData,
             isActive: true, 
             gallery: galleryToSave,
             mentoringPartners: partnersToSave,
             mediaCoverage: pressToSave,
-            pastEditions: editionsToSave
+            pastEditions: editionsToSave,
+            retrospective: retrospectiveToSave
           }
         : {
             year: new Date().getFullYear(),
@@ -247,7 +277,10 @@ export default function MCIManagementPage() {
             gallery: galleryToSave,
             mentoringPartners: partnersToSave,
             mediaCoverage: pressToSave,
-            pastEditions: editionsToSave
+            pastEditions: editionsToSave,
+            retrospective: retrospectiveToSave,
+            ...unsavedContent,
+            ...overrides.eventData
           };
 
       console.log(`[Admin] Saving MCI Event (${method})`, payload);
@@ -306,14 +339,14 @@ export default function MCIManagementPage() {
     }
     setGallery(newGallery);
     setIsDialogOpen(false);
-    await handleSave(newGallery, partners);
+    await handleSave({ gallery: newGallery });
   };
 
   const removeGalleryItem = async (index: number) => {
     const newGallery = gallery.filter((_, i) => i !== index)
       .map((item, i) => ({ ...item, order: i + 1 }));
     setGallery(newGallery);
-    await handleSave(newGallery, partners);
+    await handleSave({ gallery: newGallery });
   };
 
   const moveGalleryItem = async (index: number, direction: 'up' | 'down') => {
@@ -324,7 +357,7 @@ export default function MCIManagementPage() {
     [newGallery[index], newGallery[newIndex]] = [newGallery[newIndex], newGallery[index]];
     newGallery.forEach((item, i) => item.order = i + 1);
     setGallery(newGallery);
-    await handleSave(newGallery, partners);
+    await handleSave({ gallery: newGallery });
   };
 
   // --- Partner Actions ---
@@ -349,14 +382,14 @@ export default function MCIManagementPage() {
     }
     setPartners(newPartners);
     setIsPartnerDialogOpen(false);
-    await handleSave(gallery, newPartners);
+    await handleSave({ partners: newPartners });
   };
 
   const removePartnerItem = async (index: number) => {
     const newPartners = partners.filter((_, i) => i !== index)
       .map((item, i) => ({ ...item, order: i + 1 }));
     setPartners(newPartners);
-    await handleSave(gallery, newPartners);
+    await handleSave({ partners: newPartners });
   };
 
   const movePartnerItem = async (index: number, direction: 'up' | 'down') => {
@@ -367,7 +400,7 @@ export default function MCIManagementPage() {
     [newPartners[index], newPartners[newIndex]] = [newPartners[newIndex], newPartners[index]];
     newPartners.forEach((item, i) => item.order = i + 1);
     setPartners(newPartners);
-    await handleSave(gallery, newPartners, press);
+    await handleSave({ partners: newPartners });
   };
 
   // --- Press Actions ---
@@ -392,14 +425,14 @@ export default function MCIManagementPage() {
     }
     setPress(newPress);
     setIsPressDialogOpen(false);
-    await handleSave(gallery, partners, newPress);
+    await handleSave({ press: newPress });
   };
 
   const removePressItem = async (index: number) => {
     const newPress = press.filter((_, i) => i !== index)
       .map((item, i) => ({ ...item, order: i + 1 }));
     setPress(newPress);
-    await handleSave(gallery, partners, newPress);
+    await handleSave({ press: newPress });
   };
 
   const movePressItem = async (index: number, direction: 'up' | 'down') => {
@@ -410,7 +443,48 @@ export default function MCIManagementPage() {
     [newPress[index], newPress[newIndex]] = [newPress[newIndex], newPress[index]];
     newPress.forEach((item, i) => item.order = i + 1);
     setPress(newPress);
-    await handleSave(gallery, partners, newPress);
+    await handleSave({ press: newPress });
+  };
+
+  // --- Retrospective Actions ---
+  const addRetroItem = () => {
+    setEditingIndex(null);
+    setTempRetrospect({ year: new Date().getFullYear(), image: "" });
+    setIsRetrospectDialogOpen(true);
+  };
+
+  const openRetroEditDialog = (index: number) => {
+    setEditingIndex(index);
+    setTempRetrospect({ ...retrospective[index] });
+    setIsRetrospectDialogOpen(true);
+  };
+
+  const saveRetroTempItem = async () => {
+    const newRetro = [...retrospective];
+    if (editingIndex !== null) {
+      newRetro[editingIndex] = { ...tempRetrospect, id: retrospective[editingIndex].id };
+    } else {
+      newRetro.push({ ...tempRetrospect, id: `retro-new-${Date.now()}` });
+    }
+    setRetrospective(newRetro);
+    setIsRetrospectDialogOpen(false);
+    await handleSave({ retrospective: newRetro });
+  };
+
+  const removeRetroItem = async (index: number) => {
+    const newRetro = retrospective.filter((_, i) => i !== index);
+    setRetrospective(newRetro);
+    await handleSave({ retrospective: newRetro });
+  };
+
+  const moveRetroItem = async (index: number, direction: 'up' | 'down') => {
+    if (direction === 'up' && index === 0) return;
+    if (direction === 'down' && index === retrospective.length - 1) return;
+    const newRetro = [...retrospective];
+    const newIdx = direction === 'up' ? index - 1 : index + 1;
+    [newRetro[index], newRetro[newIdx]] = [newRetro[newIdx], newRetro[index]];
+    setRetrospective(newRetro);
+    await handleSave({ retrospective: newRetro });
   };
 
 
@@ -509,6 +583,15 @@ export default function MCIManagementPage() {
         >
           <Info className="w-4 h-4" /> Media Coverage
         </button>
+        <button 
+          onClick={() => setActiveTab('retrospective')}
+          className={cn(
+            "flex items-center gap-2 px-5 py-3 rounded-xl font-bold transition-all text-sm",
+            activeTab === 'retrospective' ? "bg-navy-950 text-white shadow-lg" : "text-navy-950/40 hover:text-navy-950"
+          )}
+        >
+          <Sparkles className="w-4 h-4" /> Retrospective
+        </button>
       </div>
 
       {/* Past Editions Tab */}
@@ -518,7 +601,7 @@ export default function MCIManagementPage() {
           isSaving={isSaving}
           onSave={async (newEditions) => {
             setPastEditions(newEditions);
-            await handleSave(gallery, partners, press, newEditions);
+            await handleSave({ editions: newEditions });
           }}
         />
       )}
@@ -529,7 +612,11 @@ export default function MCIManagementPage() {
           eventData={eventData}
           isSaving={isSaving}
           token={token}
-          onSaved={(updated) => setEventData(prev => prev ? { ...prev, ...updated } : prev)}
+          onChange={(updated) => setUnsavedContent(prev => ({ ...prev, ...updated }))}
+          onSave={async (updatedData) => {
+            await handleSave({ eventData: updatedData });
+            setUnsavedContent(null);
+          }}
         />
       )}
 
@@ -781,6 +868,84 @@ export default function MCIManagementPage() {
           </div>
         </div>
       )}
+      {activeTab === 'retrospective' && (
+        <div className="space-y-6">
+          <div className="flex flex-col md:flex-row gap-6 justify-between items-center bg-white dark:bg-navy-900/50 backdrop-blur-md border rounded-3xl p-6 shadow-sm">
+            <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3 px-4 py-2 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
+                    <Sparkles className="w-5 h-5 text-indigo-600" />
+                    <span className="font-bold text-indigo-900 dark:text-indigo-100">{retrospective.length} <span className="font-medium opacity-60">Frames</span></span>
+                </div>
+                <p className="text-sm text-navy-950/40 font-medium max-w-xs line-clamp-2">
+                  These images appear in the "MCI Final Frames" section of the public website.
+                </p>
+            </div>
+            
+            <div className="flex gap-2">
+              <Button onClick={() => handleSave()} disabled={isSaving} className="rounded-2xl h-12 px-6 bg-navy-950 hover:bg-navy-900 text-white font-bold">
+                {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+                Publish Frames
+              </Button>
+              <Button onClick={addRetroItem} variant="outline" className="rounded-2xl h-12 px-6 border-2 border-dashed border-indigo-500/30 text-indigo-600 hover:bg-indigo-50/50 hover:border-indigo-500 transition-all font-bold">
+                <Plus className="w-5 h-5 mr-2" /> Add Final Frame
+              </Button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AnimatePresence mode="popLayout">
+              {retrospective.map((item, index) => (
+                <motion.div 
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  key={item.id}
+                >
+                  <Card className="group relative aspect-[16/10] overflow-hidden rounded-3xl border-none shadow-sm hover:shadow-2xl transition-all duration-500">
+                    {item.image ? (
+                        <Image src={item.image} alt={`MCI ${item.year}`} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                    ) : (
+                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                            <ImageIcon className="w-12 h-12 text-gray-300" />
+                        </div>
+                    )}
+                    
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                    
+                    <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                      <div className="flex justify-between items-end">
+                        <div>
+                            <span className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-1 block">Retrospective</span>
+                            <h3 className="text-2xl font-bold text-white">MCI {item.year}</h3>
+                        </div>
+                        
+                        <div className="flex gap-1">
+                          <Button size="icon" variant="secondary" className="w-8 h-8 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white text-white hover:text-navy-950 transition-all" onClick={() => openRetroEditDialog(index)}>
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button size="icon" variant="destructive" className="w-8 h-8 rounded-xl" onClick={() => removeRetroItem(index)}>
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0">
+                         <Button size="sm" variant="ghost" className="h-8 rounded-lg bg-white/5 text-white/60 hover:text-white" onClick={() => moveRetroItem(index, 'up')} disabled={index === 0}>
+                            <ChevronUp className="w-4 h-4" />
+                         </Button>
+                         <Button size="sm" variant="ghost" className="h-8 rounded-lg bg-white/5 text-white/60 hover:text-white" onClick={() => moveRetroItem(index, 'down')} disabled={index === retrospective.length - 1}>
+                            <ChevronDown className="w-4 h-4" />
+                         </Button>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+      )}
 
       {/* Gallery Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -872,6 +1037,32 @@ export default function MCIManagementPage() {
           <DialogFooter className="p-8 bg-gray-50 flex justify-end gap-3 shrink-0">
             <Button variant="ghost" onClick={() => setIsPressDialogOpen(false)}>Cancel</Button>
             <Button onClick={savePressTempItem} className="bg-navy-950 text-white font-bold">Save Article</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Retrospective Dialog */}
+      <Dialog open={isRetrospectDialogOpen} onOpenChange={setIsRetrospectDialogOpen}>
+        <DialogContent className="max-w-md w-[95vw] p-0 overflow-hidden rounded-4xl border-none bg-white flex flex-col max-h-[90vh]">
+          <div className="bg-navy-950 p-8 text-white shrink-0">
+            <DialogTitle className="text-xl font-bold flex items-center gap-3">
+              <Sparkles className="w-6 h-6 text-indigo-400" />
+              {editingIndex !== null ? "Edit Final Frame" : "Add Final Frame"}
+            </DialogTitle>
+          </div>
+          <div className="p-8 space-y-6 overflow-y-auto grow custom-scrollbar">
+            <div className="space-y-2">
+              <Label>Frame Image</Label>
+              <ImageUpload value={tempRetrospect.image} onChange={(image) => setTempRetrospect({ ...tempRetrospect, image })} />
+            </div>
+            <div className="space-y-2">
+              <Label>Event Year</Label>
+              <Input type="number" value={tempRetrospect.year} onChange={e => setTempRetrospect({ ...tempRetrospect, year: parseInt(e.target.value) })} placeholder="e.g. 2025" />
+            </div>
+          </div>
+          <DialogFooter className="p-8 bg-gray-50 flex justify-end gap-3 shrink-0">
+            <Button variant="ghost" onClick={() => setIsRetrospectDialogOpen(false)}>Cancel</Button>
+            <Button onClick={saveRetroTempItem} className="bg-navy-950 text-white font-bold">Save Frame</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
