@@ -18,6 +18,14 @@ import { Button } from "@/components/ui/button";
 export default function MediationProgramDashboard() {
   const sections = [
     {
+      title: "Page Content & Training",
+      description: "Edit hero section, contact email, and corporate training details (including the team image).",
+      icon: Settings,
+      link: "/admin/academy/mediation/settings",
+      color: "text-indigo-600",
+      bg: "bg-indigo-50/50"
+    },
+    {
       title: "Course Settings",
       description: "Edit foundational and advanced course metadata, pricing, mode, and enrollment settings.",
       icon: Settings,

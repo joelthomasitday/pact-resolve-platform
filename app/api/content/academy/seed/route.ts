@@ -383,6 +383,64 @@ const partners = [
 ];
 
 
+const academyPageSettings = [
+  {
+    program: "mediation",
+    heroTitle: "MEDIATION",
+    heroSubtitle: "Academy / Mediation",
+    heroDescription: "The Global Academy for Advocacy in Dispute Resolution (\"GAADR\") is PACT's academic wing, dedicated to high quality training and certification programmes. PACT collaborates with the best in the business to curate customised training modules and deliver practical and thought-provoking programmes.",
+    heroImage: "https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&q=80",
+    contactEmail: "official@thepact.in",
+    trainingTitle: "Train Your Team",
+    trainingDescription: "PACT offers customised in-person trainings in Mediation and Mediation Advocacy (1-Day / 2-Day) as per preferences of the client. We collaborate with industry experts and leading international organisations to bring you the best practical knowledge and exercises.",
+    trainingImage: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80",
+    trainingFeatures: [
+      { title: "Customised Modules" },
+      { title: "Relatable Roleplays" },
+      { title: "Skilled Trainers" },
+      { title: "Relevant Case Studies" }
+    ],
+    isActive: true
+  },
+  {
+    program: "arbitration",
+    heroTitle: "ARBITRATION",
+    heroSubtitle: "Academy / Arbitration",
+    heroDescription: "The Global Academy for Advocacy in Dispute Resolution (GAADR) is PACT's academic wing, dedicated to high quality training and certification programmes. PACT collaborates with the best in the business to curate customised training modules and deliver practical and thought-provoking programmes.",
+    heroImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80",
+    contactEmail: "official@thepact.in",
+    trainingTitle: "Train Your Team",
+    trainingDescription: "PACT offers customised in-person trainings in Arbitration and Arbitration Advocacy (1-Day / 2-Day) as per preferences of the client. We collaborate with industry experts and leading international organisations to bring you the best practical knowledge and exercises.",
+    trainingImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80",
+    trainingFeatures: [
+      { title: "Customised Modules" },
+      { title: "Relatable Roleplays" },
+      { title: "Skilled Trainers" },
+      { title: "Relevant Case Studies" }
+    ],
+    isActive: true
+  },
+  {
+    program: "negotiation",
+    heroTitle: "NEGOTIATION",
+    heroSubtitle: "Academy / Negotiation",
+    heroDescription: "The Global Academy for Advocacy in Dispute Resolution (\"GAADR\") is PACT's academic wing, dedicated to high quality training and certification programmes. PACT collaborates with the best in the business to curate customised training modules and deliver practical and thought-provoking programmes.",
+    heroImage: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80",
+    contactEmail: "official@thepact.in",
+    trainingTitle: "Train Your Team",
+    trainingDescription: "PACT offers customised in-person trainings in Deal and Dispute Negotiation Skills (1-Day training / 2-Day training) as per preferences of the client. We collaborate with industry experts and leading international organisations to bring you the best practical knowledge and exercises.",
+    trainingImage: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80",
+    trainingFeatures: [
+      { title: "Customised Modules" },
+      { title: "Relatable Roleplays" },
+      { title: "Skilled Trainers" },
+      { title: "Relevant Case Studies" }
+    ],
+    isActive: true
+  }
+];
+
+
 export async function POST(request: NextRequest) {
   try {
     const userId = request.headers.get("x-user-id");
@@ -400,6 +458,7 @@ export async function POST(request: NextRequest) {
     await db.collection(COLLECTIONS.ACADEMY_MODULES).deleteMany({});
     await db.collection(COLLECTIONS.ACADEMY_FACULTY).deleteMany({});
     await db.collection(COLLECTIONS.ACADEMY_PARTNERS).deleteMany({});
+    await db.collection(COLLECTIONS.ACADEMY_PAGE_SETTINGS).deleteMany({});
 
     // Seed courses
     const allCourses = [...mediationCourses, ...arbitrationCourses, ...negotiationCourses].map(addTimestamps);
@@ -417,6 +476,10 @@ export async function POST(request: NextRequest) {
     const allPartners = partners.map(addTimestamps);
     await db.collection(COLLECTIONS.ACADEMY_PARTNERS).insertMany(allPartners);
 
+    // Seed Page Settings
+    const allPageSettings = academyPageSettings.map(addTimestamps);
+    await db.collection(COLLECTIONS.ACADEMY_PAGE_SETTINGS).insertMany(allPageSettings);
+
     // Audit Log
     if (userId) {
       AuditRepository.log({
@@ -427,7 +490,8 @@ export async function POST(request: NextRequest) {
             coursesCount: allCourses.length,
             modulesCount: allModules.length,
             facultyCount: allFaculty.length,
-            partnersCount: allPartners.length
+            partnersCount: allPartners.length,
+            pageSettingsCount: allPageSettings.length
         }
       });
     }
@@ -439,7 +503,8 @@ export async function POST(request: NextRequest) {
         courses: allCourses.length,
         modules: allModules.length,
         faculty: allFaculty.length,
-        partners: allPartners.length
+        partners: allPartners.length,
+        pageSettings: allPageSettings.length
       }
     });
   } catch (error) {

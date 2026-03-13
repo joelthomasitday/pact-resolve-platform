@@ -209,6 +209,7 @@ const MediationHero = () => (
 );
 
 export default function MediationPage() {
+  const [pageSettings, setPageSettings] = useState<any>(null);
   const [courses, setCourses] = useState<any[]>([]);
   const [modules, setModules] = useState<any[]>([]);
   const [faculty, setFaculty] = useState<any[]>([]);
@@ -218,24 +219,27 @@ export default function MediationPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [coursesRes, modulesRes, facultyRes, partnersRes] = await Promise.all([
+        const [settingsRes, coursesRes, modulesRes, facultyRes, partnersRes] = await Promise.all([
+          fetch(`/api/content/academy/page-settings?program=mediation&t=${Date.now()}`),
           fetch(`/api/content/academy/courses?program=mediation&t=${Date.now()}`),
           fetch(`/api/content/academy/modules?program=mediation&t=${Date.now()}`),
           fetch(`/api/content/academy/faculty?program=mediation&t=${Date.now()}`),
           fetch(`/api/content/academy/partners?program=mediation&t=${Date.now()}`)
         ]);
 
-        if (!coursesRes.ok || !modulesRes.ok || !facultyRes.ok || !partnersRes.ok) {
+        if (!settingsRes.ok || !coursesRes.ok || !modulesRes.ok || !facultyRes.ok || !partnersRes.ok) {
           throw new Error("Failed to fetch mediation data");
         }
 
-        const [coursesData, modulesData, facultyData, partnersData] = await Promise.all([
+        const [settingsData, coursesData, modulesData, facultyData, partnersData] = await Promise.all([
+          settingsRes.json(),
           coursesRes.json(),
           modulesRes.json(),
           facultyRes.json(),
           partnersRes.json()
         ]);
 
+        if (settingsData.success) setPageSettings(settingsData.data);
         if (coursesData.success) setCourses(coursesData.data);
         if (modulesData.success) setModules(modulesData.data);
         if (facultyData.success) setFaculty(facultyData.data);
@@ -267,10 +271,88 @@ export default function MediationPage() {
     );
   }
 
+  // Fallback if settings not yet seeded
+  const displaySettings = pageSettings || {
+    heroTitle: "MEDIATION",
+    heroSubtitle: "Academy / Mediation",
+    heroDescription: 'The Global Academy for Advocacy in Dispute Resolution ("GAADR") is PACT\'s academic wing, dedicated to high quality training and certification programmes. PACT collaborates with the best in the business to curate customised training modules and deliver practical and thought-provoking programmes.',
+    heroImage: "https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&q=80",
+    contactEmail: "official@thepact.in",
+    trainingTitle: "Train Your Team",
+    trainingDescription: "PACT offers customised in-person trainings in Mediation and Mediation Advocacy (1-Day / 2-Day) as per preferences of the client. We collaborate with industry experts and leading international organisations to bring you the best practical knowledge and exercises.",
+    trainingImage: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80",
+    trainingFeatures: [
+      { title: "Customised Modules" },
+      { title: "Relatable Roleplays" },
+      { title: "Skilled Trainers" },
+      { title: "Relevant Case Studies" }
+    ]
+  };
+
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-white">
       <GrainOverlay />
-      <MediationHero />
+      
+      {/* Hero Section */}
+      <section className="relative min-h-[70vh] flex items-center pt-24 pb-16 md:pt-32 md:pb-20 bg-navy-950 overflow-hidden dark">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={displaySettings.heroImage} 
+            alt="Mediation Academy"
+            fill
+            className="object-cover opacity-30 scale-105"
+            priority
+          />
+          <div className="absolute inset-0 bg-linear-to-b from-navy-950/40 via-navy-950/90 to-navy-950" />
+          <div className="absolute inset-0 bg-linear-to-r from-navy-950 via-transparent to-transparent opacity-80" />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-24 w-full">
+          <FadeInUp>
+            <div className="flex items-center gap-3 mb-4 sm:mb-6 md:mb-8">
+              <div className="h-px w-8 md:w-12 bg-gold-500" />
+              <span className="text-gold-500  text-xs md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase">
+                {displaySettings.heroSubtitle}
+              </span>
+            </div>
+            <h1 className="page-title text-4xl xs:text-5xl sm:text-7xl md:text-[8rem] font-bold text-white tracking-tighter leading-[0.9] md:leading-[0.8] mb-8 md:mb-12 select-none italic">
+              {displaySettings.heroTitle}
+            </h1>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+              <div className="space-y-6 md:space-y-8">
+                <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-light leading-relaxed">
+                  {displaySettings.heroDescription}
+                </p>
+                <div className="flex flex-wrap gap-4 pt-4">
+                    <MagneticButton variant="primary" size="lg" className="group">
+                        <Link href="#courses" className="flex items-center gap-2">
+                            View Courses <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                    </MagneticButton>
+                    <a href={`mailto:${displaySettings.contactEmail}`} className="flex items-center gap-3 px-6 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                        <Mail className="w-5 h-5 text-gold-500" />
+                        <span className="text-sm font-medium text-white/90">{displaySettings.contactEmail}</span>
+                    </a>
+                </div>
+              </div>
+              <div className="relative group hidden lg:block">
+                <div className="absolute -inset-4 bg-white/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="relative p-10 rounded-3xl border border-white/10 bg-white/2 backdrop-blur-sm">
+                  <p className="text-xl text-white/70 font-light leading-relaxed">
+                    Got a query? Email – {displaySettings.contactEmail}
+                  </p>
+                  <div className="mt-8 flex items-center gap-4">
+                    <div className="h-10 w-10 rounded-full bg-gold-500/20 flex items-center justify-center">
+                      <Handshake className="w-5 h-5 text-gold-500" />
+                    </div>
+                    <span className="text-xs  text-white/40 uppercase tracking-widest">Collaborative Resolution</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeInUp>
+        </div>
+      </section>
 
       {/* Section: Train Your Team */}
       <section className="py-24 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
@@ -279,29 +361,32 @@ export default function MediationPage() {
             <FadeInUp>
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-navy-50 text-xs  text-navy-950/40 uppercase tracking-widest mb-4">Corporate Training</div>
               <h2 className="text-4xl md:text-6xl font-light tracking-tight text-navy-950 mb-6">
-                Train Your <span className="text-gold-500 italic font-medium">Team</span>
+                {displaySettings.trainingTitle.split(' ').map((word: string, i: number) => (
+                  <span key={i} className={cn(word.toLowerCase() === 'team' || word.toLowerCase() === 'corporate' ? "text-gold-500 italic font-medium" : "")}>
+                    {word}{' '}
+                  </span>
+                ))}
               </h2>
               <p className="text-lg text-navy-950/60 leading-relaxed max-w-2xl">
-                PACT offers customised in-person trainings in Mediation and Mediation Advocacy (1-Day / 2-Day) as per preferences of the client. We collaborate with industry experts and leading international organisations to bring you the best practical knowledge and exercises.
+                {displaySettings.trainingDescription}
               </p>
             </FadeInUp>
 
             <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-              {[
-                { title: "Customised Modules", icon: FileText },
-                { title: "Relatable Roleplays", icon: Users },
-                { title: "Skilled Trainers", icon: Award },
-                { title: "Relevant Case Studies", icon: CheckCircle2 }
-              ].map((item, i) => (
-                <StaggerItem key={i}>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-navy-50/50 border border-navy-100/50 group hover:bg-white hover:shadow-lg transition-all">
-                    <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-gold-500 shadow-sm group-hover:bg-gold-500 group-hover:text-white transition-all">
-                      <item.icon className="w-5 h-5" />
+              {(displaySettings.trainingFeatures || []).map((item: any, i: number) => {
+                const iconMap: Record<number, any> = { 0: FileText, 1: Users, 2: Award, 3: CheckCircle2 };
+                const Icon = iconMap[i % 4] || CheckCircle2;
+                return (
+                  <StaggerItem key={i}>
+                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-navy-50/50 border border-navy-100/50 group hover:bg-white hover:shadow-lg transition-all">
+                      <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-gold-500 shadow-sm group-hover:bg-gold-500 group-hover:text-white transition-all">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <span className="font-medium text-navy-950">{item.title}</span>
                     </div>
-                    <span className="font-medium text-navy-950">{item.title}</span>
-                  </div>
-                </StaggerItem>
-              ))}
+                  </StaggerItem>
+                );
+              })}
             </StaggerContainer>
 
             <FadeInUp delay={0.4} className="pt-12">
@@ -312,13 +397,13 @@ export default function MediationPage() {
                     <span className="text-xs  uppercase tracking-[0.4em]">Inquiry</span>
                     <div className="h-px w-8 bg-navy-100" />
                   </div>
-                  <a href="mailto:official@thepact.in" className="flex items-center gap-6 group/link">
+                  <a href={`mailto:${displaySettings.contactEmail}`} className="flex items-center gap-6 group/link">
                     <div className="w-14 h-14 rounded-2xl bg-navy-950 flex items-center justify-center text-white group-hover/link:bg-gold-500 group-hover/link:text-navy-950 transition-all duration-500 shadow-xl">
                       <Mail className="w-6 h-6" />
                     </div>
                     <div>
                       <h4 className="text-2xl md:text-3xl font-light text-navy-950 group-hover/link:text-gold-500 transition-colors">
-                        academy<span className="text-gold-500 font-medium group-hover/link:text-navy-950">@</span>thepact.in
+                        {displaySettings.contactEmail.split('@')[0]}<span className="text-gold-500 font-medium group-hover/link:text-navy-950">@</span>{displaySettings.contactEmail.split('@')[1]}
                       </h4>
                       <p className="text-xs  uppercase tracking-widest text-navy-950/40 mt-1">Connect for Custom Modules</p>
                     </div>
@@ -331,7 +416,7 @@ export default function MediationPage() {
           <div className="flex-1 w-full max-w-xl">
              <div className="relative aspect-square rounded-4xl overflow-hidden border border-navy-100 shadow-2xl">
                <Image 
-                 src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80" 
+                 src={displaySettings.trainingImage} 
                  alt="Mediation Training" 
                  fill 
                  className="object-cover"
@@ -341,6 +426,7 @@ export default function MediationPage() {
           </div>
         </div>
       </section>
+
 
       {/* Section: Foundational Course in Mediation Advocacy */}
       {foundationalCourse && (
