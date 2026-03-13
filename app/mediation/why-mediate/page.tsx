@@ -205,7 +205,7 @@ const PuzzlePieces = () => {
                 Join hundreds of businesses that have partnered with PACT to design a comfortable, confidential, and effective dispute resolution process.
               </p>
               <a 
-                href="mailto:mediation@thepact.in"
+                href="mailto:official@thepact.in"
                 className="group flex flex-col items-center gap-2"
               >
                 <span className="text-xs font-bold uppercase tracking-widest text-navy-950/60 group-hover:text-gold-600 transition-colors duration-300">
@@ -448,7 +448,7 @@ const Checklist = () => {
 
           <div className="mt-20">
             <a 
-              href="mailto:mediation@thepact.in"
+              href="mailto:official@thepact.in"
               className="inline-flex items-center gap-4 bg-gold-500 text-navy-950 px-8 py-5 rounded-full font-bold uppercase tracking-widest hover:bg-navy-950 hover:text-white transition-all duration-300 shadow-xl group"
             >
               <span>Get in Touch</span>

@@ -452,7 +452,7 @@ export default function MediationCoursesPage() {
                   <Input 
                     value={editingItem?.ctaLink || ""} 
                     onChange={(e) => setEditingItem(prev => ({ ...prev!, ctaLink: e.target.value }))}
-                    placeholder="mailto:academy@pactresolve.com"
+                    placeholder="mailto:official@thepact.in"
                   />
                 </div>
               </div>

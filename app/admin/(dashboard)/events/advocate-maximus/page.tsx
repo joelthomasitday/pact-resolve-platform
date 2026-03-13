@@ -222,7 +222,7 @@ export default function AdvocateMaximusAdminPage() {
         heroDescription: ["India's first Arb-Med competition"],
         eventDetails: { dates: "TBD", venue: "New Delhi", hosts: "The PACT", sponsors: "TBD" },
         vision: { subtitle: "The Legacy", title: "Globally Renowned", description: ["Born out of a vision..."], experienceText: "" },
-        emails: { signUp: "info@thepact.in", sponsor: "info@thepact.in", general: "info@thepact.in" },
+        emails: { signUp: "official@thepact.in", sponsor: "official@thepact.in", general: "official@thepact.in" },
         champions: [],
         pastEditions: [],
         mediaCoverage: [],

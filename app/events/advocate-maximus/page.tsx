@@ -168,7 +168,7 @@ export default function AdvocateMaximusPage() {
             <a href="/" className="px-8 py-4 rounded-2xl bg-white text-navy-950 font-bold hover:bg-gold-500 hover:text-white transition-all transform hover:scale-105">
               Return to Homepage
             </a>
-            <a href={`mailto:${eventData?.emails?.general || 'info@thepact.in'}`} className="px-8 py-4 rounded-2xl border border-white/20 text-white font-bold hover:bg-white/5 transition-all">
+            <a href={`mailto:${eventData?.emails?.general || 'official@thepact.in'}`} className="px-8 py-4 rounded-2xl border border-white/20 text-white font-bold hover:bg-white/5 transition-all">
               Contact Secretariat
             </a>
           </motion.div>
@@ -732,7 +732,7 @@ export default function AdvocateMaximusPage() {
               <div className="flex flex-col items-center gap-20 md:gap-32 pt-12">
                  <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 w-full sm:w-auto">
                     <MagneticButton variant="primary" size="lg" className="w-full sm:w-auto px-6 sm:px-12 py-4 sm:py-5 shadow-2xl shadow-gold-500/20">
-                      <a href="mailto:info@thepact.in" className="flex items-center justify-center gap-3 text-base sm:text-lg">
+                      <a href="mailto:official@thepact.in" className="flex items-center justify-center gap-3 text-base sm:text-lg">
                         Contact for Partnerships <MailIcon className="w-5 h-5" />
                       </a>
                     </MagneticButton>

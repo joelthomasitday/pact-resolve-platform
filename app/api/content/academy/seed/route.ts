@@ -19,7 +19,7 @@ const mediationCourses = [
     feeCurrency: "INR",
     feeNote: "+ GST",
     ctaText: "Enrol Now",
-    ctaLink: "mailto:academy@pactresolve.com?subject=Enrollment%20Inquiry%20-%20Foundational%20Course%20in%20Mediation%20Advocacy",
+    ctaLink: "mailto:official@thepact.in?subject=Enrollment%20Inquiry%20-%20Foundational%20Course%20in%20Mediation%20Advocacy",
     benefits: [
       "Recognized certification in mediation advocacy",
       "Practical skills for real-world mediation scenarios",
@@ -42,7 +42,7 @@ const mediationCourses = [
     feeCurrency: "INR",
     feeNote: "+ GST",
     ctaText: "Enrol Now",
-    ctaLink: "mailto:academy@pactresolve.com?subject=Enrollment%20Inquiry%20-%20Certificate%20Course%20in%20Mediation%20Advocacy",
+    ctaLink: "mailto:official@thepact.in?subject=Enrollment%20Inquiry%20-%20Certificate%20Course%20in%20Mediation%20Advocacy",
     benefits: [
       "In-depth understanding of complex mediation techniques",
       "Hands-on experience with simulated cases",
@@ -145,7 +145,7 @@ const arbitrationCourses = [
     feeCurrency: "INR",
     feeNote: "+ GST",
     ctaText: "Enrol Now",
-    ctaLink: "mailto:academy@pactresolve.com?subject=Enrollment%20Inquiry%20-%20Foundation%20Course%20in%20Arbitration",
+    ctaLink: "mailto:official@thepact.in?subject=Enrollment%20Inquiry%20-%20Foundation%20Course%20in%20Arbitration",
     benefits: [
       "Comprehensive understanding of arbitration process",
       "Practical advocacy skills",
@@ -168,7 +168,7 @@ const arbitrationCourses = [
     feeCurrency: "INR",
     feeNote: "+ GST",
     ctaText: "Enrol Now",
-    ctaLink: "mailto:academy@pactresolve.com?subject=Enrollment%20Inquiry%20-%20Certificate%20Course%20in%20Arbitration%20Advocacy",
+    ctaLink: "mailto:official@thepact.in?subject=Enrollment%20Inquiry%20-%20Certificate%20Course%20in%20Arbitration%20Advocacy",
     benefits: [
       "Expert-level arbitration techniques",
       "International arbitration focus",
@@ -242,7 +242,7 @@ const negotiationCourses = [
     feeCurrency: "INR",
     feeNote: "+ GST",
     ctaText: "Enrol Now",
-    ctaLink: "mailto:academy@pactresolve.com?subject=Enrollment%20Inquiry%20-%20Skilled%20Negotiator%20Course",
+    ctaLink: "mailto:official@thepact.in?subject=Enrollment%20Inquiry%20-%20Skilled%20Negotiator%20Course",
     benefits: [
       "Practical negotiation frameworks",
       "Real-world case studies",
@@ -265,7 +265,7 @@ const negotiationCourses = [
     feeCurrency: "INR",
     feeNote: "+ GST",
     ctaText: "Enrol Now",
-    ctaLink: "mailto:academy@pactresolve.com?subject=Enrollment%20Inquiry%20-%20Advanced%20Negotiation%20Mastery",
+    ctaLink: "mailto:official@thepact.in?subject=Enrollment%20Inquiry%20-%20Advanced%20Negotiation%20Mastery",
     benefits: [
       "Advanced influence techniques",
       "Multi-party negotiation strategies",

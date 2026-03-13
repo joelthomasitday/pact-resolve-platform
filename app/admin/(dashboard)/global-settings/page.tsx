@@ -328,7 +328,7 @@ export default function GlobalSettingsPage() {
                       type="email"
                       value={settings.email}
                       onChange={(e) => updateField("email", e.target.value)}
-                      placeholder="info@thepact.in"
+                      placeholder="official@thepact.in"
                       className="pl-11 rounded-xl h-12 border-border/60 focus:border-primary"
                     />
                   </div>
@@ -347,7 +347,7 @@ export default function GlobalSettingsPage() {
                       type="email"
                       value={settings.mediationEmail}
                       onChange={(e) => updateField("mediationEmail", e.target.value)}
-                      placeholder="mediation@thepact.in"
+                      placeholder="official@thepact.in"
                       className="pl-11 rounded-xl h-12 border-border/60 focus:border-primary"
                     />
                   </div>
