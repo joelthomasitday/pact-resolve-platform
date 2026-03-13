@@ -181,9 +181,9 @@ const ArbitrationHero = () => (
                         Explore Courses <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </MagneticButton>
-                <a href="mailto:academy@thepact.in" className="flex items-center gap-3 px-6 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                <a href="mailto:official@thepact.in" className="flex items-center gap-3 px-6 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
                     <Mail className="w-5 h-5 text-gold-500" />
-                    <span className="text-sm font-medium text-white/90">academy@thepact.in</span>
+                    <span className="text-sm font-medium text-white/90">official@thepact.in</span>
                 </a>
             </div>
           </div>
@@ -191,7 +191,7 @@ const ArbitrationHero = () => (
             <div className="absolute -inset-4 bg-white/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             <div className="relative p-10 rounded-3xl border border-white/10 bg-white/2 backdrop-blur-sm">
               <p className="text-xl text-white/70 font-light leading-relaxed">
-                Got a query? Email – academy@thepact.in
+                Got a query? Email – official@thepact.in
               </p>
               <div className="mt-8 flex items-center gap-4">
                 <div className="h-10 w-10 rounded-full bg-gold-500/20 flex items-center justify-center">
@@ -302,8 +302,8 @@ export default function ArbitrationPage() {
 
             <FadeInUp delay={0.4} className="pt-8">
               <p className="text-sm  uppercase tracking-widest text-navy-950/40 mb-4">Contact Us</p>
-              <a href="mailto:academy@thepact.in" className="text-2xl md:text-3xl font-light text-navy-950 hover:text-gold-500 transition-colors">
-                Write to us at – <span className="underline decoration-gold-500/30">academy@thepact.in</span>
+              <a href="mailto:official@thepact.in" className="text-2xl md:text-3xl font-light text-navy-950 hover:text-gold-500 transition-colors">
+                Write to us at – <span className="underline decoration-gold-500/30">official@thepact.in</span>
               </a>
             </FadeInUp>
           </div>

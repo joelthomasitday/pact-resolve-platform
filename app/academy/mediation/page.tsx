@@ -182,9 +182,9 @@ const MediationHero = () => (
                         View Courses <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </MagneticButton>
-                <a href="mailto:academy@thepact.in" className="flex items-center gap-3 px-6 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                <a href="mailto:official@thepact.in" className="flex items-center gap-3 px-6 py-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
                     <Mail className="w-5 h-5 text-gold-500" />
-                    <span className="text-sm font-medium text-white/90">academy@thepact.in</span>
+                    <span className="text-sm font-medium text-white/90">official@thepact.in</span>
                 </a>
             </div>
           </div>
@@ -192,7 +192,7 @@ const MediationHero = () => (
             <div className="absolute -inset-4 bg-white/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             <div className="relative p-10 rounded-3xl border border-white/10 bg-white/2 backdrop-blur-sm">
               <p className="text-xl text-white/70 font-light leading-relaxed">
-                Got a query? Email – academy@thepact.in
+                Got a query? Email – official@thepact.in
               </p>
               <div className="mt-8 flex items-center gap-4">
                 <div className="h-10 w-10 rounded-full bg-gold-500/20 flex items-center justify-center">
@@ -312,7 +312,7 @@ export default function MediationPage() {
                     <span className="text-xs  uppercase tracking-[0.4em]">Inquiry</span>
                     <div className="h-px w-8 bg-navy-100" />
                   </div>
-                  <a href="mailto:academy@thepact.in" className="flex items-center gap-6 group/link">
+                  <a href="mailto:official@thepact.in" className="flex items-center gap-6 group/link">
                     <div className="w-14 h-14 rounded-2xl bg-navy-950 flex items-center justify-center text-white group-hover/link:bg-gold-500 group-hover/link:text-navy-950 transition-all duration-500 shadow-xl">
                       <Mail className="w-6 h-6" />
                     </div>
@@ -630,12 +630,12 @@ export default function MediationPage() {
                 
                 <div className="flex flex-col gap-6">
                   <a 
-                    href="mailto:academy@thepact.in" 
+                    href="mailto:official@thepact.in" 
                     className="flex items-center justify-between p-8 rounded-4xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-gold-500 hover:border-gold-500 transition-all duration-500 group/btn"
                   >
                     <div className="space-y-1">
                       <span className="text-xs  uppercase tracking-[0.3em] text-white/40 group-hover/btn:text-navy-950/50 font-bold">Direct Email</span>
-                      <p className="text-2xl md:text-3xl font-light text-white group-hover/btn:text-navy-950 transition-colors  tracking-tight">academy@thepact.in</p>
+                      <p className="text-2xl md:text-3xl font-light text-white group-hover/btn:text-navy-950 transition-colors  tracking-tight">official@thepact.in</p>
                     </div>
                     <div className="w-14 h-14 rounded-2xl bg-gold-500/10 flex items-center justify-center group-hover/btn:bg-navy-950 group-hover/btn:text-white transition-all">
                       <Mail className="w-6 h-6 text-gold-500" />

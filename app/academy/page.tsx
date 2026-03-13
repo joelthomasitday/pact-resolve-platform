@@ -102,9 +102,9 @@ export default function AcademyPage() {
                 <h2 className="text-2xl md:text-3xl font-light mb-4 text-white">
                   Got a <span className="text-gold-500 font-serif italic">query?</span>
                 </h2>
-                <a href="mailto:academy@thepact.in" className="flex items-center gap-3 text-gold-500 hover:text-gold-400 transition-colors">
+                <a href="mailto:official@thepact.in" className="flex items-center gap-3 text-gold-500 hover:text-gold-400 transition-colors">
                   <Mail className="w-5 h-5" />
-                  <span className="text-lg md:text-xl font-medium underline decoration-gold-500/30">academy@thepact.in</span>
+                  <span className="text-lg md:text-xl font-medium underline decoration-gold-500/30">official@thepact.in</span>
                 </a>
               </div>
               <div className="shrink-0 flex gap-4">
