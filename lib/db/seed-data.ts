@@ -13,6 +13,7 @@ import type {
   FooterSettings,
   GlobalSettings,
   MCIEvent,
+  LegalPage,
 } from "./schemas";
 
 // ============================================================================
@@ -502,3 +503,140 @@ export const mciEventSeed: Omit<MCIEvent, "_id" | "createdAt" | "updatedAt"> = {
     alt: "7 Rounds of MCI",
   },
 };
+
+// ============================================================================
+// LEGAL PAGES (Privacy, Terms)
+// ============================================================================
+
+export const legalPagesSeed: Omit<LegalPage, "_id" | "createdAt" | "updatedAt">[] = [
+  {
+    slug: "privacy",
+    title: "Privacy Policy",
+    isActive: true,
+    content: `
+<section class="space-y-6">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    1. Introduction
+  </h2>
+  <p class="border-l-4 border-gold-500 pl-6 py-2 bg-slate-50 rounded-r-lg">
+    The Professional Mediation Platform for International Dispute Resolution and Strategic Excellence ("PACT", "we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information.
+  </p>
+</section>
+
+<section class="space-y-6">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    2. Information Collection
+  </h2>
+  <p>
+    In our capacity as a leading mediation and dispute resolution provider, we collect information necessary to facilitate professional settlements:
+  </p>
+  <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 list-none pl-0">
+    <li class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-navy-950/5">
+      <div class="h-2 w-2 rounded-full bg-gold-500"></div>
+      <span class="font-medium text-navy-900">Identifying Contact Details</span>
+    </li>
+    <li class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-navy-950/5">
+      <div class="h-2 w-2 rounded-full bg-gold-500"></div>
+      <span class="font-medium text-navy-900">Dispute-Specific Documentation</span>
+    </li>
+    <li class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-navy-950/5">
+      <div class="h-2 w-2 rounded-full bg-gold-500"></div>
+      <span class="font-medium text-navy-900">Professional Backgrounds</span>
+    </li>
+    <li class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-navy-950/5">
+      <div class="h-2 w-2 rounded-full bg-gold-500"></div>
+      <span class="font-medium text-navy-900">Communication Logs</span>
+    </li>
+  </ul>
+</section>
+
+<section class="space-y-6">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    3. Processing and Utilization
+  </h2>
+  <p>
+    Data processing is conducted with systemic precision to ensure the highest quality of service across our academy and mediation platform:
+  </p>
+  <div class="grid gap-6">
+    <div class="p-6 border border-navy-950/10 rounded-2xl hover:bg-slate-50 transition-colors">
+      <h4 class="font-bold mb-2">Service Excellence</h4>
+      <p class="text-sm">Facilitating complex negotiations and academy registrations with data-driven accuracy.</p>
+    </div>
+    <div class="p-6 border border-navy-950/10 rounded-2xl hover:bg-slate-50 transition-colors">
+      <h4 class="font-bold mb-2">Secure Communication</h4>
+      <p class="text-sm">Ensuring all technical notices and administrative messages reach stakeholders promptly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="space-y-6">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    4. Absolute Confidentiality
+  </h2>
+  <p>
+    Confidentiality is a non-negotiable cornerstone of the mediation process. PACT mandates the highest levels of discretion, adhering strictly to international ADR standards and confidentiality protocols, except where legal disclosure is mandated by law.
+  </p>
+</section>
+
+<section class="space-y-6">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    5. Data Protection
+  </h2>
+  <p>
+    We employ military-grade encryption and restricted access protocols to safeguard sensitive case information. Our systems are reviewed periodically for compliance with global privacy standards.
+  </p>
+</section>
+`
+  },
+  {
+    slug: "terms",
+    title: "Terms of Service",
+    isActive: true,
+    content: `
+<section class="space-y-6">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    1. Acceptance of Terms
+  </h2>
+  <p class="border-l-4 border-gold-500 pl-6 py-2 bg-slate-50 rounded-r-lg">
+    By accessing and using the services provided by PACT ("Professional Mediation Platform for International Dispute Resolution and Strategic Excellence"), you agree to the binding nature of these Terms of Service.
+  </p>
+</section>
+
+<section class="space-y-4">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    2. Professional Services
+  </h2>
+  <p>
+    PACT provides a sophisticated suite of ADR (Alternative Dispute Resolution) services, including mediation, arbitration, and advanced negotiation consultancy, alongside specialized instruction via the PACT Academy.
+  </p>
+</section>
+
+<section class="space-y-4">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    3. Standards of Conduct
+  </h2>
+  <p>
+    Participants are mandated to maintain the highest levels of professional decorum and good faith throughout all dispute resolution proceedings and educational sessions conducted on the platform.
+  </p>
+</section>
+
+<section class="space-y-4">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    4. Intellectual Property
+  </h2>
+  <p>
+    All proprietary materials, including training modules, procedural rules, and the PACT digital interface, remain the exclusive property of PACT and are protected under international copyright and trademark statutes.
+  </p>
+</section>
+
+<section class="space-y-4">
+  <h2 class="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+    5. Governing Jurisdiction
+  </h2>
+  <p>
+    These Terms shall be interpreted and enforced in accordance with the laws of India. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts in New Delhi.
+  </p>
+</section>
+`
+  }
+];

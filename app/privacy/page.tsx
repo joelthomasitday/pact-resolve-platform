@@ -1,7 +1,28 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS, type LegalPage } from "@/lib/db/schemas";
 
-export default function PrivacyPage() {
+async function getPrivacyPage() {
+  try {
+    const db = await getDb();
+    const collection = db.collection<LegalPage>(COLLECTIONS.LEGAL_PAGES);
+    const page = await collection.findOne({ slug: "privacy", isActive: true });
+    return page;
+  } catch (error) {
+    console.error("Error fetching privacy page:", error);
+    return null;
+  }
+}
+
+export default async function PrivacyPage() {
+  const page = await getPrivacyPage();
+  const lastUpdated = page?.updatedAt 
+    ? new Date(page.updatedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    : "February 9, 2026";
+
+  const title = page?.title || "Privacy Policy";
+
   return (
     <main className="min-h-screen bg-white text-navy-950 font-sans">
       <Navbar />
@@ -9,77 +30,86 @@ export default function PrivacyPage() {
       <div className="container mx-auto px-6 py-24 md:py-32 max-w-4xl">
         <div className="mb-16">
           <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-6 text-navy-950">
-            Privacy <span className="font-semibold italic">Policy</span>
+            {title.split(' ')[0]} <span className="font-semibold italic">{title.split(' ').slice(1).join(' ')}</span>
           </h1>
           <div className="h-1 w-20 bg-gold-500 mb-8" />
           <p className="text-navy-900/60 text-sm  uppercase tracking-[0.2em]">
-            Last Updated: February 9, 2026
+            Last Updated: {lastUpdated}
           </p>
         </div>
         
         <div className="space-y-16 text-navy-900/80 leading-relaxed md:text-lg">
-          <section className="space-y-6">
-            <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
-              1. Introduction
-            </h2>
-            <p className="border-l-4 border-gold-500 pl-6 py-2 bg-slate-50 rounded-r-lg">
-              The Professional Mediation Platform for International Dispute Resolution and Strategic Excellence ("PACT", "we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information.
-            </p>
-          </section>
+          {page?.content ? (
+            <div 
+              className="legal-content"
+              dangerouslySetInnerHTML={{ __html: page.content }} 
+            />
+          ) : (
+            <>
+              <section className="space-y-6">
+                <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+                  1. Introduction
+                </h2>
+                <p className="border-l-4 border-gold-500 pl-6 py-2 bg-slate-50 rounded-r-lg">
+                  The Professional Mediation Platform for International Dispute Resolution and Strategic Excellence ("PACT", "we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information.
+                </p>
+              </section>
 
-          <section className="space-y-6">
-            <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
-              2. Information Collection
-            </h2>
-            <p>
-              In our capacity as a leading mediation and dispute resolution provider, we collect information necessary to facilitate professional settlements:
-            </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 list-none pl-0">
-              {["Identifying Contact Details", "Dispute-Specific Documentation", "Professional Backgrounds", "Communication Logs"].map((item) => (
-                <li key={item} className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-navy-950/5">
-                  <div className="h-2 w-2 rounded-full bg-gold-500" />
-                  <span className="font-medium text-navy-900">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
+              <section className="space-y-6">
+                <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+                  2. Information Collection
+                </h2>
+                <p>
+                  In our capacity as a leading mediation and dispute resolution provider, we collect information necessary to facilitate professional settlements:
+                </p>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 list-none pl-0">
+                  {["Identifying Contact Details", "Dispute-Specific Documentation", "Professional Backgrounds", "Communication Logs"].map((item) => (
+                    <li key={item} className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-navy-950/5">
+                      <div className="h-2 w-2 rounded-full bg-gold-500" />
+                      <span className="font-medium text-navy-900">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
 
-          <section className="space-y-6">
-            <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
-              3. Processing and Utilization
-            </h2>
-            <p>
-              Data processing is conducted with systemic precision to ensure the highest quality of service across our academy and mediation platform:
-            </p>
-            <div className="grid gap-6">
-              <div className="p-6 border border-navy-950/10 rounded-2xl hover:bg-slate-50 transition-colors">
-                <h4 className="font-bold mb-2">Service Excellence</h4>
-                <p className="text-sm">Facilitating complex negotiations and academy registrations with data-driven accuracy.</p>
-              </div>
-              <div className="p-6 border border-navy-950/10 rounded-2xl hover:bg-slate-50 transition-colors">
-                <h4 className="font-bold mb-2">Secure Communication</h4>
-                <p className="text-sm">Ensuring all technical notices and administrative messages reach stakeholders promptly.</p>
-              </div>
-            </div>
-          </section>
+              <section className="space-y-6">
+                <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+                  3. Processing and Utilization
+                </h2>
+                <p>
+                  Data processing is conducted with systemic precision to ensure the highest quality of service across our academy and mediation platform:
+                </p>
+                <div className="grid gap-6">
+                  <div className="p-6 border border-navy-950/10 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <h4 className="font-bold mb-2">Service Excellence</h4>
+                    <p className="text-sm">Facilitating complex negotiations and academy registrations with data-driven accuracy.</p>
+                  </div>
+                  <div className="p-6 border border-navy-950/10 rounded-2xl hover:bg-slate-50 transition-colors">
+                    <h4 className="font-bold mb-2">Secure Communication</h4>
+                    <p className="text-sm">Ensuring all technical notices and administrative messages reach stakeholders promptly.</p>
+                  </div>
+                </div>
+              </section>
 
-          <section className="space-y-6">
-            <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
-              4. Absolute Confidentiality
-            </h2>
-            <p>
-              Confidentiality is a non-negotiable cornerstone of the mediation process. PACT mandates the highest levels of discretion, adhering strictly to international ADR standards and confidentiality protocols, except where legal disclosure is mandated by law.
-            </p>
-          </section>
+              <section className="space-y-6">
+                <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+                  4. Absolute Confidentiality
+                </h2>
+                <p>
+                  Confidentiality is a non-negotiable cornerstone of the mediation process. PACT mandates the highest levels of discretion, adhering strictly to international ADR standards and confidentiality protocols, except where legal disclosure is mandated by law.
+                </p>
+              </section>
 
-          <section className="space-y-6">
-            <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
-              5. Data Protection
-            </h2>
-            <p>
-              We employ military-grade encryption and restricted access protocols to safeguard sensitive case information. Our systems are reviewed periodically for compliance with global privacy standards.
-            </p>
-          </section>
+              <section className="space-y-6">
+                <h2 className="text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4">
+                  5. Data Protection
+                </h2>
+                <p>
+                  We employ military-grade encryption and restricted access protocols to safeguard sensitive case information. Our systems are reviewed periodically for compliance with global privacy standards.
+                </p>
+              </section>
+            </>
+          )}
 
           <section className="space-y-8 pt-12 border-t border-navy-950/10">
             <div>
@@ -107,3 +137,4 @@ export default function PrivacyPage() {
     </main>
   );
 }
+

@@ -279,4 +279,25 @@
   [data-slot="dialog-content"] *::-webkit-scrollbar {
     display: none !important;
   }
+
+  .legal-content h2 {
+    @apply text-xl md:text-2xl font-bold text-navy-950 tracking-tight uppercase border-b border-navy-950/10 pb-4 mb-6 mt-12 first:mt-0;
+  }
+  
+  .legal-content p {
+    @apply leading-relaxed mb-6;
+  }
+
+  .legal-content ul {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4 list-none pl-0 mb-8;
+  }
+
+  .legal-content li {
+    @apply flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-navy-950/5 font-medium text-navy-900;
+  }
+
+  .legal-content li::before {
+    content: "";
+    @apply h-2 w-2 rounded-full bg-gold-500 shrink-0;
+  }
 }
