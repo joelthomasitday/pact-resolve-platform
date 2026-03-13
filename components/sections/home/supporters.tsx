@@ -134,7 +134,7 @@ export function Supporters() {
           <div className="text-center flex-1">
             <div className="inline-flex items-center gap-3 mb-4">
               <div className="h-px w-8 bg-gold-500" />
-              <p className="text-gold-500 text-xs uppercase tracking-[0.3em] font-bold">
+              <p className="text-gold-500 text-xs uppercase tracking-widest font-bold">
                 Trusted to Deliver
               </p>
               <div className="h-px w-8 bg-gold-500" />
@@ -222,8 +222,8 @@ export function Supporters() {
                   {/* Author row */}
                   <div className="mt-6 pt-5 border-t border-white/5 flex items-end justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="text-white font-semibold tracking-tight truncate">{t.name}</p>
-                      <p className="text-gold-500/70 text-xs uppercase tracking-[0.2em] mt-1 truncate">
+                      <p className="text-white font-semibold tracking-tight">{t.name}</p>
+                      <p className="text-gold-500/70 text-xs uppercase tracking-wider mt-1 leading-relaxed">
                         {t.title}{t.company ? `, ${t.company}` : ""}
                       </p>
                     </div>
