@@ -12,7 +12,9 @@ import {
   ArrowUpRight,
   Mail,
   Quote,
-  Loader2
+  Loader2,
+  Search,
+  X
 } from "lucide-react";
 import { ResourceSubPageHero } from "@/components/sections/resources/resource-subpage-hero";
 import { Footer } from "@/components/footer";
@@ -25,6 +27,7 @@ import { type ResourceItem } from "@/lib/db/schemas";
 export default function BlogPage() {
   const [resources, setResources] = useState<ResourceItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -43,11 +46,18 @@ export default function BlogPage() {
     fetchData();
   }, []);
 
-  const blogs = resources.filter(r => r.type === "blog");
-  const recommendedReads = resources.filter(r => r.type === "publication");
-  const recommendedWatching = resources.filter(r => r.type === "video");
-  const recommendedBooks = resources.filter(r => r.type === "book");
-  const newsFeatures = resources.filter(r => r.type === "news");
+  const filteredResources = resources.filter(r => {
+    const searchStr = `${r.title} ${r.subtitle || ""} ${r.description || ""} ${r.author || ""} ${r.category || ""} ${r.publication || ""}`.toLowerCase();
+    return searchStr.includes(searchQuery.toLowerCase());
+  });
+
+  const blogs = filteredResources.filter(r => r.type === "blog");
+  const recommendedReads = filteredResources.filter(r => r.type === "publication");
+  const recommendedWatching = filteredResources.filter(r => r.type === "video");
+  const recommendedBooks = filteredResources.filter(r => r.type === "book");
+  const newsFeatures = filteredResources.filter(r => r.type === "news");
+
+  const hasAnyResults = blogs.length > 0 || recommendedReads.length > 0 || recommendedWatching.length > 0 || recommendedBooks.length > 0 || newsFeatures.length > 0;
 
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-background">
@@ -92,10 +102,62 @@ export default function BlogPage() {
           </div>
         </section>
 
+        {/* Search Section */}
+        <section className="py-12 bg-white flex flex-col items-center">
+          <div className="w-full max-w-2xl px-6">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gold-500/5 blur-2xl rounded-full group-focus-within:bg-gold-500/10 transition-colors" />
+              <div className="relative flex items-center bg-white border border-navy-100 rounded-2xl p-2 shadow-sm focus-within:shadow-xl focus-within:border-gold-500/30 transition-all duration-300">
+                <div className="flex items-center justify-center w-12 h-12 text-navy-950/20 group-focus-within:text-gold-500 transition-colors">
+                  <Search className="w-5 h-5" />
+                </div>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search articles, books, videos, or news..."
+                  className="flex-1 bg-transparent border-none outline-none text-navy-950 placeholder:text-navy-950/20 text-lg font-light py-2"
+                />
+                {searchQuery && (
+                  <button 
+                    onClick={() => setSearchQuery("")}
+                    className="flex items-center justify-center w-12 h-12 text-navy-950/20 hover:text-navy-950 transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+            </div>
+            {searchQuery && (
+              <p className="text-center mt-6 text-navy-950/40 text-sm font-light">
+                Showing results for <span className="text-navy-950 font-medium">"{searchQuery}"</span>
+              </p>
+            )}
+          </div>
+        </section>
+
         {isLoading ? (
-          <div className="py-32 flex items-center justify-center">
+          <div className="py-20 flex items-center justify-center">
             <Loader2 className="w-8 h-8 animate-spin text-gold-500" />
           </div>
+        ) : !hasAnyResults && searchQuery ? (
+          <section className="py-32 bg-white">
+            <div className="max-w-7xl mx-auto px-6 text-center">
+              <div className="w-24 h-24 rounded-4xl bg-navy-50 flex items-center justify-center mx-auto mb-8 text-navy-950/10">
+                <Search className="w-12 h-12" />
+              </div>
+              <h2 className="text-3xl font-light text-navy-950 mb-4">No resources found</h2>
+              <p className="text-navy-950/40 font-light max-w-md mx-auto mb-10">
+                We couldn't find any articles, books, or videos matching your search. Try a different keyword.
+              </p>
+              <button 
+                onClick={() => setSearchQuery("")}
+                className="inline-flex items-center gap-2 text-gold-600 font-bold uppercase tracking-widest text-sm hover:text-gold-500 transition-colors"
+              >
+                Clear Search
+              </button>
+            </div>
+          </section>
         ) : (
           <>
             {/* PACT Blogs Section */}
