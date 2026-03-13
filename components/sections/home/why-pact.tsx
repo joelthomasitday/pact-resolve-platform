@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Shield, 
@@ -34,6 +35,7 @@ export function WhyPact() {
       title: "Mediation Practice Protocols",
       description: "PACT operates in alignment with internationally recognised mediation practice protocols and upholds the principles of voluntariness, neutrality, confidentiality, and party autonomy. All PACT mediations are conducted in strict adherence to The Mediation Act, 2023, ensuring legal validity, ethical integrity, and global best-practice standards.",
       cta: "Standards of Practice",
+      ctaLink: "/mediation",
       order: 1,
       isActive: true,
       createdAt: new Date(),
@@ -46,6 +48,7 @@ export function WhyPact() {
       title: "IMI QAP Mediation Advocacy",
       description: "PACT has been recognised by the International Mediation Institute (IMI) for its QAP-certified Mediation Advocacy, reflecting excellence in neutrality, ethical representation, and professional competence. This recognition affirms PACT's commitment to international quality standards and mediation advocacy within the mediation ecosystem.",
       cta: "Our Certifications",
+      ctaLink: "/ecosystem",
       order: 2,
       isActive: true,
       createdAt: new Date(),
@@ -58,6 +61,7 @@ export function WhyPact() {
       title: "International Collaborations",
       description: "PACT has actively collaborated with leading institutions – International Mediation Institute (Europe/Global), Maxwell Mediators (Asia Pacific), Mediate.com (USA) to advance mediation practice, capacity building, and cross-border dispute resolution. These collaborations reflect PACT's global outlook, commitment to knowledge exchange and visibility within the mediation community.",
       cta: "Global Network",
+      ctaLink: "/ecosystem",
       order: 3,
       isActive: true,
       createdAt: new Date(),
@@ -70,6 +74,7 @@ export function WhyPact() {
       title: "Mediation Simplified",
       description: "Mediation Simplified has made mediation accessible and practical for professionals, students, and disputants alike. By demystifying concepts and offering clear frameworks, the book, authored and curated by Jonathan Rodrigues and Nisshant Laroia, has contributed to greater awareness, informed practice, and wider adoption of mediation as an effective dispute resolution mechanism.",
       cta: "Get the Book",
+      ctaLink: "/resources",
       order: 4,
       isActive: true,
       createdAt: new Date(),
@@ -82,6 +87,7 @@ export function WhyPact() {
       title: "Mediation Clauses",
       description: "The mediation clauses endorsed by PACT, as an institutionalised mediation service provider, promote early, structured, and confidential dispute resolution. Designed to align with international best practices and the Mediation Act, 2023, these clauses provide parties with clarity, procedural certainty, and enforceable pathways to effective mediation.",
       cta: "View Clauses",
+      ctaLink: "/pledge",
       order: 5,
       isActive: true,
       createdAt: new Date(),
@@ -206,12 +212,17 @@ export function WhyPact() {
                       {activeContent.description}
                     </p>
                     
-                    <button className="group mt-8 flex items-center gap-4 text-gold-500 font-mono text-sm uppercase tracking-[0.3em] hover:text-white transition-colors duration-300">
+                    <Link 
+                      href={activeContent.ctaLink ? (activeContent.ctaLink.startsWith('http') ? activeContent.ctaLink : activeContent.ctaLink.startsWith('/') ? activeContent.ctaLink : `https://${activeContent.ctaLink}`) : "#"} 
+                      target={activeContent.ctaLink?.startsWith('http') || !activeContent.ctaLink?.startsWith('/') ? "_blank" : undefined}
+                      rel={activeContent.ctaLink?.startsWith('http') || !activeContent.ctaLink?.startsWith('/') ? "noopener noreferrer" : undefined}
+                      className="group mt-8 inline-flex items-center gap-4 text-gold-500 font-mono text-sm uppercase tracking-[0.3em] hover:text-white transition-colors duration-300"
+                    >
                       <span className="border-b border-gold-500/30 pb-1 group-hover:border-white transition-colors">
                         {activeContent.cta || "Learn More"}
                       </span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </Link>
                   </div>
                 </motion.div>
               )}

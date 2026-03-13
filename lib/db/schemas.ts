@@ -798,6 +798,7 @@ export interface WhyPactPoint extends BaseDocument {
   title: string;
   description: string;
   cta: string;
+  ctaLink: string;
   iconName: string; // lucide icon name
   order: number;
   isActive: boolean;

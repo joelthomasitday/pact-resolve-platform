@@ -66,7 +66,7 @@ export default function WhyPactAdmin() {
   };
 
   const openDialog = (item: Partial<WhyPactPoint> = {}) => {
-    setEditingItem({ label: "", title: "", description: "", cta: "", iconName: "Shield", order: data.length + 1, isActive: true, ...item });
+    setEditingItem({ label: "", title: "", description: "", cta: "", ctaLink: "", iconName: "Shield", order: data.length + 1, isActive: true, ...item });
     setIsDialogOpen(true);
   };
 
@@ -128,6 +128,9 @@ export default function WhyPactAdmin() {
               <div className="space-y-2"><Label>Description</Label><Textarea value={editingItem?.description || ""} onChange={e => setEditingItem({...editingItem!, description: e.target.value})} required /></div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2"><Label>CTA Button Text</Label><Input value={editingItem?.cta || ""} onChange={e => setEditingItem({...editingItem!, cta: e.target.value})} /></div>
+                <div className="space-y-2"><Label>CTA Button Link (URL)</Label><Input value={editingItem?.ctaLink || ""} onChange={e => setEditingItem({...editingItem!, ctaLink: e.target.value})} placeholder="/mediation or https://..." /></div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2"><Label>Lucide Icon Name</Label><Input value={editingItem?.iconName || ""} onChange={e => setEditingItem({...editingItem!, iconName: e.target.value})} placeholder="Shield, Globe, BookOpen..." /></div>
               </div>
               <div className="flex justify-between items-center bg-muted/20 p-4 rounded-xl">
