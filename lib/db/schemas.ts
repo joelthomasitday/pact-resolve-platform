@@ -891,6 +891,24 @@ export interface EssentialChecklist extends BaseDocument {
 }
 
 // ============================================================================
+// 18.2 MEDIATION CLAUSES
+// ============================================================================
+
+export interface MediationClause extends BaseDocument {
+  /** Clause Identifier (e.g. "A", "B", "C") */
+  identifier: string;
+  /** Title of the clause */
+  title: string;
+  /** Content of the clause */
+  content: string;
+  /** Display order */
+  order: number;
+  /** Whether visible */
+  isActive: boolean;
+}
+
+
+// ============================================================================
 // 19. NMR CONTENT (National Mediation Review)
 // ============================================================================
 
@@ -1035,6 +1053,7 @@ export const COLLECTIONS = {
   NMR_SETTINGS: "nmrSettings",
   // Clauses & Toolkits
   CLAUSES_ESSENTIALS: "clausesEssentials",
+  CLAUSES: "clauses",
   // Pledge Signatories
   PLEDGE_SIGNATORIES: "pledgeSignatories",
   // Project Updates (Watch Out For)

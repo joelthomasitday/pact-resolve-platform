@@ -4,7 +4,13 @@ import { COLLECTIONS } from "@/lib/db/schemas";
 
 export async function POST(request: NextRequest) {
   try {
+    const authHeader = request.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
+
     const db = await getDb();
+
     const collection = db.collection(COLLECTIONS.CLAUSES_ESSENTIALS);
 
     const defaultEssentials = [

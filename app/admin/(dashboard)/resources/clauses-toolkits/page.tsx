@@ -14,8 +14,10 @@ import {
   ExternalLink,
   Search,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Scale
 } from "lucide-react";
+
 import { toast } from "sonner";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -30,7 +32,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { FileUpload } from "@/components/admin/FileUpload";
 import { useAuth } from "@/lib/context/AuthContext";
-import { type EssentialChecklist, type ResourceItem } from "@/lib/db/schemas";
+import { type EssentialChecklist, type ResourceItem, type MediationClause } from "@/lib/db/schemas";
 import Link from "next/link";
 
 const EMPTY_ESSENTIAL: Partial<EssentialChecklist> = {
@@ -52,6 +54,14 @@ const EMPTY_TOOLKIT: Partial<ResourceItem> = {
   isActive: true,
 };
 
+const EMPTY_CLAUSE: Partial<MediationClause> = {
+  identifier: "",
+  title: "",
+  content: "",
+  order: 1,
+  isActive: true,
+};
+
 export default function ClausesToolkitsAdminPage() {
   const { token } = useAuth();
   const [activeTab, setActiveTab] = useState("essentials");
@@ -67,12 +77,19 @@ export default function ClausesToolkitsAdminPage() {
   const [isToolkitsLoading, setIsToolkitsLoading] = useState(true);
   const [isToolkitDialogOpen, setIsToolkitDialogOpen] = useState(false);
   const [editingToolkit, setEditingToolkit] = useState<Partial<ResourceItem> | null>(null);
+
+  // Clauses State
+  const [clauses, setClauses] = useState<MediationClause[]>([]);
+  const [isClausesLoading, setIsClausesLoading] = useState(true);
+  const [isClauseDialogOpen, setIsClauseDialogOpen] = useState(false);
+  const [editingClause, setEditingClause] = useState<Partial<MediationClause> | null>(null);
   
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     fetchEssentials();
     fetchToolkits();
+    fetchClauses();
   }, []);
 
   async function fetchEssentials() {
@@ -98,6 +115,19 @@ export default function ClausesToolkitsAdminPage() {
       toast.error("Failed to load toolkits");
     } finally {
       setIsToolkitsLoading(false);
+    }
+  }
+
+  async function fetchClauses() {
+    setIsClausesLoading(true);
+    try {
+      const res = await fetch("/api/content/clauses?admin=true");
+      const result = await res.json();
+      if (result.success) setClauses(result.data || []);
+    } catch {
+      toast.error("Failed to load clauses");
+    } finally {
+      setIsClausesLoading(false);
     }
   }
 
@@ -195,14 +225,83 @@ export default function ClausesToolkitsAdminPage() {
     }
   };
 
+  // Clause Handlers
+  const handleSaveClause = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingClause?.title || !editingClause?.identifier || !editingClause?.content) {
+      toast.error("Title, identifier, and content are required");
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      const method = editingClause._id ? "PUT" : "POST";
+      const res = await fetch("/api/content/clauses", {
+        method,
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(editingClause),
+      });
+      const result = await res.json();
+      if (result.success) {
+        toast.success(editingClause._id ? "Clause updated" : "Clause created");
+        setIsClauseDialogOpen(false);
+        fetchClauses();
+      } else {
+        toast.error(result.error || "Save failed");
+      }
+    } catch {
+      toast.error("Save failed");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDeleteClause = async (id: string) => {
+    if (!confirm("Are you sure?")) return;
+    try {
+      const res = await fetch(`/api/content/clauses?id=${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if ((await res.json()).success) {
+        toast.success("Deleted");
+        fetchClauses();
+      }
+    } catch {
+      toast.error("Delete failed");
+    }
+  };
+
   const handleSeedEssentials = async () => {
     if (!confirm("Restore default checklist items? This will remove existing ones.")) return;
     try {
-      const res = await fetch("/api/content/clauses-essentials/seed", { method: "POST" });
+      const res = await fetch("/api/content/clauses-essentials/seed", { 
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
       const result = await res.json();
       if (result.success) {
         toast.success("Default Essentials restored");
         fetchEssentials();
+      }
+    } catch {
+      toast.error("Seeding failed");
+    }
+  };
+
+  const handleSeedClauses = async () => {
+    if (!confirm("Restore sample PACT clauses? This will remove existing ones.")) return;
+    try {
+      const res = await fetch("/api/content/clauses/seed", { 
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        toast.success("Sample Clauses restored");
+        fetchClauses();
       }
     } catch {
       toast.error("Seeding failed");
@@ -236,14 +335,17 @@ export default function ClausesToolkitsAdminPage() {
               if (activeTab === "essentials") {
                 setEditingEssential(EMPTY_ESSENTIAL);
                 setIsEssentialDialogOpen(true);
-              } else {
+              } else if (activeTab === "toolkits") {
                 setEditingToolkit(EMPTY_TOOLKIT);
                 setIsToolkitDialogOpen(true);
+              } else {
+                setEditingClause(EMPTY_CLAUSE);
+                setIsClauseDialogOpen(true);
               }
             }} 
             className="rounded-xl px-6 h-12 bg-navy-950 hover:bg-navy-900 text-white font-bold shadow-lg"
           >
-            <Plus className="w-4 h-4 mr-2" /> Add {activeTab === "essentials" ? "Essential" : "Toolkit"}
+            <Plus className="w-4 h-4 mr-2" /> Add {activeTab === "essentials" ? "Essential" : activeTab === "toolkits" ? "Toolkit" : "Clause"}
           </Button>
         </div>
       </div>
@@ -252,6 +354,9 @@ export default function ClausesToolkitsAdminPage() {
         <TabsList className="bg-white p-1 rounded-2xl border border-navy-50 h-auto flex-wrap justify-start gap-1">
           <TabsTrigger value="essentials" className="rounded-xl px-6 py-3 data-[state=active]:bg-navy-950 data-[state=active]:text-white font-bold transition-all">
             <Star className="w-4 h-4 mr-2" /> Essential Checklist
+          </TabsTrigger>
+          <TabsTrigger value="clauses" className="rounded-xl px-6 py-3 data-[state=active]:bg-navy-950 data-[state=active]:text-white font-bold transition-all">
+            <Scale className="w-4 h-4 mr-2" /> Sample Clauses
           </TabsTrigger>
           <TabsTrigger value="toolkits" className="rounded-xl px-6 py-3 data-[state=active]:bg-navy-950 data-[state=active]:text-white font-bold transition-all">
             <FileText className="w-4 h-4 mr-2" /> Practical Toolkits
@@ -322,6 +427,61 @@ export default function ClausesToolkitsAdminPage() {
           </Card>
         </TabsContent>
 
+        <TabsContent value="clauses" className="mt-6 space-y-6">
+          <Card className="border-none shadow-sm rounded-3xl overflow-hidden bg-white">
+            <CardContent className="p-0">
+               <div className="p-6 border-b border-navy-50 flex justify-between items-center bg-navy-50/10">
+                  <div className="flex items-center gap-2">
+                     <Scale className="w-4 h-4 text-primary" />
+                     <span className="text-xs font-semibold text-navy-950/60 lowercase italic">Used in "Sample PACT Clauses" section</span>
+                  </div>
+                  <Button variant="ghost" size="sm" onClick={handleSeedClauses} className="text-xs text-navy-950/40 hover:text-navy-950">
+                    Restore Samples
+                 </Button>
+               </div>
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent border-navy-50">
+                    <TableHead className="w-[100px] text-sm font-black uppercase tracking-widest text-navy-950/40 pl-8">Order</TableHead>
+                    <TableHead className="w-[100px] text-sm font-black uppercase tracking-widest text-navy-950/40">ID</TableHead>
+                    <TableHead className="text-sm font-black uppercase tracking-widest text-navy-950/40">Clause Title</TableHead>
+                    <TableHead className="text-sm font-black uppercase tracking-widest text-navy-950/40">Status</TableHead>
+                    <TableHead className="text-right pr-8 text-sm font-black uppercase tracking-widest text-navy-950/40">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {isClausesLoading ? (
+                    <TableRow><TableCell colSpan={5} className="text-center py-10"><Loader2 className="w-6 h-6 animate-spin mx-auto text-muted-foreground" /></TableCell></TableRow>
+                  ) : clauses.length === 0 ? (
+                    <TableRow><TableCell colSpan={5} className="text-center py-20 text-muted-foreground">No clauses found. Click "Add Clause".</TableCell></TableRow>
+                  ) : clauses.map((item) => (
+                    <TableRow key={item._id?.toString()} className="group hover:bg-navy-50/50 transition-colors border-navy-50/50">
+                      <TableCell className="pl-8 font-bold text-navy-950/30">#{item.order}</TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="font-bold border-navy-200 text-navy-950">{item.identifier}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <span className="font-bold text-navy-950">{item.title}</span>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={item.isActive ? "success" : "secondary"} className="rounded-full text-sm px-3 font-black uppercase tracking-widest">
+                          {item.isActive ? "Active" : "Hidden"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-right pr-8">
+                        <div className="flex justify-end gap-2">
+                          <Button variant="ghost" size="icon" onClick={() => { setEditingClause(item); setIsClauseDialogOpen(true); }} className="h-9 w-9 rounded-full hover:bg-white"><Edit className="w-4 h-4" /></Button>
+                          <Button variant="ghost" size="icon" onClick={() => handleDeleteClause(item._id!.toString())} className="h-9 w-9 rounded-full hover:bg-red-50 hover:text-red-600"><Trash2 className="w-4 h-4" /></Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         <TabsContent value="toolkits" className="mt-6 space-y-6">
           <Card className="border-none shadow-sm rounded-3xl overflow-hidden bg-white">
             <CardContent className="p-0">
@@ -355,7 +515,7 @@ export default function ClausesToolkitsAdminPage() {
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-col">
-                           <span className="text-xs font-medium uppercase tracking-widest text-sm text-amber-600 mb-0.5">{item.publication || item.subtitle || "PACT"}</span>
+                           <span className="text-xs font-medium uppercase tracking-widest text-amber-600 mb-0.5">{item.publication || item.subtitle || "PACT"}</span>
                            <Button variant="link" className="p-0 h-auto text-xs text-blue-500 justify-start" asChild>
                               <a href={item.url} target="_blank"><ExternalLink className="w-3 h-3 mr-1" /> View Resource</a>
                            </Button>
@@ -450,6 +610,84 @@ export default function ClausesToolkitsAdminPage() {
               <Button type="button" variant="ghost" onClick={() => setIsEssentialDialogOpen(false)} className="rounded-xl h-12 px-6">Cancel</Button>
               <Button type="submit" disabled={isSaving} className="rounded-xl h-12 px-10 bg-navy-950">
                 {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : "Save Essential"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Clause Dialog */}
+      <Dialog open={isClauseDialogOpen} onOpenChange={setIsClauseDialogOpen}>
+        <DialogContent className="max-w-2xl w-[95vw] bg-white rounded-3xl md:rounded-4xl p-0 overflow-hidden border-none shadow-2xl max-h-[90vh] flex flex-col">
+          <form onSubmit={handleSaveClause} className="overflow-y-auto flex-1">
+            <DialogHeader className="p-8 pb-0">
+              <DialogTitle className="text-2xl font-bold tracking-tight text-navy-950">
+                {editingClause?._id ? "Edit Clause" : "Add Clause"}
+              </DialogTitle>
+              <DialogDescription>
+                Configure the sample mediation clause.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="p-8 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="space-y-2 col-span-1">
+                  <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">ID</Label>
+                  <Input 
+                    value={editingClause?.identifier || ""} 
+                    onChange={(e) => setEditingClause(prev => ({ ...prev!, identifier: e.target.value.toUpperCase() }))}
+                    placeholder="e.g. A"
+                    className="h-12 rounded-xl bg-navy-50/50 border-none"
+                    required
+                  />
+                </div>
+                <div className="space-y-2 col-span-3">
+                  <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Clause Title</Label>
+                  <Input 
+                    value={editingClause?.title || ""} 
+                    onChange={(e) => setEditingClause(prev => ({ ...prev!, title: e.target.value }))}
+                    placeholder="e.g. Standard Mediation Agreement"
+                    className="h-12 rounded-xl bg-navy-50/50 border-none"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Clause Content</Label>
+                <Textarea 
+                  value={editingClause?.content || ""} 
+                  onChange={(e) => setEditingClause(prev => ({ ...prev!, content: e.target.value }))}
+                  placeholder="Paste clause text here..."
+                  className="min-h-[200px] rounded-xl bg-navy-50/50 border-none focus-visible:ring-amber-500/20 resize-none"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-navy-50">
+                <div className="space-y-2">
+                  <Label className="text-xs uppercase tracking-widest font-black text-navy-950/40 ml-1">Display Order</Label>
+                  <Input 
+                    type="number"
+                    value={editingClause?.order || 1} 
+                    onChange={(e) => setEditingClause(prev => ({ ...prev!, order: parseInt(e.target.value) || 1 }))}
+                    className="h-12 rounded-xl bg-navy-50/50 border-none"
+                  />
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-xl bg-navy-50/50 md:mt-6">
+                  <Label className="text-sm font-bold text-navy-950">Active Status</Label>
+                  <Switch 
+                    checked={editingClause?.isActive || false} 
+                    onCheckedChange={(val) => setEditingClause(prev => ({ ...prev!, isActive: val }))} 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <DialogFooter className="p-8 bg-navy-50/30">
+              <Button type="button" variant="ghost" onClick={() => setIsClauseDialogOpen(false)} className="rounded-xl h-12 px-6">Cancel</Button>
+              <Button type="submit" disabled={isSaving} className="rounded-xl h-12 px-10 bg-navy-950">
+                {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : "Save Clause"}
               </Button>
             </DialogFooter>
           </form>

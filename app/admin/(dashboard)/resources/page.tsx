@@ -71,7 +71,7 @@ const SECTIONS = [
   },
   {
     title: "Clauses & Toolkits",
-    description: "Manage the 'Essential Checklist' items: titles, descriptions, and images.",
+    description: "Manage Essential Checklist, Sample Clauses, and Practical Toolkits content.",
     icon: Database,
     link: "/admin/resources/clauses-toolkits",
     color: "text-gold-600",

@@ -25,7 +25,7 @@ import { Footer } from "@/components/footer";
 import { GrainOverlay } from "@/components/grain-overlay";
 import { FadeIn, FadeInUp } from "@/components/motion-wrapper";
 import { cn } from "@/lib/utils";
-import { type ResourceItem } from "@/lib/db/schemas";
+import { type ResourceItem, type MediationClause } from "@/lib/db/schemas";
 
 const whyMediationClauses = [
   {
@@ -157,6 +157,7 @@ export default function ClausesToolkitsPage() {
   const [copiedClause, setCopiedClause] = useState<string | null>(null);
   const [toolkitItems, setToolkitItems] = useState<ResourceItem[]>([]);
   const [essentialItems, setEssentialItems] = useState<any[]>([]);
+  const [clausesItems, setClausesItems] = useState<MediationClause[]>([]);
   const [activeEssential, setActiveEssential] = useState(0);
 
   useEffect(() => {
@@ -184,8 +185,21 @@ export default function ClausesToolkitsPage() {
       }
     }
 
+    async function fetchClauses() {
+      try {
+        const res = await fetch("/api/content/clauses");
+        const data = await res.json();
+        if (data.success) {
+          setClausesItems(data.data || []);
+        }
+      } catch (error) {
+        console.error("Failed to fetch clauses", error);
+      }
+    }
+
     fetchToolkits();
     fetchEssentials();
+    fetchClauses();
   }, []);
 
   const visibleEssentials = useMemo(() => {
@@ -210,11 +224,26 @@ export default function ClausesToolkitsPage() {
     return toolkits;
   }, [toolkitItems]);
 
+  const visibleClauses = useMemo(() => {
+    if (clausesItems.length > 0) {
+      return clausesItems
+        .sort((a, b) => (a.order || 0) - (b.order || 0))
+        .map(item => ({
+          id: item.identifier,
+          title: item.title,
+          content: item.content
+        }));
+    }
+    return sampleClauses;
+  }, [clausesItems]);
+
   const handleCopyClause = (id: string, content: string) => {
     navigator.clipboard.writeText(content);
     setCopiedClause(id);
     setTimeout(() => setCopiedClause(null), 2000);
   };
+
+
 
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-background">
@@ -432,7 +461,8 @@ export default function ClausesToolkitsPage() {
             </FadeInUp>
             
             <div className="space-y-4">
-              {sampleClauses.map((clause, i) => (
+              {visibleClauses.map((clause, i) => (
+
                 <motion.div
                   key={clause.id}
                   initial={{ opacity: 0, y: 20 }}
