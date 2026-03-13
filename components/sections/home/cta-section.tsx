@@ -56,15 +56,16 @@ export function CTASection() {
     }
   });
 
-  const sendInquiryEmail = (subject: string, body: string) => {
+  const sendInquiryEmail = (recipient: string, subject: string, body: string) => {
     if (typeof window === "undefined") return;
-    const recipient = globalSettings?.email || "official@thepact.in";
     const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
   };
 
   function onTrainingSubmit(data: z.infer<typeof trainingSchema>) {
+    const recipient = globalSettings?.trainingEmail || globalSettings?.email || "official@thepact.in";
     sendInquiryEmail(
+      recipient,
       "New Academy Training Inquiry",
       [
         `Name: ${data.fullName}`,
@@ -158,16 +159,24 @@ export function CTASection() {
               <Phone className="h-5 w-5" />
             </div>
             <div>
+              <div className="text-xs uppercase tracking-widest text-gold-600 font-bold mb-0.5">Call Us</div>
               {globalSettings?.contactPersons?.length > 0 ? (
                 globalSettings.contactPersons.slice(0, 2).map((p: any, i: number) => (
-                  <div key={i} className={i === 0 ? "text-lg font-semibold text-navy-950 tracking-tight" : "text-sm text-navy-600 font-medium tracking-tight"}>
+                  <a 
+                    href={`tel:${p.phone.replace(/\s+/g, '')}`} 
+                    key={i} 
+                    className={i === 0 
+                      ? "block text-lg font-semibold text-navy-950 tracking-tight hover:text-gold-500 transition-colors" 
+                      : "block text-sm text-navy-600 font-medium tracking-tight hover:text-gold-500 transition-colors"
+                    }
+                  >
                     {p.phone}
-                  </div>
+                  </a>
                 ))
               ) : (
                 <>
-                  <div className="text-lg font-semibold text-navy-950 tracking-tight">9765987280</div>
-                  <div className="text-sm text-navy-600 font-medium tracking-tight">9958488857</div>
+                  <a href="tel:+919765987280" className="block text-lg font-semibold text-navy-950 tracking-tight hover:text-gold-500 transition-colors">9765987280</a>
+                  <a href="tel:+919958488857" className="block text-sm text-navy-600 font-medium tracking-tight hover:text-gold-500 transition-colors">9958488857</a>
                 </>
               )}
             </div>
@@ -185,7 +194,12 @@ export function CTASection() {
             </div>
             <div>
               <div className="text-xs uppercase tracking-widest text-gold-600 font-bold mb-0.5">Email Us</div>
-              <div className="text-lg font-semibold text-navy-950 tracking-tight">{globalSettings?.email || "official@thepact.in"}</div>
+              <a 
+                href={`mailto:${globalSettings?.email || "official@thepact.in"}`} 
+                className="text-lg font-semibold text-navy-950 tracking-tight hover:text-gold-500 transition-colors block"
+              >
+                {globalSettings?.email || "official@thepact.in"}
+              </a>
             </div>
           </motion.div>
         </div>
@@ -259,7 +273,7 @@ export function CTASection() {
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                 className="max-w-4xl mx-auto bg-white rounded-[3rem] shadow-2xl shadow-navy-950/10 border border-navy-950/5 relative overflow-hidden"
               >
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent via-navy-950 to-accent" />
+                <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-accent via-navy-950 to-accent" />
                 <button onClick={() => setActiveForm(null)} className="absolute top-8 right-8 p-3 rounded-full hover:bg-slate-50 transition-colors z-20 group">
                   <X className="h-6 w-6 text-navy-400 group-hover:text-navy-950" />
                 </button>

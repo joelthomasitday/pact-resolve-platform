@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowLeft, 
@@ -47,9 +47,9 @@ const mediationSchema = z.object({
   bestTime: z.string(),
 });
 
-function sendInquiryEmail(subject: string, body: string) {
+function sendInquiryEmail(recipient: string, subject: string, body: string) {
   if (typeof window === "undefined") return;
-  const mailto = `mailto:official@thepact.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = mailto;
 }
 
@@ -58,6 +58,20 @@ const luxuryEasing = "easeOut";
 export default function InitiateMediationPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const [globalSettings, setGlobalSettings] = useState<any>(null);
+
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const res = await fetch("/api/content/global-settings");
+        const result = await res.json();
+        if (result.success && result.data) setGlobalSettings(result.data);
+      } catch (error) {
+        console.error("Failed to fetch global settings", error);
+      }
+    }
+    fetchSettings();
+  }, []);
 
   const form = useForm<z.infer<typeof mediationSchema>>({
     resolver: zodResolver(mediationSchema),
@@ -76,7 +90,9 @@ export default function InitiateMediationPage() {
   });
 
   function onSubmit(data: z.infer<typeof mediationSchema>) {
+    const recipient = globalSettings?.mediationEmail || globalSettings?.email || "official@thepact.in";
     sendInquiryEmail(
+      recipient,
       "New Mediation Inquiry",
       [
         `Name: ${data.fullName}`,

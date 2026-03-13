@@ -316,6 +316,8 @@ export const footerSettingsSeed: Omit<FooterSettings, "_id" | "createdAt" | "upd
 
 export const globalSettingsSeed: Omit<GlobalSettings, "_id" | "createdAt" | "updatedAt"> = {
   email: "official@thepact.in",
+  mediationEmail: "mediation@thepact.in",
+  trainingEmail: "official@thepact.in",
   whatsapp: "+919123456789",
   contactPersons: [
     { name: "Nisshant", phone: "+91 91234 56789", role: "Co-founder" },

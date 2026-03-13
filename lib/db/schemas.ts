@@ -164,6 +164,10 @@ export interface ContactPerson {
 export interface GlobalSettings extends BaseDocument {
   /** Primary email address */
   email: string;
+  /** Mediation inquiry email */
+  mediationEmail?: string;
+  /** Training inquiry email */
+  trainingEmail?: string;
   /** WhatsApp number (with country code) */
   whatsapp: string;
   /** Contact persons with their phone numbers */

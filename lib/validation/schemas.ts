@@ -21,6 +21,8 @@ const contactPersonSchema = z.object({
 
 export const globalSettingsSchema = z.object({
   email: z.string().email("Invalid email format").optional().or(z.literal("")),
+  mediationEmail: z.string().email("Invalid email format").optional().or(z.literal("")),
+  trainingEmail: z.string().email("Invalid email format").optional().or(z.literal("")),
   whatsapp: z.string().optional(),
   contactPersons: z.array(contactPersonSchema).optional().default([]),
   address: z.string().optional(),

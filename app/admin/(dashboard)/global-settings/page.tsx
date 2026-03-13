@@ -36,6 +36,8 @@ interface ContactPerson {
 
 interface GlobalSettingsData {
   email: string;
+  mediationEmail: string;
+  trainingEmail: string;
   whatsapp: string;
   contactPersons: ContactPerson[];
   address: string;
@@ -44,6 +46,8 @@ interface GlobalSettingsData {
 
 const defaultSettings: GlobalSettingsData = {
   email: "",
+  mediationEmail: "",
+  trainingEmail: "",
   whatsapp: "",
   contactPersons: [],
   address: "",
@@ -86,6 +90,8 @@ export default function GlobalSettingsPage() {
         setIsEmpty(false);
         setSettings({
           email: result.data.email || "",
+          mediationEmail: result.data.mediationEmail || "",
+          trainingEmail: result.data.trainingEmail || "",
           whatsapp: result.data.whatsapp || "",
           contactPersons: result.data.contactPersons || [],
           address: result.data.address || "",
@@ -266,7 +272,7 @@ export default function GlobalSettingsPage() {
       {/* Empty State Alert */}
       {isEmpty && (
         <FadeInUp delay={0.1}>
-          <div className="p-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/50 rounded-3xl flex items-start gap-4">
+          <div className="p-6 bg-linear-to-r from-amber-50 to-orange-50 border border-amber-200/50 rounded-3xl flex items-start gap-4">
             <div className="p-2 bg-amber-100 rounded-xl shrink-0">
               <AlertCircle className="w-5 h-5 text-amber-600" />
             </div>
@@ -283,7 +289,7 @@ export default function GlobalSettingsPage() {
       <form onSubmit={handleSave} className="space-y-8">
         {/* Company Information Card */}
         <FadeInUp delay={0.2}>
-          <Card className="border-border/40 shadow-sm bg-white rounded-[2rem] overflow-hidden">
+          <Card className="border-border/40 shadow-sm bg-white rounded-4xl overflow-hidden">
             <CardHeader className="pb-6 pt-8 px-8 border-b border-border/20">
               <div className="flex items-center gap-4">
                 <div className="p-3 rounded-2xl bg-primary/10 text-primary">
@@ -313,7 +319,7 @@ export default function GlobalSettingsPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    Official Email
+                    General Official Email
                   </Label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -326,6 +332,43 @@ export default function GlobalSettingsPage() {
                       className="pl-11 rounded-xl h-12 border-border/60 focus:border-primary"
                     />
                   </div>
+                </div>
+              </div>
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="mediationEmail" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    Mediation Inquiry Email
+                  </Label>
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input 
+                      id="mediationEmail"
+                      type="email"
+                      value={settings.mediationEmail}
+                      onChange={(e) => updateField("mediationEmail", e.target.value)}
+                      placeholder="mediation@thepact.in"
+                      className="pl-11 rounded-xl h-12 border-border/60 focus:border-primary"
+                    />
+                  </div>
+                  <p className="text-[10px] text-muted-foreground px-1 italic">Used for "Initiate a Mediation" requests</p>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="trainingEmail" className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    Academy / Training Email
+                  </Label>
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input 
+                      id="trainingEmail"
+                      type="email"
+                      value={settings.trainingEmail}
+                      onChange={(e) => updateField("trainingEmail", e.target.value)}
+                      placeholder="official@thepact.in"
+                      className="pl-11 rounded-xl h-12 border-border/60 focus:border-primary"
+                    />
+                  </div>
+                  <p className="text-[10px] text-muted-foreground px-1 italic">Used for "Reserve a Seat" academy requests</p>
                 </div>
               </div>
               <div className="space-y-2">
@@ -365,7 +408,7 @@ export default function GlobalSettingsPage() {
 
         {/* Contact Persons Card */}
         <FadeInUp delay={0.3}>
-          <Card className="border-border/40 shadow-sm bg-white rounded-[2rem] overflow-hidden">
+          <Card className="border-border/40 shadow-sm bg-white rounded-4xl overflow-hidden">
             <CardHeader className="pb-6 pt-8 px-8 border-b border-border/20">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
@@ -466,7 +509,7 @@ export default function GlobalSettingsPage() {
 
         {/* Save Footer */}
         <FadeInUp delay={0.4}>
-          <div className="p-8 bg-navy-950 rounded-[2rem] border border-white/5 shadow-2xl overflow-hidden relative">
+          <div className="p-8 bg-navy-950 rounded-4xl border border-white/5 shadow-2xl overflow-hidden relative">
             <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
                 <div className={cn(
