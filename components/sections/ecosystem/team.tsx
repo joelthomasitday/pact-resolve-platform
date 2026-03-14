@@ -101,7 +101,7 @@ function ProfileModal({ member, onClose }: { member: EcosystemTeamMember | null,
             <div className="space-y-6">
               <div className="space-y-2">
                 <span className="text-gold-500 text-sm uppercase tracking-[0.4em] font-bold">
-                  {member.category.split('-').join(' ')}
+                  {member.category?.toLowerCase() === 'staff' ? 'collaborator' : member.category?.split('-').join(' ')}
                 </span>
                 <h3 className="text-4xl md:text-5xl font-light text-navy-950 tracking-tight leading-none uppercase">
                   {member.name.split(' ')[0]} <br />
@@ -348,7 +348,7 @@ export function TeamSection() {
         <div className="pt-20 grid grid-cols-1 md:grid-cols-2 gap-20 md:gap-32">
           {displayMembers.length > 0 && (
             <div>
-              <h3 className="text-xl uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Team Members</h3>
+              <h3 className="text-xl uppercase tracking-[0.3em] text-navy-950/30 mb-10 text-center md:text-left">Collaborators</h3>
               <div className="space-y-2">
                 {displayMembers.map((m: any, i: number) => (
                   <div key={i} className="group flex items-center gap-5 py-4 border-b border-navy-50 hover:border-gold-500/20 transition-all duration-300 cursor-pointer" onClick={() => setSelectedProfile(m)}>
