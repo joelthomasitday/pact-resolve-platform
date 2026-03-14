@@ -371,9 +371,9 @@ export const mciEventSeed: Omit<MCIEvent, "_id" | "createdAt" | "updatedAt"> = {
     brochurePdfUrl: "#",
   },
   emails: {
-    signUp: "official@mediationchampionship.com",
-    sponsor: "official@thepact.in",
-    general: "official@mediationchampionship.com",
+    signUp: "mci@thepact.in",
+    sponsor: "mci@thepact.in",
+    general: "mci@thepact.in",
   },
   champions: [
     {

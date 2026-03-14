@@ -306,7 +306,7 @@ export function MCISignupModal({ onClose }: MCISignupModalProps) {
                   )}
                 </button>
                 <p className="text-sm text-center text-navy-950/30 uppercase tracking-widest">
-                  Secure submission to official@mediationchampionship.com
+                  Secure submission to mci@thepact.in
                 </p>
               </form>
             </div>

@@ -221,7 +221,7 @@ export default function MCIPage() {
                     </div>
                   </MagneticButton>
                   <MagneticButton variant="secondary" size="lg" className="group w-full sm:w-auto px-6 sm:px-10 py-4 sm:py-5">
-                    <a href="mailto:official@thepact.in" className="flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg">
+                    <a href="mailto:mci@thepact.in" className="flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg">
                        Sponsor / Mentor <Mail className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </MagneticButton>
@@ -346,7 +346,7 @@ export default function MCIPage() {
                   fill
                   className="object-cover transition-transform duration-2000 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-navy-950/10 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-navy-950/60 via-navy-950/10 to-transparent" />
                 
                 {/* MCL Badge - Top Right */}
 
@@ -362,7 +362,7 @@ export default function MCIPage() {
                 className="relative md:ml-12 lg:ml-16 p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-2xl md:rounded-3xl bg-white backdrop-blur-xl border border-navy-950/10 shadow-2xl max-w-full sm:max-w-[320px] md:max-w-[360px]"
               >
                 <div className="flex items-center gap-3 sm:gap-4 text-left">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 shadow-lg shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-linear-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 shadow-lg shrink-0">
                     <Zap className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
                   </div>
                   <div>

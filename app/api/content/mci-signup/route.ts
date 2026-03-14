@@ -35,12 +35,12 @@ export async function POST(request: NextRequest) {
     }
     
     /** 
-     * DESTINATION: official@mediationchampionship.com / official@thepact.in
+     * DESTINATION: mci@thepact.in
      */
     
     // Send the email
     const mailResult = await sendMail({
-      to: "official@thepact.in",
+      to: "mci@thepact.in",
       subject: `New MCI Challenger Application: ${name}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
