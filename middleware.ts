@@ -65,9 +65,13 @@ export async function middleware(request: NextRequest) {
   }
 
   // ALLOW GET requests for content APIs without token
-  // ALSO allow POST to /seed routes for initialization
-  // ALSO allow POST to /api/content/pledge for public submission
-  const isPublicPost = method === "POST" && pathname === "/api/content/pledge";
+  // ALSO allow POST to /api/content/pledge, /api/content/mci-signup, and /api/content/externship for public submissions
+  const publicPostPaths = [
+    "/api/content/pledge",
+    "/api/content/mci-signup",
+    "/api/content/externship"
+  ];
+  const isPublicPost = method === "POST" && publicPostPaths.includes(pathname);
   if (!token && isContentRoute && (method === "GET" || pathname.endsWith("/seed") || isPublicPost)) {
     return NextResponse.next();
   }
