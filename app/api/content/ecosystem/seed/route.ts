@@ -15,7 +15,7 @@ const ecosystemTeamMembers = [
   },
   {
     name: "Nisshant Laroia",
-    role: "Managing Partner",
+    role: "Partner",
     category: "managing-partner",
     bio: "Nisshant Laroia is an Accredited Mediator...",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80",

@@ -30,7 +30,7 @@ const teamData = {
     },
     {
       name: "Nisshant Laroia",
-      role: "Managing Partner",
+      role: "Partner",
       bio: "Nisshant Laroia is an Accredited Mediator, trained and certified by IIAM, IICA, PSMA, and a certified Mediation Counsel by SIMI and SCMA. A graduate of Gujarat National Law University (GNLU), he has worked as in-house counsel at Yogic Naturals, a pioneering health and wellness brand. Nisshant is the author of Mediation Simplified and co-founder of the Global Academy for Advocacy in Dispute Resolution (GAADR). He has worked with 15,000+ law students, introducing them to mediation, and is also an associate-grade arbitrator with the Chartered Institute of Arbitrators (CIArb). He has served as a mediator at the Delhi Dispute Resolution Society mediation centre.",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80",
       profileUrl: "https://www.linkedin.com/in/nisshant-laroia-7b952a106/",
@@ -45,7 +45,7 @@ const teamData = {
   ],
   mediators: [
     { name: "Jonathan Rodrigues", niche: "International & Commercial", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80" },
-    { name: "Soni Singh", niche: "Civil & Commercial", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80" },
+    { name: "Soni Singh", role: "Partner", niche: "Civil & Commercial", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80" },
     { name: "Ekta Bahl", niche: "Corporate & Law", image: "https://images.unsplash.com/photo-1567532939103-c053bb14b2b9?auto=format&fit=crop&q=80" },
     { name: "Raj Panchmatia", niche: "Dispute Resolution", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80" }
   ],
